@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+    <head>
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title> Test POST</title>
+    </head>
+
+    <body style="background: #333333;">
+        <div style="color: #dcdada;">webhook</div>
+        <input type="text" size="100" id="URL" style="background: #dcdada;">
+        <div style="color: #dcdada;">Имя бота</div>
+        <input type="text" size="100" id="Name" style="background: #dcdada;">
+        <div style="color: #dcdada;">ссылка на иконку</div>
+        <input type="text" size="100" id="Icon" style="background: #dcdada;">
+        <div style="color: #dcdada;">текст сообщения</div>
+        <textarea name="comment" cols="150" id="MyText" size="100" rows="3" maxlength="2000" style="margin: 0px; height: 376px; background: #dcdada;"></textarea></p>
+        <button type="button" id="myBtn" onclick="save()" style="width: 500px;">Сохранить</button>
+        <button type="button" id="myBtn" onclick="post()" style="width: 500px;">Отправить</button></p>
+        </p>
+        <!--<div style="color: #dcdada;" onclick="link(1)">[В контач](https://vk.com)</div>-->
+        </p>
+        <div style="color: #dcdada;">Название/ссылка</div>
+        <input type="text" size="50" id="LinkName" style="background: #dcdada;">
+        <input type="text" size="50" id="LinkURL" style="background: #dcdada;">
+        <button type="button" id="LinkButton" onclick="link2()" style="width: 100px;">Вставить</button>
+
+
+        <script>
+            function link(a) {
+                if (a == 1) {
+                    $('#MyText').val($.trim($('#MyText').val() + '[В контач](https://vk.com)'));
+                }
+            }
+            function link2() {
+                $('#MyText').val($.trim($('#MyText').val() + '[' + $('#LinkName').val() + '](' + $('#LinkURL').val() + ')'));
+            }
+
+            //$('#MyText').blur(function () {save()});
+            //$('#MyText').focus(function () { $(this).select() });
+            $('#URL').focus(function () { $(this).select() });
+            $('#Icon').focus(function () { $(this).select() });
+            $('#Name').focus(function () { $(this).select() });
+            $('#LinkName').val("В контач");
+            $('#LinkURL').val("https://vk.com/feed");
+
+
+            if (localStorage.getItem('text1') == null) {
+                $('#MyText').val("[В контач](https://vk.com/feed)");
+            } else {
+                $('#MyText').val(localStorage.getItem('text1'));
+            }
+
+            if (localStorage.getItem('URL') == null) {
+                $('#URL').val("https://discordapp.com/api/webhooks/752989040814587984/ZEd38u86CJJItxZbkSp5ZzO0pCs0tgRvfv3awfDyKbAT-zzwF1ghYETyNIWJt-U5OrpR");
+            } else {
+                $('#URL').val(localStorage.getItem('URL'));
+            }
+
+            if (localStorage.getItem('Name') == null) {
+                $('#Name').val("Проверка связи");
+            } else {
+                $('#Name').val(localStorage.getItem('Name'));
+            }
+
+            if (localStorage.getItem('Icon') == null) {
+                $('#Icon').val("https://www.freepngimg.com/thumb/facebook/62681-flat-icons-face-computer-design-avatar-icon.png");
+            } else {
+                $('#Icon').val(localStorage.getItem('Icon'));
+            }
+
+            //localStorage.setItem('ключ', 'значение')
+            //alert(localStorage.getItem('ключ'))
+
+            function readFile(object) {
+                var file = object.files[0]
+                var reader = new FileReader()
+                reader.onload = function () {
+                    document.getElementById('out').innerHTML = reader.result
+                }
+                reader.readAsText(file)
+            }
+
+            function save() {
+                localStorage.setItem('URL', $('#URL').val());
+                localStorage.setItem('text1', $('#MyText').val());
+                localStorage.setItem('Name', $('#Name').val());
+                localStorage.setItem('Icon', $('#Icon').val());
+            }
+
+            function post() {
+                //	Данные для передачи на сервер например	id товаров и его количество
+                let username = $('#Name').val()
+                let content = $('#MyText').val()
+
+                let avatar_url = $('#Icon').val()
+
+                // принцип	тот же самый что и у обычного POST	запроса
+                const request = new XMLHttpRequest();
+
+                let url = $('#URL').val()
+
+
+                const params = "username=" + username + "&content=" + content + "&avatar_url=" + avatar_url;
+
+                //	Здесь нужно указать в каком формате мы будем принимать данные вот и все	отличие
+                request.responseType = "json";
+                request.open("POST", url, true);
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                request.addEventListener("readystatechange", () => {
+
+                    if (request.readyState === 4 && request.status === 200) {
+                        let obj = request.response;
+
+                        console.log(obj);
+                        // Здесь мы можем обращаться к свойству объекта и получать	его значение
+                        console.log(obj.id_product);
+                        console.log(obj.qty_product);
+                    }
+                });
+
+                request.send(params);
+                save();
+
+
+            }
+
+        </script>
+
+    </body>
+
+</html>
