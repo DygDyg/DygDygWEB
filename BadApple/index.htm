@@ -16,22 +16,14 @@
         dataType: 'text',
 
         success: function (data) {
-            //console.log(numer);
-            //console.log('https://dygdyg.github.io/DygDygWEB/Text/ASCII-A (' + numer + ').txt');
             text = data.split(':frame:');
-            //$(".text111").text(data.split(':frame:')[numer]);
-
             document.title = numer + " / " + maxnumer;
-            //console.log(data.split(':frame:'))
-            //console.log(data.split(':frame:')[2])
-
 
             ascii()
         }
     });
 
     function ascii() {
-        //console.log(text[1])
         $(".text111").text(text[numer]);
 
         document.title = numer + " / " + maxnumer;
@@ -39,7 +31,6 @@
 
         if (numer < maxnumer) {
             setTimeout(ascii, 1000 / 15);
-            //ascii("ASCII-A (1).txt");
         }
     }
 
