@@ -7,30 +7,41 @@
 </body>
 
 <script>
-    numer = 1;
-    maxnumer = 3286;
+    var numer = 1;
+    var maxnumer = 3286;
+    var text = "text";
+
+    $.ajax({
+        url: 'https://dygdyg.github.io/DygDygWEB/BadApple/frames.txt',
+        dataType: 'text',
+
+        success: function (data) {
+            //console.log(numer);
+            //console.log('https://dygdyg.github.io/DygDygWEB/Text/ASCII-A (' + numer + ').txt');
+            text = data.split(':frame:');
+            //$(".text111").text(data.split(':frame:')[numer]);
+
+            document.title = numer + " / " + maxnumer;
+            //console.log(data.split(':frame:'))
+            //console.log(data.split(':frame:')[2])
+
+
+            ascii()
+        }
+    });
 
     function ascii() {
-        $.ajax({
-            url: 'https://dygdyg.github.io/DygDygWEB/test.txt',
-            dataType: 'text',
+        //console.log(text[1])
+        $(".text111").text(text[numer]);
 
-            success: function (data) {
-                //console.log(numer);
-                //console.log('https://dygdyg.github.io/DygDygWEB/Text/ASCII-A (' + numer + ').txt');
-                $(".text111").text(data);
-                document.title = numer + " / " + maxnumer;
-                console.log(data.split(':frame:'))
-
-            }
-        });
+        document.title = numer + " / " + maxnumer;
         numer++
 
         if (numer < maxnumer) {
-            //setTimeout(ascii, 1000 / 15);
+            setTimeout(ascii, 1000 / 15);
             //ascii("ASCII-A (1).txt");
         }
     }
 
-    ascii();
+    //setTimeout(ascii, 1000)
 </script>
