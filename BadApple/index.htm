@@ -5,11 +5,9 @@
 </head>
 
 <body>
+    <input type="button" , class="Button" , id="StartButton1" , value="Старт">
     <pre class="text111" , style="word-wrap: break-word; white-space: pre-wrap;"></pre>
     <pre class="Copyrate" , style="word-wrap: break-word; white-space: pre-wrap;"></pre>
-
-    <input type="button" , class="StartButton" , id="StartButton1" , value="Старт">
-
 
     <style>
         body {
@@ -17,7 +15,6 @@
             color: white;
         }
     </style>
-
 
 </body>
 <script>
@@ -100,10 +97,9 @@
     }
 
     function StartPlay() {
-        //alert("play");
         ascii();
         audio.play();
-        $(".StartButton").toggle();
+        $("#StartButton1").toggle();
     }
 
     $.ajax({
@@ -112,20 +108,14 @@
 
         success: function (data) {
             text = data.split(':frame:');
-
             info = text[0].split(':');
-            //console.log(info);
             $(".Copyrate").text("Create by " + info[1]);
             document.title = info[0];
             maxnumer = text.length - 1;
+            $("#StartButton1").click(StartPlay);
 
-            $(".StartButton").click(StartPlay);
-            //StartPlay()
         }
     });
-
-
-    //console.log(getAllUrlParams().local)
 
 
     function ascii() {
