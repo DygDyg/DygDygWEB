@@ -7,7 +7,6 @@
 </body>
 
 <script>
-    test = "1sdfsdf :frame: sdfsdfsd :frame: sdfvdfbcv :frame: bcvbrt :frame: dftd"
     numer = 1;
     maxnumer = 3286;
 
@@ -21,7 +20,7 @@
                 //console.log('https://dygdyg.github.io/DygDygWEB/Text/ASCII-A (' + numer + ').txt');
                 $(".text111").text(data);
                 document.title = numer + " / " + maxnumer;
-
+                console.log(data.split(':frame:'))
 
             }
         });
@@ -32,6 +31,6 @@
             //ascii("ASCII-A (1).txt");
         }
     }
-    console.log(test.split(':frame:'))
+
     ascii();
 </script>
