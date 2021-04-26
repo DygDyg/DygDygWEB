@@ -20,7 +20,7 @@
 
 <script>
     var numer = 1;
-    var maxnumer = 3286;
+    var maxnumer = 1;
     var text = "text";
 
     $.ajax({
@@ -30,6 +30,8 @@
         success: function (data) {
             text = data.split(':frame:');
             document.title = numer + " / " + maxnumer;
+            console.log()
+            maxnumer = text.length - 1;
 
             ascii()
         }
@@ -38,11 +40,11 @@
     function ascii() {
         $(".text111").text(text[numer]);
 
-        document.title = numer + " / " + maxnumer;
+        document.title = "Bad Apple " + numer + " / " + maxnumer;
         numer++
 
         if (numer < maxnumer) {
-            setTimeout(ascii, 1000 / 15);
+            //setTimeout(ascii, 1000 / 15);
         }
     }
 
