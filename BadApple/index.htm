@@ -6,8 +6,8 @@
 
 <body>
     <pre class="text111" , style="word-wrap: break-word; white-space: pre-wrap;"></pre>
-    <pre style="word-wrap: break-word; white-space: pre-wrap;">Create By DygDyg</pre>
-    }
+    <pre class="Copyrate" , style="word-wrap: break-word; white-space: pre-wrap;"></pre>
+
     <style>
         body {
             background-color: black;
@@ -22,6 +22,7 @@
     var numer = 1;
     var maxnumer = 1;
     var text = "text";
+    var info;
 
     $.ajax({
         url: 'https://dygdyg.github.io/DygDygWEB/BadApple/frames.txt',
@@ -30,23 +31,23 @@
         success: function (data) {
             text = data.split(':frame:');
             document.title = numer + " / " + maxnumer;
-            console.log()
+            info = text[0].split(':');
+            console.log(info);
+            $(".Copyrate").text("create by " + info[1]);
             maxnumer = text.length - 1;
 
-            ascii()
+            ascii();
         }
     });
 
     function ascii() {
         $(".text111").text(text[numer]);
 
-        document.title = "Bad Apple " + numer + " / " + maxnumer;
+        document.title = info[0] + " " + numer + " / " + maxnumer;
         numer++
 
         if (numer < maxnumer) {
-            //setTimeout(ascii, 1000 / 15);
+            setTimeout(ascii, 1000 / 15);
         }
     }
-
-    //setTimeout(ascii, 1000)
 </script>
