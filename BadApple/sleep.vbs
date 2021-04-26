@@ -1,1 +1,0 @@
-wscript.sleep 30 
