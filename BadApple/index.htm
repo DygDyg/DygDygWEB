@@ -101,9 +101,15 @@
         audio.play();
         $("#StartButton1").toggle();
     }
+    if (getAllUrlParams().ver == "2") {
+        url = 'https://dygdyg.github.io/DygDygWEB/BadApple/frames2.txt'
+    } else {
+        url = 'https://dygdyg.github.io/DygDygWEB/BadApple/frames.txt'
+    }
 
     $.ajax({
-        url: 'https://dygdyg.github.io/DygDygWEB/BadApple/frames2.txt',
+
+        url: url,
         dataType: 'text',
 
         success: function (data) {
