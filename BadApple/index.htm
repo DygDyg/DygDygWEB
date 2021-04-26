@@ -8,6 +8,8 @@
     <pre class="text111" , style="word-wrap: break-word; white-space: pre-wrap;"></pre>
     <pre class="Copyrate" , style="word-wrap: break-word; white-space: pre-wrap;"></pre>
 
+    <input type="button" , class="StartButton" , id="StartButton1" , value="Старт">
+
 
     <style>
         body {
@@ -88,6 +90,21 @@
     var maxnumer = 1;
     var text = "text";
     var info;
+    var audio = new Audio();
+
+
+    if (getAllUrlParams().local == "ru") {
+        audio.src = "https://dygdyg.github.io/DygDygWEB/BadApple/BadAppleRUS.mp3";
+    } else {
+        audio.src = "https://dygdyg.github.io/DygDygWEB/BadApple/BadApple.mp3";
+    }
+
+    function StartPlay() {
+        //alert("play");
+        ascii();
+        audio.play();
+        $(".StartButton").toggle();
+    }
 
     $.ajax({
         url: 'https://dygdyg.github.io/DygDygWEB/BadApple/frames.txt',
@@ -95,23 +112,19 @@
 
         success: function (data) {
             text = data.split(':frame:');
-            document.title = numer + " / " + maxnumer;
+
             info = text[0].split(':');
             //console.log(info);
             $(".Copyrate").text("Create by " + info[1]);
+            document.title = info[0];
             maxnumer = text.length - 1;
 
-
-
-            ascii();
+            $(".StartButton").click(StartPlay);
+            //StartPlay()
         }
     });
-    if (getAllUrlParams().local == "ru") {
-        audio = new Audio("https://dygdyg.github.io/DygDygWEB/BadApple/BadAppleRUS.mp3");
-    } else {
-        audio = new Audio("https://dygdyg.github.io/DygDygWEB/BadApple/BadApple.mp3");
-    }
-    audio.play();
+
+
     //console.log(getAllUrlParams().local)
 
 
