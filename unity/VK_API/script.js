@@ -6,3 +6,5 @@
 
     $('.TopNavBtn__profileName').textContent = "dasdas"
 
+    alert("ok")
+
