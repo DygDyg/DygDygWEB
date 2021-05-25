@@ -1,10 +1,17 @@
 <head>
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
 </head>
+<body style="background-color: rgb(46, 46, 46);"></body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
+        var div = document.createElement("div");
+        div.innerHTML = '<div id="VK_URL_JSON">test url</div>';
+        
+        document.getElementsByTagName('head')[0].appendChild(div);
 
+        alert($("#VK_URL_JSON").text());
+  //
     var access_token = "5068f7995068f7995068f7993e5039a129550685068f79909b64ef038338754cb12e019";
     var owner_id = "-199700571";
     var albom_id = "276163999";
@@ -15,32 +22,49 @@
     "access_token="+access_token+"&v=5.52&" +
     "owner_id=" + owner_id + "&" +
     "album_id=" + albom_id + "&" +
-    "photo_sizes=true&"+
+    //"photo_sizes=true&"+
     "count=" + count;
 
 
     console.log(req);
     //console.log("a1");
     
+    var mas1 = [];
+    var mas2 = [];
     
     $.ajax({
     url: req,            
     dataType : "jsonp",               
     success: function (data, textStatus) {
-        $.each(data, function(i, val) {  
-             
-              if(val.count > offset-1 && offset > 0){
-            console.log(val.items[offset-1].sizes[6].src);
-              }
 
-              if(val.count > offset && offset > 0){
-            console.log(val.items[offset].sizes[6].src);
-              }
+      console.log(data);
+      console.log(data.response.count);
+        for (let i=0; i< data.response.count; i++)
+        {
+         if(data.response.items[i].photo_1280)
+         {
+            mas1[i] = data.response.items[i].photo_1280;
+            mas2[i] = data.response.items[i].text;
+            //console.log(i);
+            //console.log(data.response.items[i].photo_1280);
+         }
+        }
+
+
+
+        //$.each(data, function(i, val) {  
+
+            
+            //console.log(i)
+            
+            console.log(mas1);
+            console.log(mas2);
+            //console.log(val)
               
 
-            console.log(val.count)
+            //console.log(val.count)
 
-        });
+        //});
     }
 });
 
