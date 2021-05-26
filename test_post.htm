@@ -1,0 +1,39 @@
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script>
+    if(localStorage.getItem('url'))
+    {
+        var url = localStorage.getItem('url')
+    }else{
+        var result = prompt("webhuck_url", "default")
+        if(result)
+        {
+            localStorage.setItem('url', result);
+        }
+    }
+
+
+
+    var json = {
+  "username": "Test",
+  "avatar_url": "",
+  "content": "sdfsdf",
+  "embeds": [
+    {
+      "title": "asdasd",
+      "color": 0,
+      "description": "asdasdasd",
+      "timestamp": "",
+      "author": {
+        "name": ""
+      },
+      "image": {},
+      "thumbnail": {},
+      "footer": {},
+      "fields": []
+    }
+  ]
+}
+
+        $.post(url, json);
+
+</script>
