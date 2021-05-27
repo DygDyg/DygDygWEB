@@ -1,7 +1,7 @@
 var req = $("#VK_URL_JSON").text();
 //alert(req);
 
-
+console.log(window.location);
 
 $.ajax({
   url: req,            
