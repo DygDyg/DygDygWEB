@@ -1,7 +1,7 @@
 var req = $("#VK_URL_JSON").text();
 //alert(req);
 
-console.log(window.location);
+
 
 $.ajax({
   url: req,            
@@ -20,3 +20,23 @@ $.ajax({
     myGameInstance.SendMessage('Main', 'Start_Load_Texture');
   }
 });
+
+//console.log(window.location);
+
+
+var getUrlParameter = function getUrlParameter(sParam) {
+  var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+      sURLVariables = sPageURL.split('&'),
+      sParameterName,
+      i;
+
+  for (i = 0; i < sURLVariables.length; i++) {
+      sParameterName = sURLVariables[i].split('=');
+
+      if (sParameterName[0] === sParam) {
+          return sParameterName[1] === undefined ? true : sParameterName[1];
+      }
+  }
+};
+
+console.log(getUrlParameter('api_url'));
