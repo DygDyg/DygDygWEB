@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en-us">
-
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -9,9 +8,9 @@
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <body style="background-color: #313131;">
+  <body style="background-color: #424242;">
     <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=900 height=900></canvas>
+      <canvas id="unity-canvas" width=900 height=850></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -38,7 +37,7 @@
       // If type=='warning', a yellow highlight color is used.
       // Modify or remove this function to customize the visually presented
       // way that non-critical warnings and error messages are presented to the
-      // user.
+      // user. 
       function unityShowBanner(msg, type) {
         function updateBannerVisibility() {
           warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
@@ -98,7 +97,7 @@
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
         canvas.style.width = "900px";
-        canvas.style.height = "900px";
+        canvas.style.height = "850px";
       }
 
       loadingBar.style.display = "block";
