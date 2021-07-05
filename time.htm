@@ -1,0 +1,830 @@
+<style>
+    HTML, BODY {
+    height: 100%;
+    }
+
+BODY {
+    background: #000;
+    }
+
+svg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 80%;
+    height: 80%;
+    max-height: 300px;
+    margin: auto;
+    overflow: visible;
+    }
+
+path {
+    transition: fill .75s;
+}
+</style>
+<script>
+    console.clear();
+
+//-------------------------------
+// Tiny Library
+//-------------------------------
+
+var doc = document;
+var ns = 'http://www.w3.org/2000/svg';
+
+function createNS ( elemName ) {
+    return doc.createElementNS( ns, elemName );
+}
+
+//-------------------------------
+
+function setAttr ( contextElem, attrObj ) {
+    
+    for ( var attrName in attrObj ) {
+        var attrVal = attrObj[attrName];
+        
+        if( typeof attrVal !== 'function' ) {
+            contextElem.setAttribute( attrName, attrVal );
+        }
+    }    
+    return;
+}
+
+//-------------------------------
+
+function setAttrNS ( contextElem, url ) {
+        contextElem.setAttributeNS( 'http://www.w3.org/1999/xlink', 'xlink:href', url );
+}
+
+//-------------------------------
+
+function addElem ( contextElem, elem ) {
+    return contextElem.appendChild( elem );
+}
+
+//-------------------------------
+
+function addBoundsRect( target ) {
+    // Test rect to show bounds
+    var colorSet = ['crimson', 'orangered', 'gold', 'yellowgreen', 'steelblue'];
+    var colorPos = Math.floor( Math.random() * colorSet.length );
+    var color = colorSet[ colorPos ];
+    
+    var rect = createNS('rect');
+    setAttr(rect, { 'width': '100%',
+                    'height': '100%',
+                    'fill': 'none',
+                    // 'stroke': color,
+                    // 'stroke-width': 3
+                  });
+    addElem( target, rect );
+}
+
+//-------------------------------
+
+function fillShape ( contextElem, color ){  
+    
+    if ( color === false ) {
+        setAttr(contextElem, 
+                {'fill': 'rgba(0,0,0,0)',
+                 // 'stroke': 'rgba(0,0,0,0)'
+                });
+        return;
+    }
+    
+    setAttr(contextElem, 
+            {'fill': color,
+             // 'stroke': color,
+            });
+}
+
+//-------------------------------
+
+function fillShapeHue ( contextElem, hue ){
+    
+    if ( hue === false ) {
+        setAttr(contextElem, {'fill': 'rgba(0,0,0,0)'});
+        return;
+    }
+    
+    var colorSet = [hue, '100%', '50%'].join(',');
+    var color = 'hsl(' + colorSet + ')';
+    setAttr(contextElem, {'fill': color});
+}
+
+//-------------------------------
+// Fills
+//-------------------------------
+
+var fillMaps = {};
+
+fillMaps.zero = [
+    [0,0,1,1,1,1,0,0],
+    [0,1,1,1,1,1,1,0],
+    [1,1,1,0,0,1,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,1,0,0,1,1,1],
+    [0,1,1,1,1,1,1,0],
+    [0,0,1,1,1,1,0,0]
+];
+
+fillMaps.one = [
+    [0,0,0,0,1,1,0,0],
+    [0,0,0,1,1,1,0,0],
+    [0,0,1,1,1,1,0,0],
+    [0,0,0,0,1,1,0,0],
+    [0,0,0,0,1,1,0,0],
+    [0,0,0,0,1,1,0,0],
+    [0,0,0,0,1,1,0,0],
+    [0,0,0,0,1,1,0,0],
+    [0,0,0,0,1,1,0,0],
+    [0,0,0,0,1,1,0,0],
+    [0,0,0,0,1,1,0,0],
+    [0,0,0,0,1,1,0,0],
+    [0,0,0,0,1,1,0,0],
+    [0,0,0,0,1,1,0,0],
+    [0,0,0,0,1,1,0,0],
+    [0,0,0,0,1,1,0,0]
+];
+
+fillMaps.two = [
+    [0,0,1,1,1,1,0,0],
+    [0,1,1,1,1,1,1,0],
+    [1,1,1,0,0,1,1,1],
+    [1,1,0,0,0,0,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,1,1,1],
+    [0,0,0,0,1,1,1,0],
+    [0,0,0,1,1,1,0,0],
+    [0,0,1,1,1,0,0,0],
+    [0,1,1,1,0,0,0,0],
+    [1,1,1,0,0,0,0,0],
+    [1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1]
+];
+
+fillMaps.three = [
+    [0,0,1,1,1,1,0,0],
+    [0,1,1,1,1,1,1,0],
+    [1,1,1,0,0,1,1,1],
+    [1,1,0,0,0,0,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,1,1,1],
+    [0,0,0,1,1,1,1,0],
+    [0,0,0,1,1,1,1,0],
+    [0,0,0,0,0,1,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,1,0,0,1,1,1],
+    [0,1,1,1,1,1,1,0],
+    [0,0,1,1,1,1,0,0]
+];
+
+fillMaps.four = [
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,1,1,1],
+    [0,0,0,0,1,1,1,1],
+    [0,0,0,1,1,1,1,1],
+    [0,0,1,1,1,0,1,1],
+    [0,1,1,1,0,0,1,1],
+    [1,1,1,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,1,1]
+];
+
+fillMaps.five = [
+    [1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1],
+    [1,1,0,0,0,0,0,0],
+    [1,1,0,0,0,0,0,0],
+    [1,1,0,0,0,0,0,0],
+    [1,1,0,0,0,0,0,0],
+    [1,1,1,1,1,1,0,0],
+    [1,1,1,1,1,1,1,0],
+    [0,0,0,0,0,1,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,1,0,0,1,1,1],
+    [0,1,1,1,1,1,1,0],
+    [0,0,1,1,1,1,0,0]
+];
+
+fillMaps.six = [
+    [0,0,1,1,1,1,0,0],
+    [0,1,1,1,1,1,1,0],
+    [1,1,1,0,0,1,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,0,0,0,0,0,0],
+    [1,1,0,0,0,0,0,0],
+    [1,1,0,0,0,0,0,0],
+    [1,1,1,1,1,1,0,0],
+    [1,1,1,1,1,1,1,0],
+    [1,1,0,0,0,1,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,1,0,0,1,1,1],
+    [0,1,1,1,1,1,1,0],
+    [0,0,1,1,1,1,0,0]
+];
+
+fillMaps.seven = [
+    [1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,1,1,1],
+    [0,0,0,0,1,1,1,0],
+    [0,0,0,1,1,1,0,0],
+    [0,0,0,1,1,0,0,0],
+    [0,0,0,1,1,0,0,0],
+    [0,0,0,1,1,0,0,0],
+    [0,0,0,1,1,0,0,0],
+    [0,0,0,1,1,0,0,0],
+    [0,0,0,1,1,0,0,0],
+    [0,0,0,1,1,0,0,0]
+];
+
+fillMaps.eight = [
+    [0,0,1,1,1,1,0,0],
+    [0,1,1,1,1,1,1,0],
+    [1,1,1,0,0,1,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [0,1,1,0,0,1,1,0],
+    [0,0,1,1,1,1,0,0],
+    [0,1,1,1,1,1,1,0],
+    [1,1,1,0,0,1,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,1,0,0,1,1,1],
+    [0,1,1,1,1,1,1,0],
+    [0,0,1,1,1,1,0,0]
+];
+
+fillMaps.nine = [
+    [0,0,1,1,1,1,0,0],
+    [0,1,1,1,1,1,1,0],
+    [1,1,1,0,0,1,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,1,0,0,1,1,1],
+    [0,1,1,1,1,1,1,1],
+    [0,0,1,1,1,1,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,1,1],
+    [1,1,0,0,0,0,1,1],
+    [1,1,1,0,0,1,1,1],
+    [0,1,1,1,1,1,1,0],
+    [0,0,1,1,1,1,0,0]
+];
+
+var fillDefault = fillMaps.zero;
+var fillCurrent = fillDefault;
+var fillsIndex = createFillsIndex();
+
+//-------------------------------
+// Settings
+//-------------------------------
+
+var digits = [];
+var digitPairs = {};
+
+var size = {
+    cell: 10,
+    matrix: fillDefault ? fillDefault.length : 7,
+    matrixX: fillDefault[0].length,
+    matrixY: fillDefault.length,
+    offset: 20
+};
+
+size.halfMatrix = size.matrix / 2;
+size.halfCell = size.cell / 2;
+size.digitWidth = size.cell * size.matrixX;
+size.digitHeight = size.cell * size.matrixY;
+
+var center = size.matrix / 2 * size.cell;
+var colorStep = 360 / size.matrix / size.matrix;
+var viewBoxMax = size.cell * size.matrix;
+var viewBoxMaxX = size.digitWidth;
+var viewBoxMaxY = size.digitHeight;
+var viewBoxVal = [0,0,
+                  viewBoxMaxX * 6 +  + size.offset * 5,
+                  viewBoxMaxY
+                 ].join(' ');
+
+var animScale = {
+    x: .05,
+    y: 2
+};
+
+var duration = .4;
+
+//-------------------------------
+// Elements
+//-------------------------------
+
+var svgWrapper = createNS('svg');
+setAttr(svgWrapper, {'viewBox': '0 0 800 600'});
+addElem(doc.body, svgWrapper);
+
+var svg = createNS('svg');
+setAttr(svg, {
+    'viewBox': viewBoxVal});
+
+addElem(svgWrapper, svg);
+
+var defs = createNS('defs');
+addElem(svg, defs);
+
+// addBoundsRect( svg );
+
+var imageUrls = [
+    'https://img-fotki.yandex.ru/get/5106/yoksel.5a/0_44b5e_4da2ba62_orig',
+    'https://img-fotki.yandex.ru/get/3908/yoksel.4c/0_36525_9d0b7b3c_orig',
+    'https://img-fotki.yandex.ru/get/4512/yoksel.5c/0_465ce_f32e2194_orig',
+    'https://img-fotki.yandex.ru/get/4300/yoksel.51/0_3b509_b99080b3_orig',
+    'https://img-fotki.yandex.ru/get/4301/yoksel.51/0_3b50c_c6d45e3c_orig',
+    'https://img-fotki.yandex.ru/get/5408/yoksel.60/0_4f30c_4156b70b_orig',
+];
+
+//-------------------------------
+
+function createFillsIndex() {
+    var list = [];
+    
+    for( var mapName in fillMaps ) {
+        list.push( mapName );
+    }
+    
+    return list;
+}
+
+//-------------------------------
+
+function createDigits() {
+    var myDate = new Date();
+    var secs = myDate.getSeconds();
+    
+    var time = {
+        secs: myDate.getSeconds()
+    };
+    for( var item in time ){
+        time[item] = time[item] < 10 ? '0' + time[item] : time[item];    
+        time[item] += '';
+    }
+    
+    digits = [
+        { 
+            val: time.secs[0],
+            delay: 10,
+            type: 'secs',
+            max: 5,
+            posInPair: 0
+        },
+        { 
+            val: time.secs[1],
+            delay: 1,
+            type: 'secs',
+            max: 9,
+            posInPair: 1,
+            isTimer: true
+        }
+    ];
+    
+    correctMaxHours();
+    
+    for (var i = 0; i < digits.length; i++ ) {
+        var item = digits[i];
+        var pairGroup = digitPairs[ item.type ];
+        var digit = new Digit( i, item );
+        var digitElem = digit.create();
+        item.obj = digit;
+        
+        if ( !pairGroup ) {
+            pairGroup = createNS('g');
+            setAttr( pairGroup, {
+                'id': 'group--' + item.type
+            });
+            digitPairs[ item.type ] = pairGroup;
+            
+            // addBoundsRect( pairGroup );
+        }
+        //digitElem
+        addElem( pairGroup, digitElem);
+
+    }
+    
+    setPairGroups();
+    
+}
+
+//-------------------------------
+
+function setPairGroups() {
+    
+    var pairsOrder = ['secs'];
+    var pairOffset = (size.digitWidth + size.offset) * 2;
+    var scaleFactor = .25;   
+    var prevMaxX = 0;
+    
+    for ( var i = 0; i < pairsOrder.length; i++ ) {
+        var pairName = pairsOrder[ i ];
+        var group = digitPairs[ pairName ];
+        
+        var groupScale = 1;
+        if ( i > 0 ) {
+            groupScale = (pairsOrder.length - i) * scaleFactor;
+        }
+        
+        // console.log( pairName );
+        // console.log( groupScale );
+        
+        var translateSet = [
+            prevMaxX,
+            0
+        ].join(',');
+
+        var transformSet = [
+            'translate(' + translateSet + ')',
+            'scale(' + groupScale + ')',
+        ].join(' ');
+        
+        setAttr(group, {
+            'transform': transformSet
+        });
+        addElem(svg, group);
+        
+        prevMaxX += pairOffset * groupScale;
+        // + size.offset * groupScale
+        
+        if ( i == pairsOrder.length - 1 ) {
+            // last elem
+            viewBoxVal = [0,0,
+                      prevMaxX,
+                      viewBoxMaxY
+                     ].join(' ');
+            setAttr(svg, {
+        'viewBox': viewBoxVal});
+        }
+    }
+}
+
+//-------------------------------
+// Digit
+//-------------------------------
+
+function Digit ( pos, digitObj ) {
+    this.pos = pos;
+    this.val = digitObj.val;
+    this.delay = digitObj.delay;
+    this.delayMs = this.delay * 1000;
+    this.type = digitObj.type;
+    this.max = digitObj.max;
+    this.isTimer = digitObj.isTimer ? digitObj.isTimer : false;
+    this.posInPair = digitObj.posInPair;
+    
+    this.mapName = fillsIndex[ this.val ];
+    this.fillCurrent = fillMaps[ this.mapName ];
+    
+}
+
+//-------------------------------
+
+Digit.prototype.create = function() {
+    
+    this.group = createNS('g');
+    
+    var translateSet = [
+        (size.digitWidth + size.offset) * this.posInPair,
+        0
+    ].join(',');
+    
+    var transformSet = [
+        'translate(' + translateSet + ')'
+    ].join(' ');
+    
+    setAttr( this.group,
+           {'id': 'g-digit--' + this.pos,
+            'transform': transformSet
+           });
+    
+    // console.log( this.group );
+    
+    this.createImage();
+    this.createMask();
+    
+    // addBoundsRect( this.group );
+    
+    //addElem(svg, this.group);
+    return this.group;
+    
+    // console.log( svg );
+    
+}
+
+//-------------------------------
+
+Digit.prototype.createImage = function() {
+    
+    var randImagePos = Math.floor(Math.random() * imageUrls.length);
+    this.image = createNS('image');
+    this.imageNum = this.pos;
+    setAttrNS (this.image, imageUrls[ this.imageNum ]);
+    
+    setAttr( this.image, {
+        'width': viewBoxMaxX,
+        'height': '100%',
+        'preserveAspectRatio': 'xMidYMid slice'
+    });
+    
+    addElem(this.group, this.image);
+}
+
+//-------------------------------
+
+Digit.prototype.createMask = function() {
+    
+    this.mask = createNS('mask');
+    setAttr( this.mask, {
+        'id': 'mask--' + this.pos,
+        'maskUnits': 'objectBoundingBox'
+    });
+
+    addElem( defs, this.mask );
+    this.createMatrix();
+    // console.log( defs );
+
+    setAttr( this.image, {
+        'mask': 'url(#mask--'  + this.pos + ')'
+    });  
+}
+
+//-------------------------------
+
+Digit.prototype.createMatrix = function () {
+    var counter = 0;
+    var gCells = createNS('g');
+    
+    this.shapes = [];
+    
+    for( var y = 0; y < size.matrixY; y++) {
+        for( var x = 0; x < size.matrixX; x++) {
+            
+            var shape = new Shape( x, y, counter, this );
+            var shapeElem = shape.create();
+            this.shapes.push( shape );
+            
+            addElem( gCells, shapeElem );  
+            counter++;
+        }
+    }
+    
+    // addBoundsRect(gCells);
+    
+    addElem( this.mask, gCells );
+    
+    if ( this.isTimer ) {
+        this.interval = setInterval( animDigit, this.delayMs, this);
+    }
+}
+
+function animDigit ( context ) {
+    context.animate();
+}
+
+//-------------------------------
+
+Digit.prototype.animate = function() {
+    
+    if ( !this.shapes ) {
+        return;
+    }
+    
+    this.changeDigit();
+    
+    for( var i = 0; i < this.shapes.length; i++ ) {
+        var shape = this.shapes[i];
+        shape.fillCell();        
+        shape.animateShape();
+    }
+}
+
+//-------------------------------
+
+function correctMaxHours() {
+    if( digits[0].val == 2 ){
+        digits[1].max = 3;
+    }
+    else {
+        digits[1].max = 9;
+    }
+}
+//-------------------------------
+
+Digit.prototype.changeDigit = function() {
+    
+    correctMaxHours();
+    
+    if ( this.val < this.max ){
+        this.val++;
+    }
+    else {
+        this.val = 0;
+        
+        if ( digits[ this.pos - 1 ] ) {
+            var prevDigit = digits[ this.pos - 1 ].obj;
+            prevDigit.animate();
+        }
+    }
+
+    this.mapName = fillsIndex[ this.val ];
+    this.fillCurrent = fillMaps[ this.mapName ];
+    
+    this.changeImage();
+}
+
+//-------------------------------
+
+Digit.prototype.changeImage = function () {
+        
+    if ( this.imageNum < imageUrls.length - 1 ){
+        this.imageNum++;
+    }
+    else {
+        this.imageNum = 0;
+    }
+
+    setAttrNS (this.image, imageUrls[this.imageNum]);
+
+}
+
+//-------------------------------
+// Shape
+//-------------------------------
+
+function Shape ( x, y, counter, context ) {
+    this.x = x;
+    this.y = y;
+    this.counter = counter;
+    this.digit = context;
+    this.val = this.digit.val;
+}
+
+Shape.prototype.create = function() {
+    this.elem = createNS('path');  
+    var transOrig = size.cell / 4 + 'px';
+    
+    setAttr(this.elem, {
+        'd': this.getCoords(),
+        'style': 'transform-origin: ' + transOrig + ' ' + transOrig + ';'}
+           );
+    
+    this.fillCell();
+    
+    return this.elem;    
+}
+
+//-------------------------------
+
+Shape.prototype.fillCell = function( ) {
+    // For fillShapeHue
+    // var hue = colorStep * this.counter;
+    
+    var color = '#FFF';
+    
+    if ( this.digit.fillCurrent[ this.y ] 
+        && this.digit.fillCurrent[ this.y ][ this.x ] ) {
+        fillShape(this.elem, color );
+    }   
+    else {
+        fillShape(this.elem, false );
+    }
+    
+}
+
+//-------------------------------
+
+Shape.prototype.getCoords = function () {
+    var x = this.x;
+    var y = this.y;
+    
+    var xMin = x * size.cell;
+    var yMin = y * size.cell;
+    var xMax = (x + 1) * size.cell;
+    var yMax = (y + 1) * size.cell;
+    var coords = ['M',
+                  xMin, yMin,
+                  xMax, yMin,
+                  xMax, yMax,
+                  xMin, yMax,
+                 ].join(' ');
+    return coords;
+}
+
+//-------------------------------
+
+Shape.prototype.getTransform = function () {
+    var x = this.x;
+    var y = this.y;
+    
+    var xCenter = x * size.cell + size.cell / 2;
+    var yCenter = y * size.cell + size.cell / 2;
+
+    var offset = size.cell * .3;
+    
+    // Cells from center
+    var xDistance = x - size.halfMatrix;
+    var yDistance = y - size.halfMatrix;
+    
+    var randAngle = Math.floor( Math.random() * 360 );
+    // temp
+    // randAngle = 90;
+    
+    var translateSet = [
+        offset * xDistance + size.halfCell + 'px', 
+        offset * yDistance + size.halfCell + 'px'
+    ].join(',');
+    
+    var transforms = [
+        'scale(' + animScale.x + ', '  + animScale.y +  ')',
+        'rotate(' + randAngle + 'deg)'
+    ].join(' ');
+    
+    return transforms;
+}
+
+
+//-------------------------------
+
+Shape.prototype.animateShape = function () {
+    var tl = new TimelineLite();
+    var transform = this.getTransform();
+    var elem = this.elem;
+    var digit = this.digit;
+    var shapeObj = this;
+    var mapName = this.mapName;
+    var imageNum = digit.val;
+    var fillCurrent = this.fillCurrent;
+    
+    var step1 = {
+        'transform': transform,
+        'ease': Power1.easeOut,
+        // 'delay': digit.delay - duration,
+        // 'onComplete': changeShape
+    };
+    var step2 = {
+        'transform': 'none',
+        'ease': Power1.easeIn,
+        // 'onComplete': animate
+    };
+    
+    
+    this.play = function () {
+        tl.to( elem, duration, step1 );
+        tl.to( elem, duration, step2 );
+    }
+    
+    this.play();
+    
+    // tl.add("myLabel", 0);
+    // //jump to "myLabel" and play from there:
+    // tl.play("myLabel");
+    
+}
+
+//-------------------------------
+
+createDigits();
+</script>
