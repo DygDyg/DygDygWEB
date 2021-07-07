@@ -1,5 +1,5 @@
 <script>
-    if(!localStorage.getItem('urls')){
+    if (!localStorage.getItem('urls')) {
         urls = [
             "https://yandex.ru/",
             "https://vk.com",
@@ -9,7 +9,7 @@
         alert("URL База загружена");
     }
 
-    if(!localStorage.getItem('names')){
+    if (!localStorage.getItem('names')) {
         names = [
             "yandex.ru",
             "vk.com",
@@ -19,37 +19,152 @@
         alert("Name База  загружена");
     }
 
-        urls = localStorage.getItem('urls').split(',');
-        names = localStorage.getItem('names').split(',');
-    
+    urls = localStorage.getItem('urls').split(',');
+    names = localStorage.getItem('names').split(',');
+
 
 </script>
 
 
 
 <html>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
- <head>
-  <meta charset="utf-8">
-  <title>Новая вкладка</title>
-  <link rel="shortcut icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbD0iI0Y1RjVGNSIgY2xhc3M9ImJpIGJpLXBsdXMtc3F1YXJlIiB2aWV3Qm94PSIwIDAgMTYgMTYiPgogIDxwYXRoIGQ9Ik0xNCAxYTEgMSAwIDAgMSAxIDF2MTJhMSAxIDAgMCAxLTEgMUgyYTEgMSAwIDAgMS0xLTFWMmExIDEgMCAwIDEgMS0xaDEyek0yIDBhMiAyIDAgMCAwLTIgMnYxMmEyIDIgMCAwIDAgMiAyaDEyYTIgMiAwIDAgMCAyLTJWMmEyIDIgMCAwIDAtMi0ySDJ6Ii8+CiAgPHBhdGggZD0iTTggNGEuNS41IDAgMCAxIC41LjV2M2gzYS41LjUgMCAwIDEgMCAxaC0zdjNhLjUuNSAwIDAgMS0xIDB2LTNoLTNhLjUuNSAwIDAgMSAwLTFoM3YtM0EuNS41IDAgMCAxIDggNHoiLz4KPC9zdmc+" /> </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<head>
+    <meta charset="utf-8">
+    <title>Новая вкладка</title>
+    <link rel="shortcut icon"
+        href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbD0iI0Y1RjVGNSIgY2xhc3M9ImJpIGJpLXBsdXMtc3F1YXJlIiB2aWV3Qm94PSIwIDAgMTYgMTYiPgogIDxwYXRoIGQ9Ik0xNCAxYTEgMSAwIDAgMSAxIDF2MTJhMSAxIDAgMCAxLTEgMUgyYTEgMSAwIDAgMS0xLTFWMmExIDEgMCAwIDEgMS0xaDEyek0yIDBhMiAyIDAgMCAwLTIgMnYxMmEyIDIgMCAwIDAgMiAyaDEyYTIgMiAwIDAgMCAyLTJWMmEyIDIgMCAwIDAtMi0ySDJ6Ii8+CiAgPHBhdGggZD0iTTggNGEuNS41IDAgMCAxIC41LjV2M2gzYS41LjUgMCAwIDEgMCAxaC0zdjNhLjUuNSAwIDAgMS0xIDB2LTNoLTNhLjUuNSAwIDAgMSAwLTFoM3YtM0EuNS41IDAgMCAxIDggNHoiLz4KPC9zdmc+" />
+</head>
+
 <body>
 
+    <!-- weather widget start -->
+    <div id="pogoda">
+    <div id="m-booked-weather-bl250-73710">
+        <div class="booked-wzs-250-175 weather-customize" style="background-color:#137AE9;width:250px;" id="width1">
+            <div class="booked-wzs-250-175_in">
+                <div class="booked-wzs-250-175-data">
+                    <div class="booked-wzs-250-175-left-img wrz-01"> </div>
+                    <div class="booked-wzs-250-175-right">
+                        <div class="booked-wzs-day-deck">
+                            <div class="booked-wzs-day-val">
+                                <div class="booked-wzs-day-number"><span class="plus">+</span>27</div>
+                                <div class="booked-wzs-day-dergee">
+                                    <div class="booked-wzs-day-dergee-val">&deg;</div>
+                                    <div class="booked-wzs-day-dergee-name">C</div>
+                                </div>
+                            </div>
+                            <div class="booked-wzs-day">
+                                <div class="booked-wzs-day-d">H: <span class="plus">+</span>27&deg;</div>
+                                <div class="booked-wzs-day-n">L: <span class="plus">+</span>17&deg;</div>
+                            </div>
+                        </div>
+                        <div class="booked-wzs-250-175-info">
+                            <div class="booked-wzs-250-175-city">Москва </div>
+                            <div class="booked-wzs-250-175-date">Среда, 07 Июль</div>
+                            <div class="booked-wzs-left"> <span class="booked-wzs-bottom-l">Прогноз на неделю</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table cellpadding="0" cellspacing="0" class="booked-wzs-table-250">
+                    <tr>
+                        <td>Чт</td>
+                        <td>Пт</td>
+                        <td>Сб</td>
+                        <td>Вс</td>
+                        <td>Пн</td>
+                        <td>Вт</td>
+                    </tr>
+                    <tr>
+                        <td class="week-day-ico">
+                            <div class="wrz-sml wrzs-01"></div>
+                        </td>
+                        <td class="week-day-ico">
+                            <div class="wrz-sml wrzs-01"></div>
+                        </td>
+                        <td class="week-day-ico">
+                            <div class="wrz-sml wrzs-03"></div>
+                        </td>
+                        <td class="week-day-ico">
+                            <div class="wrz-sml wrzs-06"></div>
+                        </td>
+                        <td class="week-day-ico">
+                            <div class="wrz-sml wrzs-01"></div>
+                        </td>
+                        <td class="week-day-ico">
+                            <div class="wrz-sml wrzs-18"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="week-day-val"><span class="plus">+</span>31&deg;</td>
+                        <td class="week-day-val"><span class="plus">+</span>32&deg;</td>
+                        <td class="week-day-val"><span class="plus">+</span>32&deg;</td>
+                        <td class="week-day-val"><span class="plus">+</span>33&deg;</td>
+                        <td class="week-day-val"><span class="plus">+</span>33&deg;</td>
+                        <td class="week-day-val"><span class="plus">+</span>33&deg;</td>
+                    </tr>
+                    <tr>
+                        <td class="week-day-val"><span class="plus">+</span>19&deg;</td>
+                        <td class="week-day-val"><span class="plus">+</span>21&deg;</td>
+                        <td class="week-day-val"><span class="plus">+</span>23&deg;</td>
+                        <td class="week-day-val"><span class="plus">+</span>23&deg;</td>
+                        <td class="week-day-val"><span class="plus">+</span>25&deg;</td>
+                        <td class="week-day-val"><span class="plus">+</span>24&deg;</td>
+                    </tr>
+                </table> </a>
+            </div>
+        </div>
+    </div>
+    <script
+        type="text/javascript"> 
+        var css_file = document.createElement("link"); 
+        var widgetUrl = location.href; 
+        css_file.setAttribute("rel", "stylesheet"); 
+        css_file.setAttribute("type", "text/css"); 
+        css_file.setAttribute("href", 'https://s.bookcdn.com/css/w/booked-wzs-widget-275.css?v=0.0.1'); 
+        document.getElementsByTagName("head")[0].appendChild(css_file); 
+
+        function setWidgetData_73710(data) { 
+            if (typeof (data) != 'undefined' && data.results.length > 0) {
+                for (var i = 0; i < data.results.length; ++i) { 
+                    var objMainBlock = document.getElementById('m-booked-weather-bl250-73710'); 
+                    if (objMainBlock !== null) { 
+                        var copyBlock = document.getElementById('m-bookew-weather-copy-' + data.results[i].widget_type); 
+                        objMainBlock.innerHTML = data.results[i].html_code; 
+                        if (copyBlock !== null) objMainBlock.appendChild(copyBlock); 
+                    } 
+                } 
+            } else { 
+                alert('data=undefined||data.results is empty'); 
+            } 
+        } 
+
+        var widgetSrc = "https://widgets.booked.net/weather/info?action=get_weather_info;ver=7;cityID=18171;type=3;scode=2;ltid=3540;domid=589;anc_id=5831;countday=undefined;cmetric=1;wlangID=20;color=137AE9;wwidth=250;header_color=ffffff;text_color=333333;link_color=08488D;border_form=1;footer_color=ffffff;footer_text_color=333333;transparent=0;v=0.0.1"; 
+        widgetSrc += ';ref=' + widgetUrl; 
+        widgetSrc += ';rand_id=73710'; 
+        var weatherBookedScript = document.createElement("script"); 
+        weatherBookedScript.setAttribute("type", "text/javascript"); 
+        weatherBookedScript.src = widgetSrc; 
+        document.body.appendChild(weatherBookedScript)
+    </script>
+</div><!-- weather widget end -->
 </body>
+
 </html>
 
 
 <style>
-     
     body {
         background-color: #353535;
         background-image: url(https://cdn.discordapp.com/attachments/807742820923736116/843995288044961822/w-dog.ru_1280x1024.jpg);
         background-size: cover;
-        
+
     }
 
     .card {
-        width: 200px;
+        width: 215px;
         height: 140px;
         background-color: #505050;
         background-size: cover;
@@ -59,18 +174,18 @@
         display: block;
         margin: 5px 5px 5px 5px;
         cursor: pointer;
+        text-decoration: none;
     }
 
-    .card:hover 
-    {
+    .card:hover {
 
         transform: scale(1.1);
         transition: 0.3s;
-        
+        backdrop-filter: invert(1);
+
     }
 
-    #cards 
-    {
+    #cards {
         /*backdrop-filter: blur(5px);*/
         display: flex;
         flex-wrap: wrap;
@@ -79,11 +194,10 @@
         width: 100%;
         height: 120px;
         align-content: flex-start;
-        
+
     }
 
-    #searchs 
-    {
+    #searchs {
         display: flex;
         flex-wrap: wrap;
         flex-direction: row;
@@ -91,11 +205,10 @@
         width: 100%;
         height: 5%;
         margin: 30px 1px 30px 0px;
-        
+
     }
-    
-    #search 
-    {
+
+    #search {
         display: flex;
         justify-content: center;
         width: 76%;
@@ -103,10 +216,10 @@
         border-radius: 10px;
         padding: 10px;
         background-color: #ffffffb0;
+        backdrop-filter: invert(1);
     }
 
-    #settings 
-    {
+    #settings {
         background-color: #3a3a3ad9;
         /*width: 30%;*/
         /*height: 30%;*/
@@ -118,24 +231,21 @@
         padding: 10px;
     }
 
-    .NameSite
-    {
+    .NameSite {
         background-color: #3a3a3ad9;
         color: white;
         width: 140px;
         margin: 1px 1px 1px 10px;
     }
 
-    .URLSite
-    {
+    .URLSite {
         background-color: #3a3a3ad9;
         color: white;
         width: 380px;
         margin: 1px 1px 1px 10px;
     }
 
-    #Button_Settings 
-    {
+    #Button_Settings {
         position: fixed;
         width: 55px;
         height: 55px;
@@ -144,18 +254,15 @@
         transform: rotate(45deg);
         transition: 1s;
         background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTI4MC4wMDAwMDBwdCIgaGVpZ2h0PSIxMjgwLjAwMDAwMHB0IiB2aWV3Qm94PSIwIDAgMTI4MC4wMDAwMDAgMTI4MC4wMDAwMDAiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KPG1ldGFkYXRhPgpDcmVhdGVkIGJ5IHBvdHJhY2UgMS4xNSwgd3JpdHRlbiBieSBQZXRlciBTZWxpbmdlciAyMDAxLTIwMTcKPC9tZXRhZGF0YT4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC4wMDAwMDAsMTI4MC4wMDAwMDApIHNjYWxlKDAuMTAwMDAwLC0wLjEwMDAwMCkiCmZpbGw9IiMwMDAwMDAiIHN0cm9rZT0ibm9uZSI+CjxwYXRoIGQ9Ik01Mzg1IDEyNzg2IGMtOTIgLTI5IC0xNTggLTg3IC0xOTkgLTE3NSAtMjEgLTQ1IC0yMSAtNTYgLTI0IC02ODcKbC0zIC02NDAgLTEwMiAtMjkgYy0zODggLTEwOCAtODM1IC0yOTggLTExNjYgLTQ5NSBsLTg1IC01MSAtNDY1IDQ2NSBjLTQzOQo0MzcgLTQ2OSA0NjUgLTUyMSA0ODIgLTgyIDI3IC0xNzMgMjMgLTI0NiAtMTAgLTUzIC0yNCAtMTMwIC05OCAtNzMwIC02OTkKLTc0NiAtNzQ3IC03MTggLTcxNCAtNzE5IC04NDcgMCAtMTQyIC0xNyAtMTIwIDQ5NCAtNjMzIGw0NTYgLTQ1OCAtMjQgLTQyCmMtMTMyIC0yMzYgLTI0MyAtNDY3IC0zMjkgLTY4MiAtNTkgLTE0OCAtMTU0IC00MzUgLTE4OSAtNTcwIGwtMTggLTcwIC02NDAKLTUgLTY0MCAtNSAtNTcgLTI4IGMtNjUgLTMyIC0xMjEgLTg5IC0xNTIgLTE1NiBsLTIxIC00NiAwIC0xMDA1IDAgLTEwMDUgMjgKLTU3IGMzMiAtNjUgODkgLTEyMSAxNTYgLTE1MiA0NSAtMjEgNTYgLTIxIDY5MSAtMjQgbDY0NSAtMyA0MyAtMTUxIGMxMDQKLTM2NSAzMDAgLTgyNCA0NzcgLTExMTIgbDQ0IC03MSAtNTcgLTYwIGMtMzEgLTMzIC0xNzkgLTE4NCAtMzI3IC0zMzUgLTYxMAotNjE5IC01ODAgLTU4MiAtNTgwIC03MjUgMSAtNjMgNiAtOTAgMjQgLTEzMCAxOSAtNDAgMTYwIC0xODcgNjk1IC03MjIgNDYwCi00NjAgNjg1IC02NzggNzE0IC02OTIgOTAgLTQ1IDE5NyAtNDcgMjkwIC01IDIzIDExIDIwOCAxODggNDk3IDQ3NiBsNDYxIDQ1OAoxMTQgLTY1IGMzMjggLTE4NyA3MTEgLTM0OCAxMDc3IC00NTMgbDE2MiAtNDcgMyAtNjQ1IGMzIC02MzUgMyAtNjQ2IDI0IC02OTEKMzEgLTY3IDg3IC0xMjQgMTUyIC0xNTYgbDU3IC0yOCAxMDA1IDAgMTAwNSAwIDU3IDI4IGM2NSAzMiAxMjEgODkgMTUyIDE1NgoyMSA0NSAyMSA1NiAyNCA2ODcgbDMgNjQyIDYyIDE3IGM0MDggMTExIDgxOCAyODIgMTE4NiA0OTMgbDExNCA2NSA0NTYgLTQ2MApjNTE0IC01MTkgNDk5IC01MDcgNjM2IC01MDcgNjMgMCA5MSA1IDEzMCAyMyA3MyAzNCAxMzkwIDEzNTIgMTQyNiAxNDI2IDM0CjcxIDM0IDIwMCAwIDI2NSAtMTUgMzAgLTE3NCAxOTcgLTQ4MiA1MDYgbC00NjAgNDYwIDU2IDk1IGM4NSAxNDIgMjM1IDQ1NAozMDggNjM5IDY2IDE2NiAxNDggNDE0IDE4MiA1NDcgbDE5IDcyIDY0NSAzIGM2MzYgMyA2NDcgMyA2OTIgMjQgNjcgMzEgMTI0Cjg3IDE1NiAxNTIgbDI4IDU3IDAgMTAwNSAwIDEwMDUgLTI4IDU3IGMtMzIgNjUgLTg5IDEyMSAtMTU2IDE1MiAtNDUgMjEgLTU2CjIxIC02ODcgMjQgbC02NDIgMyAtMTEgNDQgYy05MSAzNjAgLTI4MCA4MTkgLTQ5MCAxMTg1IGwtNzEgMTI0IDQ2NCA0NjYgYzUyMAo1MjEgNTAyIDQ5OCA1MDAgNjQwIC0xIDEzNCAyMyAxMDYgLTcyMiA4NTIgLTU5NSA1OTUgLTY3MyA2NzAgLTcyNiA2OTQgLTczCjMzIC0xNjQgMzcgLTI0NiAxMCAtNTIgLTE3IC04MiAtNDUgLTUyMCAtNDgyIGwtNDY2IC00NjQgLTExNCA2NiBjLTMyNiAxODcKLTc0MSAzNjAgLTExMTcgNDY1IGwtMTIyIDM0IC0zIDY0NSBjLTMgNjM3IC0zIDY0NiAtMjUgNjkyIC0zMCA2NiAtOTUgMTMyCi0xNTYgMTU5IGwtNTIgMjQgLTk5MCAyIGMtNzc5IDEgLTk5OSAtMSAtMTAzMCAtMTF6IG0xMTYwIC00NTI3IGM1ODAgLTQ5CjEwODcgLTM0NyAxNDEwIC04MjkgNzEgLTEwNiAxNzQgLTMxNSAyMTUgLTQzOCAyMjAgLTY1MyA1NSAtMTM4MSAtNDI1IC0xODgxCi01NTcgLTU4MCAtMTQxNCAtNzQwIC0yMTM1IC00MDAgLTM5MiAxODYgLTY5NiA0ODUgLTg4NSA4NzQgLTExMCAyMjQgLTE2Mwo0MjIgLTE4NSA2ODAgLTE0IDE2MiAtMSAzNDUgMzUgNTIwIDE2NiA3OTggODQ5IDE0MDMgMTY2NSAxNDc0IDEzNyAxMiAxNzEgMTIKMzA1IDB6Ii8+CjwvZz4KPC9zdmc+Cg==")
-        
     }
 
-    #Button_Settings:hover 
-    {
+    #Button_Settings:hover {
         transition: 1s;
         transform: rotate(25deg);
         filter: invert(80%);
     }
 
-    #Button_Settings_Cover
-    {
+    #Button_Settings_Cover {
         position: fixed;
         width: 64px;
         height: 64px;
@@ -172,19 +279,20 @@
         background-color: #efefef33;
     }
 
-    .name_tag
-    {
+    .name_tag {
         background-color: #7d7d7da8;
         width: 100%;
-        height: 37%;
+        height: 32%;
         margin: 45% 0 0 0;
         border-radius: 0px 0px 5px 5px;
         text-align: center;
-        font-size: 29px;
-        color: #3573ff;
+        font-size: 28px;
+        color: #ffffff;
         font-weight: 500;
-        font-family: "BebasBold",sans-serif;
-        text-shadow: -2px 2px 2px #000;
+        font-family: "BebasBold", sans-serif;
+        text-shadow: -2px 2px 2px #0c00c3;
+        backdrop-filter: invert(1) blur(2px);
+        mix-blend-mode: difference;
     }
 
     #fon {
@@ -193,77 +301,82 @@
         height: 100%;
         position: fixed;
         top: 0;
-        backdrop-filter: blur(3px);
+        backdrop-filter: blur(3px) grayscale(1);
     }
 
-
-
-
+    #pogoda {
+    /* width: 350px; */
+    /* height: 425px; */
+    display: none;
+    position: fixed;
+    /* right: -3px; */
+    bottom: 10px;
+    left: 10px;
+    }
 </style>
 
-<link rel="stylesheet"  property='stylesheet' type="text/css" href="https://as99.online-stars.org/templates/new36/font/BebasBold.css"/>
+<link rel="stylesheet" property='stylesheet' type="text/css"
+    href="BebasBold.css">
 <script>
 
-    if(localStorage.getItem('background')){
-        $('body').css('background-image', 'url('+localStorage.getItem('background')+')');
+    if (localStorage.getItem('background')) {
+        $('body').css('background-image', 'url(' + localStorage.getItem('background') + ')');
     }
     at = "access_token=5068f7995068f7995068f7993e5039a129550685068f79909b64ef038338754cb12e019&v=5.52&";
     getdata = "owner_id=-22786271&album_id=229998745&photo_sizes=true&count=1000";
-    var req="https://api.vk.com/method/photos.get?"+at+getdata;
-    
+    var req = "https://api.vk.com/method/photos.get?" + at + getdata;
+
     $.ajax({
-        url : req,
-        type : "GET",
-        dataType : "jsonp",
-        success : function(msg){
-        rand = Math.round(Math.random()*msg.response.count)
-        //console.log(msg.response);
-        console.log(msg.response.items[rand].sizes);
-        //console.log(rand)
-        //console.log(Math.random() * (1000 - 0) + 1000)
-        //$('body').css('background-image', 'url('+msg.response.items[rand].sizes[msg.response.items[rand].sizes.length-1].src+')');
-        //background-image: url(https://cdn.discordapp.com/attachments/807742820923736116/843995288044961822/w-dog.ru_1280x1024.jpg);
-        if(msg.response.items[rand].sizes[6].src){
-            localStorage.setItem('background', msg.response.items[rand].sizes[6].src);
-        }
+        url: req,
+        type: "GET",
+        dataType: "jsonp",
+        success: function (msg) {
+            rand = Math.round(Math.random() * msg.response.count)
+            //console.log(msg.response);
+            console.log(msg.response.items[rand].sizes);
+            //console.log(rand)
+            //console.log(Math.random() * (1000 - 0) + 1000)
+            //$('body').css('background-image', 'url('+msg.response.items[rand].sizes[msg.response.items[rand].sizes.length-1].src+')');
+            //background-image: url(https://cdn.discordapp.com/attachments/807742820923736116/843995288044961822/w-dog.ru_1280x1024.jpg);
+            if (msg.response.items[rand].sizes[6].src) {
+                localStorage.setItem('background', msg.response.items[rand].sizes[6].src);
+            }
 
 
         }
     });
 
-    jQuery(document).ready(function($)
-    {
-        $( window ).resize(function() {
+    jQuery(document).ready(function ($) {
+        $(window).resize(function () {
             resize_info();
         });
     });
 
 
-    
-    function resize_info()
-{
-    (function($) {
-        //const windowInnerWidth = window.innerWidth
-        //const windowInnerHeight = window.innerHeight
 
-        //$('.card').css('height', window.innerWidth / 15);
-        
-        //alert(windowInnerWidth)
-    })(jQuery);
-}
+    function resize_info() {
+        (function ($) {
+            //const windowInnerWidth = window.innerWidth
+            //const windowInnerHeight = window.innerHeight
+
+            //$('.card').css('height', window.innerWidth / 15);
+
+            //alert(windowInnerWidth)
+        })(jQuery);
+    }
 
 
     num = 1;
     $('body')
-    .append('<div id="searchs"></div>')
+        .append('<div id="searchs"></div>')
     $('#searchs')
         .append('<input id="search" type="text" placeholder="Искать в яндекс">');
 
-    $(document).ready(function() {
-        $('#search').keydown(function(e) {
-            if(e.keyCode === 13) {
+    $(document).ready(function () {
+        $('#search').keydown(function (e) {
+            if (e.keyCode === 13) {
                 //alert($(this).val());
-                document.location.href = "https://yandex.ru/search/?text="+$(this).val();
+                document.location.href = "https://yandex.ru/search/?text=" + $(this).val();
             }
         });
     });
@@ -271,79 +384,71 @@
     $('body')
         .append('<div id="cards"></div>')
 
-    for (let i=0; i < urls.length; i++) 
-    {
+    for (let i = 0; i < urls.length; i++) {
         add_card(urls[i]);
     }
     $('body').prepend('<div id="Button_Settings_Cover"><div id="Button_Settings"></div></div>')
     $("#Button_Settings_Cover").click(settings)
     resize_info()
 
-    
-    function settings()
-    {
+
+    function settings() {
 
         $('body').append('<div id="body_menu" style="display: flex; justify-content: center; "><div id="fon" ></div><div id=settings></div>')
         $('#settings').append('<div id=button_top style="margin: 5px 0px 10px 0px; display: flex; justify-content: space-between;">');
         //$('#body_menu').append('<div id="fon" ></div>')
         $('#button_top').append('<div id="add_button" style="cursor: pointer; background-color: #ffffffeb; width: 21px; height: 21px; display: flex; align-items: center; justify-content: center;" title="Добавить вкладку"><div style=" font-size: 33px; font-weight: 900; -webkit-user-select: none;">+</div></div>');
         $('#button_top').append('<div id="exit" style="cursor: pointer; background-color: #ff4444eb; color: white; width: 21px; height: 21px; display: flex; align-items: center; justify-content: center;" title="Закрыть настройки"><div style=" font-size: 40px; font-weight: 900; -webkit-user-select: none; transform: rotate(45deg);">+</div></div>');
-        
-        $( "#add_button" ).click(add_button)
-        $( "#exit" ).click(exit_settings)
-        
-        for(let i=0; i < urls.length; i++){
-            $('#settings').append('<div style="margin: 5px 0px 5px 0px; display: flex; flex-wrap: nowrap;" id="line_'+i+'">')
-            $('#line_'+i).append('<input class="NameSite" value="'+names[i]+'" placeholder="Название сайта" maxlength="13" id=NameSite_'+i+'>')
-            $('#line_'+i).append('<input style="margin: 0px 2px 0px 2px;" class="URLSite" id=URLSite_'+i+' value="'+urls[i]+'" placeholder="URL адрес сайта">')
-            $('#line_'+i).append('<div id="delete_'+i+'" style="cursor: pointer; margin: 0px 2px 0px 2px; background-color: #ff4444eb; color: white; width: 36px; height: 21px; display: flex; align-items: center; justify-content: center;" title="удалить элемент"><div style=" font-size: 19px; font-weight: 900; -webkit-user-select: none; ">del</div></div>');
-            
-            $( "#delete_"+i ).click(function(){delete_button(i)});
-            
+
+        $("#add_button").click(add_button)
+        $("#exit").click(exit_settings)
+
+        for (let i = 0; i < urls.length; i++) {
+            $('#settings').append('<div style="margin: 5px 0px 5px 0px; display: flex; flex-wrap: nowrap;" id="line_' + i + '">')
+            $('#line_' + i).append('<input class="NameSite" value="' + names[i] + '" placeholder="Название сайта" maxlength="13" id=NameSite_' + i + '>')
+            $('#line_' + i).append('<input style="margin: 0px 2px 0px 2px;" class="URLSite" id=URLSite_' + i + ' value="' + urls[i] + '" placeholder="URL адрес сайта">')
+            $('#line_' + i).append('<div id="delete_' + i + '" style="cursor: pointer; margin: 0px 2px 0px 2px; background-color: #ff4444eb; color: white; width: 36px; height: 21px; display: flex; align-items: center; justify-content: center;" title="удалить элемент"><div style=" font-size: 19px; font-weight: 900; -webkit-user-select: none; ">del</div></div>');
+
+            $("#delete_" + i).click(function () { delete_button(i) });
+
             //$('#settings').append('')
         }
         //$('#body_menu').css('display', 'flex');
 
-        
+
 
     }
-    
 
 
-    function add_button()
-    {
+
+    function add_button() {
         let i = document.querySelectorAll('.URLSite').length;
-        $('#settings').append('<div style="margin: 5px 0px 5px 0px; display: flex; flex-wrap: nowrap;" id="line_'+i+'">')
-            $('#line_'+i).append('<input class="NameSite"  placeholder="Название сайта" maxlength="13" id=NameSite_'+i+'>')
-            $('#line_'+i).append('<input style="margin: 0px 2px 0px 2px;" class="URLSite" id=URLSite_'+i+' placeholder="URL адрес сайта">')
-            $('#line_'+i).append('<div id="delete_'+i+'" style="cursor: pointer; margin: 0px 2px 0px 2px; background-color: #ff4444eb; color: white; width: 36px; height: 21px; display: flex; align-items: center; justify-content: center;" title="удалить элемент"><div style=" font-size: 19px; font-weight: 900; -webkit-user-select: none; ">del</div></div>');
-            $( "#delete_"+i ).click(function(){delete_button(i)});
-        }
+        $('#settings').append('<div style="margin: 5px 0px 5px 0px; display: flex; flex-wrap: nowrap;" id="line_' + i + '">')
+        $('#line_' + i).append('<input class="NameSite"  placeholder="Название сайта" maxlength="13" id=NameSite_' + i + '>')
+        $('#line_' + i).append('<input style="margin: 0px 2px 0px 2px;" class="URLSite" id=URLSite_' + i + ' placeholder="URL адрес сайта">')
+        $('#line_' + i).append('<div id="delete_' + i + '" style="cursor: pointer; margin: 0px 2px 0px 2px; background-color: #ff4444eb; color: white; width: 36px; height: 21px; display: flex; align-items: center; justify-content: center;" title="удалить элемент"><div style=" font-size: 19px; font-weight: 900; -webkit-user-select: none; ">del</div></div>');
+        $("#delete_" + i).click(function () { delete_button(i) });
+    }
 
-    function delete_button(i)
-    {
+    function delete_button(i) {
         console.log(i)
         console.log(this)
-        $('#line_'+i).remove()
+        $('#line_' + i).remove()
     }
 
-    function exit_settings()
-    {
+    function exit_settings() {
         //let result = confirm("question");
-        if(confirm("Сохранить изменения?"))
-        {
+        if (confirm("Сохранить изменения?")) {
             let URLSite = document.querySelectorAll('.URLSite');
             let urls = [];
-            for(let i=0; i < URLSite.length; i++)
-            {
+            for (let i = 0; i < URLSite.length; i++) {
                 urls[i] = URLSite[i].value;
             }
             localStorage.setItem('urls', urls);
 
             let NameSite = document.querySelectorAll('.NameSite');
             let names = [];
-            for(let i=0; i < NameSite.length; i++)
-            {
+            for (let i = 0; i < NameSite.length; i++) {
                 names[i] = NameSite[i].value;
             }
             localStorage.setItem('names', names);
@@ -355,11 +460,11 @@
     }
 
 
-    function add_card(url){
+    function add_card(url) {
         $('#cards')
-            .append('<a class="card" id="card_'+num+'" style="background-image: url(http://mini.s-shot.ru/?'+url+')" href="'+url+'">')
-            $('#cards')
-            .mousedown(function(event) {
+            .append('<a class="card" id="card_' + num + '" style="background-image: url(http://mini.s-shot.ru/?' + url + ')" href="' + url + '">')
+        $('#cards')
+            .mousedown(function (event) {
                 switch (event.which) {
                     case 1:
                         //alert('Left Mouse button pressed.');
@@ -376,13 +481,12 @@
                         //alert('Right Mouse button pressed.');
                         break;
                     default:
-                        //alert('You have a strange Mouse! '+ event.which);
+                    //alert('You have a strange Mouse! '+ event.which);
                 }
             });
 
-        $('#card_'+num).append('<div class="name_tag">'+names[num-1]+'</div>')
+        $('#card_' + num).append('<div class="name_tag">' + names[num - 1] + '</div>')
         num++
     }
     //settings()
 </script>
-
