@@ -3329,12 +3329,12 @@ function _GET_Json(str) {
  function include(url) {
   var script = document.createElement("script");
   script.src = url;
-  document.getElementsByTagName("head")[0].appendChild(script);
+  document.head.appendChild(script);
  }
  var req = Pointer_stringify(str);
  var div = document.createElement("div");
  div.innerHTML = '<div id="VK_URL_JSON">' + req + "</div>";
- document.getElementsByTagName("head")[0].appendChild(div);
+ document.head.appendChild(div);
  include("script.js");
 }
 function _JS_Cursor_SetImage(ptr, length) {

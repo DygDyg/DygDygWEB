@@ -1,0 +1,66 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<title>
+    Цена крафта леги
+</title> 
+
+<head>
+
+</head>
+
+<body>
+	<div id="lega_title">Укажи с какой по какую легу улучшаешь: </div>
+    <select id="lega_start"></select>
+	<select id="lega_end"></select>
+	<div id="lega_result"></div>
+</body>
+
+<style>
+
+	body {
+		background-color: #3a3a3a;
+	}
+
+    #lega_result
+    {
+        color:aliceblue;
+        display: inline;
+    }
+
+    #lega_title
+    {
+        color:aliceblue;
+        display: inline;
+    }
+</style>
+
+<script>
+	legs_ilvl = ['0', '190', '210', '225', '235', '249', '262']
+	legs_pepel = ['0', '1250', '2000', '3200', '5150', '5150', '5150']
+	legs_ugli = ['0', '0', '0', '0', '0', '1100', '1650']
+	console.log(legs_ilvl)
+	$('#lega_result').text('Цена леги')
+
+	for (let i = 0; i < legs_ilvl.length; i++) {
+		$('#lega_start').prepend('<option value="' + i + '">' + legs_ilvl[i] + '</option>')
+		$('#lega_end').prepend('<option value="' + i + '">' + legs_ilvl[i] + '</option>')
+	}
+	$('#lega_start').on('change', function () {
+		//console.log($('#lega_start').val())
+		lega_calc()
+	})
+	$('#lega_end').on('change', function () {
+		//console.log($('#lega_end').val())
+		lega_calc()
+	})
+	function lega_calc() {
+		
+		if ((legs_pepel[$('#lega_end').val()] - legs_pepel[$('#lega_start').val()] >= 0) & (legs_ugli[$('#lega_end').val()] - legs_ugli[$('#lega_start').val()] >= 0)) {
+			let num1 = legs_pepel[$('#lega_end').val()] - legs_pepel[$('#lega_start').val()]
+            let num2 = legs_ugli[$('#lega_end').val()] - legs_ugli[$('#lega_start').val()]
+			console.log(legs_pepel[$('#lega_end').val()] - legs_pepel[$('#lega_start').val()])
+			console.log(legs_ugli[$('#lega_end').val()] - legs_ugli[$('#lega_start').val()])
+
+            $('#lega_result').text('Цена леги: ' + num1.toString() + " пепла душ. " + num2.toString() + " угля душ")
+		}
+	}
+</script>
