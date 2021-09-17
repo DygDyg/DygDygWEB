@@ -1,33 +1,30 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<title>
-    Цена крафта леги
-</title> 
+<title>Цена крафта леги</title>
 
-<head>
-
-</head>
+<head> </head>
 
 <body>
-	<div class="lega_text" style="display: inline;" id="lega_title">Укажи с какой по какую легу улучшаешь: </div>
-    <select id="lega_start"></select>
-	<select id="lega_end"></select>
-	<div class="lega_text" style="display: inline;" id="lega_result"></div>
-    <div class="lega_text" id="lega_torgast"> За неделю можно получить, пройдя оба крыла 12 этажа, 2060 Пепла душ 360 углей душ.</div>
+	<div class="lega">
+		<div class="lega_text" style="display: inline" id="lega_title">Укажи с какой по какую легу улучшаешь: С</div>
+		<select id="lega_start"></select>
+		<div class="lega_text" style="display: inline" id="lega_title2">по</div>
+		<select id="lega_end"></select>
+		<div class="lega_text" style="display: inline" id="lega_result"></div>
+		<div class="lega_text">За неделю можно получить, пройдя оба крыла 12 этажа, 2060 Пепла душ 360 углей душ.</div>
+	</div>
+
+	<div class="lega_text">________________________________________</div>
+	<div class="lega_text">Нашаманил Вульперняга для гильдии ВоВощи.</div>
 </body>
 
 <style>
-
 	body {
 		background-color: #3a3a3a;
 	}
 
-    .lega_text
-    {
-        color:aliceblue;
-        
-    }
-
-
+	.lega_text {
+		color: aliceblue;
+	}
 </style>
 
 <script>
@@ -48,16 +45,18 @@
 		lega_calc()
 	})
 	function lega_calc() {
-		
-		if ((legs_pepel[$('#lega_end').val()] - legs_pepel[$('#lega_start').val()] >= 0) & (legs_ugli[$('#lega_end').val()] - legs_ugli[$('#lega_start').val()] >= 0)) {
-			let num1 = legs_pepel[$('#lega_end').val()] - legs_pepel[$('#lega_start').val()]
-            let num2 = legs_ugli[$('#lega_end').val()] - legs_ugli[$('#lega_start').val()]
-			console.log(legs_pepel[$('#lega_end').val()] - legs_pepel[$('#lega_start').val()])
-			console.log(legs_ugli[$('#lega_end').val()] - legs_ugli[$('#lega_start').val()])
+		if (legs_pepel[$('#lega_end').val()] != 0) {
+			if ((legs_pepel[$('#lega_end').val()] - legs_pepel[$('#lega_start').val()] >= 0) & (legs_ugli[$('#lega_end').val()] - legs_ugli[$('#lega_start').val()] >= 0)) {
+				let num1 = legs_pepel[$('#lega_end').val()] - legs_pepel[$('#lega_start').val()]
+				let num2 = legs_ugli[$('#lega_end').val()] - legs_ugli[$('#lega_start').val()]
 
-            $('#lega_result').text('Цена леги: ' + num1.toString() + " пепла душ. " + num2.toString() + " угля душ.")
-		}else{
-            $('#lega_result').text('Ошибка, ты не можешь улучшить легу в обратную сторону :(')
-        }
+				//console.log(legs_pepel[$('#lega_end').val()] - legs_pepel[$('#lega_start').val()])
+				//console.log(legs_ugli[$('#lega_end').val()] - legs_ugli[$('#lega_start').val()])
+
+				$('#lega_result').text('Цена леги: ' + num1.toString() + ' пепла душ. ' + num2.toString() + ' угля душ.')
+			} else {
+				$('#lega_result').text('Ошибка, ты не можешь улучшить легу в обратную сторону :(')
+			}
+		}
 	}
 </script>
