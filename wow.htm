@@ -1,11 +1,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <title>Цена крафта леги 9.1.0</title>
-<link rel="icon" id="favicon">
+<link rel="icon" id="favicon" />
 
-<head> 
-	
-	
-</head>
+<head> </head>
 
 <body>
 	<div class="lega">
@@ -32,7 +29,7 @@
 </style>
 
 <script>
-	$("#favicon").attr("href","https://render.worldofwarcraft.com/eu/guild/crest/178/emblem-178-672300-ffffff.jpg");
+	$('#favicon').attr('href', 'https://render.worldofwarcraft.com/eu/guild/crest/178/emblem-178-672300-ffffff.jpg')
 
 	legs_ilvl = ['0', '190', '210', '225', '235', '249', '262']
 	legs_pepel = ['0', '1250', '2000', '3200', '5150', '5150', '5150']
@@ -50,7 +47,7 @@
 		//console.log($('#lega_end').val())
 		lega_calc()
 	})
-	
+
 	function lega_calc() {
 		if (legs_pepel[$('#lega_end').val()] != 0) {
 			if ((legs_pepel[$('#lega_end').val()] - legs_pepel[$('#lega_start').val()] >= 0) & (legs_ugli[$('#lega_end').val()] - legs_ugli[$('#lega_start').val()] >= 0)) {
