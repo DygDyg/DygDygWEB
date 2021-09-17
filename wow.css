@@ -1,0 +1,9 @@
+#lega {
+	display: flex;
+	flex-wrap: nowrap;
+	align-content: center;
+	justify-content: center;
+	align-items: center;
+	width: 95%;
+	height: 95%;
+}
