@@ -8,10 +8,11 @@
 </head>
 
 <body>
-	<div id="lega_title">Укажи с какой по какую легу улучшаешь: </div>
+	<div class="lega_text" style="display: inline;" id="lega_title">Укажи с какой по какую легу улучшаешь: </div>
     <select id="lega_start"></select>
 	<select id="lega_end"></select>
-	<div id="lega_result"></div>
+	<div class="lega_text" style="display: inline;" id="lega_result"></div>
+    <div class="lega_text" id="lega_torgast"> За неделю можно получить, пройдя оба крыла 12 этажа, 2060 Пепла душ 360 углей душ.</div>
 </body>
 
 <style>
@@ -20,25 +21,19 @@
 		background-color: #3a3a3a;
 	}
 
-    #lega_result
+    .lega_text
     {
         color:aliceblue;
-        display: inline;
+        
     }
 
-    #lega_title
-    {
-        color:aliceblue;
-        display: inline;
-    }
+
 </style>
 
 <script>
 	legs_ilvl = ['0', '190', '210', '225', '235', '249', '262']
 	legs_pepel = ['0', '1250', '2000', '3200', '5150', '5150', '5150']
 	legs_ugli = ['0', '0', '0', '0', '0', '1100', '1650']
-	console.log(legs_ilvl)
-	$('#lega_result').text('Цена леги')
 
 	for (let i = 0; i < legs_ilvl.length; i++) {
 		$('#lega_start').prepend('<option value="' + i + '">' + legs_ilvl[i] + '</option>')
@@ -60,7 +55,9 @@
 			console.log(legs_pepel[$('#lega_end').val()] - legs_pepel[$('#lega_start').val()])
 			console.log(legs_ugli[$('#lega_end').val()] - legs_ugli[$('#lega_start').val()])
 
-            $('#lega_result').text('Цена леги: ' + num1.toString() + " пепла душ. " + num2.toString() + " угля душ")
-		}
+            $('#lega_result').text('Цена леги: ' + num1.toString() + " пепла душ. " + num2.toString() + " угля душ.")
+		}else{
+            $('#lega_result').text('Ошибка, ты не можешь улучшить легу в обратную сторону :(')
+        }
 	}
 </script>
