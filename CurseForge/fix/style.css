@@ -1,5 +1,6 @@
 .original-image,
-aside.curseforge-ad
+aside.curseforge-ad,
+button.btn-single-icon.run-game
 {
     display: none !important;
 }
