@@ -10,8 +10,8 @@ $(document).keyup(function (e) {
 		console.log(document.location.href)
 	}
 
-    if (e.originalEvent.key == 'F6') {
-		console.log(document.location.href)
+    if (e.originalEvent.key == 'F7') {
+		console.log("1")
 	}
 
     $("span.alpha-tag").click(function(){print("ok")})
