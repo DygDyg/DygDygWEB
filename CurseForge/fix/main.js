@@ -11,10 +11,10 @@ $(document).keyup(function (e) {
 	}
 
 	if (e.originalEvent.key == 'F7') {
-		console.log('2')
+		// console.log('2')
 	}
 
 	$('span.alpha-tag').click(function () {
-		console.log('ok')
+		// console.log('ok')
 	})
 })
