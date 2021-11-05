@@ -9,4 +9,10 @@ $(document).keyup(function (e) {
 	if (e.originalEvent.key == 'F6') {
 		console.log(document.location.href)
 	}
+
+    if (e.originalEvent.key == 'F6') {
+		console.log(document.location.href)
+	}
+
+    $("span.alpha-tag").click(function(){print("ok")})
 })
