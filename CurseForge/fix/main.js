@@ -8,5 +8,6 @@ $(document).keyup(function(e) {
     }
     if(e.originalEvent.key=="F6")
     {
-        console.log(document.location.href}
+        console.log(document.location.href)
+        }
 });
