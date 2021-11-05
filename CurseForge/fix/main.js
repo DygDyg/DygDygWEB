@@ -11,8 +11,8 @@ $(document).keyup(function (e) {
 	}
 
     if (e.originalEvent.key == 'F7') {
-		console.log("1")
+		console.log("2")
 	}
 
-    $("span.alpha-tag").click(function(){print("ok")})
+    $(".alpha-tag").click(function(){print("ok")})
 })
