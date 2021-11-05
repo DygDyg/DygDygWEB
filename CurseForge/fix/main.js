@@ -1,5 +1,9 @@
-function include(url) {
-    var script = document.createElement('script');
-    script.src = url;
-    document.getElementsByTagName('head')[0].appendChild(script);
-}
+$(document).keyup(function(e) {
+	// console.dir(e.originalEvent.key);
+
+    //Обновить страницу
+    if(e.originalEvent.key=="F5")
+    {
+        location.reload();
+    }
+});
