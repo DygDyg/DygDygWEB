@@ -5,14 +5,16 @@ $(document).keyup(function (e) {
 	if (e.originalEvent.key == 'F5') {
 		location.reload()
 	}
-    //Вывести ссылку в консоль
+	//Вывести ссылку в консоль
 	if (e.originalEvent.key == 'F6') {
 		console.log(document.location.href)
 	}
 
-    if (e.originalEvent.key == 'F7') {
-		console.log("2")
+	if (e.originalEvent.key == 'F7') {
+		console.log('2')
 	}
 
-    $(".alpha-tag").click(function(){print("ok")})
+	$('span.alpha-tag').click(function () {
+		console.log('ok')
+	})
 })
