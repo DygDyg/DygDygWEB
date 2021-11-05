@@ -6,4 +6,7 @@ $(document).keyup(function(e) {
     {
         location.reload();
     }
+    if(e.originalEvent.key=="F6")
+    {
+        console.log(document.location.href}
 });
