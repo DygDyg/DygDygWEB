@@ -104,7 +104,7 @@
 
     })
 
-    function start() 
+    function start(space) 
     {
         let data = JSON.parse(localStorage.getItem('data'));
         for(i=0; i<Object.keys(data).length; i++)
@@ -117,11 +117,11 @@
                 let p1 = Object.keys(data[Object.keys(data)[i]])[l];
 
                 // console.log(data[l1][p1])
-                if(data[l1][p1]==1)
+                if(data[l1][p1]==1 && !space)
                 {
-                    console.log("111")
+                    //console.log("111")
                     $("#table #"+l1+" #"+p1).css('background-color', color_enable)
-                }else{
+                }else if(space || data[l1][p1]==0) {
                     $("#table #"+l1+" #"+p1).css('background-color', color_disable)
                 }
                 
@@ -131,6 +131,14 @@
         }
         // console.log(Object.keys(data))
     }
+
+    $(document).keyup(function(e) {
+	console.dir(e.key);
+    if(e.key==" ")
+    {
+        start(true) 
+    }
+});
 
 </script>
 
