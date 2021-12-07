@@ -6,14 +6,26 @@
 
 </body>
 <script>
+    color_enable = "rgb(10, 121, 0)"
+    color_disable = "rgb(71, 71, 71)"
+    color_robot = "rgb(255, 196, 32)"
+
+    tabl = {}
     $("body").append('<table id="table">')
     for (l=1; l < 20; l++) {
+        let tabl_temp =  {}
         $("#table").append('<tr class="line" id=line'+l+'>')
+
+            //tabl[l] = l;
         for (p=1; p < 10; p++) {
+            
             $("#line"+l).append('<td class="pixel" id=pixel'+p+'>')
+                tabl_temp["pixel"+p] = 0;
+                // tabl_temp[p] = p
         }
-        
+        tabl["line"+l] = tabl_temp;
     }
+    // console.log(tabl)
 
 </script>
 <style>
@@ -49,23 +61,76 @@
     --color_enable{
         background-color: rgb(10, 121, 0);
     }
+
+    timdders{
+        color:rgb(255, 196, 32)
+    }
 </style>
 
 <script>
-    color_enable = "rgb(10, 121, 0)"
-    color_disable = "rgb(71, 71, 71)"
+
 
     for(i=1; i < 100; i++){
 
     }
+    start() 
+    // $(".pixel").on("click", function(){
+        // $(this).enabl = 1
+        // if($(this).css('background-color')==color_enable)
+        // {
+            // $(this).css('background-color', color_disable)
+        // }else{
+            // $(this).css('background-color', color_enable)
+        // }
+    // })
 
-    $(".pixel").on("click", function(){
-        if($(this).css('background-color')==color_enable){
+        $(".pixel").on("click", function(){
+        let l1 = $(this).parent().attr('id')
+        let s1 = $(this).attr('id')
+
+        if(tabl[l1][s1]==1)
+        {
             $(this).css('background-color', color_disable)
+            tabl[l1][s1] = 0
         }else{
             $(this).css('background-color', color_enable)
-            
+            tabl[l1][s1] = 1
         }
+        // console.log("x: "+l1+" y: "+s1+" status: "+tabl[l1][s1])
+        localStorage.setItem("data", JSON.stringify(tabl))
+        // JSON.parse(tabl)
+
+    
+
     })
+
+    function start() 
+    {
+        let data = JSON.parse(localStorage.getItem('data'));
+        for(i=0; i<Object.keys(data).length; i++)
+        {
+            for(l=0; l<Object.keys(data[Object.keys(data)[i]]).length; l++)
+            {
+                // console.log(Object.keys(data[Object.keys(data)[i]])[l])
+                // console.log(Object.keys(data)[i])
+                let l1 = Object.keys(data)[i];
+                let p1 = Object.keys(data[Object.keys(data)[i]])[l];
+
+                // console.log(data[l1][p1])
+                if(data[l1][p1]==1)
+                {
+                    console.log("111")
+                    $("#table #"+l1+" #"+p1).css('background-color', color_enable)
+                }else{
+                    $("#table #"+l1+" #"+p1).css('background-color', color_disable)
+                }
+                
+
+            }
+            tabl = data;
+        }
+        // console.log(Object.keys(data))
+    }
+
 </script>
 
