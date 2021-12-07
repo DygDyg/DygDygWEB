@@ -17,7 +17,7 @@
         $("#table").append('<tr class="line" id=line'+l+'>')
 
             //tabl[l] = l;
-        for (p=1; p < 10; p++) {
+        for (p=1; p < 20; p++) {
             
             $("#line"+l).append('<td class="pixel" id=pixel'+p+'>')
                 tabl_temp["pixel"+p] = 0;
@@ -39,13 +39,13 @@
         border: 1px solid rgb(255, 255, 255);
         border-spacing: 0px;
         padding: 1px;
-        width: 400px;
+        width: 800px;
         height: 800px;
     }
 
     .pixel
     {
-        width: 10%;
+        width: 5%;
         height: 5%;
         border: 1px solid rgb(0, 0, 0);
         background-color: rgb(71, 71, 71);
