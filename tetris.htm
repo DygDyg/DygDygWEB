@@ -70,9 +70,7 @@
 <script>
 
 
-    for(i=1; i < 100; i++){
 
-    }
     start() 
     // $(".pixel").on("click", function(){
         // $(this).enabl = 1
@@ -93,7 +91,7 @@
             $(this).css('background-color', color_disable)
             tabl[l1][s1] = 0
         }else{
-            $(this).css('background-color', color_enable)
+            $(this).css('background-color', "hsl("+((255/(19*9)*(i*l)))+", 100%, 50%)")
             tabl[l1][s1] = 1
         }
         // console.log("x: "+l1+" y: "+s1+" status: "+tabl[l1][s1])
@@ -106,7 +104,7 @@
 
     function start(space) 
     {
-        console.log(localStorage.getItem('data'))
+        // console.log(localStorage.getItem('data'))
         if(localStorage.getItem('data')){
         let data = JSON.parse(localStorage.getItem('data'));
         
@@ -123,7 +121,8 @@
                 if(data[l1][p1]==1 && !space)
                 {
                     //console.log("111")
-                    $("#table #"+l1+" #"+p1).css('background-color', color_enable)
+
+                    $("#table #"+l1+" #"+p1).css('background-color', "hsl("+((255/(19*9)*(i*l)))+", 100%, 50%)")
                 }else if(space || data[l1][p1]==0) {
                     $("#table #"+l1+" #"+p1).css('background-color', color_disable)
                 }
@@ -141,8 +140,29 @@
     if(e.key==" ")
     {
         start(true) 
+        // raibal()
     }
 });
+
+function raibal()
+{
+    let a = 1
+    // console.log(Object.keys(tabl[Object.keys(tabl)[1]]).length)
+    for(i=0; i<Object.keys(tabl).length; i++)
+    {
+        for(l=0; l<Object.keys(tabl[Object.keys(tabl)[i]]).length; l++)
+        {
+            a++
+            let l1 = Object.keys(tabl)[i];
+            let p1 = Object.keys(tabl[Object.keys(tabl)[i]])[l];
+            // console.log(l1)
+            // console.log(p1)
+            $("#table #"+l1+" #"+p1).css('background-color', "hsl("+a+", 100%, 50%)")
+        }
+    }
+
+    console.log(a)
+}
 
 </script>
 
