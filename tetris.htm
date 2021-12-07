@@ -1,0 +1,61 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<head>
+
+</head>
+<body>
+
+</body>
+<script>
+    $("body").append('<table id="table">')
+    for (l=1; l < 20; l++) {
+        $("#table").append('<tr class="line" id=line'+l+'>')
+        for (p=1; p < 10; p++) {
+            $("#line"+l).append('<td class="pixel" id=pixel'+p+'>')
+        }
+        
+    }
+
+</script>
+<style>
+    body
+    {
+        background-color: rgb(100, 100, 100);
+    }
+
+    #table
+    {
+        border: 1px solid rgb(255, 255, 255);
+        border-spacing: 0px;
+        padding: 1px;
+        width: 400px;
+        height: 800px;
+    }
+
+    .pixel
+    {
+        width: 10%;
+        height: 5%;
+        border: 1px solid rgb(0, 0, 0);
+        background-color: rgb(71, 71, 71);
+    }
+
+    .pixel:a
+    {
+        width: 10%;
+        height: 5%;
+        border: 1px solid rgb(0, 0, 0);
+        background-color: rgb(10, 121, 0);
+    }
+</style>
+
+<script>
+
+    for(i=1; i < 100; i++){
+
+    }
+
+    $(".pixel").on("click", function(){
+        $(this).css('background-color', 'rgb(10, 121, 0)')
+    })
+</script>
+
