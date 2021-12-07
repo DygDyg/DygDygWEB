@@ -46,16 +46,26 @@
         border: 1px solid rgb(0, 0, 0);
         background-color: rgb(10, 121, 0);
     }
+    --color_enable{
+        background-color: rgb(10, 121, 0);
+    }
 </style>
 
 <script>
+    color_enable = "rgb(10, 121, 0)"
+    color_disable = "rgb(71, 71, 71)"
 
     for(i=1; i < 100; i++){
 
     }
 
     $(".pixel").on("click", function(){
-        $(this).css('background-color', 'rgb(10, 121, 0)')
+        if($(this).css('background-color')==color_enable){
+            $(this).css('background-color', color_disable)
+        }else{
+            $(this).css('background-color', color_enable)
+            
+        }
     })
 </script>
 
