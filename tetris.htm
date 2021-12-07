@@ -106,7 +106,9 @@
 
     function start(space) 
     {
+        if(localStorage.getItem('data')){
         let data = JSON.parse(localStorage.getItem('data'));
+        
         for(i=0; i<Object.keys(data).length; i++)
         {
             for(l=0; l<Object.keys(data[Object.keys(data)[i]]).length; l++)
@@ -129,6 +131,7 @@
             }
             tabl = data;
         }
+    }
         // console.log(Object.keys(data))
     }
 
