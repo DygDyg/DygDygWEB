@@ -5,29 +5,6 @@
 <body>
 
 </body>
-<script>
-    color_enable = "rgb(10, 121, 0)"
-    color_disable = "rgb(71, 71, 71)"
-    color_robot = "rgb(255, 196, 32)"
-
-    tabl = {}
-    $("body").append('<table id="table">')
-    for (l=1; l < 20; l++) {
-        let tabl_temp =  {}
-        $("#table").append('<tr class="line" id=line'+l+'>')
-
-            //tabl[l] = l;
-        for (p=1; p < 20; p++) {
-            
-            $("#line"+l).append('<td class="pixel" id=pixel'+p+'>')
-                tabl_temp["pixel"+p] = 0;
-                // tabl_temp[p] = p
-        }
-        tabl["line"+l] = tabl_temp;
-    }
-    // console.log(tabl)
-
-</script>
 <style>
     body
     {
@@ -66,23 +43,79 @@
         color:rgb(255, 196, 32)
     }
 </style>
-
 <script>
 
+    function print(print)
+    {
+        if(debug){
+            //console.log(typeof(print))
+            if(typeof(print)=="numer"||typeof(print)=="string"){
+                console.log('%c'+ print, 'background-color: #272727; color: rgb(255, 196, 32); font-size: 110%; font-weight: 900');
+            }else{
+                console.log(print)
+            }
+        }
+    }
+    
+
+    debug = true
+    color_enable = "rgb(10, 121, 0)"
+    color_disable = "rgb(71, 71, 71)"
+    color_robot = "rgb(255, 196, 32)"
+    tabl = {}
+    screen_x = 20
+    screen_y = 20
+    fps_timer = 300
+    timer_enable = null
+    key1111 = "ArrowRight"
+
+    zmeia = [1,
+        [
+            10,
+            10, 
+            1, 
+        ] 
+];
 
 
-    start() 
-    // $(".pixel").on("click", function(){
-        // $(this).enabl = 1
-        // if($(this).css('background-color')==color_enable)
-        // {
-            // $(this).css('background-color', color_disable)
-        // }else{
-            // $(this).css('background-color', color_enable)
-        // }
-    // })
+    print(zmeia)
 
-        $(".pixel").on("click", function(){
+    
+    $("body").append('<table id="table">')
+        let p132131 = 0
+
+    for (l=1; l-1 < screen_y; l++) {
+        let tabl_temp =  {}
+        $("#table").append('<tr class="line" id=line'+l+'>')
+
+            //tabl[l] = l;
+        for (p=1; p-1 < screen_x; p++) {
+            p132131++
+            $("#line"+l).append('<td class="pixel" id=pixel'+p132131+'>')
+                tabl_temp[p] = {}
+                tabl_temp[p]["name"] = "pixel"+p132131
+                tabl_temp[p]["enabled"] = false;
+                tabl_temp[p]["color"] = Math.round((255/(screen_x*screen_y))*p132131)
+                
+                let color_num = 255/tabl["all_pixel"]
+                let color_num2 = {0:Math.round(color_num)}
+
+
+                
+        }
+        tabl[l] = tabl_temp;
+    }
+    tabl["all_pixel"] = p132131
+    print(tabl)
+
+
+
+
+
+    // start() 
+
+
+        /*$(".pixel").on("click", function(){
         let l1 = $(this).parent().attr('id')
         let s1 = $(this).attr('id')
 
@@ -94,17 +127,17 @@
             $(this).css('background-color', "hsl("+((255/(19*9)*(i*l)))+", 100%, 50%)")
             tabl[l1][s1] = 1
         }
-        // console.log("x: "+l1+" y: "+s1+" status: "+tabl[l1][s1])
+        // print("x: "+l1+" y: "+s1+" status: "+tabl[l1][s1])
         localStorage.setItem("data", JSON.stringify(tabl))
         // JSON.parse(tabl)
 
     
 
-    })
+    })*/
 
     function start(space) 
     {
-        // console.log(localStorage.getItem('data'))
+        // print(localStorage.getItem('data'))
         if(localStorage.getItem('data')){
         let data = JSON.parse(localStorage.getItem('data'));
         
@@ -112,56 +145,228 @@
         {
             for(l=0; l<Object.keys(data[Object.keys(data)[i]]).length; l++)
             {
-                // console.log(Object.keys(data[Object.keys(data)[i]])[l])
-                // console.log(Object.keys(data)[i])
+                // print(Object.keys(data[Object.keys(data)[i]])[l])
+                // print(Object.keys(data)[i])
                 let l1 = Object.keys(data)[i];
                 let p1 = Object.keys(data[Object.keys(data)[i]])[l];
 
-                // console.log(data[l1][p1])
+                // print(data[l1][p1])
                 if(data[l1][p1]==1 && !space)
                 {
-                    //console.log("111")
+                    //print("111")
 
                     $("#table #"+l1+" #"+p1).css('background-color', "hsl("+((255/(19*9)*(i*l)))+", 100%, 50%)")
                 }else if(space || data[l1][p1]==0) {
                     $("#table #"+l1+" #"+p1).css('background-color', color_disable)
                 }
-                
-
             }
             tabl = data;
         }
     }
-        // console.log(Object.keys(data))
+        // print(Object.keys(data))
     }
+
+
 
     $(document).keyup(function(e) {
-	console.dir(e.key);
+	 console.dir(e.key);
+    // logic(e.key)
+
+    
+    if(e.key=="ArrowRight" || e.key=="ArrowLeft" || e.key=="ArrowUp" || e.key=="ArrowUp" || e.key=="ArrowDown")
+    {
+        key1111 = e.key
+        if(timer_enable==null && e.key!=" "){
+            timer_enable = setInterval(logic, fps_timer)
+    }
+    }
+
     if(e.key==" ")
     {
-        start(true) 
-        // raibal()
-    }
-});
-
-function raibal()
-{
-    let a = 1
-    // console.log(Object.keys(tabl[Object.keys(tabl)[1]]).length)
-    for(i=0; i<Object.keys(tabl).length; i++)
-    {
-        for(l=0; l<Object.keys(tabl[Object.keys(tabl)[i]]).length; l++)
-        {
-            a++
-            let l1 = Object.keys(tabl)[i];
-            let p1 = Object.keys(tabl[Object.keys(tabl)[i]])[l];
-            // console.log(l1)
-            // console.log(p1)
-            $("#table #"+l1+" #"+p1).css('background-color', "hsl("+a+", 100%, 50%)")
+        if(timer_enable!=null){
+            clearTimeout(timer_enable)
+            timer_enable = null
+            print(timer_enable)
+        }else{
+            timer_enable = setInterval(logic, fps_timer)
         }
     }
 
-    console.log(a)
+
+    if(e.key=="="){
+        if(fps_timer>100){
+        fps_timer = fps_timer - 100
+        clearTimeout(timer_enable)
+        timer_enable = setInterval(logic, fps_timer)
+        print(fps_timer)
+        }
+    }
+    if(e.key=="-"){
+        if(fps_timer<1000)
+        {
+            fps_timer = fps_timer + 100
+            clearTimeout(timer_enable)
+            timer_enable = setInterval(logic, fps_timer)
+            print(fps_timer)
+        }
+    }
+
+});
+
+function stop()
+{
+    clearTimeout(timer_enable)
+    // timer_enable = setInterval(logic, fps_timer)
+    print("ПОТРАЧЕНО!!!!")
+    alert("ПОТРАЧЕНО!!!!")
+    location.reload();
+
+}
+
+
+
+// logic()
+function logic()
+{
+    
+        // print(key1111)
+        if(key1111=="ArrowRight")
+        {
+            if(screen_x >= zmeia[zmeia.length-1][1]+1){
+                if(pixel_IO(zmeia[zmeia.length-1][0], zmeia[zmeia.length-1][1]+1)) stop()
+                zmeia.push([
+                zmeia[zmeia.length-1][0],
+                zmeia[zmeia.length-1][1]+1, 
+                zmeia.length, 
+        ],)
+            }else{
+                if(pixel_IO(1, zmeia[zmeia.length-1][1])) stop()
+                zmeia.push([
+                zmeia[zmeia.length-1][0],
+                1, 
+                zmeia.length, 
+        ],)
+            }
+        }
+
+        if(key1111=="ArrowLeft")
+        {
+            // print(zmeia[zmeia.length-1][1])
+            // if(pixel_IO(zmeia[zmeia.length-1][0], zmeia[zmeia.length-1][1]+1))
+            // {
+                // stop()
+                // print(pixel_IO(zmeia[zmeia.length-1][0], zmeia[zmeia.length-1][1]-1))
+                // print(zmeia[zmeia.length-1][0])
+                // print(zmeia[zmeia.length-1][1]-1)
+                // alert("ПОТРАЧЕНО!!!!")
+            // }
+
+            if(1<zmeia[zmeia.length-1][1]){
+                if(pixel_IO(zmeia[zmeia.length-1][0], zmeia[zmeia.length-1][1]-1)) stop()
+                zmeia.push([
+                    zmeia[zmeia.length-1][0],
+                    zmeia[zmeia.length-1][1]-1, 
+                    zmeia.length, 
+                ],)
+            }else{
+
+                if(pixel_IO(zmeia[zmeia.length-1][0], screen_x))stop()
+                zmeia.push([
+                    zmeia[zmeia.length-1][0],
+                    screen_x, 
+                    zmeia.length, 
+                ],)
+            }
+
+            // print(zmeia[zmeia.length-1][1])
+            // print(zmeia[zmeia.length-1][0])
+            // if(<zmeia[zmeia.length-1][1]-1)
+            // {
+                // 
+            // }
+        }
+        if(key1111=="ArrowUp")
+        {
+            if(zmeia[zmeia.length-1][0]-1>0){
+                if(pixel_IO(zmeia[zmeia.length-1][0]-1, zmeia[zmeia.length-1][1])) stop()
+                zmeia.push([
+                    zmeia[zmeia.length-1][0]-1,
+                    zmeia[zmeia.length-1][1], 
+                    zmeia.length, 
+        ],)
+            }else{
+                if(pixel_IO(screen_y, zmeia[zmeia.length-1][1])) stop()
+                zmeia.push([
+                    screen_y,
+                    zmeia[zmeia.length-1][1], 
+                    zmeia.length, 
+                ],)
+            }
+        }
+        if(key1111=="ArrowDown")
+        {
+            if(screen_y >= zmeia[zmeia.length-1][0]+1){
+                if(pixel_IO(zmeia[zmeia.length-1][0]+1, zmeia[zmeia.length-1][1])) stop()
+            zmeia.push([
+                zmeia[zmeia.length-1][0]+1,
+                zmeia[zmeia.length-1][1], 
+                zmeia.length, 
+        ],)
+            }else{
+                if(pixel_IO(1, zmeia[zmeia.length-1][1])) stop()
+                zmeia.push([
+                1,
+                zmeia[zmeia.length-1][1], 
+                zmeia.length, 
+        ],)
+            }
+        }
+
+        if(zmeia[0]!=zmeia.length){
+            for (i=1; i+1<=zmeia.length; i++)
+            {
+                // zmeia[i][2]++
+            }
+        }
+
+
+        for (i=1; i+1<=zmeia.length; i++)
+        {
+            if(zmeia[i][2]>0){
+                pixel_IO(zmeia[i][0], zmeia[i][1], true)
+                zmeia[i][2]--
+                
+            }else{
+                pixel_IO(zmeia[i][0], zmeia[i][1], false)
+                zmeia.splice(i, i)
+                // print(zmeia)
+            }
+        }
+
+
+    // }
+    // setTimeout(logic, fps_timer)
+}
+
+function pixel_IO(Y, X, Bool)
+{
+    if(Bool==true)
+    {
+        $("#"+tabl[Y][X]["name"]).css('background-color', "hsl("+tabl[Y][X]["color"]+", 100%, 50%)")
+        tabl[Y][X]["enabled"] = 1
+        return tabl[Y][X]["enabled"]
+    }
+    if(Bool==false)
+    {
+        $("#"+tabl[Y][X]["name"]).css('background-color', "")
+        tabl[Y][X]["enabled"] = 0
+        return tabl[Y][X]["enabled"]
+    }
+
+if(Bool==null)
+{
+    return tabl[Y][X]["enabled"]
+}
 }
 
 </script>
