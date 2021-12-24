@@ -1,4 +1,4 @@
-var dyg_num = 0, dyg_numes = 0, dyg_ver = "v7";
+var dyg_num = 0, dyg_numes = 0, dyg_ver = "v8";
 
 console.log("скрываю видео! "+dyg_ver)
 console.log(document.location.host)
@@ -20,9 +20,13 @@ function non_video()
         document.querySelector('span#country-code').textContent = "Скрыто видео: "+parseInt(dyg_num)+" "+dyg_ver;
     }
 }
-
+if("www.youtube.com"==document.location.host){
 document.querySelector("body").onscroll = function(){
     non_video()
+}
+non_video()
+}else{
+    alert("Это не youtube.com? "+dyg_ver)
 }
 
 
