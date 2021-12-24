@@ -1,4 +1,4 @@
-alert("скрываю видео! v1")
+alert("скрываю видео! v2")
 
 var num, numes;
 
