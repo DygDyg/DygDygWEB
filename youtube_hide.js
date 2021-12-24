@@ -39,7 +39,8 @@ function non_video()
         }
     }
     if(document.querySelector('span#country-code')){
-        document.querySelector('span#country-code').textContent = num;
+        document.querySelector('span#country-code').textContent = parseInt(num);
+        console.log(num)
     }
 }
 
