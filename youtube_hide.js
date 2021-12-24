@@ -1,6 +1,6 @@
-alert("скрываю видео!")
+alert("скрываю видео! v1")
 
-
+var num, numes;
 
 
 function add_style()
