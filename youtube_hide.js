@@ -1,6 +1,6 @@
-alert("скрываю видео! v3")
+alert("скрываю видео! v4")
 
-var dyg_num, dyg_numes;
+var dyg_num = 0, dyg_numes = 0;
 
 
 function add_style()
