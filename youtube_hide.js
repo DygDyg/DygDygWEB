@@ -1,6 +1,6 @@
 var dyg_num = 0,
 	dyg_numes = 0,
-	dyg_ver = 'v8'
+	dyg_ver = 'v9'
 
 console.log('скрываю видео! ' + dyg_ver)
 console.log(document.location.host)
@@ -17,7 +17,7 @@ function non_video() {
 		}
 	}
 	if (document.querySelector('span#country-code')) {
-		document.querySelector('span#country-code').textContent = 'Скрыто видео: ' + parseInt(dyg_num) + ' ' + dyg_ver
+		document.querySelector('span#country-code').textContent = 'Скрыто видео: ' + parseInt(dyg_num) + '\\n ' + dyg_ver
 	}
 }
 
