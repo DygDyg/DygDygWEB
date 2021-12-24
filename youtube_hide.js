@@ -1,6 +1,6 @@
-console.log("скрываю видео! v5")
+var dyg_num = 0, dyg_numes = 0, dyg_ver = "v6";
 
-var dyg_num = 0, dyg_numes = 0;
+console.log("скрываю видео! "+dyg_ver)
 
 
 function add_style()
@@ -39,7 +39,7 @@ function non_video()
         }
     }
     if(document.querySelector('span#country-code')){
-        document.querySelector('span#country-code').textContent = parseInt(dyg_num);
+        document.querySelector('span#country-code').textContent = "Скрыто видео: "+parseInt(dyg_num)+" "+dyg_ver;
         // console.log(dyg_num)
     }
 }
