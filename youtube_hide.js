@@ -21,7 +21,7 @@ function non_video() {
 	}
 }
 
-if ('www.youtube.com' == document.location.host) {
+if (location.origin.indexOf('youtube.com') != -1) {
 	document.querySelector('body').onscroll = function () {
 		non_video()
 	}
