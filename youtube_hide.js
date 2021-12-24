@@ -1,6 +1,6 @@
-alert("скрываю видео! v2")
+alert("скрываю видео! v3")
 
-var num, numes;
+var dyg_num, dyg_numes;
 
 
 function add_style()
@@ -23,7 +23,7 @@ function add_style()
 function non_video()
 {
     frames = document.querySelectorAll('.style-scope.ytd-grid-renderer');
-    numes = 0;
+    dyg_numes = 0;
 
     for(let i = 0; i<frames.length;i++) {
         if(frames[i].querySelector('div#progress')!=null && frames[i].style.display != 'none' && frames[i].id !="items" && frames[i].id !="hide_video")
@@ -33,14 +33,14 @@ function non_video()
                 frames[i].style.display = 'none'
                 //frames[i].parentElement.removeChild(frames[i])
                 //frames[i].id = 'hide_video'
-                numes++
-                num++
+                dyg_numes++
+                dyg_num++
             //}
         }
     }
     if(document.querySelector('span#country-code')){
-        document.querySelector('span#country-code').textContent = parseInt(num);
-        console.log(num)
+        document.querySelector('span#country-code').textContent = parseInt(dyg_num);
+        console.log(dyg_num)
     }
 }
 
