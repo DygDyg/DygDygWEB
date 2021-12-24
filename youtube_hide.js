@@ -1,6 +1,7 @@
 var dyg_num = 0, dyg_numes = 0, dyg_ver = "v7";
 
 console.log("скрываю видео! "+dyg_ver)
+console.log(document.location.host)
 
 function non_video()
 {
