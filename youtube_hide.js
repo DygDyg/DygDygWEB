@@ -1,4 +1,4 @@
-alert("скрываю видео! v4")
+console.log("скрываю видео! v5")
 
 var dyg_num = 0, dyg_numes = 0;
 
@@ -40,7 +40,7 @@ function non_video()
     }
     if(document.querySelector('span#country-code')){
         document.querySelector('span#country-code').textContent = parseInt(dyg_num);
-        console.log(dyg_num)
+        // console.log(dyg_num)
     }
 }
 
