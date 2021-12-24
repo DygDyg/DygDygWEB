@@ -25,30 +25,6 @@ function non_video()
     frames = document.querySelectorAll('.style-scope.ytd-grid-renderer');
     numes = 0;
 
-    if(frames.length==0){
-        if(document.querySelectorAll('ytm-compact-video-renderer.item').length!=0){
-            frames = document.querySelectorAll('ytm-compact-video-renderer.item')
-            modile_func()
-        }
-        return
-    }else{
-        desktop_func()
-    }
-
-
-
-
-    //document.querySelector('span#country-code').textContent = num;
-    //return numes;
-}
-
-
-//$('.style-scope.ytd-grid-renderer').on('change', function(){
-//    console.log()
-//});
-
-function desktop_func()
-{
     for(let i = 0; i<frames.length;i++) {
         if(frames[i].querySelector('div#progress')!=null && frames[i].style.display != 'none' && frames[i].id !="items" && frames[i].id !="hide_video")
         {
@@ -66,25 +42,6 @@ function desktop_func()
         document.querySelector('span#country-code').textContent = num;
     }
 }
-
-function modile_func()
-{
-    for(let i = 0; i<frames.length;i++) {
-        if(frames[i].querySelector('.thumbnail-overlay-resume-playback-progress')!=null && frames[i].id !="hide_video")
-        {
-            if(parseInt(frames[i].querySelector('.thumbnail-overlay-resume-playback-progress').style.width)>=prochent)
-            {
-            //frames[i].style.display = 'none'
-
-            frames[i].id = 'hide_video'
-            numes++
-            num++
-            }
-        }
-    }
-}
-
-
 
 //var menuCmdprochent = GM_registerMenuCommand('Пропуск выключен', () => {
 //    let str=prompt("Запрос на ввод данных", 0);
