@@ -52,14 +52,14 @@ function desktop_func()
     for(let i = 0; i<frames.length;i++) {
         if(frames[i].querySelector('div#progress')!=null && frames[i].style.display != 'none' && frames[i].id !="items" && frames[i].id !="hide_video")
         {
-            if(parseInt(frames[i].querySelector('div#progress').style.width)>=prochent)
-            {
+            //if(parseInt(frames[i].querySelector('div#progress').style.width)>=prochent)
+            //{
                 frames[i].style.display = 'none'
                 //frames[i].parentElement.removeChild(frames[i])
                 //frames[i].id = 'hide_video'
                 numes++
                 num++
-            }
+            //}
         }
     }
     if(document.querySelector('span#country-code')){
