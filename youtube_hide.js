@@ -22,9 +22,8 @@ function non_video() {
 }
 
 if (location.origin.indexOf('youtube.com') != -1) {
-	document.querySelector('body').onscroll = function () {
-		non_video()
-	}
+	document.querySelector('body').onscroll = non_video;
+	
 	non_video()
 } else {
 	alert('Это не youtube.com? ' + dyg_ver)
