@@ -22,7 +22,7 @@ function non_video() {
 }
 
 if (location.origin.indexOf('youtube.com') != -1) {
-	document.querySelector('body').onscroll = non_video;
+	document.querySelector('body').onscroll = non_video
 	
 	non_video()
 } else {
