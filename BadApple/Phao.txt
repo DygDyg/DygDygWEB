@@ -1,7 +1,13 @@
 Phao - 2 Phut Hon:ДугДуг:28:
 
 :frame:
-                                                                                                                                                                                            
+Microsoft Windows [Version 10.0.22000.778]
+(c) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+C:\Users\DygDyg\Desktop> python Phao.py
+
+Starting....
+_
                                                                                                                                                                                             
                                                                                                                                                                                             
                                                                                                                                                                                             
