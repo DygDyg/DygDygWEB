@@ -8,53 +8,102 @@ C:\Users\DygDyg\Desktop> python Phao.py
 
 Starting....
 _
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            
-                                                                                                                                                                                            .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                                                                                                  .
+:frame:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                          UNIVERSE BSOD FATAL ERROR
+                                              
+                                              0x65 0x72 0x72 0x6f 0x72 0x3a 0x20 0x72 0x65 0x61 0x6c 0x20 0x77 0x6f 0x72 0x6c 0x64 
+                                              0x20 0x64 0x6f 0x65 0x73 0x20 0x6e 0x6f 0x74 0x20 0x66 0x6f 0x75 0x6e 0x64 0x0a 0x65 
+                                              0x72 0x72 0x6f 0x72 0x3a 0x20 0x33 0x44 0x20 0x64 0x6f 0x65 0x73 0x20 0x6e 0x6f 0x74 
+                                              0x20 0x65 0x78 0x69 0x73 0x74 0x0a 0x63 0x6f 0x6e 0x74 0x61 0x63 0x74 0x20 0x74 0x68 
+                                              0x65 0x20 0x61 0x64 0x6d 0x69 0x6e 0x69 0x73 0x74 0x72 0x61 0x74 0x6f 0x72 0x20 0x66 
+                                              0x6f 0x72 0x20 0x6d 0x6f 0x72 0x65 0x20 0x69 0x6e 0x66 0x6f 0x72 0x6d 0x61 0x74 0x69 
+                                                                                  0x6f 0x6e
+                                              
+                                                                      error: real world does not found
+                                                                          error: 3D does not exist
+
+                                                            contact the worlds administrator for more information
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                                                                                                  .
 :frame:
 ..                                                                                                                                                                                 
 .                                                                                                                                                                                  
