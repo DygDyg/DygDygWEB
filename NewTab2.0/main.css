@@ -1,0 +1,25 @@
+body {
+    background-color: rgb(32, 32, 32);
+    color: rgb(211, 211, 211);
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    align-content: center;
+    align-items: stretch;
+    flex-direction: column;
+    background-size: cover;
+}
+#search {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 2% 5% 2% 5%;
+}
+
+.btn {
+    --bs-btn-bg: #5a5959c2;
+
+}
