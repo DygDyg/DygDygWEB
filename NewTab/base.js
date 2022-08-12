@@ -1,4 +1,4 @@
-let ver = 0.7
+let ver = 0.8
 
 if (localStorage.getItem('background')) {
 	$('body').css('background-image', 'url(' + localStorage.getItem('background') + ')')
@@ -67,7 +67,7 @@ $('#Button_Settings_Cover').click(settings)
 resize_info()
 
 
-if (ShowCard=="false") {
+if (ShowCard=="true") {
 	$('#cards').css({
 		display: 'none'
 	})
@@ -238,7 +238,7 @@ function add_card(url) {
 		console.log(url.split('/')[2])
 		names[num - 1] = url.split('/')[2]
 	}
-	// console.log(names[num - 1])
+
 	if (names[num - 1] != '*') {
 		$('#card_' + num).append('<div class="name_tag">' + names[num - 1] + '</div>')
 	}
