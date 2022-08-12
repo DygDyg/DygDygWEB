@@ -1,10 +1,9 @@
-let ver = 0.6
+let ver = 0.7
 
 if (localStorage.getItem('background')) {
 	$('body').css('background-image', 'url(' + localStorage.getItem('background') + ')')
 }
-
-function GetBackground() {
+;-function GetBackground() {
 	let result = prompt('Введи ссылку на обои', background)
 
 	if (result != null && result != '') {
@@ -53,7 +52,8 @@ $(document).ready(function () {
 		}
 	})
 })
-
+$('body').append('<div id="SpoilerGroup"><div id="Spoiler"></div></div>')
+$('#SpoilerGroup').click(ShowCardF)
 $('body').append('<div id="cards"></div>')
 
 for (let i = 0; i < urls.length; i++) {
@@ -65,6 +65,63 @@ $('body').prepend('<div id="ver">' + ver + '</div>')
 
 $('#Button_Settings_Cover').click(settings)
 resize_info()
+
+
+if (ShowCard=="false") {
+	$('#cards').css({
+		display: 'none'
+	})
+
+	$('#Spoiler').css({
+		width: '2%',
+		'border-top-left-radius': '5px',
+		'border-top-right-radius': '5px',
+		'border-bottom-right-radius': '5px',
+		'border-bottom-left-radius': '5px'
+	})
+} else {
+	$('#cards').css({
+		display: 'flex'
+	})
+
+	$('#Spoiler').css({
+		width: '97%',
+		'border-top-left-radius': '5px',
+		'border-top-right-radius': '5px',
+		'border-bottom-right-radius': '0px',
+		'border-bottom-left-radius': '0px'
+	})
+}
+
+function ShowCardF() {
+	ShowCard = !ShowCard
+	localStorage.setItem('ShowCard', ShowCard)
+	if (ShowCard) {
+		$('#cards').css({
+			display: 'none'
+		})
+
+		$('#Spoiler').css({
+			width: '2%',
+			'border-top-left-radius': '5px',
+			'border-top-right-radius': '5px',
+			'border-bottom-right-radius': '5px',
+			'border-bottom-left-radius': '5px'
+		})
+	} else {
+		$('#cards').css({
+			display: 'flex'
+		})
+
+		$('#Spoiler').css({
+			width: '97%',
+			'border-top-left-radius': '5px',
+			'border-top-right-radius': '5px',
+			'border-bottom-right-radius': '0px',
+			'border-bottom-left-radius': '0px'
+		})
+	}
+}
 
 function settings(th) {
 	if (th.shiftKey == true) {

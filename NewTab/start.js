@@ -22,7 +22,14 @@ if (!localStorage.getItem('background')) {
     alert('background База загружена')
 }
 
+if (!localStorage.getItem('ShowCard')) {
+	localStorage.setItem('ShowCard', true)
+	alert('ShowCard База загружена')
+}
+
 background = localStorage.getItem('background')
 urls = localStorage.getItem('urls').split(',')
 names = localStorage.getItem('names').split(',')
 images = localStorage.getItem('images').split(',')
+ShowCard = localStorage.getItem('ShowCard')
+
