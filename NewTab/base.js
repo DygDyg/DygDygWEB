@@ -1,8 +1,7 @@
-// if (!localStorage.getItem('image'))
-// {
-// 	localStorage.setItem('image', "")
-// }
-let ver = 0.2;
+let ver = 0.3;
+
+
+
 if (localStorage.getItem('background')) {
 	$('body').css('background-image', 'url(' + localStorage.getItem('background') + ')')
 }
