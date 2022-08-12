@@ -1,4 +1,8 @@
-let ver = 0.8
+let ver = 0.9
+
+function stringToBool(val) {
+    return (val + '').toLowerCase() === 'true';
+}
 
 if (localStorage.getItem('background')) {
 	$('body').css('background-image', 'url(' + localStorage.getItem('background') + ')')
@@ -66,8 +70,8 @@ $('body').prepend('<div id="ver">' + ver + '</div>')
 $('#Button_Settings_Cover').click(settings)
 resize_info()
 
-
-if (ShowCard=="true") {
+console.log(ShowCard)
+if (ShowCard==false) {
 	$('#cards').css({
 		display: 'none'
 	})
@@ -92,11 +96,15 @@ if (ShowCard=="true") {
 		'border-bottom-left-radius': '0px'
 	})
 }
+console.log(stringToBool("false"))
+
 
 function ShowCardF() {
 	ShowCard = !ShowCard
 	localStorage.setItem('ShowCard', ShowCard)
-	if (ShowCard) {
+	console.log(ShowCard)
+
+	if (!ShowCard) {
 		$('#cards').css({
 			display: 'none'
 		})

@@ -1,3 +1,7 @@
+function stringToBool(val) {
+    return (val + '').toLowerCase() === 'true';
+}
+
 if (!localStorage.getItem('urls')) {
 	urls = ['https://yandex.ru/', 'https://vk.com', 'https://youtube.com/feed/subscriptions']
 	localStorage.setItem('urls', urls)
@@ -31,5 +35,5 @@ background = localStorage.getItem('background')
 urls = localStorage.getItem('urls').split(',')
 names = localStorage.getItem('names').split(',')
 images = localStorage.getItem('images').split(',')
-ShowCard = localStorage.getItem('ShowCard')
+ShowCard = stringToBool(localStorage.getItem('ShowCard'))
 
