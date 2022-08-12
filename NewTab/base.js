@@ -42,7 +42,11 @@ $(document).ready(function () {
 			if ($(this).val().startsWith('http://') || $(this).val().startsWith('https://') || $(this).val().startsWith('file://') || $(this).val().startsWith('ftp://')) {
 				document.location.href = $(this).val()
 			} else {
-				document.location.href = 'https://yandex.ru/search/?text=' + $(this).val()
+				if (event.shiftKey) {
+					document.location.href = 'https://www.google.ru/search?q=' + $(this).val()
+				} else {
+					document.location.href = 'https://yandex.ru/search/?text=' + $(this).val()
+				}
 			}
 			// console.log($(this).val().startsWith("http://"))
 			//alert($(this).val());
