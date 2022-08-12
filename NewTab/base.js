@@ -2,7 +2,7 @@
 // {
 // 	localStorage.setItem('image', "")
 // }
-
+let ver = 0.2;
 if (localStorage.getItem('background')) {
 	$('body').css('background-image', 'url(' + localStorage.getItem('background') + ')')
 }
@@ -60,7 +60,10 @@ $('body').append('<div id="cards"></div>')
 for (let i = 0; i < urls.length; i++) {
 	add_card(urls[i])
 }
+
 $('body').prepend('<div id="Button_Settings_Cover"><div id="Button_Settings" title = "Нажми с шифтом, чтобы сменить фон"></div></div>')
+$('body').prepend('<div id="ver">'+ver+'</div>')
+
 $('#Button_Settings_Cover').click(settings)
 resize_info()
 
