@@ -1,4 +1,4 @@
-let ver = 0.9
+let ver = 0.10
 
 function stringToBool(val) {
     return (val + '').toLowerCase() === 'true';
@@ -66,14 +66,20 @@ for (let i = 0; i < urls.length; i++) {
 
 $('body').prepend('<div id="Button_Settings_Cover"><div id="Button_Settings" title = "Нажми с шифтом, чтобы сменить фон"></div></div>')
 $('body').prepend('<div id="ver">' + ver + '</div>')
+$('body').append('<div id="clockG"><div id="clock">12:34:56</div></div>')
+
 
 $('#Button_Settings_Cover').click(settings)
 resize_info()
 
-console.log(ShowCard)
+
 if (ShowCard==false) {
 	$('#cards').css({
 		display: 'none'
+	})
+
+	$('#clockG').css({
+		display: 'flex'
 	})
 
 	$('#Spoiler').css({
@@ -88,6 +94,10 @@ if (ShowCard==false) {
 		display: 'flex'
 	})
 
+	$('#clockG').css({
+		display: 'none'
+	})
+
 	$('#Spoiler').css({
 		width: '97%',
 		'border-top-left-radius': '5px',
@@ -96,17 +106,20 @@ if (ShowCard==false) {
 		'border-bottom-left-radius': '0px'
 	})
 }
-console.log(stringToBool("false"))
+
 
 
 function ShowCardF() {
 	ShowCard = !ShowCard
 	localStorage.setItem('ShowCard', ShowCard)
-	console.log(ShowCard)
+
 
 	if (!ShowCard) {
 		$('#cards').css({
 			display: 'none'
+		})
+		$('#clockG').css({
+			display: 'flex'
 		})
 
 		$('#Spoiler').css({
@@ -119,6 +132,10 @@ function ShowCardF() {
 	} else {
 		$('#cards').css({
 			display: 'flex'
+		})
+
+		$('#clockG').css({
+			display: 'none'
 		})
 
 		$('#Spoiler').css({
@@ -253,3 +270,8 @@ function add_card(url) {
 
 	num++
 }
+
+setInterval(()=> {
+	let time = new Date();
+	$("#clock").text(time.getHours()+":"+time.getMinutes()+":"+time.getSeconds());
+}, 1000)

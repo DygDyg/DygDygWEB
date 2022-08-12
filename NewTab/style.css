@@ -182,6 +182,14 @@ body {
     left: 10px;
 }
 
-:root{
-    --MainFont: 'BebasBold', sans-serif;
+#clockG {
+    display: flex;
+    align-items: center;
+    font-size: 100px;
+    justify-content: center;
+}
+
+#clock {
+    color: wheat;
+    font-family: 'BebasBold', sans-serif;
 }
