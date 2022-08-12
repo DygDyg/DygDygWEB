@@ -1,4 +1,4 @@
-let ver = 0.10
+let ver = 1.0
 
 function stringToBool(val) {
     return (val + '').toLowerCase() === 'true';
