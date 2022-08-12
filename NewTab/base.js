@@ -1,4 +1,4 @@
-let ver = 0.5
+let ver = 0.6
 
 if (localStorage.getItem('background')) {
 	$('body').css('background-image', 'url(' + localStorage.getItem('background') + ')')
@@ -31,7 +31,7 @@ function resize_info() {
 
 num = 1
 $('body').append('<div id="searchs"></div>')
-$('#searchs').append('<input id="search" type="text" placeholder="Искать в яндекс">')
+$('#searchs').append('<input id="search" type="text" placeholder="Искать в яндекс, Shift - google, ctrl - youtube ">')
 
 $(document).ready(function () {
 	$('#search').keydown(function (e) {
