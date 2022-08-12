@@ -1,4 +1,4 @@
-let ver = 0.4
+let ver = 0.5
 
 if (localStorage.getItem('background')) {
 	$('body').css('background-image', 'url(' + localStorage.getItem('background') + ')')
@@ -41,6 +41,8 @@ $(document).ready(function () {
 			} else {
 				if (event.shiftKey) {
 					document.location.href = 'https://www.google.ru/search?q=' + $(this).val()
+				} else if (event.ctrlKey) {
+					document.location.href = 'https://www.youtube.com/results?search_query=' + $(this).val()
 				} else {
 					document.location.href = 'https://yandex.ru/search/?text=' + $(this).val()
 				}
