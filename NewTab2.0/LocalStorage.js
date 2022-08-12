@@ -19,6 +19,6 @@ function SavedData(dat)
 
     
 }
-// localStorage.setItem('names', 1)
-// console.log(localStorage.getItem('names'), 123)
+localStorage.setItem('names', 1)
+console.log(localStorage.getItem('names'))
 // SavedData(data)

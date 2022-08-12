@@ -81,6 +81,12 @@ body {
     width: 380px;
     margin: 1px 1px 1px 10px;
 }
+.URLimage {
+    background-color: #3a3a3ad9;
+    color: white;
+    width: 380px;
+    margin: 1px 1px 1px 10px;
+}
 
 #Button_Settings {
     position: fixed;
