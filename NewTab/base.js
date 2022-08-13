@@ -39,7 +39,7 @@ $('#searchs').append('<input id="search" type="text" placeholder="Искать �
 $(document).ready(function () {
 	$('#search').keydown(function (e) {
 		if (e.keyCode === 13) {
-			if ($(this).val().startsWith('http://') || $(this).val().startsWith('https://') || $(this).val().startsWith('file://') || $(this).val().startsWith('ftp://')) {
+			if ($(this).val().startsWith('http://') || $(this).val().startsWith('https://') || $(this).val().startsWith('file://') || $(this).val().startsWith('ftp://')|| $(this).val().startsWith('steam://')|| $(this).val().startsWith('magnet:?')) {
 				document.location.href = $(this).val()
 			} else {
 				if (event.shiftKey) {
