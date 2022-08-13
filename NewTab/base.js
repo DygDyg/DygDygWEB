@@ -1,4 +1,4 @@
-let ver = 1.1
+let ver = 1.2
 
 function stringToBool(val) {
 	return (val + '').toLowerCase() === 'true'
@@ -34,7 +34,7 @@ function resize_info() {
 
 num = 1
 $('body').append('<div id="searchs"></div>')
-$('#searchs').append('<input id="search" type="text" placeholder="Искать в яндекс, Shift - google, ctrl - youtube, alt - darklibria">')
+$('#searchs').append('<input id="search" type="text" placeholder="Искать в яндекс, Shift - google, Ctrl - youtube, Alt - darklibria">')
 
 $(document).ready(function () {
 	$('#search').keydown(function (e) {
@@ -48,7 +48,6 @@ $(document).ready(function () {
 					document.location.href = 'https://www.youtube.com/results?search_query=' + $(this).val()
 				}else if (event.altKey) {
 					document.location.href = 'https://darklibria.it/search?find=' + $(this).val()
-					
 				} else {
 					document.location.href = 'https://yandex.ru/search/?text=' + $(this).val()
 				}
@@ -181,6 +180,7 @@ function add_button() {
 	$('#settings').append('<div style="margin: 5px 0px 5px 0px; display: flex; flex-wrap: nowrap;" id="line_' + i + '">')
 	$('#line_' + i).append('<input class="NameSite"  placeholder="Название сайта" maxlength="13" id=NameSite_' + i + '>')
 	$('#line_' + i).append('<input style="margin: 0px 2px 0px 2px;" class="URLSite" id=URLSite_' + i + ' placeholder="URL адрес сайта">')
+	$('#line_' + i).append('<input style="margin: 0px 2px 0px 2px;" class="URLimage" id=URLimage_' + i + ' placeholder="URL ссылка на миниатюру">')
 	$('#line_' + i).append('<div id="delete_' + i + '" style="cursor: pointer; margin: 0px 2px 0px 2px; background-color: #ff4444eb; color: white; width: 36px; height: 21px; display: flex; align-items: center; justify-content: center;" title="удалить элемент"><div style=" font-size: 19px; font-weight: 900; -webkit-user-select: none; ">del</div></div>')
 	$('#delete_' + i).click(function () {
 		delete_button(i)
