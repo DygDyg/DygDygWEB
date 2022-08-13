@@ -1,7 +1,7 @@
-let ver = 1.0
+let ver = 1.1
 
 function stringToBool(val) {
-    return (val + '').toLowerCase() === 'true';
+	return (val + '').toLowerCase() === 'true'
 }
 
 if (localStorage.getItem('background')) {
@@ -34,18 +34,21 @@ function resize_info() {
 
 num = 1
 $('body').append('<div id="searchs"></div>')
-$('#searchs').append('<input id="search" type="text" placeholder="Искать в яндекс, Shift - google, ctrl - youtube ">')
+$('#searchs').append('<input id="search" type="text" placeholder="Искать в яндекс, Shift - google, ctrl - youtube, alt - darklibria">')
 
 $(document).ready(function () {
 	$('#search').keydown(function (e) {
 		if (e.keyCode === 13) {
-			if ($(this).val().startsWith('http://') || $(this).val().startsWith('https://') || $(this).val().startsWith('file://') || $(this).val().startsWith('ftp://')|| $(this).val().startsWith('steam://')|| $(this).val().startsWith('magnet:?')) {
+			if ($(this).val().startsWith('http://') || $(this).val().startsWith('https://') || $(this).val().startsWith('file://') || $(this).val().startsWith('ftp://') || $(this).val().startsWith('steam://') || $(this).val().startsWith('magnet:?')) {
 				document.location.href = $(this).val()
 			} else {
 				if (event.shiftKey) {
 					document.location.href = 'https://www.google.ru/search?q=' + $(this).val()
 				} else if (event.ctrlKey) {
 					document.location.href = 'https://www.youtube.com/results?search_query=' + $(this).val()
+				}else if (event.altKey) {
+					document.location.href = 'https://darklibria.it/search?find=' + $(this).val()
+					
 				} else {
 					document.location.href = 'https://yandex.ru/search/?text=' + $(this).val()
 				}
@@ -68,12 +71,10 @@ $('body').prepend('<div id="Button_Settings_Cover"><div id="Button_Settings" tit
 $('body').prepend('<div id="ver">' + ver + '</div>')
 $('body').append('<div id="clockG"><div id="clock">12:34:56</div></div>')
 
-
 $('#Button_Settings_Cover').click(settings)
 resize_info()
 
-
-if (ShowCard==false) {
+if (ShowCard == false) {
 	$('#cards').css({
 		display: 'none'
 	})
@@ -107,12 +108,9 @@ if (ShowCard==false) {
 	})
 }
 
-
-
 function ShowCardF() {
 	ShowCard = !ShowCard
 	localStorage.setItem('ShowCard', ShowCard)
-
 
 	if (!ShowCard) {
 		$('#cards').css({
@@ -271,7 +269,7 @@ function add_card(url) {
 	num++
 }
 
-setInterval(()=> {
-	let time = new Date();
-	$("#clock").text(time.getHours()+":"+time.getMinutes()+":"+time.getSeconds());
+setInterval(() => {
+	let time = new Date()
+	$('#clock').text(time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds())
 }, 1000)
