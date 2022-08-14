@@ -1,4 +1,4 @@
-let ver = 1.2
+let ver = 1.3
 
 function stringToBool(val) {
 	return (val + '').toLowerCase() === 'true'
@@ -235,6 +235,7 @@ function add_card(url) {
 	// $('#cards').append('<a class="card" id="card_' + num + '" style="background-image: url(http://mini.s-shot.ru/?' + url + ')" href="' + url + '">')
 	// console.log(image, 2)
 	$('#cards').append('<a class="card" id="card_' + num + '" style="background-image: url(' + images[num] + ')" href="' + url + '">')
+
 	// $('#cards').append('<a class="card" id="card_' + num + '" style="" href="' + url + '">')
 
 	$('#cards').mousedown(function (event) {
@@ -258,13 +259,15 @@ function add_card(url) {
 		}
 	})
 	if (names[num - 1] == 'undefined' || names[num - 1] == '') {
-		console.log(url.split('/')[2])
+
 		names[num - 1] = url.split('/')[2]
 	}
 
 	if (names[num - 1] != '*') {
-		$('#card_' + num).append('<div class="name_tag">' + names[num - 1] + '</div>')
-	}
+
+		$('#card_' + num).append('<div class="favicon" style="background-image: url('+url.split('/')[0]+'//'+url.split('/')[2]+'/favicon.ico);"></div>')
+
+		$('#card_' + num).append('<div class="name_tag">' + names[num - 1] + '</div>')	}
 
 	num++
 }
