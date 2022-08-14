@@ -7,7 +7,7 @@ function stringToBool(val) {
 if (localStorage.getItem('background')) {
 	$('body').css('background-image', 'url(' + localStorage.getItem('background') + ')')
 }
-;-function GetBackground() {
+function GetBackground() {
 	let result = prompt('Введи ссылку на обои', background)
 
 	if (result != null && result != '') {
