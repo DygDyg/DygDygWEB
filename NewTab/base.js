@@ -23,6 +23,7 @@ jQuery(document).ready(function ($) {
 	})
 })
 
+
 function resize_info() {
 	;(function ($) {
 		//const windowInnerWidth = window.innerWidth
