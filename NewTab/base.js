@@ -1,4 +1,4 @@
-let ver = 1.3
+let ver = 1.4
 
 function stringToBool(val) {
 	return (val + '').toLowerCase() === 'true'
@@ -67,8 +67,27 @@ for (let i = 0; i < urls.length; i++) {
 }
 
 $('body').prepend('<div id="Button_Settings_Cover"><div id="Button_Settings" title = "Нажми с шифтом, чтобы сменить фон"></div></div>')
-$('body').prepend('<div id="ver">' + ver + '</div>')
+$('body').prepend('<div id="ver">' + "VER: "+ ver + '</div>')
+
 $('body').append('<div id="clockG"><div id="clock">12:34:56</div></div>')
+
+
+
+	$.ajax({
+		url: "https://api.ipify.org?format=jsonp&callback=?",
+		jsonp: "callback",
+		dataType: "jsonp",
+		data: {
+			q: "select title,abstract,url from search.news where query=\"cat\"",
+			format: "json"
+		},
+		success: function(json) {
+
+			// $('body').prepend('<div id="ver">'+ "VER: "+ ver + " IP: " + json.ip + '</div>')
+			$("#ver").text("VER: "+ ver + " IP: " + json.ip)
+			// alert(json.ip)
+		}
+	})
 
 $('#Button_Settings_Cover').click(settings)
 resize_info()
@@ -234,7 +253,8 @@ function add_card(url) {
 	}
 	// $('#cards').append('<a class="card" id="card_' + num + '" style="background-image: url(http://mini.s-shot.ru/?' + url + ')" href="' + url + '">')
 	// console.log(image, 2)
-	$('#cards').append('<a class="card" id="card_' + num + '" style="background-image: url(' + images[num] + ')" href="' + url + '">')
+
+	$('#cards').append('<a class="card" id="card_' + num + '" style="background-image: url(' + images[num] +')" href="' + url + '">')
 
 	// $('#cards').append('<a class="card" id="card_' + num + '" style="" href="' + url + '">')
 
