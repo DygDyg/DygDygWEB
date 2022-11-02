@@ -1,20 +1,150 @@
 <head></head>
 
 <body>
-    <button data-jscolor="{onInput:'update(this)', preset:'dark', width:250, paletteCols:150, value:'rgb(0,0,0)'}"></button>
-    <pre id="out"></pre>
+    <color>
+        <button
+            data-jscolor="{onInput:'update(this)', preset:'dark', width:250, paletteCols:150, value:'rgb(0,0,0)'}"></button>
+        <pre id="out">0,0,0</pre>
+    </color>
+    <note1>
+        <table class="wikitable">
+
+            <tbody>
+                <tr>
+                    <th _msthash="1777802" _msttexthash="629525">Блоки
+                    </th>
+                    <th _msthash="1777932" _msttexthash="2952365">Их использование
+                    </th>
+                    <th _msthash="1778062" _msttexthash="629525">Блоки
+                    </th>
+                    <th _msthash="1778192" _msttexthash="2952365">Их использование
+                    </th>
+                    <th _msthash="1778322" _msttexthash="629525">Блоки
+                    </th>
+                    <th _msthash="1778452" _msttexthash="2952365">Их использование
+                    </th>
+                </tr>
+                <tr>
+                    <td><code>1.2.3</code>
+                    </td>
+                    <td _msthash="1777711" _msttexthash="4712968">RGB значения цвета волос
+                    </td>
+                    <td><code>17.18.19</code>
+                    </td>
+                    <td _msthash="1777971" _msttexthash="8762169">RGB значения головного аксессуара
+                    </td>
+                    <td><code>33</code>
+                    </td>
+                    <td _msthash="1778231" _msttexthash="1861392">Стиль бороды
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>4.5.6</code>
+                    </td>
+                    <td _msthash="1777906" _msttexthash="9292439">RGB значения вторичного цвета волос
+                    </td>
+                    <td><code>20.21.22</code>
+                    </td>
+                    <td _msthash="1778166" _msttexthash="6374563">RGB значения разметки головы
+                    </td>
+                    <td><code>34</code>
+                    </td>
+                    <td _msthash="1778426" _msttexthash="1620463">Стиль волос
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>7.8.9</code>
+                    </td>
+                    <td _msthash="1778101" _msttexthash="5109767">RGB значения цвета бороды
+                    </td>
+                    <td><code>23.24.25</code>
+                    </td>
+                    <td _msthash="1778361" _msttexthash="6367023">RGB значения маркировки тела
+                    </td>
+                    <td><code>35</code>
+                    </td>
+                    <td _msthash="1778621" _msttexthash="6694103">Стиль аксессуаров для головы
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>10.11.12</code>
+                    </td>
+                    <td _msthash="1778296" _msttexthash="9298991">RGB значения цвета вторичной бороды
+                    </td>
+                    <td><code>26.27.28</code>
+                    </td>
+                    <td _msthash="1778556" _msttexthash="7288333">RGB значения маркировки хвоста
+                    </td>
+                    <td><code>36</code>
+                    </td>
+                    <td _msthash="1778816" _msttexthash="5025696">Стиль маркировки головы
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>13</code>
+                    </td>
+                    <td>
+                        <font _mstmutation="1" _msthash="1778491" _msttexthash="1395069">Тонна шкур</font>
+                        <code>1…220</code> (<code>0…F</code>)
+                    </td>
+                    <td><code>29.30.31</code>
+                    </td>
+                    <td _msthash="1778751" _msttexthash="4324151">RGB значения цвета глаз
+                    </td>
+                    <td><code>37</code>
+                    </td>
+                    <td _msthash="1779011" _msttexthash="4273984">Стиль маркировки тела
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>14.15.16</code>
+                    </td>
+                    <td _msthash="1778686" _msttexthash="4329429">RGB значения цвета меха
+                    </td>
+                    <td><code>32</code>
+                    </td>
+                    <td>
+                        <font _mstmutation="1" _msthash="1778946" _msttexthash="335660">Пол
+                        </font>
+                        <ul>
+                            <li _msthash="2467803" _msttexthash="3470896">≤ 573 — женщина</li>
+                            <li _msthash="2467933" _msttexthash="3472755">≥ 574 — мужчина</li>
+                            <li _msthash="2468063" _msttexthash="6783738">≥ 801 — неопределенный пол</li>
+                        </ul>
+                    </td>
+                    <td><code>38</code>
+                    </td>
+                    <td _msthash="1779206" _msttexthash="5025098">Стиль маркировки хвоста
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </note1>
 </body>
 <style>
     body {
-    background-color: #2a2a2a;
-    color: #d1d1d1;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
+        color: #dfdfdf;
+        background-color: #272727;
+    }
+
+    td {
+    border: 1px solid #a2a9b1;
 }
 
+    .wikitable {
+        border-color: rgb(72, 78, 81);
+        margin: 1em 0;
+        border: 2px solid #a2a9b1;
+        border-collapse: collapse;
+    }
+
+    #color {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+    }
 </style>
 <script src="jscolor.js"></script>
 
@@ -28,15 +158,15 @@
 
     function update(picker) {
 
-       document.getElementById('out').innerHTML = [
+        document.getElementById('out').innerHTML = [
 
-       decToHex(Math.round(picker.channel('R')/255*4095)),
-       decToHex(Math.round(picker.channel('G')/255*4095)),
-       decToHex(Math.round(picker.channel('B')/255*4095)),
+            decToHex(Math.round(picker.channel('R') / 255 * 4095)),
+            decToHex(Math.round(picker.channel('G') / 255 * 4095)),
+            decToHex(Math.round(picker.channel('B') / 255 * 4095)),
 
-    ]
-    //    console.log('G '+ hexTodec(picker.channel('G')/255*4095))
-    //    console.log('B '+ hexTodec(picker.channel('B')/255*4095))
+        ]
+        //    console.log('G '+ hexTodec(picker.channel('G')/255*4095))
+        //    console.log('B '+ hexTodec(picker.channel('B')/255*4095))
     }
 
 </script>
