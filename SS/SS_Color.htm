@@ -1,0 +1,42 @@
+<head></head>
+
+<body>
+    <button data-jscolor="{onInput:'update(this)', preset:'dark', width:250, paletteCols:150, value:'rgb(0,0,0)'}"></button>
+    <pre id="out"></pre>
+</body>
+<style>
+    body {
+    background-color: #2a2a2a;
+    color: #d1d1d1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+</style>
+<script src="jscolor.js"></script>
+
+<script>
+    function decToHex(n) {
+        return Number(n).toString(16);
+    }
+    function hexTodec(hex) {
+        return parseInt(hex, 16);
+    }
+
+    function update(picker) {
+
+       document.getElementById('out').innerHTML = [
+
+       decToHex(Math.round(picker.channel('R')/255*4095)),
+       decToHex(Math.round(picker.channel('G')/255*4095)),
+       decToHex(Math.round(picker.channel('B')/255*4095)),
+
+    ]
+    //    console.log('G '+ hexTodec(picker.channel('G')/255*4095))
+    //    console.log('B '+ hexTodec(picker.channel('B')/255*4095))
+    }
+
+</script>
