@@ -193,8 +193,9 @@ body {
 #clockG {
     display: flex;
     align-items: center;
-    font-size: 100px;
+    font-size: 200px;
     justify-content: center;
+    -webkit-user-select: none;
 }
 
 #clock {

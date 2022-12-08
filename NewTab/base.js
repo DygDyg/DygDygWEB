@@ -90,6 +90,73 @@ $('body').append('<div id="clockG"><div id="clock">12:34:56</div></div>')
 		}
 	})
 
+	function changeColor(time) {
+		//rgb
+		let colors = [0, 0, 0];
+
+		function colorTemperature2rgb(kelvin) {
+			var temperature = kelvin / 100.0;
+			var red, green, blue;
+		
+			if (temperature < 66.0) {
+				red = 255;
+			} else {
+				red = temperature - 55.0;
+				red =
+					351.97690566805693 +
+					0.114206453784165 * red -
+					40.25366309332127 * Math.log(red);
+					// red = Math.max(0, Math.min(255, red));
+		
+			}
+		
+			if (temperature < 66.0) {
+				green = temperature - 2;
+				green =
+					-155.25485562709179 -
+					0.44596950469579133 * green +
+					104.49216199393888 * Math.log(green);
+				if (green < 0) green = 0;
+				if (green > 255) green = 255;
+			} else {
+				green = temperature - 50.0;
+				green =
+					325.4494125711974 +
+					0.07943456536662342 * green -
+					28.0852963507957 * Math.log(green);
+		
+					green = Math.max(0, Math.min(255, green));
+			}
+		
+			if (temperature >= 66.0) {
+				blue = 255;
+			} else {
+				if (temperature <= 20.0) {
+					blue = 0;
+				} else {
+					blue = temperature - 10;
+					blue =
+						-254.76935184120902 +
+						0.8274096064007395 * blue +
+						115.67994401066147 * Math.log(blue);
+					blue = Math.max(0, Math.min(255, blue));
+				}
+			}
+		
+			return {
+				red: Math.round(red),
+				blue: Math.round(blue),
+				green: Math.round(green)
+			};
+		};
+		
+		const {red, green, blue} = colorTemperature2rgb(3500);
+		let color = "rgba(" + red + "," + green + "," + blue + ",1)"
+		// document.body.style.backgroundColor = color
+		return colors
+
+	  }
+
 $('#Button_Settings_Cover').click(settings)
 resize_info()
 
@@ -295,5 +362,15 @@ function add_card(url) {
 
 setInterval(() => {
 	let time = new Date()
-	$('#clock').text(time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds())
+	let Hours = time.getHours()
+	let Minutes = time.getMinutes()
+	let Seconds = time.getSeconds()
+
+	if(time.getHours()<10) Hours = "0"+time.getHours()
+	if(time.getMinutes()<10) Minutes = "0"+time.getMinutes()
+	if(time.getSeconds()<10) Seconds = "0"+time.getSeconds()
+	
+	$('#clock').text(Hours + ':' + Minutes + ':' + Seconds)
+	// let colorT = changeColor(time)
+	// $('#clock').css({'color': 'rgb('+colorT[0]+', '+colorT[1]+','+colorT[2]+')'})
 }, 1000)
