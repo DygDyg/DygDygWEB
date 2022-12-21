@@ -1,4 +1,5 @@
 let ver = 1.4
+let clock_en = true
 
 function stringToBool(val) {
 	return (val + '').toLowerCase() === 'true'
@@ -25,7 +26,7 @@ jQuery(document).ready(function ($) {
 
 
 function resize_info() {
-	;(function ($) {
+	; (function ($) {
 		//const windowInnerWidth = window.innerWidth
 		//const windowInnerHeight = window.innerHeight
 		//$('.card').css('height', window.innerWidth / 15);
@@ -47,7 +48,7 @@ $(document).ready(function () {
 					document.location.href = 'https://www.google.ru/search?q=' + $(this).val()
 				} else if (event.ctrlKey) {
 					document.location.href = 'https://www.youtube.com/results?search_query=' + $(this).val()
-				}else if (event.altKey) {
+				} else if (event.altKey) {
 					document.location.href = 'https://darklibria.it/search?find=' + $(this).val()
 				} else {
 					document.location.href = 'https://yandex.ru/search/?text=' + $(this).val()
@@ -68,94 +69,94 @@ for (let i = 0; i < urls.length; i++) {
 }
 
 $('body').prepend('<div id="Button_Settings_Cover"><div id="Button_Settings" title = "Нажми с шифтом, чтобы сменить фон"></div></div>')
-$('body').prepend('<div id="ver">' + "VER: "+ ver + '</div>')
+$('body').prepend('<div id="ver">' + "VER: " + ver + '</div>')
 
 $('body').append('<div id="clockG"><div id="clock">12:34:56</div></div>')
 
 
 
-	$.ajax({
-		url: "https://api.ipify.org?format=jsonp&callback=?",
-		jsonp: "callback",
-		dataType: "jsonp",
-		data: {
-			q: "select title,abstract,url from search.news where query=\"cat\"",
-			format: "json"
-		},
-		success: function(json) {
+$.ajax({
+	url: "https://api.ipify.org?format=jsonp&callback=?",
+	jsonp: "callback",
+	dataType: "jsonp",
+	data: {
+		q: "select title,abstract,url from search.news where query=\"cat\"",
+		format: "json"
+	},
+	success: function (json) {
 
-			// $('body').prepend('<div id="ver">'+ "VER: "+ ver + " IP: " + json.ip + '</div>')
-			$("#ver").text("VER: "+ ver + " IP: " + json.ip)
-			// alert(json.ip)
+		// $('body').prepend('<div id="ver">'+ "VER: "+ ver + " IP: " + json.ip + '</div>')
+		$("#ver").text("VER: " + ver + " IP: " + json.ip)
+		// alert(json.ip)
+	}
+})
+
+function changeColor(time) {
+	//rgb
+	let colors = [0, 0, 0];
+
+	function colorTemperature2rgb(kelvin) {
+		var temperature = kelvin / 100.0;
+		var red, green, blue;
+
+		if (temperature < 66.0) {
+			red = 255;
+		} else {
+			red = temperature - 55.0;
+			red =
+				351.97690566805693 +
+				0.114206453784165 * red -
+				40.25366309332127 * Math.log(red);
+			// red = Math.max(0, Math.min(255, red));
+
 		}
-	})
 
-	function changeColor(time) {
-		//rgb
-		let colors = [0, 0, 0];
+		if (temperature < 66.0) {
+			green = temperature - 2;
+			green =
+				-155.25485562709179 -
+				0.44596950469579133 * green +
+				104.49216199393888 * Math.log(green);
+			if (green < 0) green = 0;
+			if (green > 255) green = 255;
+		} else {
+			green = temperature - 50.0;
+			green =
+				325.4494125711974 +
+				0.07943456536662342 * green -
+				28.0852963507957 * Math.log(green);
 
-		function colorTemperature2rgb(kelvin) {
-			var temperature = kelvin / 100.0;
-			var red, green, blue;
-		
-			if (temperature < 66.0) {
-				red = 255;
+			green = Math.max(0, Math.min(255, green));
+		}
+
+		if (temperature >= 66.0) {
+			blue = 255;
+		} else {
+			if (temperature <= 20.0) {
+				blue = 0;
 			} else {
-				red = temperature - 55.0;
-				red =
-					351.97690566805693 +
-					0.114206453784165 * red -
-					40.25366309332127 * Math.log(red);
-					// red = Math.max(0, Math.min(255, red));
-		
+				blue = temperature - 10;
+				blue =
+					-254.76935184120902 +
+					0.8274096064007395 * blue +
+					115.67994401066147 * Math.log(blue);
+				blue = Math.max(0, Math.min(255, blue));
 			}
-		
-			if (temperature < 66.0) {
-				green = temperature - 2;
-				green =
-					-155.25485562709179 -
-					0.44596950469579133 * green +
-					104.49216199393888 * Math.log(green);
-				if (green < 0) green = 0;
-				if (green > 255) green = 255;
-			} else {
-				green = temperature - 50.0;
-				green =
-					325.4494125711974 +
-					0.07943456536662342 * green -
-					28.0852963507957 * Math.log(green);
-		
-					green = Math.max(0, Math.min(255, green));
-			}
-		
-			if (temperature >= 66.0) {
-				blue = 255;
-			} else {
-				if (temperature <= 20.0) {
-					blue = 0;
-				} else {
-					blue = temperature - 10;
-					blue =
-						-254.76935184120902 +
-						0.8274096064007395 * blue +
-						115.67994401066147 * Math.log(blue);
-					blue = Math.max(0, Math.min(255, blue));
-				}
-			}
-		
-			return {
-				red: Math.round(red),
-				blue: Math.round(blue),
-				green: Math.round(green)
-			};
+		}
+
+		return {
+			red: Math.round(red),
+			blue: Math.round(blue),
+			green: Math.round(green)
 		};
-		
-		const {red, green, blue} = colorTemperature2rgb(3500);
-		let color = "rgba(" + red + "," + green + "," + blue + ",1)"
-		// document.body.style.backgroundColor = color
-		return colors
+	};
 
-	  }
+	const { red, green, blue } = colorTemperature2rgb(3500);
+	let color = "rgba(" + red + "," + green + "," + blue + ",1)"
+	// document.body.style.backgroundColor = color
+	return colors
+
+}
 
 $('#Button_Settings_Cover').click(settings)
 resize_info()
@@ -194,11 +195,17 @@ if (ShowCard == false) {
 	})
 }
 
-function ShowCardF() {
+function ShowCardF(nil, ShowCardN) {
+	// if (ShowCardN) ShowCard = ShowCardN
+	// console.log(ShowCardN)
 	ShowCard = !ShowCard
+	clock_en = ShowCard
 	localStorage.setItem('ShowCard', ShowCard)
 
+
+
 	if (!ShowCard) {
+		clock_en = ShowCard
 		$('#cards').css({
 			display: 'none'
 		})
@@ -322,7 +329,7 @@ function add_card(url) {
 	// $('#cards').append('<a class="card" id="card_' + num + '" style="background-image: url(http://mini.s-shot.ru/?' + url + ')" href="' + url + '">')
 	// console.log(image, 2)
 
-	$('#cards').append('<a class="card" id="card_' + num + '" style="background-image: url(' + images[num] +')" href="' + url + '">')
+	$('#cards').append('<a class="card" id="card_' + num + '" style="background-image: url(' + images[num] + ')" href="' + url + '">')
 
 	// $('#cards').append('<a class="card" id="card_' + num + '" style="" href="' + url + '">')
 
@@ -353,9 +360,10 @@ function add_card(url) {
 
 	if (names[num - 1] != '*') {
 
-		$('#card_' + num).append('<div class="favicon" style="background-image: url('+url.split('/')[0]+'//'+url.split('/')[2]+'/favicon.ico);"></div>')
+		$('#card_' + num).append('<div class="favicon" style="background-image: url(' + url.split('/')[0] + '//' + url.split('/')[2] + '/favicon.ico);"></div>')
 
-		$('#card_' + num).append('<div class="name_tag">' + names[num - 1] + '</div>')	}
+		$('#card_' + num).append('<div class="name_tag">' + names[num - 1] + '</div>')
+	}
 
 	num++
 }
@@ -366,11 +374,37 @@ setInterval(() => {
 	let Minutes = time.getMinutes()
 	let Seconds = time.getSeconds()
 
-	if(time.getHours()<10) Hours = "0"+time.getHours()
-	if(time.getMinutes()<10) Minutes = "0"+time.getMinutes()
-	if(time.getSeconds()<10) Seconds = "0"+time.getSeconds()
-	
+	if (time.getHours() < 10) Hours = "0" + time.getHours()
+	if (time.getMinutes() < 10) Minutes = "0" + time.getMinutes()
+	if (time.getSeconds() < 10) Seconds = "0" + time.getSeconds()
+
 	$('#clock').text(Hours + ':' + Minutes + ':' + Seconds)
 	// let colorT = changeColor(time)
 	// $('#clock').css({'color': 'rgb('+colorT[0]+', '+colorT[1]+','+colorT[2]+')'})
 }, 1000)
+
+
+/*$(function() {
+	window.focus();
+	
+	$(window).bind('focus', function() {
+		// console.log("focus!");
+		// ShowCardF(false)
+		setTimeout(ShowCardF, 1000, false)
+	});
+
+	$(window).bind('blur', function() {
+		// console.log("blur!");
+		ShowCardF(true)
+		// setTimeout(ShowCardF, 1000, true)
+	});
+});*/
+$("body").mouseover(function () {
+	// console.log("1")
+	if(clock_en == false) ShowCardF(null, true)
+})
+$("body").mouseleave(function () {
+	// console.log("2")
+	if(clock_en == true) ShowCardF(null, false)
+})
+ShowCardF(null, true)
