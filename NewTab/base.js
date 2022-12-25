@@ -71,7 +71,7 @@ for (let i = 0; i < urls.length; i++) {
 $('body').prepend('<div id="Button_Settings_Cover"><div id="Button_Settings" title = "Нажми с шифтом, чтобы сменить фон"></div></div>')
 $('body').prepend('<div id="ver">' + "VER: " + ver + '</div>')
 
-$('body').append('<div id="clockG"><div id="clock">12:34:56</div></div>')
+$('body').append('<div id="clockG"><div class="clock" id="clock1">12:34:56</div><div id="clock2" class="clock">12:34:56</div></div>')
 
 
 
@@ -369,19 +369,26 @@ function add_card(url) {
 }
 
 setInterval(() => {
-	let time = new Date()
-	let Hours = time.getHours()
-	let Minutes = time.getMinutes()
-	let Seconds = time.getSeconds()
 
-	if (time.getHours() < 10) Hours = "0" + time.getHours()
-	if (time.getMinutes() < 10) Minutes = "0" + time.getMinutes()
-	if (time.getSeconds() < 10) Seconds = "0" + time.getSeconds()
+	$('#clock1').text(moment().format('hh:mm:ss'))
+	$('#clock2').text(moment().tz("Asia/Vladivostok").format('hh:mm:ss'))
 
-	$('#clock').text(Hours + ':' + Minutes + ':' + Seconds)
-	// let colorT = changeColor(time)
-	// $('#clock').css({'color': 'rgb('+colorT[0]+', '+colorT[1]+','+colorT[2]+')'})
 }, 1000)
+
+
+function serchtimezone(serch)
+{
+	let i
+	moment.tz.names().forEach(e => {
+		if(e.toLowerCase().indexOf(serch.toLowerCase())!=-1){
+			console.log(e)
+			i=e
+			return
+		}
+	});
+	return i
+}
+//console.log(moment.tz.names())
 
 
 /*$(function() {
