@@ -1,4 +1,4 @@
-let ver = 1.6
+let ver = 1.7
 let clock_en = true
 
 function stringToBool(val) {
@@ -370,8 +370,8 @@ function add_card(url) {
 
 setInterval(() => {
 
-	$('#clock1').text(moment().format('hh:mm:ss'))
-	$('#clock2').text(moment().tz("Asia/Vladivostok").format('hh:mm:ss'))
+	$('#clock1').text(moment().format('HH:mm:ss'))
+	$('#clock2').text(moment().tz('Asia/Vladivostok').format('HH:mm:ss'))
 
 }, 1000)
 
