@@ -1,4 +1,4 @@
-let ver = 1.5
+let ver = 1.6
 let clock_en = true
 
 function stringToBool(val) {
