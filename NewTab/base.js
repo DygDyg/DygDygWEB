@@ -71,14 +71,15 @@ for (let i = 0; i < urls.length; i++) {
 
 $('body').prepend('<div id="Button_Settings_Cover"><div id="Button_Settings" title = "Нажми с шифтом, чтобы сменить фон"></div></div>')
 $('body').prepend('<div id="ver">' + "VER: " + ver + '</div>')
+$('#ver').attr('title', 'Shift+Click чтобы открыть подробную информацию');
 
 
-$('body').append('<div id="clockG">'+
-'<div class="clock" id="clock1">12:34:56</div>'+
-'<div class="clockscroll" id="clock1scroll"></div>'+
-'<div id="clock2" class="clock">12:34:56</div>'+
-'<div class="clockscroll"id="clock2scroll"></div>'+
-'</div>')
+$('body').append('<div id="clockG">' +
+	'<div class="clock" id="clock1">12:34:56</div>' +
+	'<div class="clockscroll" id="clock1scroll"></div>' +
+	'<div id="clock2" class="clock">12:34:56</div>' +
+	'<div class="clockscroll"id="clock2scroll"></div>' +
+	'</div>')
 
 
 // https://api.ipify.org?format=jsonp&callback=?
@@ -95,26 +96,32 @@ $.ajax({
 
 		// $('body').prepend('<div id="ver">'+ "VER: "+ ver + " IP: " + json.ip + '</div>')
 		$("#ver").text("VER: " + ver + " IP: " + json.query)
-		$('#ver').click(function(){
-			console.log("click")
-			$('#search').val(json.query)
-			$('#search').focus();
-			$('#search').select();
-			document.execCommand('copy');
-			// $('#search').val("")
+		$('#ver').click(function (e) {
+			if (e.shiftKey) {
+				// window.open("http://ip-api.com/json/", "_blank");
+				window.open('http://ip-api.com/json/').focus();
+			} else {
+				$('#search').val(json.query)
+				$('#search').focus();
+				$('#search').select();
+				document.execCommand('copy');
+			}
+
 		})
-		// alert(json.ip)
 	},
-	error: function (data){
+	error: function (data) {
 		console.log(data)
 		$("#ver").text("VER: " + ver + " IP: ОТКЛЮЧИ АДБЛОК!!!")
-		$('#ver').click(function(){
-			console.log("click")
-			$('#search').val("Адблок мешает запросам к сторонним сервисам, возможно что то может работать не правильно!!!")
-			$('#search').focus();
-			$('#search').select();
-			document.execCommand('copy');
-			// $('#search').val("")
+		$('#ver').click(function (e) {
+			if (e.shiftKey) {
+				window.open('http://ip-api.com/json/', '_blank').focus();
+			} else {
+				console.log("click")
+				$('#search').val("Адблок мешает запросам к сторонним сервисам, возможно что то может работать не правильно!!!")
+				$('#search').focus();
+				$('#search').select();
+				document.execCommand('copy');
+			}
 		})
 	}
 })
@@ -407,44 +414,42 @@ setInterval(() => {
 }, 1000)
 
 
-function serchtimezone(serch)
-{
+function serchtimezone(serch) {
 	let i
 	moment.tz.names().forEach(e => {
-		if(e.toLowerCase().indexOf(serch.toLowerCase())!=-1){
+		if (e.toLowerCase().indexOf(serch.toLowerCase()) != -1) {
 			console.log(e)
-			i=e
+			i = e
 			return
 		}
 	});
 	return i
 }
 
-function time_rotator(m, z)
-{
-    // parseInt(moment().format('HH'), 10)
+function time_rotator(m, z) {
+	// parseInt(moment().format('HH'), 10)
 	$(z).empty()
-    let mas = []
-    let text111 = ""
-    let t = (24-parseInt(m, 10))+12
+	let mas = []
+	let text111 = ""
+	let t = (24 - parseInt(m, 10)) + 12
 	// if(t>12)t=t-(24-t)
 	// if(t<12)t=12-t
-	
-    for (i=1;i<25;i++) mas.push(i)
-    for(i=0;i<t;i++) mas.unshift(mas.pop())
+
+	for (i = 1; i < 25; i++) mas.push(i)
+	for (i = 0; i < t; i++) mas.unshift(mas.pop())
 	// console.log(mas)
 	// console.log(t,z)
-    mas.forEach(e => {
-		if(e==m){
-			$(z).append("<th style='color: #000000f2;background-color: #ffffffad;border-radius: 20px;'>"+e+"</th>")
-		}else{
-			$(z).append("<th>"+e+"</th>")
+	mas.forEach(e => {
+		if (e == m) {
+			$(z).append("<th style='color: #000000f2;background-color: #ffffffad;border-radius: 20px;'>" + e + "</th>")
+		} else {
+			$(z).append("<th>" + e + "</th>")
 		}
-    });
+	});
 
 
-    //$("#test").text(text111)
-    // return text111
+	//$("#test").text(text111)
+	// return text111
 }
 
 //console.log(moment.tz.names())
@@ -452,11 +457,11 @@ function time_rotator(m, z)
 
 $("body").mouseover(function () {
 	// console.log("1")
-	if(clock_en == false) ShowCardF(null, true)
+	if (clock_en == false) ShowCardF(null, true)
 })
 $("body").mouseleave(function () {
 	// console.log("2")
-	if(clock_en == true) ShowCardF(null, false)
+	if (clock_en == true) ShowCardF(null, false)
 })
 
 
