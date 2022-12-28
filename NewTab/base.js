@@ -126,7 +126,6 @@ $.ajax({
 	}
 })
 
-// GetIP()
 function changeColor(time) {
 	//rgb
 	let colors = [0, 0, 0];
