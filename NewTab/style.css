@@ -201,13 +201,10 @@ body {
 
 .clock {
     font-family: 'BebasBold', sans-serif;
-    /* background: url(time.png); */
-    /* background-size: 100%; */
-    /* background-position-x: 325px; */
-    /* background-position-y: center; */
-    /* background-repeat-y: no-repeat; */
-    /* padding: 22px 60px 22px 60px; */
+    padding: 0px 60px 0px 60px;
     color: #ffcf64;
+    border-radius: 70px;
+    background-color: #3434349e;
 }
 
 
@@ -225,10 +222,15 @@ body {
     /* position: fixed; */
     color: #ffcf64;
     text-align: justify;
+    padding: 10px 0 10px 0;
 }
+
+div#clock2scroll {}
 .clockscroll th {
     width: 50px;
     text-align: center;
+    border-radius: 20px;
+    background-color: #3434349e;
 }
 
 #snow {
