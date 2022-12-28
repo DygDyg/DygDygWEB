@@ -1,4 +1,4 @@
-let ver = 1.7
+let ver = 1.8
 let clock_en = true
 
 function stringToBool(val) {
@@ -71,7 +71,12 @@ for (let i = 0; i < urls.length; i++) {
 $('body').prepend('<div id="Button_Settings_Cover"><div id="Button_Settings" title = "Нажми с шифтом, чтобы сменить фон"></div></div>')
 $('body').prepend('<div id="ver">' + "VER: " + ver + '</div>')
 
-$('body').append('<div id="clockG"><div class="clock" id="clock1">12:34:56</div><div id="clock2" class="clock">12:34:56</div></div>')
+$('body').append('<div id="clockG">'+
+'<div class="clock" id="clock1">12:34:56</div>'+
+'<div class="clockscroll" id="clock1scroll"></div>'+
+'<div id="clock2" class="clock">12:34:56</div>'+
+'<div class="clockscroll"id="clock2scroll"></div>'+
+'</div>')
 
 
 
@@ -373,6 +378,8 @@ setInterval(() => {
 	$('#clock1').text(moment().format('HH:mm:ss'))
 	$('#clock2').text(moment().tz('Asia/Vladivostok').format('HH:mm:ss'))
 
+	time_rotator(moment().format('HH'), '#clock1scroll')
+	time_rotator(time_rotator(moment().tz('Asia/Vladivostok').format('HH'), '#clock2scroll'))
 }, 1000)
 
 
@@ -388,6 +395,29 @@ function serchtimezone(serch)
 	});
 	return i
 }
+
+function time_rotator(m, z)
+{
+    // parseInt(moment().format('HH'), 10)
+	$(z).empty()
+    let mas = []
+    let text111 = ""
+    let t = 12-parseInt(m, 10)
+    for (i=1;i<25;i++) mas.push(i)
+    for(i=0;i<t;i++) mas.unshift(mas.pop());
+    mas.forEach(e => {
+		if(e==m){
+			$(z).append("<th style='color: #000000f2;background-color: #ffffffad;border-radius: 20px;'>"+e+"</th>")
+		}else{
+			$(z).append("<th>"+e+"</th>")
+		}
+    });
+
+
+    //$("#test").text(text111)
+    // return text111
+}
+
 //console.log(moment.tz.names())
 
 

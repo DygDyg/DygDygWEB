@@ -200,8 +200,14 @@ body {
 }
 
 .clock {
-    color: wheat;
     font-family: 'BebasBold', sans-serif;
+    /* background: url(time.png); */
+    /* background-size: 100%; */
+    /* background-position-x: 325px; */
+    /* background-position-y: center; */
+    /* background-repeat-y: no-repeat; */
+    /* padding: 22px 60px 22px 60px; */
+    color: #ffcf64;
 }
 
 
@@ -213,6 +219,16 @@ body {
 	top: 0;
 	left:0;
 	z-index: -1;
+}
+.clockscroll{
+    font-size: 26px;
+    /* position: fixed; */
+    color: #ffcf64;
+    text-align: justify;
+}
+.clockscroll th {
+    width: 50px;
+    text-align: center;
 }
 
 #snow {
