@@ -64,12 +64,14 @@ $('body').append('<div id="SpoilerGroup"><div id="Spoiler"></div></div>')
 $('#SpoilerGroup').click(ShowCardF)
 $('body').append('<div id="cards"></div>')
 
+
 for (let i = 0; i < urls.length; i++) {
 	add_card(urls[i])
 }
 
 $('body').prepend('<div id="Button_Settings_Cover"><div id="Button_Settings" title = "Нажми с шифтом, чтобы сменить фон"></div></div>')
 $('body').prepend('<div id="ver">' + "VER: " + ver + '</div>')
+
 
 $('body').append('<div id="clockG">'+
 '<div class="clock" id="clock1">12:34:56</div>'+
@@ -79,9 +81,10 @@ $('body').append('<div id="clockG">'+
 '</div>')
 
 
+// https://api.ipify.org?format=jsonp&callback=?
 
 $.ajax({
-	url: "https://api.ipify.org?format=jsonp&callback=?",
+	url: "http://ip-api.com/json/",
 	jsonp: "callback",
 	dataType: "jsonp",
 	data: {
@@ -91,11 +94,32 @@ $.ajax({
 	success: function (json) {
 
 		// $('body').prepend('<div id="ver">'+ "VER: "+ ver + " IP: " + json.ip + '</div>')
-		$("#ver").text("VER: " + ver + " IP: " + json.ip)
+		$("#ver").text("VER: " + ver + " IP: " + json.query)
+		$('#ver').click(function(){
+			console.log("click")
+			$('#search').val(json.query)
+			$('#search').focus();
+			$('#search').select();
+			document.execCommand('copy');
+			// $('#search').val("")
+		})
 		// alert(json.ip)
+	},
+	error: function (data){
+		console.log(data)
+		$("#ver").text("VER: " + ver + " IP: ОТКЛЮЧИ АДБЛОК!!!")
+		$('#ver').click(function(){
+			console.log("click")
+			$('#search').val("Адблок мешает запросам к сторонним сервисам, возможно что то может работать не правильно!!!")
+			$('#search').focus();
+			$('#search').select();
+			document.execCommand('copy');
+			// $('#search').val("")
+		})
 	}
 })
 
+// GetIP()
 function changeColor(time) {
 	//rgb
 	let colors = [0, 0, 0];
@@ -202,7 +226,7 @@ if (ShowCard == false) {
 
 function ShowCardF(nil, ShowCardN) {
 	// if (ShowCardN) ShowCard = ShowCardN
-	// console.log(ShowCardN)
+	// console.log("ShowCardTest")
 	ShowCard = !ShowCard
 	clock_en = ShowCard
 	localStorage.setItem('ShowCard', ShowCard)
@@ -426,21 +450,6 @@ function time_rotator(m, z)
 //console.log(moment.tz.names())
 
 
-/*$(function() {
-	window.focus();
-	
-	$(window).bind('focus', function() {
-		// console.log("focus!");
-		// ShowCardF(false)
-		setTimeout(ShowCardF, 1000, false)
-	});
-
-	$(window).bind('blur', function() {
-		// console.log("blur!");
-		ShowCardF(true)
-		// setTimeout(ShowCardF, 1000, true)
-	});
-});*/
 $("body").mouseover(function () {
 	// console.log("1")
 	if(clock_en == false) ShowCardF(null, true)
@@ -449,4 +458,6 @@ $("body").mouseleave(function () {
 	// console.log("2")
 	if(clock_en == true) ShowCardF(null, false)
 })
+
+
 ShowCardF(null, true)
