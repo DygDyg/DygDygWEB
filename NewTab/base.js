@@ -1,4 +1,4 @@
-let ver = 1.8
+let ver = 1.9
 let clock_en = true
 
 function stringToBool(val) {
@@ -379,7 +379,7 @@ setInterval(() => {
 	$('#clock2').text(moment().tz('Asia/Vladivostok').format('HH:mm:ss'))
 
 	time_rotator(moment().format('HH'), '#clock1scroll')
-	time_rotator(time_rotator(moment().tz('Asia/Vladivostok').format('HH'), '#clock2scroll'))
+	time_rotator(moment().tz('Asia/Vladivostok').format('HH'), '#clock2scroll')
 }, 1000)
 
 
@@ -402,9 +402,14 @@ function time_rotator(m, z)
 	$(z).empty()
     let mas = []
     let text111 = ""
-    let t = 12-parseInt(m, 10)
+    let t = (24-parseInt(m, 10))+12
+	// if(t>12)t=t-(24-t)
+	// if(t<12)t=12-t
+	
     for (i=1;i<25;i++) mas.push(i)
-    for(i=0;i<t;i++) mas.unshift(mas.pop());
+    for(i=0;i<t;i++) mas.unshift(mas.pop())
+	// console.log(mas)
+	// console.log(t,z)
     mas.forEach(e => {
 		if(e==m){
 			$(z).append("<th style='color: #000000f2;background-color: #ffffffad;border-radius: 20px;'>"+e+"</th>")

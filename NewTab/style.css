@@ -150,12 +150,15 @@ body {
 }
 #ver
 {
-    color: white;
+    color: #dfcda5;
     font-family: 'BebasBold', sans-serif;
     font-weight: 500;
     font-size: 15px;
     position: fixed;
     bottom: 4px;
+    padding: 3px 6px 3px 6px;
+    border-radius: 20px;
+    background-color: #343434e0;
 }
 
 #SpoilerGroup {
@@ -218,6 +221,7 @@ body {
 	z-index: -1;
 }
 .clockscroll{
+    font-family: 'BebasBold', sans-serif;
     font-size: 26px;
     /* position: fixed; */
     color: #ffcf64;
