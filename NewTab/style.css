@@ -59,7 +59,7 @@ body {
     justify-content: center;
     width: 76%;
     font-size: 20px;
-    border-radius: 10px;
+    border-radius: 19px;
     padding: 10px;
     background-color: #ffffffb0;
     backdrop-filter: invert(1);
@@ -225,7 +225,7 @@ body {
     padding: 10px 0 10px 0;
 }
 
-div#clock2scroll {}
+/* div#clock2scroll {} */
 .clockscroll th {
     width: 50px;
     text-align: center;
