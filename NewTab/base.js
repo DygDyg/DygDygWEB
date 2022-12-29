@@ -1,6 +1,9 @@
 let ver = 1.9
 let clock_en = true
 
+
+let SoundClick = new Audio();
+
 function stringToBool(val) {
 	return (val + '').toLowerCase() === 'true'
 }
@@ -37,6 +40,7 @@ function resize_info() {
 num = 1
 $('body').append('<div id="searchs"></div>')
 $('#searchs').append('<input id="search" type="text" placeholder="Искать в яндекс, Shift - google, Ctrl - youtube, Alt - darklibria">')
+$('#search').on( "input", soundClick)
 
 $(document).ready(function () {
 	$('#search').keydown(function (e) {
@@ -424,6 +428,12 @@ function serchtimezone(serch) {
 	});
 	return i
 }
+function soundClick() {
+	// console.log("aaa")
+	// audio.duration = 0
+	SoundClick.src = 'click_key.ogg'
+	SoundClick.play() 
+  }
 
 function time_rotator(m, z) {
 	// parseInt(moment().format('HH'), 10)
