@@ -2,6 +2,8 @@ body {
     background-color: #353535;
     /* background-image: url(https://sun9-17.userapi.com/c857628/v857628352/16b73d/w-YSbE4d4mc.jpg); */
     background-size: cover;
+
+    /* cursor: url(https://yastatic.net/s3/web4static/_/v2/static/media/xmas-mitten_28.c8f51feb.svg) 4 2, pointer; */
 }
 
 .card {
@@ -283,4 +285,13 @@ body {
 	100% {
 		background-position: 500px 1000px, 400px 400px, 300px 300px;
 	}
+}
+
+/* Новый год курсор */
+body{
+    cursor: url(https://yastatic.net/s3/web4static/_/v2/static/media/xmas-tree_28.f811ab55.svg) 8 3, auto;
+}
+
+.card, #search {
+    cursor: url(https://yastatic.net/s3/web4static/_/v2/static/media/xmas-mitten_28.c8f51feb.svg) 4 2, pointer;
 }
