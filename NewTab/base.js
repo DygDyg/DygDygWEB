@@ -434,7 +434,7 @@ function time_rotator(m, z) {
 	// if(t>12)t=t-(24-t)
 	// if(t<12)t=12-t
 
-	for (i = 1; i < 25; i++) mas.push(i)
+	for (i = 0; i < 24; i++) mas.push(i)
 	for (i = 0; i < t; i++) mas.unshift(mas.pop())
 	// console.log(mas)
 	// console.log(t,z)
