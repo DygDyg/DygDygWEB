@@ -40,7 +40,9 @@ function resize_info() {
 num = 1
 $('body').append('<div id="searchs"></div>')
 $('#searchs').append('<input id="search" type="text" placeholder="Искать в яндекс, Shift - google, Ctrl - youtube, Alt - darklibria">')
-$('#search').on( "input", soundClick)
+$('#search').on( "input", function(){
+	soundClick('click_key.ogg')
+})
 
 $(document).ready(function () {
 	$('#search').keydown(function (e) {
@@ -428,10 +430,10 @@ function serchtimezone(serch) {
 	});
 	return i
 }
-function soundClick() {
+function soundClick(file) {
 	// console.log("aaa")
 	// audio.duration = 0
-	SoundClick.src = 'click_key.ogg'
+	SoundClick.src = file
 	SoundClick.play() 
   }
 
