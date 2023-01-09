@@ -1,4 +1,4 @@
-let ver = 1.9
+let ver = 1.10
 let clock_en = true
 
 
@@ -39,7 +39,7 @@ function resize_info() {
 
 num = 1
 $('body').append('<div id="searchs"></div>')
-$('#searchs').append('<input id="search" type="text" placeholder="Искать в яндекс, Shift - google, Ctrl - youtube, Alt - darklibria">')
+$('#searchs').append('<input id="search" type="text" placeholder="Искать в яндекс, Shift - перевести, Ctrl - youtube, Alt - darklibria">')
 $('#search').on( "input", function(){
 	soundClick('click_key.ogg')
 })
@@ -51,7 +51,7 @@ $(document).ready(function () {
 				document.location.href = $(this).val()
 			} else {
 				if (event.shiftKey) {
-					document.location.href = 'https://www.google.ru/search?q=' + $(this).val()
+					document.location.href = 'https://translate.yandex.ru/?text=' + $(this).val()
 				} else if (event.ctrlKey) {
 					document.location.href = 'https://www.youtube.com/results?search_query=' + $(this).val()
 				} else if (event.altKey) {
