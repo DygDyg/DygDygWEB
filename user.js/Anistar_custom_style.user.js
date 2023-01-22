@@ -17,7 +17,7 @@
 // @grant         GM_notification
 // @grant 		  GM_info
 // @grant         GM_registerMenuCommand
-// @version       0.47.11
+// @version       0.47.12
 // ==/UserScript==
 
 
@@ -60,6 +60,10 @@ let MainColor = "#1368d1";
 
 
 GM_addStyle(`
+
+.b-top-but {
+    filter: hue-rotate(310deg);
+}
 
 .title_quote, .title_spoiler {
     background: #1368d1 !important;
