@@ -510,7 +510,7 @@ document.addEventListener('keydown', function (event) {
 	}
 
 	if (event.code == 'KeyB' && event.altKey) {
-		window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + document.location.href
+		// window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + document.location.href
 	}
 });
 
