@@ -1,5 +1,7 @@
-let ver = 1.10
+let ver = 1.11
 let clock_en = true
+var loading = false
+var gets_ = {}
 
 
 let SoundClick = new Audio();
@@ -288,8 +290,18 @@ function settings(th) {
 		$('#settings').append('<div id=button_top style="margin: 5px 0px 10px 0px; display: flex; justify-content: space-between;">')
 		//$('#body_menu').append('<div id="fon" ></div>')
 		$('#button_top').append('<div id="add_button" style="cursor: pointer; background-color: #ffffffeb; width: 21px; height: 21px; display: flex; align-items: center; justify-content: center;" title="Добавить вкладку"><div style=" font-size: 33px; font-weight: 900; -webkit-user-select: none;">+</div></div>')
+		$('#button_top').append('<div id="vk_ls"></div>')
+		$('#vk_ls').append('<div class="vk_ls" id="vk_load"></div>')
+		$('#vk_ls').append('<div id="vk_button"></div>')
+		$('#vk_ls').append('<div class="vk_ls" id="vk_saved"></div>')
 		$('#button_top').append('<div id="exit" style="cursor: pointer; background-color: #ff4444eb; color: white; width: 21px; height: 21px; display: flex; align-items: center; justify-content: center;" title="Закрыть настройки"><div style=" font-size: 40px; font-weight: 900; -webkit-user-select: none; transform: rotate(45deg);">+</div></div>')
 
+		$('#vk_button').click(function() {
+			window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + document.location.href
+
+		})
+		$('#vk_load').click(cloud_load)
+		$('#vk_saved').click(cloud_save)
 		$('#add_button').click(add_button)
 		$('#exit').click(exit_settings)
 
@@ -482,7 +494,7 @@ ShowCardF(null, true)
 
 document.addEventListener('keydown', function (event) {
 	if (event.code == 'KeyB' && (event.ctrlKey || event.metaKey)) {
-		a123 = []
+		let a123 = []
 		for (let i = 0; i < localStorage.length; i++) {
 
 			a123.push({ name: localStorage.key(i), data: localStorage.getItem(localStorage.key(i)) })
@@ -498,7 +510,7 @@ document.addEventListener('keydown', function (event) {
 	}
 
 	if (event.code == 'KeyB' && event.altKey) {
-		window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri="+document.location.href
+		window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + document.location.href
 	}
 });
 
@@ -512,8 +524,124 @@ if (window.location.href.match(/.*\#.*/)) {
 		b[a[i].split('=')[0]] = a[i].split('=')[1]
 	}
 
-	console.log(b)
+	// console.log(b)
+	gets_ = b;
 	if (b["access_token"]) {
 		localStorage.setItem("access_token", b["access_token"])
 	}
+
+}
+
+function cloud_load() {
+	loading = true
+	let at = localStorage.getItem("access_token")
+	if (at == null) {
+		window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + document.location.href
+	}
+	$.ajax({
+		url: 'https://api.vk.com/method/notes.get?v=5.131&access_token=' + at,
+		method: 'get',
+		dataType: 'jsonp',
+		success: function (data) {
+			if (data["error"]) {
+				console.log(data["error"]["error_code"])
+				window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + document.location.href
+			} else {
+				let f = false
+				let id
+
+				data["response"]["items"].forEach(e => {
+					if (e["title"] == "NewTab") {
+						id = e["id"]
+						f = true
+						// console.log(e["text"].replace('<div class="wikiText"><!--4-->', '').replace(' </div>', '')) //<div class="wikiText"><!--4-->add </div>
+						console.log(e)
+						let a321 = JSON.parse(e["text"].replace('<div class="wikiText"><!--4-->', '').replace(' </div>', ''))
+						console.log(a321)
+						for (let i = 0; i < a321.length; i++) {
+							localStorage.setItem(a321[i]["name"], a321[i]["data"])
+						}
+						// location.reload();
+					}
+				});
+				// if()
+			}
+			loading = false
+		}
+	})
+}
+
+function cloud_save() {
+	let a123 = []
+	for (let i = 0; i < localStorage.length; i++) {
+
+		a123.push({ name: localStorage.key(i), data: localStorage.getItem(localStorage.key(i)) })
+	}
+	let json = JSON.stringify(a123)
+	loading = true
+	let at = localStorage.getItem("access_token")
+
+	if (at == null) {
+		window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + document.location.href
+	}
+
+	$.ajax({
+		url: 'https://api.vk.com/method/notes.get?v=5.131&access_token=' + at,
+		method: 'get',
+		dataType: 'jsonp',
+		success: function (data) {
+			if (data["error"]) {
+				console.log(data["error"]["error_code"])
+				window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + document.location.href
+			} else {
+			
+			let f = false
+			let id
+			console.log(data["response"]["items"])
+			data["response"]["items"].forEach(e => {
+				console.log(e["title"])
+				if (e["title"] == "NewTab") {
+					id = e["id"]
+					f = true
+				}
+			});
+
+			if (f == true) {
+				console.log("OK")
+				console.log(id)
+				$.ajax({
+					url: 'https://api.vk.com/method/notes.delete?access_token=' + at + '&note_id=' + id + '&v=5.131',
+					method: 'get',
+					dataType: 'jsonp',
+					success: function () {
+						$.ajax({
+							url: 'https://api.vk.com/method/notes.add?access_token=' + at + '&v=5.131&privacy_view="only_me"&privacy_comment="only_me"&title=NewTab&text=' + json,
+							method: 'get',
+							dataType: 'jsonp',
+							success: function (data) {
+								console.log(data)
+								id = data["response"]
+								loading = false
+							}
+						})
+					}
+				})
+			} else {
+				$.ajax({
+					url: 'https://api.vk.com/method/notes.add?access_token=' + at + '&v=5.131&privacy_view="only_me"&privacy_comment="only_me"&title=NewTab&text=' + json,
+					method: 'get',
+					dataType: 'jsonp',
+					success: function (data) {
+						console.log(data)
+						id = data["response"]
+						loading = false
+					}
+				})
+				console.log("НЕ OK")
+			}
+
+			// alert(id)
+		}
+	}
+	});
 }

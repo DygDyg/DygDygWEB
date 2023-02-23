@@ -6,6 +6,43 @@ body {
     /* cursor: url(https://yastatic.net/s3/web4static/_/v2/static/media/xmas-mitten_28.c8f51feb.svg) 4 2, pointer; */
 }
 
+#vk_button
+{cursor: pointer;
+    width: 21px;
+    height: 21px;
+    background-image: url(https://vk.com/favicon.ico);
+    background-size: cover;
+    /* filter: grayscale(100%);  */
+}
+.vk_ls
+{
+    background-color: #0077ff;
+    width: 21px;
+    height: 21px;
+    border-radius: 5px;
+    margin: 0px 10px 0px 10px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+#vk_saved
+{
+    background-image: url(/NewTab/diskette2.png);
+    background-size: cover;
+}
+
+#vk_load
+{
+    background-image: url(/NewTab/cloud-computing.png);
+    background-size: cover;
+}
+
+
+#vk_ls
+{
+    display: flex;
+}
+
 .card {
     width: 215px;
     height: 140px;
