@@ -1,4 +1,4 @@
-let ver = 1.13
+let ver = 1.14
 let clock_en = true
 var loading = false
 var gets_ = {}
@@ -552,7 +552,7 @@ if (window.location.href.match(/.*\#.*/)) {
 	if (b["access_token"]) {
 		localStorage.setItem("access_token", b["access_token"])
 	}
-
+	window.location = window.location.href.split('#')[0]
 }
 
 function cloud_load() {
