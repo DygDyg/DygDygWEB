@@ -2,6 +2,7 @@ let ver = 1.11
 let clock_en = true
 var loading = false
 var gets_ = {}
+var SiteURL = document.location.href.replace(/\/+$/, '');
 
 
 let SoundClick = new Audio();
@@ -50,16 +51,16 @@ $(document).ready(function () {
 	$('#search').keydown(function (e) {
 		if (e.keyCode === 13) {
 			if ($(this).val().startsWith('http://') || $(this).val().startsWith('https://') || $(this).val().startsWith('file://') || $(this).val().startsWith('ftp://') || $(this).val().startsWith('steam://') || $(this).val().startsWith('magnet:?')) {
-				document.location.href = $(this).val()
+				SiteURL = $(this).val()
 			} else {
 				if (event.shiftKey) {
-					document.location.href = 'https://translate.yandex.ru/?text=' + $(this).val()
+					SiteURL = 'https://translate.yandex.ru/?text=' + $(this).val()
 				} else if (event.ctrlKey) {
-					document.location.href = 'https://www.youtube.com/results?search_query=' + $(this).val()
+					SiteURL = 'https://www.youtube.com/results?search_query=' + $(this).val()
 				} else if (event.altKey) {
-					document.location.href = 'https://darklibria.it/search?find=' + $(this).val()
+					SiteURL = 'https://darklibria.it/search?find=' + $(this).val()
 				} else {
-					document.location.href = 'https://yandex.ru/search/?text=' + $(this).val()
+					SiteURL = 'https://yandex.ru/search/?text=' + $(this).val()
 				}
 			}
 			// console.log($(this).val().startsWith("http://"))
@@ -297,7 +298,7 @@ function settings(th) {
 		$('#button_top').append('<div id="exit" style="cursor: pointer; background-color: #ff4444eb; color: white; width: 21px; height: 21px; display: flex; align-items: center; justify-content: center;" title="Закрыть настройки"><div style=" font-size: 40px; font-weight: 900; -webkit-user-select: none; transform: rotate(45deg);">+</div></div>')
 
 		$('#vk_button').click(function() {
-			window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + document.location.href
+			window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL
 
 		})
 		$('#vk_load').click(cloud_load)
@@ -390,7 +391,7 @@ function add_card(url) {
 		switch (event.which) {
 			case 1:
 				//alert('Left Mouse button pressed.');
-				//document.location.href = url;
+				//SiteURL = url;
 				break
 			case 2:
 				//window.open(url);
@@ -510,7 +511,7 @@ document.addEventListener('keydown', function (event) {
 	}
 
 	if (event.code == 'KeyB' && event.altKey) {
-		// window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + document.location.href
+		// window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL
 	}
 });
 
@@ -536,7 +537,7 @@ function cloud_load() {
 	loading = true
 	let at = localStorage.getItem("access_token")
 	if (at == null) {
-		window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + document.location.href
+		window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL
 	}
 	$.ajax({
 		url: 'https://api.vk.com/method/notes.get?v=5.131&access_token=' + at,
@@ -545,7 +546,7 @@ function cloud_load() {
 		success: function (data) {
 			if (data["error"]) {
 				console.log(data["error"]["error_code"])
-				window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + document.location.href
+				window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL
 			} else {
 				let f = false
 				let id
@@ -582,7 +583,7 @@ function cloud_save() {
 	let at = localStorage.getItem("access_token")
 
 	if (at == null) {
-		window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + document.location.href
+		window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL
 	}
 
 	$.ajax({
@@ -592,7 +593,7 @@ function cloud_save() {
 		success: function (data) {
 			if (data["error"]) {
 				console.log(data["error"]["error_code"])
-				window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + document.location.href
+				window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL
 			} else {
 			
 			let f = false
