@@ -7,12 +7,13 @@ body {
 }
 
 #vk_button
-{cursor: pointer;
+{
+    cursor: pointer;
     width: 21px;
     height: 21px;
     background-image: url(https://vk.com/favicon.ico);
     background-size: cover;
-    /* filter: grayscale(100%);  */
+    
 }
 .vk_ls
 {
@@ -24,7 +25,10 @@ body {
     color: rgb(255, 255, 255);
     cursor: pointer;
 }
-
+.vk_offline
+{
+    filter: grayscale(100%);
+}
 #vk_saved
 {
     background-image: url(https://dygdyg.github.io/DygDygWEB/NewTab/diskette2.png);

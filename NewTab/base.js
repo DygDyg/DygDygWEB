@@ -1,4 +1,4 @@
-let ver = 1.12
+let ver = 1.13
 let clock_en = true
 var loading = false
 var gets_ = {}
@@ -42,28 +42,35 @@ function resize_info() {
 
 num = 1
 $('body').append('<div id="searchs"></div>')
-$('#searchs').append('<input id="search" type="text" placeholder="Искать в яндекс, Shift - перевести, Ctrl - youtube, Alt - darklibria">')
+$('#searchs').append('<input id="search" type="text" placeholder="Искать в яндекс, Shift - перевести, Ctrl - youtube, Alt - animego.org">')
 $('#search').on("input", function () {
 	soundClick('click_key.ogg')
 })
 
 $(document).ready(function () {
 	$('#search').keydown(function (e) {
+		
 		if (e.keyCode === 13) {
+			
 			if ($(this).val().startsWith('http://') || $(this).val().startsWith('https://') || $(this).val().startsWith('file://') || $(this).val().startsWith('ftp://') || $(this).val().startsWith('steam://') || $(this).val().startsWith('magnet:?')) {
 				SiteURL = $(this).val()
+				console.log("AAA")
 			} else {
+				
 				if (event.shiftKey) {
 					SiteURL = 'https://translate.yandex.ru/?text=' + $(this).val()
 				} else if (event.ctrlKey) {
 					SiteURL = 'https://www.youtube.com/results?search_query=' + $(this).val()
 				} else if (event.altKey) {
-					SiteURL = 'https://darklibria.it/search?find=' + $(this).val()
+					// SiteURL = 'https://darklibria.it/search?find=' + $(this).val()
+					SiteURL = 'https://animego.org/search/all?q=' + $(this).val()
+					
 				} else {
 					SiteURL = 'https://yandex.ru/search/?text=' + $(this).val()
+					console.log("BBBB")
 				}
 			}
-			// console.log($(this).val().startsWith("http://"))
+			window.location = SiteURL;
 			//alert($(this).val());
 			//
 		}
@@ -119,7 +126,7 @@ $.ajax({
 		})
 	},
 	error: function (data) {
-		// console.log(data)
+
 		$("#ver").text("VER: " + ver + " IP: ОТКЛЮЧИ АДБЛОК!!!")
 		$('#ver').click(function (e) {
 			if (e.shiftKey) {
@@ -293,11 +300,11 @@ function settings(th) {
 		$('#button_top').append('<div id="add_button" style="cursor: pointer; background-color: #ffffffeb; width: 21px; height: 21px; display: flex; align-items: center; justify-content: center;" title="Добавить вкладку"><div style=" font-size: 33px; font-weight: 900; -webkit-user-select: none;">+</div></div>')
 		$('#button_top').append('<div id="vk_ls"></div>')
 		$('#vk_ls').append('<div class="vk_ls" id="vk_load"></div>')
-		$('#vk_ls').append('<div id="vk_button"></div>')
+		$('#vk_ls').append('<div class="vk_ls" id="vk_button"></div>')
 		$('#vk_ls').append('<div class="vk_ls" id="vk_saved"></div>')
 		$('#button_top').append('<div id="exit" style="cursor: pointer; background-color: #ff4444eb; color: white; width: 21px; height: 21px; display: flex; align-items: center; justify-content: center;" title="Закрыть настройки"><div style=" font-size: 40px; font-weight: 900; -webkit-user-select: none; transform: rotate(45deg);">+</div></div>')
 
-		$('#vk_button').click(function() {
+		$('#vk_button').click(function () {
 			window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL
 
 		})
@@ -305,6 +312,11 @@ function settings(th) {
 		$('#vk_saved').click(cloud_save)
 		$('#add_button').click(add_button)
 		$('#exit').click(exit_settings)
+
+		if(!localStorage.getItem("access_token"))
+		{
+			$('.vk_ls').addClass("vk_offline")
+		}
 
 		for (let i = 0; i < urls.length; i++) {
 			$('#settings').append('<div style="margin: 5px 0px 5px 0px; display: flex; flex-wrap: nowrap;" id="line_' + i + '">')
@@ -367,11 +379,22 @@ function exit_settings() {
 		console.log(image)
 		localStorage.setItem('images', image)
 
-		window.location.reload()
+		if (localStorage.getItem("access_token")) 
+		{
+			cloud_save()
+		}
+
+		let timerId = setInterval(() =>{
+
+		 if(loading==false){
+			window.location.reload()
+		 }
+		}, 500);
 	}
 	$('#body_menu').remove()
 	//$('#body_menu').css('display', 'none');
 }
+
 
 function add_card(url) {
 	let image = localStorage.getItem('images').split(',')[num]
@@ -525,7 +548,6 @@ if (window.location.href.match(/.*\#.*/)) {
 		b[a[i].split('=')[0]] = a[i].split('=')[1]
 	}
 
-	// console.log(b)
 	gets_ = b;
 	if (b["access_token"]) {
 		localStorage.setItem("access_token", b["access_token"])
@@ -545,7 +567,6 @@ function cloud_load() {
 		dataType: 'jsonp',
 		success: function (data) {
 			if (data["error"]) {
-				console.log(data["error"]["error_code"])
 				window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL
 			} else {
 				let f = false
@@ -555,14 +576,13 @@ function cloud_load() {
 					if (e["title"] == "NewTab") {
 						id = e["id"]
 						f = true
-						// console.log(e["text"].replace('<div class="wikiText"><!--4-->', '').replace(' </div>', '')) //<div class="wikiText"><!--4-->add </div>
-						console.log(e)
 						let a321 = JSON.parse(e["text"].replace('<div class="wikiText"><!--4-->', '').replace(' </div>', ''))
-						console.log(a321)
 						for (let i = 0; i < a321.length; i++) {
+
 							localStorage.setItem(a321[i]["name"], a321[i]["data"])
 						}
-						// location.reload();
+						alert("База загружена!!")
+						location.reload();
 					}
 				});
 				// if()
@@ -592,57 +612,57 @@ function cloud_save() {
 		dataType: 'jsonp',
 		success: function (data) {
 			if (data["error"]) {
-				console.log(data["error"]["error_code"])
+
 				window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL
 			} else {
-			
-			let f = false
-			let id
-			console.log(data["response"]["items"])
-			data["response"]["items"].forEach(e => {
-				console.log(e["title"])
-				if (e["title"] == "NewTab") {
-					id = e["id"]
-					f = true
+
+				let f = false
+				let id
+
+				data["response"]["items"].forEach(e => {
+
+					if (e["title"] == "NewTab") {
+						id = e["id"]
+						f = true
+					}
+				});
+
+				if (f == true) {
+
+					$.ajax({
+						url: 'https://api.vk.com/method/notes.delete?access_token=' + at + '&note_id=' + id + '&v=5.131',
+						method: 'get',
+						dataType: 'jsonp',
+						success: function () {
+							$.ajax({
+								url: 'https://api.vk.com/method/notes.add?access_token=' + at + '&v=5.131&privacy_view="only_me"&privacy_comment="only_me"&title=NewTab&text=' + json,
+								method: 'get',
+								dataType: 'jsonp',
+								success: function (data) {
+
+									id = data["response"]
+									loading = false
+									alert("База сохранена!!")
+								}
+							})
+						}
+					})
+				} else {
+					$.ajax({
+						url: 'https://api.vk.com/method/notes.add?access_token=' + at + '&v=5.131&privacy_view="only_me"&privacy_comment="only_me"&title=NewTab&text=' + json,
+						method: 'get',
+						dataType: 'jsonp',
+						success: function (data) {
+
+							id = data["response"]
+							loading = false
+							alert("База сохранена!!")
+						}
+					})
 				}
-			});
 
-			if (f == true) {
-				console.log("OK")
-				console.log(id)
-				$.ajax({
-					url: 'https://api.vk.com/method/notes.delete?access_token=' + at + '&note_id=' + id + '&v=5.131',
-					method: 'get',
-					dataType: 'jsonp',
-					success: function () {
-						$.ajax({
-							url: 'https://api.vk.com/method/notes.add?access_token=' + at + '&v=5.131&privacy_view="only_me"&privacy_comment="only_me"&title=NewTab&text=' + json,
-							method: 'get',
-							dataType: 'jsonp',
-							success: function (data) {
-								console.log(data)
-								id = data["response"]
-								loading = false
-							}
-						})
-					}
-				})
-			} else {
-				$.ajax({
-					url: 'https://api.vk.com/method/notes.add?access_token=' + at + '&v=5.131&privacy_view="only_me"&privacy_comment="only_me"&title=NewTab&text=' + json,
-					method: 'get',
-					dataType: 'jsonp',
-					success: function (data) {
-						console.log(data)
-						id = data["response"]
-						loading = false
-					}
-				})
-				console.log("НЕ OK")
+				// alert(id)
 			}
-
-			// alert(id)
 		}
-	}
 	});
 }
