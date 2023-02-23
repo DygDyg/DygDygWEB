@@ -1,4 +1,4 @@
-let ver = 1.14
+let ver = 1.15
 let clock_en = true
 var loading = false
 var gets_ = {}
@@ -6,6 +6,11 @@ var SiteURL = document.location.href.replace(/\/+$/, '');
 
 
 let SoundClick = new Audio();
+
+if (localStorage.getItem("access_token")) 
+{
+	cloud_load(true)
+}
 
 function stringToBool(val) {
 	return (val + '').toLowerCase() === 'true'
@@ -555,7 +560,7 @@ if (window.location.href.match(/.*\#.*/)) {
 	window.location = window.location.href.split('#')[0]
 }
 
-function cloud_load() {
+function cloud_load(fs) {
 	loading = true
 	let at = localStorage.getItem("access_token")
 	if (at == null) {
@@ -581,8 +586,10 @@ function cloud_load() {
 
 							localStorage.setItem(a321[i]["name"], a321[i]["data"])
 						}
-						alert("База загружена!!")
-						location.reload();
+						if(!fs){
+							alert("База загружена!!")
+							location.reload();
+						}
 					}
 				});
 				// if()
