@@ -40,7 +40,7 @@ function resize_info() {
 num = 1
 $('body').append('<div id="searchs"></div>')
 $('#searchs').append('<input id="search" type="text" placeholder="Искать в яндекс, Shift - перевести, Ctrl - youtube, Alt - darklibria">')
-$('#search').on( "input", function(){
+$('#search').on("input", function () {
 	soundClick('click_key.ogg')
 })
 
@@ -116,7 +116,7 @@ $.ajax({
 		})
 	},
 	error: function (data) {
-		console.log(data)
+		// console.log(data)
 		$("#ver").text("VER: " + ver + " IP: ОТКЛЮЧИ АДБЛОК!!!")
 		$('#ver').click(function (e) {
 			if (e.shiftKey) {
@@ -434,8 +434,8 @@ function soundClick(file) {
 	// console.log("aaa")
 	// audio.duration = 0
 	SoundClick.src = file
-	SoundClick.play() 
-  }
+	SoundClick.play()
+}
 
 function time_rotator(m, z) {
 	// parseInt(moment().format('HH'), 10)
@@ -477,3 +477,43 @@ $("body").mouseleave(function () {
 
 
 ShowCardF(null, true)
+
+
+
+document.addEventListener('keydown', function (event) {
+	if (event.code == 'KeyB' && (event.ctrlKey || event.metaKey)) {
+		a123 = []
+		for (let i = 0; i < localStorage.length; i++) {
+
+			a123.push({ name: localStorage.key(i), data: localStorage.getItem(localStorage.key(i)) })
+		}
+
+		a321 = prompt("Скопировать настройки", JSON.stringify(a123));
+		a321 = JSON.parse(a321)
+
+		for (let i = 0; i < a321.length; i++) {
+			localStorage.setItem(a321[i]["name"], a321[i]["data"])
+		}
+		location.reload();
+	}
+
+	if (event.code == 'KeyB' && event.altKey) {
+		window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri="+document.location.href
+	}
+});
+
+var get_params = {};
+
+if (window.location.href.match(/.*\#.*/)) {
+	let a = window.location.href.replace(/.*\#/, '').split('&')
+	let b = []
+	// console.log(a)
+	for (let i = 0; i < a.length; i++) {
+		b[a[i].split('=')[0]] = a[i].split('=')[1]
+	}
+
+	console.log(b)
+	if (b["access_token"]) {
+		localStorage.setItem("access_token", b["access_token"])
+	}
+}
