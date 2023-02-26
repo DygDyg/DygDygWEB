@@ -1,4 +1,4 @@
-let ver = 1.16
+let ver = 1.17
 let clock_en = true
 var loading = false
 var gets_ = {}
@@ -9,7 +9,7 @@ let SoundClick = new Audio();
 
 if (localStorage.getItem("access_token")) 
 {
-	cloud_load(true)
+	// cloud_load(true)
 }
 
 function stringToBool(val) {
