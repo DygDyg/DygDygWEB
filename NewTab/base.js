@@ -1,4 +1,4 @@
-let ver = 1.15
+let ver = 1.16
 let clock_en = true
 var loading = false
 var gets_ = {}
@@ -386,7 +386,7 @@ function exit_settings() {
 
 		if (localStorage.getItem("access_token")) 
 		{
-			cloud_save()
+			// cloud_save()
 		}
 
 		let timerId = setInterval(() =>{
