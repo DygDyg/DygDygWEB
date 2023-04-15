@@ -1,0 +1,12 @@
+<body>sdfsdfsdfsdfsd</body>
+<style>body {
+    background-color: #333333;
+    color: #d3d3d3;
+}</style>
+<script>
+    let blob = new Blob(["stroka"], {type: "text/plain"})
+    let link = document.createElement("a")
+    link.setAttribute("href", URL.createObjectURL(blob))
+    link.setAttribute("download", "my-text.txt")
+    link.click()
+</script>
