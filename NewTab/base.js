@@ -1,4 +1,4 @@
-let ver = 1.17
+let ver = 1.18
 let clock_en = true
 var loading = false
 var gets_ = {}
@@ -442,7 +442,9 @@ function add_card(url) {
 
 	if (names[num - 1] != '*') {
 
-		$('#card_' + num).append('<div class="favicon" style="background-image: url(' + url.split('/')[0] + '//' + url.split('/')[2] + '/favicon.ico);"></div>')
+		// $('#card_' + num).append('<div class="favicon" style="background-image: url(' + url.split('/')[0] + '//' + url.split('/')[2] + '/favicon.ico);"></div>')
+		$('#card_' + num).append('<div class="favicon" style="background-image: url(https://www.google.com/s2/favicons?sz=64&domain=' + url.split('/')[0] + '//' + url.split('/')[2] + ');"></div>')
+		// https://www.google.com/s2/favicons?sz=64&domain=pathofexile.com
 
 		$('#card_' + num).append('<div class="name_tag">' + names[num - 1] + '</div>')
 	}
