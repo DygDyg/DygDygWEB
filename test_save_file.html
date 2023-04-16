@@ -1,12 +1,70 @@
-<body>sdfsdfsdfsdfsd</body>
-<style>body {
-    background-color: #333333;
-    color: #d3d3d3;
-}</style>
+<body>
+	<form>
+		<p>
+			<textarea name="comment" cols="40" rows="3">Тест скачивания текста</textarea>
+		</p>
+		<input type="submit" name="download" value="скачать" />
+	</form>
+</body>
+<style>
+	body {
+		background-color: #333333;
+		color: #d3d3d3;
+	}
+</style>
 <script>
-    let blob = new Blob(["stroka"], {type: "text/plain"})
-    let link = document.createElement("a")
-    link.setAttribute("href", URL.createObjectURL(blob))
-    link.setAttribute("download", "my-text.txt")
-    link.click()
+	;((D, B, log = arg => console.log(arg)) => {
+		//  прочитать
+		const dropZone = D.body
+		const input = D.querySelector('input')
+		let file
+		D.addEventListener('dragover', ev => ev.preventDefault())
+		D.addEventListener('drop', ev => ev.preventDefault())
+		// log(D.body)
+
+		dropZone.addEventListener('drop', ev => {
+			// отключаем поведение по умолчанию
+			ev.preventDefault()
+
+			// смотрим на то, что получаем
+			log(ev.dataTransfer)
+
+			file = ev.dataTransfer.files[0]
+			log(file)
+			// handleFile(file)
+			log(file.type)
+			const type = file.type.replace(/\/.+/, '')
+			log(type)
+            const createText = text => {
+					// создаем экземпляр объекта "FileReader"
+					const reader = new FileReader()
+					// читаем файл как текст
+					// вторым аргументом является кодировка
+					// по умолчанию - utf-8,
+					// но она не понимает кириллицу
+					reader.readAsText(text, 'windows-1251')
+					// дожидаемся завершения чтения файла
+					// и помещаем результат в документ
+					reader.onload = () => (document.forms[0].elements.comment.value = reader.result)
+                    
+				}
+			if (file.type == 'application/json' || type == 'text') {
+				log('test')
+				createText(file)
+			}
+		})
+
+		// скачать
+		document.forms[0].elements.download.onclick = function () {
+			/*let blob = new Blob([document.forms[0].elements.comment.value], { type: 'text/plain; charset=windows-1251;' })
+            saveAs(blob, 'base.json')
+			let link = document.createElement('a')
+			link.setAttribute('href', URL.createObjectURL(blob))
+			link.setAttribute('download', 'base.json')
+			// alert(document.forms[0].elements.comment.value)
+			// link.click()
+            */
+		}
+		//
+	})(document, document.body)
 </script>
