@@ -11,16 +11,36 @@
     }
 </style>
 <script>
-    var requestURL = "base/lscache-tradesettings_ru.json"
-    var request = new XMLHttpRequest();
-    request.open('GET', requestURL);
-    request.responseType = 'json';
-    request.send();
-    request.onload = function () {
-        var superHeroes = request.response;
-        populateHeader(superHeroes);
-        showHeroes(superHeroes);
-        console.log(superHeroes)
+    let data = {}
+
+    load("lscache-tradeitems_ru")
+    load("lscache-tradeitems_en")
+    function load(namefile) {
+        var requestURL = "base/" + namefile + ".json"
+        var request = new XMLHttpRequest();
+        request.open('GET', requestURL);
+        request.responseType = 'json';
+        request.send();
+        request.onload = function () {
+            // var superHeroes = request.response;
+            data[namefile] = request.response;
+        }
     }
+    function search(arr, value) {
+        if (!(arr instanceof Array)) return value == arr;
+        return arr.some(item => search(item, value));
+    }
+    inArr = function (val, arr) {
+        if (arr === null)
+            return;
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] == val)
+                return true;
+            if ('object' == typeof arr[i])
+                if (inArr(val, arr[i]))
+                    return true
+        } return false
+    };
+
 
 </script>
