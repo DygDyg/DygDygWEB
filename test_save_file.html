@@ -56,15 +56,16 @@
 
 		// скачать
 		document.forms[0].elements.download.onclick = function () {
-			/*let blob = new Blob([document.forms[0].elements.comment.value], { type: 'text/plain; charset=windows-1251;' })
-            saveAs(blob, 'base.json')
+			let blob = new Blob([document.forms[0].elements.comment.value], { type: 'text/plain; charset=windows-1251;' })
+            // saveAs(blob, 'base.json')
 			let link = document.createElement('a')
 			link.setAttribute('href', URL.createObjectURL(blob))
 			link.setAttribute('download', 'base.json')
-			// alert(document.forms[0].elements.comment.value)
-			// link.click()
-            */
+			alert(document.forms[0].elements.comment.value)
+			link.click()
+            
 		}
 		//
 	})(document, document.body)
+	
 </script>
