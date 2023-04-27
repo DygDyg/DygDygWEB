@@ -14,8 +14,13 @@ if(VersLocal < VersOnline or VersLocal == "ERROR")
     {
         FileEXE = %A_Scriptdir%\AutoRoll.exe
         UrlDownloadToFile, https://dygdyg.github.io/DygDygWEB/PoE/autoroll/autoroll.exe, %FileEXE%
-        ; MsgBox, version: %VersLocal% -> %VersOnline%, Обновлена!
-        MsgBox, version: %VersOnline%
+        
+        if(VersLocal == "ERROR"){
+            MsgBox, version: %VersOnline%
+        }else{
+            MsgBox, version: %VersLocal% -> %VersOnline%, Обновлена!
+        }
+        
     }
     ; MsgBox, exit
     FileDelete, %FileVers%
