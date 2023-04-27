@@ -1,3 +1,4 @@
+5 000/50 000,
 Инкубатор предсказателя,
 Сфера хаоса,
 Металлическое ископаемое,
@@ -100,6 +101,8 @@ Map contains Baran's Citadel,
 Map contains Veritania's Citadel,
 Map contains Al-Hezmin's Citadel,
 Map contains Drox's Citadel,
-Rogue's Marker,
 Added Small Passive Skills grant: Minions deal 10% increased Damage,
-Added Small Passive Skills grant: 6% increased Mana Reservation Efficiency of Skills
+Added Small Passive Skills grant: 6% increased Mana Reservation Efficiency of Skills,
+Stacked Deck,
+Splinter of Chayula,
+Requires Deception
