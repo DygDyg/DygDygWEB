@@ -9,12 +9,13 @@ UrlDownloadToFile, https://dygdyg.github.io/DygDygWEB/PoE/autoroll/version, %Fil
 IniRead, VersLocal, %FileSettings%, others, vers
 FileRead, VersOnline, %FileVers%
 
-MsgBox, %VersOnline% || %VersLocal%
+; MsgBox, %VersOnline% || %VersLocal%
 if(VersLocal < VersOnline)
     {
-        MsgBox, up
-        UrlDownloadToFile, https://dygdyg.github.io/DygDygWEB/PoE/autoroll/AutoRoll.exe, %FileVers%
+        ; MsgBox, up
+        FileEXE = %A_Scriptdir%\AutoRoll.exe
+        UrlDownloadToFile, https://dygdyg.github.io/DygDygWEB/PoE/autoroll/AutoRoll.exe, %FileEXE%
     }
-    MsgBox, exit
+    ; MsgBox, exit
     FileDelete, %FileVers%
     Exit
