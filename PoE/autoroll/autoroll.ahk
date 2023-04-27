@@ -260,7 +260,9 @@ config_start()
 
     GetSave:
         Gui, Destroy
+        WinActivate, ahk_exe PathOfExileSteam.exe
         Sleep, 5000
+        WinActivate, ahk_exe PathOfExileSteam.exe
         MouseGetPos, x_save, y_save
         config_start()
         save()
@@ -268,7 +270,9 @@ config_start()
 
     GetSave2:
         Gui, Destroy
+        WinActivate, ahk_exe PathOfExileSteam.exe
         Sleep, 5000
+        WinActivate, ahk_exe PathOfExileSteam.exe
         MouseGetPos, xxx, yyy
         a := (yyy-y_save)/10
         y_save2 := a
@@ -279,7 +283,9 @@ config_start()
 
     GetScroll:
         Gui, Destroy
+        WinActivate, ahk_exe PathOfExileSteam.exe
         Sleep, 5000
+        WinActivate, ahk_exe PathOfExileSteam.exe
         MouseGetPos, x_scroll, y_scroll
         config_start()
         save()
@@ -287,7 +293,9 @@ config_start()
 
     GetScroll2:
         Gui, Destroy
+        WinActivate, ahk_exe PathOfExileSteam.exe
         Sleep, 5000
+        WinActivate, ahk_exe PathOfExileSteam.exe
         MouseGetPos, x_scroll2, y_scroll2
         config_start()
         save()
@@ -295,7 +303,9 @@ config_start()
 
     Ok:
         Gui, Destroy
+        WinActivate, ahk_exe PathOfExileSteam.exe
         Sleep, 5000
+        WinActivate, ahk_exe PathOfExileSteam.exe
         MouseGetPos, x_ok, y_ok
         config_start()
         save()
@@ -303,7 +313,9 @@ config_start()
 
     Roll:
         Gui, Destroy
+        WinActivate, ahk_exe PathOfExileSteam.exe
         Sleep, 5000
+        WinActivate, ahk_exe PathOfExileSteam.exe
         MouseGetPos, x_roll, y_roll
         config_start()
         save()
