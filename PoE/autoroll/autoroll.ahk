@@ -26,7 +26,7 @@ File = %A_Scriptdir%\base.txt
 FileRead, str, %File%
 names := StrSplit(str, pars_patern)
 if(!names.MaxIndex()){
-    UrlDownloadToFile, https://dygdyg.github.io/DygDygWEB/base.txt, %A_Scriptdir%\base.txt
+    UrlDownloadToFile, https://dygdyg.github.io/DygDygWEB/autoroll/base.txt, %A_Scriptdir%\base.txt
     MsgBox, "База загружена"
     config_start()
     FileRead, str, %File%
@@ -36,6 +36,8 @@ if(!names.MaxIndex()){
 load()
 {
     File = %A_Scriptdir%\settings.ini
+    ;Сохранение текущей версии
+    IniWrite, 3, %File%, others, vers
     ; IniRead, OutputVar, %File%, section2, key
 
     ;Стартовая позиция
@@ -146,13 +148,6 @@ scan(){
     logs := A_Scriptdir "\logs.txt"
     FileRead, str, %File%
     names := StrSplit(str, pars_patern)
-    if(!names.MaxIndex()){
-        UrlDownloadToFile, https://dygdyg.github.io/DygDygWEB/PoE/autoroll/base.txt, %A_Scriptdir%\base.txt
-        MsgBox, "База загружена"
-        config_start()
-        FileRead, str, %File%
-        names := StrSplit(str, pars_patern)
-    }
 
     Send, {Ctrl down}
     Send {c}
