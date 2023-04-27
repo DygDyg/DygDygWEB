@@ -10,12 +10,14 @@ IniRead, VersLocal, %FileSettings%, others, vers
 FileRead, VersOnline, %FileVers%
 
 
-if(VersLocal < VersOnline)
+if(VersLocal < VersOnline or VersLocal == "ERROR")
     {
         FileEXE = %A_Scriptdir%\AutoRoll.exe
         UrlDownloadToFile, https://dygdyg.github.io/DygDygWEB/PoE/autoroll/autoroll.exe, %FileEXE%
-        MsgBox, version: %VersLocal% -> %VersOnline% J,Обновлена!
+        ; MsgBox, version: %VersLocal% -> %VersOnline%, Обновлена!
+        MsgBox, version: %VersOnline%
     }
     ; MsgBox, exit
     FileDelete, %FileVers%
+    Run, AutoRoll.exe
     Exit
