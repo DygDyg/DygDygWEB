@@ -147,7 +147,7 @@ scan(){
     FileRead, str, %File%
     names := StrSplit(str, pars_patern)
     if(!names.MaxIndex()){
-        UrlDownloadToFile, https://dygdyg.github.io/DygDygWEB/base.txt, %A_Scriptdir%\base.txt
+        UrlDownloadToFile, https://dygdyg.github.io/DygDygWEB/PoE/autoroll/base.txt, %A_Scriptdir%\base.txt
         MsgBox, "База загружена"
         config_start()
         FileRead, str, %File%
@@ -250,6 +250,10 @@ config_start()
     Gui, Add, Text, , =======================================================
     Gui, Add, Text, , Кнопка рола: %x_roll%х%y_roll%
     Gui, Add, Button, gRoll, Назначить
+    Gui, Add, Text, , =======================================================
+    Gui, Add, Text, , "ScrollLock" - авторерол
+    Gui, Add, Text, , "CapsLock" - даблпроход
+    
     ; Gui, Add, Text, cBlue gLaunchGoogle, Щёлкните здесь, чтобы открыть Google
     Gui, Show, NoActivate, Настройки 
     return
@@ -308,19 +312,28 @@ config_start()
 
 
 ; F5::
-;     {
-;         logs := A_Scriptdir "\logs.txt"
-;         datsss := StrSplit(clipboard, "`n").3
-;         FileAppend 
-;         (
-;             %datsss%
-;             ), %logs%
-;         Return
-;     }
+    ; {
+        ; Random, rand, 1, 10
+        ; MsgBox [Random(1, 10)]
+        ; Return
+    ; }
 
 F9::
     {
+        Start_roll:
         Start_scan()
+        if(GetKeyState("CapsLock", "T")==1){
+            Start_scan()
+        }
+
+        if(GetKeyState("ScrollLock", "T")==1){
+            Random, r1, -5, 5
+            Random, r2, -5, 5
+            MouseMove, x_roll + r1, y_roll + r2
+            Sleep, 50
+            Send, {LButton}
+            Goto, Start_roll
+    }
         return
     }
 
