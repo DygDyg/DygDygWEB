@@ -1,6 +1,8 @@
 #SingleInstance, Force
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
+;Версия программы
+global vers = 4
 
 global names := []
 global x_save
@@ -37,7 +39,7 @@ load()
 {
     File = %A_Scriptdir%\settings.ini
     ;Сохранение текущей версии
-    IniWrite, 3, %File%, others, vers
+    IniWrite, %vers%, %File%, others, vers
     ; IniRead, OutputVar, %File%, section2, key
 
     ;Стартовая позиция
