@@ -3,11 +3,11 @@ SendMode Input
 SetWorkingDir, %A_ScriptDir%
 global VersLocal
 global VersOnline
-FileVers = %A_Scriptdir%\vers
+FileVers = %A_Scriptdir%\Online_settings.ini
 FileSettings = %A_Scriptdir%\settings.ini
-UrlDownloadToFile, https://dygdyg.github.io/DygDygWEB/PoE/autoroll/version, %FileVers%
+UrlDownloadToFile, https://dygdyg.github.io/DygDygWEB/PoE/autoroll/settings.ini, %FileVers%
 IniRead, VersLocal, %FileSettings%, others, vers
-FileRead, VersOnline, %FileVers%
+IniRead, VersOnline, %FileVers%, others, vers
 
 
 if(VersLocal < VersOnline or VersLocal == "ERROR")
