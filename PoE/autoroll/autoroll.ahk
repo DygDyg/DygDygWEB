@@ -26,7 +26,7 @@ File = %A_Scriptdir%\base.txt
 FileRead, str, %File%
 names := StrSplit(str, pars_patern)
 if(!names.MaxIndex()){
-    UrlDownloadToFile, https://dygdyg.github.io/DygDygWEB/autoroll/base.txt, %A_Scriptdir%\base.txt
+    UrlDownloadToFile, https://dygdyg.github.io/DygDygWEB/PoE/autoroll/base.txt, %A_Scriptdir%\base.txt
     MsgBox, "База загружена"
     config_start()
     FileRead, str, %File%

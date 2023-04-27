@@ -5,7 +5,7 @@ global versLocal
 global VersOnline
 FileVers = %A_Scriptdir%\vers
 FileSettings = %A_Scriptdir%\settings.ini
-UrlDownloadToFile, https://dygdyg.github.io/DygDygWEB/autoroll/version.htm, %FileVers%
+UrlDownloadToFile, https://dygdyg.github.io/DygDygWEB/PoE/autoroll/version.htm, %FileVers%
 IniRead, VersOnline, %FileSettings%, others, vers
 FileRead, versLocal, %FileVers%
 FileDelete, %FileVers%
