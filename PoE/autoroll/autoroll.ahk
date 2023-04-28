@@ -2,7 +2,7 @@
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 ;Версия программы
-global vers = 4
+global vers = 5
 
 global names := []
 global x_save
@@ -209,13 +209,11 @@ Start_scan()
     {
         Loop, 11
         {
-            if(GetKeyState("NumLock", "T")==1){
-                MouseMove, %x%, %y% 
-                Sleep, 30
-                y := y + y_save2
-                FileAppend -----------`n, %logs%
-                scan()
-            }
+            MouseMove, %x%, %y% 
+            Sleep, 30
+            y := y + y_save2
+            FileAppend -----------`n, %logs%
+            scan()
         }
         y := y_save
         x := x + y_save2
@@ -341,7 +339,9 @@ F9::
             MouseMove, x_roll + r1, y_roll + r2
             Sleep, 50
             Send, {LButton}
+            Sleep, 1000
             Goto, Start_roll
+
     }
         return
     }
