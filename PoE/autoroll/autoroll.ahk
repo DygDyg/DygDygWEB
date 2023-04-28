@@ -261,7 +261,7 @@ config_start()
     Gui, Add, Text, , "CapsLock" - даблпроход
 
     ; Gui, Add, Text, cBlue gLaunchGoogle, Щёлкните здесь, чтобы открыть Google
-    Gui, Show, NoActivate, Настройки
+    Gui, Show, NoActivate, Настройки. Версия: %vers%
     return
 
     GetSave:
