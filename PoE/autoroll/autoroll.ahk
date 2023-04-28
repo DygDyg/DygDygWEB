@@ -2,7 +2,7 @@
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 ;Версия программы
-global vers = 6
+global vers = 7
 
 global names := []
 global x_save
@@ -103,7 +103,7 @@ load()
 
     ;Дополнительная задержка
     IniRead, delays, %File%, others, delays
-    
+
     If (delays=="ERROR" or delays==""){
         delays = 50
         save()
@@ -119,7 +119,6 @@ save()
     IniWrite, %x_save%, %File%, start position, x
     IniWrite, %y_save%, %File%, start position, y
 
-    
     ;Вторая ячейка, для подсчёта ширины и высоты
     IniWrite, %x_save2%, %File%, end position, x
     IniWrite, %y_save2%, %File%, end position, y
@@ -150,12 +149,13 @@ scan(){
     logs := A_Scriptdir "\logs.txt"
     FileRead, str, %File%
     names := StrSplit(str, pars_patern)
+    Random, r1, -5, 30
 
     Send, {Ctrl down}
     Send {c}
-    Sleep, %delays%
+    Sleep, %delays%+r1
     Send, {Ctrl up}
-    Sleep, %delays%
+    Sleep, %delays%+r1
 
     datsss := StrSplit(clipboard, "`n").3
     FileAppend %datsss%, %logs%
@@ -176,16 +176,22 @@ scan(){
 }
 
 trade(){
-    MouseMove, x_scroll, y_scroll
+    Random, r1, -5, 5
+    Random, r2, -5, 5
+    MouseMove, x_scroll+r1, y_scroll+r2
     Sleep, %delays%
     Sleep, %delays%
     Send, {LButton down}
-    MouseMove, x_scroll2, y_scroll2
+    Random, r1, -5, 5
+    Random, r2, -5, 5
+    MouseMove, x_scroll2+r1, y_scroll2+r2
     Sleep, %delays%
     Sleep, %delays%
     Send, {LButton up}
 
-    MouseMove, x_ok, y_ok
+    Random, r1, -5, 5
+    Random, r2, -5, 5
+    MouseMove, x_ok+r1, y_ok+r2
 
     Sleep, %delays%
     Send, {LButton}
@@ -196,21 +202,24 @@ trade(){
 
 }
 
-
 Start_scan()
 {
     logs := A_Scriptdir "\logs.txt"
     FileDelete, %logs%
     x := x_save
     y := y_save
-    MouseMove, %x%, %y%
+    Random, r1, -5, 5
+    Random, r2, -5, 5
+    MouseMove, x+r1, y+r2
     Sleep, 20
     Loop, 2
     {
         Loop, 11
         {
-            MouseMove, %x%, %y% 
-            Sleep, 30
+            Random, r1, -5, 5
+            Random, r2, -5, 5
+            MouseMove, x+r1, y+r2
+            Sleep, 30+r2
             y := y + y_save2
             FileAppend -----------`n, %logs%
             scan()
@@ -218,7 +227,9 @@ Start_scan()
         y := y_save
         x := x + y_save2
     }
-    MouseMove, x_roll, y_roll
+    Random, r1, -5, 5
+    Random, r2, -5, 5
+    MouseMove, x_roll+r1, y_roll+r2
 }
 
 config_start()
@@ -248,9 +259,9 @@ config_start()
     Gui, Add, Text, , =======================================================
     Gui, Add, Text, , "ScrollLock" - авторерол
     Gui, Add, Text, , "CapsLock" - даблпроход
-    
+
     ; Gui, Add, Text, cBlue gLaunchGoogle, Щёлкните здесь, чтобы открыть Google
-    Gui, Show, NoActivate, Настройки 
+    Gui, Show, NoActivate, Настройки
     return
 
     GetSave:
@@ -261,7 +272,7 @@ config_start()
         MouseGetPos, x_save, y_save
         config_start()
         save()
-        Return
+    Return
 
     GetSave2:
         Gui, Destroy
@@ -274,7 +285,7 @@ config_start()
         x_save2 := a
         config_start()
         save()
-        Return
+    Return
 
     GetScroll:
         Gui, Destroy
@@ -284,7 +295,7 @@ config_start()
         MouseGetPos, x_scroll, y_scroll
         config_start()
         save()
-        Return
+    Return
 
     GetScroll2:
         Gui, Destroy
@@ -294,7 +305,7 @@ config_start()
         MouseGetPos, x_scroll2, y_scroll2
         config_start()
         save()
-        Return
+    Return
 
     Ok:
         Gui, Destroy
@@ -304,7 +315,7 @@ config_start()
         MouseGetPos, x_ok, y_ok
         config_start()
         save()
-        Return
+    Return
 
     Roll:
         Gui, Destroy
@@ -314,48 +325,74 @@ config_start()
         MouseGetPos, x_roll, y_roll
         config_start()
         save()
-        Return
+    Return
 }
 
+F3::
+    {
+        x_inv = 1344
+        y_inv = 599
+        x := x_inv
+        y := y_inv
+        Send, {Ctrl down}
+        loop, 12{
+            Loop, 5
+            {
+                Random, r1, -5, 5
+                Random, r2, -5, 5
+                MouseMove, x+r1, y+r2
+                ; MouseClick, left, x, y
+                ;
+                y := y + y_save2
+                Sleep, 20+r1
+                Send, {LButton}
+                Sleep, 20+r2
+            }
+            y := y_inv
+            x := x + y_save2
+        }
+        Send, {Ctrl up}
+        Return
+    }
 
 ; F5::
-    ; {
-        ; Random, rand, 1, 10
-        ; MsgBox [Random(1, 10)]
-        ; Return
-    ; }
+; {
+; Return
+; }
 
 F9::
     {
         Start_roll:
-        Start_scan()
-        if(GetKeyState("CapsLock", "T")==1){
             Start_scan()
-        }
+            if(GetKeyState("CapsLock", "T")==1){
+                Start_scan()
+            }
 
-        if(GetKeyState("ScrollLock", "T")==1){
-            Random, r1, -5, 5
-            Random, r2, -5, 5
-            MouseMove, x_roll + r1, y_roll + r2
-            Sleep, 50
-            Send, {LButton}
-            Sleep, 1000
-            Goto, Start_roll
+            if(GetKeyState("ScrollLock", "T")==1){
+                Random, r1, -5, 5
+                Random, r2, -5, 5
+                MouseMove, x_roll + r1, y_roll + r2
+                Sleep, 50+r1
+                Send, {LButton}
+                Sleep, 1000+r2
+                Goto, Start_roll
 
-    }
+            }
         return
     }
 
-^F9::
-    {
-        config_start()
-        Return
-    }
+    ^F9::
+        {
+            config_start()
+            Return
+        }
 
-; F7::
-;     {
-;         aaa := "TEST"
-;         ; MsgBox %xxx% : %yyy%
-;         MsgBox % Format("{:L}", aaa)
-;         return
-;     }
+    F7::
+        {
+            WinActivate, ahk_exe PathOfExileSteam.exe
+            MouseGetPos, xxx, yyy
+            MsgBox %xxx% : %yyy%
+
+            return
+        }
+
