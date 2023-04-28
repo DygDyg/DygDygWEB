@@ -2,7 +2,7 @@
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 ;Версия программы
-global vers = 5
+global vers = 6
 
 global names := []
 global x_save
