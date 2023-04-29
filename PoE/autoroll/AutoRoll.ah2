@@ -3,8 +3,7 @@ SendMode("Event")
 SetWorkingDir(A_ScriptDir)
 CoordMode("Mouse", "Client")
 
-
-currentVersion := 9
+currentVersion := 10
 
 files := {
     config: "config.ini",
