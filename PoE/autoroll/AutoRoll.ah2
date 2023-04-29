@@ -3,6 +3,7 @@ SendMode("Event")
 SetWorkingDir(A_ScriptDir)
 CoordMode("Mouse", "Client")
 
+
 currentVersion := 9
 
 files := {
