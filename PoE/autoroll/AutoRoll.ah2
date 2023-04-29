@@ -3,7 +3,7 @@ SendMode("Event")
 SetWorkingDir(A_ScriptDir)
 CoordMode("Mouse", "Client")
 
-currentVersion := 10
+currentVersion := 11
 
 files := {
     config: "config.ini",
@@ -258,8 +258,8 @@ StartScan(repeat) {
         return
     }
 
+    MouseMove(program.x_roll + Random(-5, 5), program.y_roll + Random(-5, 5))
     if (GetKeyState("ScrollLock", "T") == 1) {
-        MouseMove(program.x_roll + Random(-5, 5), program.y_roll + Random(-5, 5))
         if (!program.scan)
             return
         Send("{vk1}")
@@ -267,7 +267,10 @@ StartScan(repeat) {
             return
         f := StartScan.Bind(false)
         SetTimer(f, -1000)
+    } else {
+        program.scan := false
     }
+
 }
 
 GetItem() {
