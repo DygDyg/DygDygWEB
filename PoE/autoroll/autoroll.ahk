@@ -1,8 +1,8 @@
 #SingleInstance, Force
-SendMode Input
+SendMode Event
 SetWorkingDir, %A_ScriptDir%
 ;Версия программы
-global vers = 8
+global vers = 9
 
 global names := []
 global x_save
@@ -23,7 +23,7 @@ global delays
 global tmp := []
 global pars_patern = ","
 
-SetdefaultMouseSpeed, 100
+SetdefaultMouseSpeed, 2
 File = %A_Scriptdir%\base.txt
 FileRead, str, %File%
 names := StrSplit(str, pars_patern)
