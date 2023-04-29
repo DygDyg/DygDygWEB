@@ -5,6 +5,7 @@ CoordMode("Mouse", "Client")
 
 currentVersion := 9
 
+
 files := {
     config: "config.ini",
     DB: "base.dat",
