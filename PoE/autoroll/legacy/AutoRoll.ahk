@@ -23,6 +23,7 @@ global delays
 global tmp := []
 global pars_patern = ","
 
+
 SetdefaultMouseSpeed, 2
 File = %A_Scriptdir%\base.txt
 FileRead, str, %File%
