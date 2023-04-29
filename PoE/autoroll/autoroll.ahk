@@ -2,7 +2,7 @@
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 ;Версия программы
-global vers = 7
+global vers = 8
 
 global names := []
 global x_save
@@ -149,13 +149,12 @@ scan(){
     logs := A_Scriptdir "\logs.txt"
     FileRead, str, %File%
     names := StrSplit(str, pars_patern)
-    Random, r1, -5, 30
 
     Send, {Ctrl down}
     Send {c}
-    Sleep, %delays%+r1
+    Sleep, %delays%
     Send, {Ctrl up}
-    Sleep, %delays%+r1
+    Sleep, %delays%
 
     datsss := StrSplit(clipboard, "`n").3
     FileAppend %datsss%, %logs%
@@ -219,7 +218,7 @@ Start_scan()
             Random, r1, -5, 5
             Random, r2, -5, 5
             MouseMove, x+r1, y+r2
-            Sleep, 30+r2
+            Sleep, 30
             y := y + y_save2
             FileAppend -----------`n, %logs%
             scan()
@@ -345,7 +344,7 @@ F3::
                 y := y + y_save2
                 Sleep, 20+r1
                 Send, {LButton}
-                Sleep, 20+r2
+                Sleep, 20
             }
             y := y_inv
             x := x + y_save2
@@ -371,9 +370,9 @@ F9::
                 Random, r1, -5, 5
                 Random, r2, -5, 5
                 MouseMove, x_roll + r1, y_roll + r2
-                Sleep, 50+r1
+                Sleep, 50
                 Send, {LButton}
-                Sleep, 1000+r2
+                Sleep, 1000
                 Goto, Start_roll
 
             }
