@@ -3,7 +3,7 @@ SendMode("Event")
 SetWorkingDir(A_ScriptDir)
 CoordMode("Mouse", "Client")
 
-currentVersion := 11
+currentVersion := 12
 
 files := {
     config: "config.ini",
@@ -30,12 +30,15 @@ program := {
     y_scroll2: IniRead(files.config, "scroll position end", "y", "798"),
     x_roll: IniRead(files.config, "roll position", "x", "954"),
     y_roll: IniRead(files.config, "roll position", "y", "844"),
+    x_Inv: IniRead(files.config, "Inv position", "x", "1336"),
+    y_Inv: IniRead(files.config, "Inv position", "y", "573"),
     delays: IniRead(files.config, "others", "delays", "50"),
 }
 hotkeys := {
     toggle: IniRead(files.config, "hotkeys", "toggleWindow", "^f9"),
     run: IniRead(files.config, "hotkeys", "runScan", "f9"),
     deb: IniRead(files.config, "hotkeys", "test", "f7"),
+    inv: IniRead(files.config, "hotkeys", "inv", "f3"),
 }
 
 if (!FileExist(files.config)) {
@@ -56,6 +59,8 @@ SetDefaultMouseSpeed(program.mouseSpeed)
 
 Hotkey("~$" . hotkeys.toggle, GuiToggler, 'On')
 Hotkey("~$" . hotkeys.run, ToggleScan, 'On')
+
+Hotkey("~$" . hotkeys.inv, ScipInventory, 'On')
 
 Hotkey("~$^End", key => ProcessClose(WinGetPID("A")))
 Hotkey("~$Pause", key => Pause(!A_IsPaused))
@@ -101,6 +106,10 @@ ogcButton := myGui.AddButton("x5", "Назначить")
 rollText := myGui.AddText("h24 0x200 x+m yp", "Кнопка рола: " . program.x_roll . "х" . program.y_roll)
 ogcButton.OnEvent("Click", SaveRoll)
 myGui.AddText("x5", "=======================================================")
+ogcButton := myGui.AddButton("x5", "Назначить")
+InvText := myGui.AddText("h24 0x200 x+m yp", "Первый слот инвентаря: " . program.x_Inv . "х" . program.y_Inv)
+ogcButton.OnEvent("Click", SaveInv)
+myGui.AddText("x5", "=======================================================")
 myGui.AddText("x5", "ScrollLock - авторерол")
 myGui.AddText("x5", "CapsLock - даблпроход")
 myGui.Show(Format("{1}", program.firstRun ? "" : "Hide"))
@@ -122,9 +131,6 @@ SaveConfig() {
     IniWrite(hotkeys.toggle, files.config, "hotkeys", "toggleWindow")
     IniWrite(hotkeys.run, files.config, "hotkeys", "runScan")
     IniWrite(hotkeys.deb, files.config, "hotkeys", "test")
-
-    ;Название игры
-    IniWrite(program.gameName, files.config, "game", "exe_name")
 
     ;Стартовая позиция
     IniWrite(program.x_save, files.config, "start position", "x")
@@ -150,21 +156,35 @@ SaveConfig() {
     IniWrite(program.x_roll, files.config, "roll position", "x")
     IniWrite(program.y_roll, files.config, "roll position", "y")
 
+    ;Первый слот инвентаря
+    IniWrite(program.x_Inv, files.config, "Inv position", "x")
+    IniWrite(program.y_Inv, files.config, "Inv position", "y")
+
     ;Дополнительная задержка
     IniWrite(program.delays, files.config, "others", "delays")
 }
 SaveConfig()
 
+ToggleMouseBtn(state) {
+    Hotkey('vk1', key => {}, state)
+}
+
 GetPos(&x, &y) {
+    ToggleMouseBtn('On')
+    Sleep(250)
     myGui.Hide()
-    ; KeyWait("NumpadMult", "D")
-    if (WinExist(program.gameName)) {
-        WinActivate("ahk_exe" . program.gameName)
+
+    if (WinExist("ahk_class POEWindowClass")) {
+        WinActivate("ahk_class POEWindowClass")
         OutputDebug('OK')
     }
-    Sleep(3000)
+
+    KeyWait("vk1", "D")
     MouseGetPos(&x, &y)
+    Sleep(250)
+
     myGui.Show()
+    ToggleMouseBtn('Off')
 }
 
 SaveStartPos(*) {
@@ -216,6 +236,14 @@ SaveRoll(*) {
     program.x_roll := x
     program.y_roll := y
     rollText.Value := "Кнопка рола: " . program.x_roll . "х" . program.y_roll
+    SaveConfig()
+}
+
+SaveInv(*) {
+    GetPos(&x, &y)
+    program.x_Inv := x
+    program.y_Inv := y
+    InvText.Value := "Первый слот инвентаря: " . program.x_Inv . "х" . program.y_Inv
     SaveConfig()
 }
 
@@ -326,6 +354,31 @@ BuyItem() {
     Sleep(30)
     if (!program.scan)
         return
+}
+
+ScipInventory(key)
+{
+    if (WinExist("ahk_class POEWindowClass")) {
+        WinActivate("ahk_class POEWindowClass")
+        OutputDebug('OK')
+
+        Send("{Ctrl down}")
+        x := program.x_Inv
+        y := program.y_Inv
+        loop (12)
+        {
+            loop (5)
+            {
+                MouseMove(x + Random(-5, 5), y + Random(-5, 5), 1)
+                Send("{vk1}")
+                ; OutputDebug("test")
+                y := y + program.y_save2
+            }
+            y := program.y_Inv
+            x := x + program.x_save2
+        }
+        Send("{Ctrl up}")
+    }
 }
 
 ; OnError(ErrorFunc)
