@@ -683,5 +683,3 @@ function cloud_save() {
 	}
 }
 
-
-
