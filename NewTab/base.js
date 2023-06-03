@@ -608,77 +608,77 @@ function cloud_load(fs) {
 
 function cloud_save() {
 	if (confirm("Сохранить в облако? Это перезапишет текущие настройки")) {
-	let a123 = []
-	for (let i = 0; i < localStorage.length; i++) {
+		let a123 = []
+		for (let i = 0; i < localStorage.length; i++) {
 
-		a123.push({ name: localStorage.key(i), data: localStorage.getItem(localStorage.key(i)) })
-	}
-	let json = JSON.stringify(a123)
-	loading = true
-	let at = localStorage.getItem("access_token")
-
-	if (at == null) {
-		window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL
-	}
-
-	$.ajax({
-		url: 'https://api.vk.com/method/notes.get?v=5.131&access_token=' + at,
-		method: 'get',
-		dataType: 'jsonp',
-		success: function (data) {
-			if (data["error"]) {
-
-				window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL
-			} else {
-
-				let f = false
-				let id
-
-				data["response"]["items"].forEach(e => {
-
-					if (e["title"] == "NewTab") {
-						id = e["id"]
-						f = true
-					}
-				});
-
-				if (f == true) {
-
-					$.ajax({
-						url: 'https://api.vk.com/method/notes.delete?access_token=' + at + '&note_id=' + id + '&v=5.131',
-						method: 'get',
-						dataType: 'jsonp',
-						success: function () {
-							$.ajax({
-								url: 'https://api.vk.com/method/notes.add?access_token=' + at + '&v=5.131&privacy_view="only_me"&privacy_comment="only_me"&title=NewTab&text=' + $.base64.btoa(json),
-								method: 'get',
-								dataType: 'jsonp',
-								success: function (data) {
-
-									id = data["response"]
-									loading = false
-									alert("База сохранена!!")
-								}
-							})
-						}
-					})
-				} else {
-					$.ajax({
-						url: 'https://api.vk.com/method/notes.add?access_token=' + at + '&v=5.131&privacy_view="only_me"&privacy_comment="only_me"&title=NewTab&text=' + $.base64.btoa(json),
-						method: 'get',
-						dataType: 'jsonp',
-						success: function (data) {
-
-							id = data["response"]
-							loading = false
-							alert("База сохранена!!")
-						}
-					})
-				}
-
-				// alert(id)
-			}
+			a123.push({ name: localStorage.key(i), data: localStorage.getItem(localStorage.key(i)) })
 		}
-	});
-}
+		let json = JSON.stringify(a123)
+		loading = true
+		let at = localStorage.getItem("access_token")
+
+		if (at == null) {
+			window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL
+		}
+
+		$.ajax({
+			url: 'https://api.vk.com/method/notes.get?v=5.131&access_token=' + at,
+			method: 'get',
+			dataType: 'jsonp',
+			success: function (data) {
+				if (data["error"]) {
+
+					window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL
+				} else {
+
+					let f = false
+					let id
+
+					data["response"]["items"].forEach(e => {
+
+						if (e["title"] == "NewTab") {
+							id = e["id"]
+							f = true
+						}
+					});
+
+					if (f == true) {
+
+						$.ajax({
+							url: 'https://api.vk.com/method/notes.delete?access_token=' + at + '&note_id=' + id + '&v=5.131',
+							method: 'get',
+							dataType: 'jsonp',
+							success: function () {
+								$.ajax({
+									url: 'https://api.vk.com/method/notes.add?access_token=' + at + '&v=5.131&privacy_view="only_me"&privacy_comment="only_me"&title=NewTab&text=' + $.base64.btoa(json),
+									method: 'get',
+									dataType: 'jsonp',
+									success: function (data) {
+
+										id = data["response"]
+										loading = false
+										alert("База сохранена!!")
+									}
+								})
+							}
+						})
+					} else {
+						$.ajax({
+							url: 'https://api.vk.com/method/notes.add?access_token=' + at + '&v=5.131&privacy_view="only_me"&privacy_comment="only_me"&title=NewTab&text=' + $.base64.btoa(json),
+							method: 'get',
+							dataType: 'jsonp',
+							success: function (data) {
+
+								id = data["response"]
+								loading = false
+								alert("База сохранена!!")
+							}
+						})
+					}
+
+					// alert(id)
+				}
+			}
+		});
+	}
 }
