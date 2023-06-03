@@ -682,4 +682,3 @@ function cloud_save() {
 		});
 	}
 }
-
