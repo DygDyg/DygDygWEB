@@ -1,4 +1,4 @@
-let ver = 1.18
+let ver = 1.19
 let clock_en = true
 var loading = false
 var gets_ = {}
@@ -7,8 +7,9 @@ var SiteURL = document.location.href.replace(/\/+$/, '');
 
 let SoundClick = new Audio();
 
-if (localStorage.getItem("access_token")) 
-{
+$.base64.utf8encode = true;
+
+if (localStorage.getItem("access_token")) {
 	// cloud_load(true)
 }
 
@@ -54,14 +55,14 @@ $('#search').on("input", function () {
 
 $(document).ready(function () {
 	$('#search').keydown(function (e) {
-		
+
 		if (e.keyCode === 13) {
-			
+
 			if ($(this).val().startsWith('http://') || $(this).val().startsWith('https://') || $(this).val().startsWith('file://') || $(this).val().startsWith('ftp://') || $(this).val().startsWith('steam://') || $(this).val().startsWith('magnet:?')) {
 				SiteURL = $(this).val()
 				console.log("AAA")
 			} else {
-				
+
 				if (event.shiftKey) {
 					SiteURL = 'https://translate.yandex.ru/?text=' + $(this).val()
 				} else if (event.ctrlKey) {
@@ -69,7 +70,7 @@ $(document).ready(function () {
 				} else if (event.altKey) {
 					// SiteURL = 'https://darklibria.it/search?find=' + $(this).val()
 					SiteURL = 'https://animego.org/search/all?q=' + $(this).val()
-					
+
 				} else {
 					SiteURL = 'https://yandex.ru/search/?text=' + $(this).val()
 					console.log("BBBB")
@@ -318,8 +319,7 @@ function settings(th) {
 		$('#add_button').click(add_button)
 		$('#exit').click(exit_settings)
 
-		if(!localStorage.getItem("access_token"))
-		{
+		if (!localStorage.getItem("access_token")) {
 			$('.vk_ls').addClass("vk_offline")
 		}
 
@@ -384,16 +384,15 @@ function exit_settings() {
 		console.log(image)
 		localStorage.setItem('images', image)
 
-		if (localStorage.getItem("access_token")) 
-		{
+		if (localStorage.getItem("access_token")) {
 			// cloud_save()
 		}
 
-		let timerId = setInterval(() =>{
+		let timerId = setInterval(() => {
 
-		 if(loading==false){
-			window.location.reload()
-		 }
+			if (loading == false) {
+				window.location.reload()
+			}
 		}, 500);
 	}
 	$('#body_menu').remove()
@@ -435,9 +434,11 @@ function add_card(url) {
 			//alert('You have a strange Mouse! '+ event.which);
 		}
 	})
-	if (names[num - 1] == 'undefined' || names[num - 1] == '') {
+
+	if (names[num - 1] == undefined || names[num - 1] == '' || names[num - 1] == "undefined") {
 
 		names[num - 1] = url.split('/')[2]
+		localStorage.setItem('names', names)
 	}
 
 	if (names[num - 1] != '*') {
@@ -448,7 +449,7 @@ function add_card(url) {
 
 		$('#card_' + num).append('<div class="name_tag">' + names[num - 1] + '</div>')
 	}
-
+	console.log(names[num - 1])
 	num++
 }
 
@@ -563,45 +564,50 @@ if (window.location.href.match(/.*\#.*/)) {
 }
 
 function cloud_load(fs) {
-	loading = true
-	let at = localStorage.getItem("access_token")
-	if (at == null) {
-		window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL
-	}
-	$.ajax({
-		url: 'https://api.vk.com/method/notes.get?v=5.131&access_token=' + at,
-		method: 'get',
-		dataType: 'jsonp',
-		success: function (data) {
-			if (data["error"]) {
-				window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL
-			} else {
-				let f = false
-				let id
+	if (confirm("Загрузить из облака? Это перезапишет текущие настройки")) {
 
-				data["response"]["items"].forEach(e => {
-					if (e["title"] == "NewTab") {
-						id = e["id"]
-						f = true
-						let a321 = JSON.parse(e["text"].replace('<div class="wikiText"><!--4-->', '').replace(' </div>', ''))
-						for (let i = 0; i < a321.length; i++) {
+		loading = true
+		let at = localStorage.getItem("access_token")
+		if (at == null) {
+			window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL
+		}
+		$.ajax({
+			url: 'https://api.vk.com/method/notes.get?v=5.131&access_token=' + at,
+			method: 'get',
+			dataType: 'jsonp',
+			success: function (data) {
+				if (data["error"]) {
+					window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL
+				} else {
+					let f = false
+					let id
 
-							localStorage.setItem(a321[i]["name"], a321[i]["data"])
-						}
-						if(!fs){
+					data["response"]["items"].forEach(e => {
+						if (e["title"] == "NewTab") {
+							id = e["id"]
+							f = true
+							console.log(e["text"])
+							let a321 = JSON.parse($.base64.atob(e["text"].replace('<div class="wikiText"><!--4-->', '').replace(' </div>', '')))
+							for (let i = 0; i < a321.length; i++) {
+
+								localStorage.setItem(a321[i]["name"], a321[i]["data"])
+							}
+							// if(!fs){
 							alert("База загружена!!")
 							location.reload();
+							// }
 						}
-					}
-				});
-				// if()
+					});
+					// if()
+				}
+				loading = false
 			}
-			loading = false
-		}
-	})
+		})
+	}
 }
 
 function cloud_save() {
+	if (confirm("Сохранить в облако? Это перезапишет текущие настройки")) {
 	let a123 = []
 	for (let i = 0; i < localStorage.length; i++) {
 
@@ -644,7 +650,7 @@ function cloud_save() {
 						dataType: 'jsonp',
 						success: function () {
 							$.ajax({
-								url: 'https://api.vk.com/method/notes.add?access_token=' + at + '&v=5.131&privacy_view="only_me"&privacy_comment="only_me"&title=NewTab&text=' + json,
+								url: 'https://api.vk.com/method/notes.add?access_token=' + at + '&v=5.131&privacy_view="only_me"&privacy_comment="only_me"&title=NewTab&text=' + $.base64.btoa(json),
 								method: 'get',
 								dataType: 'jsonp',
 								success: function (data) {
@@ -658,7 +664,7 @@ function cloud_save() {
 					})
 				} else {
 					$.ajax({
-						url: 'https://api.vk.com/method/notes.add?access_token=' + at + '&v=5.131&privacy_view="only_me"&privacy_comment="only_me"&title=NewTab&text=' + json,
+						url: 'https://api.vk.com/method/notes.add?access_token=' + at + '&v=5.131&privacy_view="only_me"&privacy_comment="only_me"&title=NewTab&text=' + $.base64.btoa(json),
 						method: 'get',
 						dataType: 'jsonp',
 						success: function (data) {
@@ -674,4 +680,5 @@ function cloud_save() {
 			}
 		}
 	});
+}
 }
