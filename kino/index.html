@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="kinopoisk.svg" type="image/x-icon" />
+        <title>Kino</title>
+        <style>
+            :root {
+                --padding: 40px;
+                --paddingX2: calc(var(--padding) * 2);
+            }
+            html,
+            body {
+                background-color: #222;
+                min-height: 100vh;
+                min-width: 100vw;
+            }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            .wrapper {
+                padding: var(--padding);
+                height: 100vh;
+            }
+            .yohoho {
+                width: calc(100vw - var(--paddingX2)) !important;
+                height: calc(100vh - var(--paddingX2)) !important;
+            }
+            #yohoho-iframe {
+                width: 100% !important;
+                height: 100% !important;
+            }
+            #yohoho-buttons {
+                transition: right 0.25s;
+            }
+            .go-back {
+                position: absolute;
+                top: 5px;
+                left: 40px;
+                z-index: 10;
+                cursor: pointer;
+                transition: opacity 0.6s ease-out;
+            }
+            .inactive {
+                opacity: 0;
+            }
+        </style>
+        <script type="text/javascript" defer="" src="//yohoho.cc/yo.js"></script>
+        <style type="text/css">
+            #yohoho-loading {
+                z-index: 9999;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background: #2a3440
+                    url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQiIGNsYXNzPSJ1aWwtc3BpcmFsIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgY2xhc3M9ImJrIiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTU0LjUgODkuOWMtOS42IDAtMTguNi0zLjktMjUuNC0xMSAtNi44LTcuMS0xMC41LTE2LjYtMTAuNS0yNi43IDAtOC45IDMuMy0xNy4yIDkuMi0yMy41UzQxLjcgMTkgNTAuMiAxOWM4LjQgMCAxNi40IDMuNCAyMi4zIDkuNyA2IDYuMyA5LjIgMTQuNiA5LjIgMjMuNSAwIDE1LjgtMTIuMiAyOC43LTI3LjMgMjguNyAtMTUgMC0yNy4zLTEyLjktMjcuMy0yOC43IDAtMTMuMyAxMC4zLTI0LjIgMjMtMjQuMnMyMyAxMC44IDIzIDI0LjJjMCAxMC44LTguNCAxOS42LTE4LjcgMTkuNiAtMTAuMyAwLTE4LjctOC44LTE4LjctMTkuNiAwLTguMyA2LjUtMTUuMSAxNC40LTE1LjEgNy45IDAgMTQuNCA2LjggMTQuNCAxNS4xIDAgNS44LTQuNSAxMC42LTEwLjEgMTAuNnMtMTAuMS00LjgtMTAuMS0xMC42YzAtMy40IDIuNi02LjEgNS44LTYuMSAzLjIgMCA1LjggMi43IDUuOCA2LjEgMCAwLjktMC43IDEuNi0xLjUgMS42IC0wLjggMC0xLjUtMC43LTEuNS0xLjYgMC0xLjYtMS4zLTIuOS0yLjgtMi45IC0xLjUgMC0yLjggMS4zLTIuOCAyLjkgMCA0LjEgMy4yIDcuNCA3LjEgNy40czcuMS0zLjMgNy4xLTcuNGMwLTYuNi01LjEtMTItMTEuNC0xMiAtNi4zIDAtMTEuNCA1LjQtMTEuNCAxMiAwIDkuMSA3IDE2LjUgMTUuNyAxNi41IDguNiAwIDE1LjctNy40IDE1LjctMTYuNSAwLTExLjYtOS0yMS0yMC0yMXMtMjAgOS40LTIwIDIxYzAgMTQuMSAxMC45IDI1LjUgMjQuMyAyNS41czI0LjMtMTEuNCAyNC4zLTI1LjVjMC0xNi42LTEyLjgtMzAtMjguNi0zMCAtMTUuOCAwLTI4LjYgMTMuNS0yOC42IDMwIDAgOS4yIDMuNCAxNy45IDkuNiAyNC40IDYuMiA2LjUgMTQuNSAxMC4xIDIzLjIgMTAuMXMxNy0zLjYgMjMuMi0xMC4xYzYuMi02LjUgOS42LTE1LjIgOS42LTI0LjQgMC0xMC40LTMuOS0yMC4yLTEwLjktMjcuNiAtNy03LjQtMTYuMy0xMS40LTI2LjMtMTEuNHMtMTkuMyA0LjEtMjYuMyAxMS40UzEzIDQxLjggMTMgNTIuMmMwIDAuOS0wLjcgMS42LTEuNSAxLjZTMTAgNTMuMSAxMCA1Mi4yYzAtMTEuMyA0LjItMjEuOSAxMS44LTI5LjkgNy42LTggMTcuNy0xMi40IDI4LjQtMTIuNCAxMC43IDAgMjAuOCA0LjQgMjguNCAxMi40IDcuNiA4IDExLjggMTguNiAxMS44IDI5LjkgMCAxMC4xLTMuNyAxOS41LTEwLjUgMjYuN0M3My4xIDg2IDY0LjEgODkuOSA1NC41IDg5Ljl6IiBmaWxsPSIjZmZmIj48YW5pbWF0ZVRyYW5zZm9ybSBhdHRyaWJ1dGVOYW1lPSJ0cmFuc2Zvcm0iIHR5cGU9InJvdGF0ZSIgZnJvbT0iMCA1MCA1MCIgdG89IjM2MCA1MCA1MCIgZHVyPSIxcyIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiLz48L3BhdGg+PC9zdmc+)
+                    50% 50% no-repeat;
+            }
+            #yohoho-buttons {
+                position: absolute;
+                z-index: 9999;
+                right: 0;
+                top: 50px;
+                text-align: left;
+            }
+            #yohoho-buttons:hover {
+                right: 0 !important;
+            }
+            #yohoho-buttons div {
+                font-family: Verdana, sans-serif;
+                font-weight: normal;
+                text-shadow: none;
+                line-height: normal;
+                font-size: 12px;
+                color: #fff;
+                background: #2a3440;
+                border-radius: 5px 0 0 5px;
+                padding: 5px;
+                margin: 5px 0 5px 5px;
+                opacity: 0.7;
+            }
+            #yohoho-buttons div:hover,
+            #yohoho-buttons div.yohoho-active {
+                color: #fff;
+                background: #2a3440;
+                cursor: pointer;
+                opacity: 1;
+            }
+        </style>
+    </head>
+    <body>
+        <a id="goBack" class="go-back" href="//kinopoisk.ru">
+            <svg height="36" viewBox="0 0 164 36" xmlns="http://www.w3.org/2000/svg">
+                <!-- prettier-ignore -->
+                <path fill="coral" fill-rule="evenodd" clip-rule="evenodd" d="M58.859 18c0-5.889 2.954-10.6 8.281-10.6 5.328 0 8.281 4.711 8.281 10.6 0 5.89-2.954 10.6-8.28 10.6-5.328 0-8.282-4.71-8.282-10.6Zm8.281 7.66c2.072 0 2.954-3.534 2.954-7.652 0-4.12-.889-7.652-2.954-7.652-2.065 0-2.954 3.533-2.954 7.652-.007 4.118.882 7.652 2.954 7.652ZM3.843 7.7v5.596h.294L7.98 7.7h5.32l-7.098 6.474.294.293L19.51 7.693v4.711L7.973 16.523v.292l11.537-1.028v4.419L7.973 19.178v.293l11.537 4.118v4.712L6.496 21.526l-.294.293 7.098 6.474H7.98l-3.843-5.596h-.294v5.596H0V7.686h3.843V7.7Zm19.23 0H28.1l-.294 12.363h.294L34.015 7.7h4.438v20.608h-5.026l.294-12.364h-.294L27.51 28.309h-4.438V7.7Zm23.955 0h-5.026v20.608h5.026v-9.13h4.137v9.13h5.026V7.7h-5.026v7.952h-4.137V7.7Zm45.25 0h-14.19v20.608h5.027V11.233h4.137v17.075h5.026V7.7Zm2.66 10.3c0-5.889 2.954-10.6 8.282-10.6 5.32 0 8.281 4.711 8.281 10.6 0 5.89-2.954 10.6-8.281 10.6-5.32 0-8.282-4.71-8.282-10.6Zm8.282 7.66c2.072 0 2.954-3.534 2.954-7.652 0-4.12-.889-7.652-2.954-7.652-2.072 0-2.954 3.533-2.954 7.652 0 4.118.882 7.652 2.954 7.652ZM119.187 7.7h-5.026v20.608h4.438l5.916-12.364h.294l-.294 12.364h5.026V7.7h-4.438l-5.916 12.363h-.294l.294-12.363Zm23.669 13.541 4.732.585c-.889 4.12-2.954 6.774-7.364 6.774-5.32 0-8.016-4.71-8.016-10.6 0-5.889 2.689-10.6 8.016-10.6 4.317 0 6.475 2.649 7.364 6.475l-4.732 1.177c-.294-2.063-1.155-4.71-2.632-4.71-1.771 0-2.689 3.533-2.689 7.651 0 4.09.918 7.652 2.689 7.652 1.449.015 2.33-2.341 2.632-4.404Zm11.83-13.54h-4.732v20.607h4.732v-9.13h.294l3.549 9.13H164l-5.177-10.6L163.849 7.7h-5.026l-3.843 9.13h-.294V7.7Z"></path>
+            </svg>
+        </a>
+        <div class="wrapper">
+            <div id="yohoho" class="yohoho"></div>
+        </div>
+        <script type="text/javascript">
+            function showLogo(time = 2000) {
+                clearTimeout(showLogo.idleTimer)
+                goBack.classList.remove('inactive')
+                showLogo.idleTimer = setTimeout(_ => goBack.classList.add('inactive'), time)
+            }
+            showLogo()
+            window.onmousemove = e => showLogo()
+
+            // prettier-ignore
+            const data = location.search.replace('?', '').split('&').reduce((s, c) => ((s[c.split('=')[0]] = c.split('=')[1]), s), {}).data
+            try {
+                const { type, id, name, year } = JSON.parse(decodeURIComponent(escape(window.atob(data))))
+                document.title = `${name} - ${year}`
+
+                goBack.href = `//kinopoisk.ru/${type}/${id}`
+                yohoho.dataset.kinopoisk = id
+                yohoho.style = 'overflow:hidden; position:relative;'
+
+                const po = document.createElement('script')
+                po.type = 'text/javascript'
+                po.defer = true
+                po.src = '//yohoho.cc/yo.js'
+                document.querySelector('head').append(po)
+            } catch (error) {
+                console.log(error.message)
+            }
+        </script>
+    </body>
+</html>
