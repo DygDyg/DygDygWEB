@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="kinopoisk.svg" type="image/x-icon" />
         <title>Kino</title>
-        <meta id="ttt" property="og:title" content="Kino с кинопоиска 123">
+        <meta id="og_title" property="og:title" content="Kino с кинопоиска">
         <style>
             :root {
                 --padding: 40px;
@@ -119,6 +119,7 @@
             try {
                 const { type, id, name, year } = JSON.parse(decodeURIComponent(escape(window.atob(data))))
                 document.title = `${name} - ${year}`
+                document.getElementById('og_title').content = name
 
                 goBack.href = `//kinopoisk.ru/${type}/${id}`
                 yohoho.dataset.kinopoisk = id
