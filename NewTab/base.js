@@ -1,4 +1,4 @@
-let ver = 1.20
+let ver = 1.21
 let clock_en = true
 var loading = false
 var gets_ = {}
@@ -79,6 +79,28 @@ $(document).ready(function () {
 			window.location = SiteURL;
 			//alert($(this).val());
 			//
+		}
+
+
+	})
+	$('#search').on("input", function () {
+		// console.log($(this).val())
+		// console.log(/[0-9%\/*\-+\(\)=]+$/.test($(this).val()))
+		if (/[0-9%\/*\-+\(\)=]+$/.test($(this).val())) {
+			try {
+				eval($(this).val()); 
+			} catch (e) {
+				if (e instanceof SyntaxError) {
+					$('title').text("Новая вкладка")
+					return
+				}
+			}
+			$('title').text(eval($(this).val()))
+			console.log("Результат: "+eval($(this).val()))
+		}
+		if(!$(this).val())
+		{
+			$('title').text("Новая вкладка")
 		}
 	})
 })
