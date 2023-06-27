@@ -3,6 +3,7 @@ let clock_en = true
 var loading = false
 var gets_ = {}
 var SiteURL = document.location.href.replace(/\/+$/, '');
+var Calc = false;
 
 
 let SoundClick = new Audio();
@@ -57,6 +58,12 @@ $(document).ready(function () {
 	$('#search').keydown(function (e) {
 
 		if (e.keyCode === 13) {
+			if(Calc)
+			{
+				console.log("Результат: "+eval($(this).val()))
+				alert("Результат: "+eval($(this).val()))
+				return
+			}
 
 			if ($(this).val().startsWith('http://') || $(this).val().startsWith('https://') || $(this).val().startsWith('file://') || $(this).val().startsWith('ftp://') || $(this).val().startsWith('steam://') || $(this).val().startsWith('magnet:?')) {
 				SiteURL = $(this).val()
@@ -92,14 +99,17 @@ $(document).ready(function () {
 			} catch (e) {
 				if (e instanceof SyntaxError) {
 					$('title').text("Новая вкладка")
+					Calc = false
 					return
 				}
 			}
 			$('title').text("Результат: "+eval($(this).val()))
-			console.log("Результат: "+eval($(this).val()))
+			// console.log("Результат: "+eval($(this).val()))
+			Calc = true
 		}
 		if(!$(this).val())
 		{
+			Calc = false
 			$('title').text("Новая вкладка")
 		}
 	})
