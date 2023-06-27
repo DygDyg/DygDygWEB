@@ -1,4 +1,4 @@
-let ver = 1.21
+let ver = 1.22
 let clock_en = true
 var loading = false
 var gets_ = {}
@@ -53,6 +53,7 @@ $('#searchs').append('<input id="search" type="text" placeholder="Искать �
 $('#search').on("input", function () {
 	soundClick('click_key.ogg')
 })
+$('#searchs').append('<div id="calc_result"></div>')
 
 $(document).ready(function () {
 	$('#search').keydown(function (e) {
@@ -99,11 +100,14 @@ $(document).ready(function () {
 			} catch (e) {
 				if (e instanceof SyntaxError) {
 					$('title').text("Новая вкладка")
+					$('#calc_result').text("")
 					Calc = false
 					return
 				}
 			}
 			$('title').text(eval($(this).val()))
+			$('#calc_result').text("Результат: "+eval($(this).val()))
+			
 			// console.log("Результат: "+eval($(this).val()))
 			Calc = true
 		}
@@ -111,6 +115,7 @@ $(document).ready(function () {
 		{
 			Calc = false
 			$('title').text("Новая вкладка")
+			$('#calc_result').text("")
 		}
 	})
 })

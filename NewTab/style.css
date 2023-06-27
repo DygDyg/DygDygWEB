@@ -6,17 +6,29 @@ body {
     /* cursor: url(https://yastatic.net/s3/web4static/_/v2/static/media/xmas-mitten_28.c8f51feb.svg) 4 2, pointer; */
 }
 
-#vk_button
-{
+#calc_result {
+    color: #f9f9f9;
+    justify-content: center;
+    width: 76%;
+    font-size: 20px;
+    padding: 10px;
+    margin: 0px -32px 0px 0px;
+    text-shadow: 2px 0 0px #000,
+        0 2px 0px #000,
+        -2px 0 0px #000,
+        0 -2px 0px #000;
+}
+
+#vk_button {
     cursor: pointer;
     width: 21px;
     height: 21px;
     background-image: url(https://vk.com/favicon.ico);
     background-size: cover;
-    
+
 }
-.vk_ls
-{
+
+.vk_ls {
     background-color: #0077ff;
     width: 21px;
     height: 21px;
@@ -25,25 +37,23 @@ body {
     color: rgb(255, 255, 255);
     cursor: pointer;
 }
-.vk_offline
-{
+
+.vk_offline {
     filter: grayscale(100%);
 }
-#vk_saved
-{
+
+#vk_saved {
     background-image: url(https://dygdyg.github.io/DygDygWEB/NewTab/diskette2.png);
     background-size: cover;
 }
 
-#vk_load
-{
+#vk_load {
     background-image: url(https://dygdyg.github.io/DygDygWEB/NewTab/cloud-computing.png);
     background-size: cover;
 }
 
 
-#vk_ls
-{
+#vk_ls {
     display: flex;
 }
 
@@ -133,6 +143,7 @@ body {
     width: 380px;
     margin: 1px 1px 1px 10px;
 }
+
 .URLimage {
     background-color: #3a3a3ad9;
     color: white;
@@ -191,8 +202,8 @@ body {
     -webkit-text-stroke-width: 0.5px;
     -webkit-text-stroke-color: #000000b0;
 }
-#ver
-{
+
+#ver {
     color: #dfcda5;
     font-family: 'BebasBold', sans-serif;
     font-weight: 500;
@@ -258,14 +269,15 @@ body {
 
 /* Грёбанный снег, не трогать до весны!!!! */
 .snowContainer {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	left:0;
-	z-index: -1;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
-.clockscroll{
+
+.clockscroll {
     font-family: 'BebasBold', sans-serif;
     font-size: 26px;
     /* position: fixed; */
@@ -283,49 +295,53 @@ body {
 }
 
 #snow {
-	width: 100%;
-	height: 100%;
-	background-image: url("snow/snow_1.png"), url("snow/snow_2.png"), url("snow/snow_3.png");
-	-webkit-animation: snow 20s linear infinite;
-	-moz-animation: snow 20s linear infinite;
-	-ms-animation: snow 20s linear infinite;
-	animation: snow 20s linear infinite;
+    width: 100%;
+    height: 100%;
+    background-image: url("snow/snow_1.png"), url("snow/snow_2.png"), url("snow/snow_3.png");
+    -webkit-animation: snow 20s linear infinite;
+    -moz-animation: snow 20s linear infinite;
+    -ms-animation: snow 20s linear infinite;
+    animation: snow 20s linear infinite;
 }
 
 @keyframes snow {
-	0% {
-		background-position: 0px 0px, 0px 0px, 0px 0px;
-	}
-	100% {
-		background-position: 500px 1000px, 400px 400px, 300px 300px;
-	}
+    0% {
+        background-position: 0px 0px, 0px 0px, 0px 0px;
+    }
+
+    100% {
+        background-position: 500px 1000px, 400px 400px, 300px 300px;
+    }
 }
 
 @-moz-keyframes snow {
-	0% {
-		background-position: 0px 0px, 0px 0px, 0px 0px;
-	}
-	100% {
-		background-position: 500px 1000px, 400px 400px, 300px 300px;
-	}
+    0% {
+        background-position: 0px 0px, 0px 0px, 0px 0px;
+    }
+
+    100% {
+        background-position: 500px 1000px, 400px 400px, 300px 300px;
+    }
 }
 
 @-webkit-keyframes snow {
-	0% {
-		background-position: 0px 0px, 0px 0px, 0px 0px;
-	}
-	100% {
-		background-position: 500px 1000px, 400px 400px, 300px 300px;
-	}
+    0% {
+        background-position: 0px 0px, 0px 0px, 0px 0px;
+    }
+
+    100% {
+        background-position: 500px 1000px, 400px 400px, 300px 300px;
+    }
 }
 
 @-ms-keyframes snow {
-	0% {
-		background-position: 0px 0px, 0px 0px, 0px 0px;
-	}
-	100% {
-		background-position: 500px 1000px, 400px 400px, 300px 300px;
-	}
+    0% {
+        background-position: 0px 0px, 0px 0px, 0px 0px;
+    }
+
+    100% {
+        background-position: 500px 1000px, 400px 400px, 300px 300px;
+    }
 }
 
 /* Новый год курсор */
