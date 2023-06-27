@@ -95,7 +95,7 @@ $(document).ready(function () {
 					return
 				}
 			}
-			$('title').text(eval($(this).val()))
+			$('title').text("Результат: "+eval($(this).val()))
 			console.log("Результат: "+eval($(this).val()))
 		}
 		if(!$(this).val())
