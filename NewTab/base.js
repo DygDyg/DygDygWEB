@@ -60,7 +60,7 @@ $(document).ready(function () {
 		if (e.keyCode === 13) {
 			if(Calc)
 			{
-				console.log("Результат: "+eval($(this).val()))
+				// console.log("Результат: "+eval($(this).val()))
 				alert("Результат: "+eval($(this).val()))
 				return
 			}
@@ -103,7 +103,7 @@ $(document).ready(function () {
 					return
 				}
 			}
-			$('title').text("Результат: "+eval($(this).val()))
+			$('title').text(eval($(this).val()))
 			// console.log("Результат: "+eval($(this).val()))
 			Calc = true
 		}
