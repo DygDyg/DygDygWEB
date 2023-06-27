@@ -43,7 +43,7 @@ function fav_text(text) {
 }
 
 document.addEventListener('keydown', function (e) {
-    console.log(e);
+    // console.log(e);
 
     switch (e.key) {
         case "ArrowUp":
@@ -82,7 +82,7 @@ document.addEventListener('keydown', function (e) {
                   }, 500);
             } else {
                 edge = !edge
-                console.log(edge)
+                // console.log(edge)
             }
             break;
         default:
