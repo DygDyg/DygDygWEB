@@ -4,6 +4,9 @@
 <script src='jquery.base64.js'></script>
 <script src="moment-with-locales.js"></script>
 <script src="moment-timezone-with-data.js"></script>
+<script src="key_fav.js"></script>
+
+<!-- <script src="drawLoader.js"></script> -->
 <!-- <script src="snow.js"></script> -->
 
 <head>
@@ -16,7 +19,7 @@
 
 <body>
 </body>
-
+<!-- <canvas id="canvas" width="200" height="200"></canvas> -->
 <link rel="stylesheet" property="stylesheet" type="text/css" href="style.css">
 <link rel="stylesheet" property="stylesheet" type="text/css" href="BebasBold.css">
 
@@ -24,33 +27,5 @@
 <script src="base.js"></script>
 
 <script>
-	let fav = document.getElementById('favicon')
-	/*setInterval(() => {
-		// fav.href = "favicon/1.svg"
-	}, 1000);*/
-
-	document.addEventListener('keydown', function (e) {
-		// console.log(e.key);
-
-		switch (e.key) {
-			case "ArrowUp":
-				fav.href = "favicon/up.svg"
-				break;
-			case "ArrowLeft":
-				fav.href = "favicon/left.svg"
-				break;
-			case "ArrowRight":
-				fav.href = "favicon/right.svg"
-				break;
-			case "ArrowDown":
-				fav.href = "favicon/down.svg"
-				break;
-		}
-	});
-
-	document.addEventListener('keyup', function (e) {
-		// console.log(e.key);
-		fav.href = "favicon/default.svg"
-	});
 
 </script>
