@@ -38,6 +38,10 @@ var _info = 'Добавил в меню настроке пункты включ
 
 $(document).ready(function () {
     //menu();
+    $(".news-list-vk").remove()
+    $(".VK_com.com").remove()
+    
+    // setTimeout($(".news-list-vk").remuve(), 5000);
 })
 
 
