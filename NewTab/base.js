@@ -59,12 +59,12 @@ $(document).ready(function () {
 	$('#search').keydown(function (e) {
 
 		if (e.keyCode === 13) {
-			if(Calc)
-			{
-				// console.log("Результат: "+eval($(this).val()))
-				alert("Результат: "+eval($(this).val()))
-				return
-			}
+			// if(Calc)
+			// {
+			// 	// console.log("Результат: "+eval($(this).val()))
+			// 	alert("Результат: "+eval($(this).val()))
+			// 	return
+			// }
 
 			if ($(this).val().startsWith('http://') || $(this).val().startsWith('https://') || $(this).val().startsWith('file://') || $(this).val().startsWith('ftp://') || $(this).val().startsWith('steam://') || $(this).val().startsWith('magnet:?')) {
 				SiteURL = $(this).val()
