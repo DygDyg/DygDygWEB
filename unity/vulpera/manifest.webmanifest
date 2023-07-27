@@ -1,0 +1,15 @@
+{
+    "name": "VK_API",
+    "short_name": "VK_API",
+    "start_url": "index.html",
+    "display": "fullscreen",
+    "background_color": "#828080",
+    "theme_color": "#fff",
+    "description": "",
+    "icons": [{
+      "src": "TemplateData/icons/unity-logo-light.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }]
+  }
