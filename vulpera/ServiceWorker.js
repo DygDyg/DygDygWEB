@@ -1,4 +1,4 @@
-const cacheName = "DefaultCompany-VK_API-0.1";
+const cacheName = "DygDyg-vulpera-0.1";
 const contentToCache = [
     "Build/vulpera.loader.js",
     "Build/vulpera.framework.js",

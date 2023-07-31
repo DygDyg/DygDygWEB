@@ -1,6 +1,6 @@
 {
-    "name": "VK_API",
-    "short_name": "VK_API",
+    "name": "vulpera",
+    "short_name": "vulpera",
     "start_url": "index.html",
     "display": "fullscreen",
     "background_color": "#828080",
