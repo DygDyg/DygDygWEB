@@ -1,5 +1,6 @@
 {
     "recommendations": [
-        "clemenspeters.format-json"
+        "clemenspeters.format-json",
+        "ms-ceintl.vscode-language-pack-ru"
     ]
 }
