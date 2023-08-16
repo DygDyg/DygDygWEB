@@ -107,7 +107,7 @@ limitations under the License.
         }
         localStorage.setItem('google_token', gapi.client.getToken());
         console.log(gapi.client.getToken())
-        
+
         document.getElementById('signout_button').style.visibility = 'visible';
         document.getElementById('authorize_button').innerText = 'Refresh';
         await listMajors();
@@ -181,8 +181,12 @@ limitations under the License.
 </body>
 <style>
   td {
-    border: 1px solid #333;
+    border: 1px solid #4d4d4d;
   }
+  body {
+    background-color: #202124;
+    color: #d5d5d5;
+}
 </style>
 
 </html>
