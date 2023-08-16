@@ -38,15 +38,15 @@ limitations under the License.
     /* exported handleSignoutClick */
 
     // TODO(developer): Set to client ID and API key from the Developer Console
-    const CLIENT_ID = ''
+    var CLIENT_ID = ""
     console.log(location.hostname)
     if (location.hostname == "127.0.0.1") {
-      CLIENT_ID = '973561305211-7ntkb0fhmjipel0qprbjn0ti97cco90d.apps.googleusercontent.com';
+      CLIENT_ID = "973561305211-7ntkb0fhmjipel0qprbjn0ti97cco90d.apps.googleusercontent.com";
       console.log("local")
     }
     if("dygdyg.github.io"==location.hostname)
     {
-      CLIENT_ID = '973561305211-bmvqn827jkkk9rihsks8b22k71sg2h54.apps.googleusercontent.com';
+      CLIENT_ID = "973561305211-bmvqn827jkkk9rihsks8b22k71sg2h54.apps.googleusercontent.com";
       console.log('git')
     }
     console.log("id", CLIENT_ID)
