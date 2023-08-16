@@ -39,14 +39,17 @@ limitations under the License.
 
     // TODO(developer): Set to client ID and API key from the Developer Console
     const CLIENT_ID = ''
+    console.log(location.hostname)
     if (location.hostname == "127.0.0.1") {
       CLIENT_ID = '973561305211-7ntkb0fhmjipel0qprbjn0ti97cco90d.apps.googleusercontent.com';
+      console.log('local')
     }
     else
     {
       CLIENT_ID = '973561305211-bmvqn827jkkk9rihsks8b22k71sg2h54.apps.googleusercontent.com';
+      console.log('git')
     }
-    
+    console.log("id", CLIENT_ID)
     const API_KEY = 'AIzaSyB5gnnc4zYQCukCdBP6OAt4hgiWK9giQ4U';
 
     // Discovery doc URL for APIs used by the quickstart
