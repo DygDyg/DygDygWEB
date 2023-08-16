@@ -23,8 +23,6 @@ limitations under the License.
 </head>
 
 <body>
-  <p>Sheets API Quickstart</p>
-
   <!--Add buttons to initiate auth sequence and sign out-->
   <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
   <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
@@ -38,17 +36,9 @@ limitations under the License.
     /* exported handleSignoutClick */
 
     // TODO(developer): Set to client ID and API key from the Developer Console
-    var CLIENT_ID = ""
-    console.log(location.hostname)
-    if (location.hostname == "127.0.0.1") {
-      CLIENT_ID = "994916635680-04hjsvjbahai7c4e0nhp8tr2ck35vj3k.apps.googleusercontent.com";
-      console.log("local")
-    }
-    if ("dygdyg.github.io" == location.hostname) {
-      CLIENT_ID = "994916635680-04hjsvjbahai7c4e0nhp8tr2ck35vj3k.apps.googleusercontent.com";
-      console.log('git')
-    }
-    console.log("id", CLIENT_ID)
+
+    const CLIENT_ID = "994916635680-04hjsvjbahai7c4e0nhp8tr2ck35vj3k.apps.googleusercontent.com";
+
     const API_KEY = 'AIzaSyAbj2A26TQ5ZB3IZoUYAQx7ip559fPX9oc';
 
     // Discovery doc URL for APIs used by the quickstart
@@ -115,10 +105,15 @@ limitations under the License.
         if (resp.error !== undefined) {
           throw (resp);
         }
+        localStorage.setItem('google_token', gapi.client.getToken());
+        console.log(gapi.client.getToken())
+        
         document.getElementById('signout_button').style.visibility = 'visible';
         document.getElementById('authorize_button').innerText = 'Refresh';
         await listMajors();
       };
+      console.log(localStorage.getItem('google_token'))
+      gapi.client.setToken(localStorage.getItem('google_token'));
 
       if (gapi.client.getToken() === null) {
         // Prompt the user to select a Google Account and ask for consent to share their data
@@ -153,29 +148,24 @@ limitations under the License.
       try {
         // Fetch first 10 files
         response = await gapi.client.sheets.spreadsheets.values.get({
-          spreadsheetId: '1lmuMYYLpJENk6dho7-l0jmPsHoVVl2c9jpaQzRW0SiQ',
-          range: 'KEYS EU!A1:H',
+          spreadsheetId: '182FbA0hwRDEMR6PA3bUpTtpw9Di7so3oTIkwPGlnqxs',
+          range: 'list1!A1:J',
         });
       } catch (err) {
         document.getElementById('content').innerText = err.message;
         return;
       }
-      const range = response.result;
+      var range = response.result;
       if (!range || !range.values || range.values.length == 0) {
         document.getElementById('content').innerText = 'No values found.';
         return;
       }
       // Flatten to string to display
 
-
-      // const output = range.values.reduce(
-        // (str, row) => `<tr><td>${str}${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td><td>${row[3]}</td><td>${row[4]}</td><td>${row[5]}</td><td>${row[6]}</td><td>${row[7]} </tr>`, '<table>\n');
-      // output = output + "</table>"
-      // console.log(range)
-      // console.log(output)
-      // document.getElementById('content').innerHTML = output;
       var output = `<table><tr>`;
+      console.log(range.values[100][0])
       range.values.forEach(e => {
+        if(e[0]=="") return
         output = `${output}<tr>`
         e.forEach(e2 => {
           output = `${output}<td>${e2}</td>`
