@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ✅ Discord tool
 // @namespace    By ДугДуг
-// @version      0.1
+// @version      0.
 // @description  Добавляет галочку в название канала
 // @author       ДугДуг
 // @match        https://discord.com/*
@@ -19,8 +19,14 @@
 // 	ds_GET_Name_Chennal("✅ ")
 // });
 
+
+const ds_LocalStorage = window.localStorage;
+
+
+
 function ds_GET_Name_Chennal(mes) {
-	var token = localStorage.getItem("token").replace(/^"(.+(?="$))"$/, '$1');
+	console.log(ds_LocalStorage);
+	var token = ds_LocalStorage.getItem("token").replace(/^"(.+(?="$))"$/, '$1');
 
 	var channel_id = document.location.href.split('/')
 	channel_id = channel_id[channel_id.length - 1]
@@ -47,7 +53,7 @@ function ds_GET_Name_Chennal(mes) {
 
 function ds_Chenal_Name(mes) {
 
-	var token = localStorage.getItem("token").replace(/^"(.+(?="$))"$/, '$1');
+	var token = ds_LocalStorage.getItem("token").replace(/^"(.+(?="$))"$/, '$1');
 	var channel_id = document.location.href.split('/')
 	channel_id = channel_id[channel_id.length - 1]
 
@@ -67,7 +73,7 @@ function ds_Chenal_Name(mes) {
 
 
 function ds_message(mes) {
-	var token = localStorage.getItem("token").replace(/^"(.+(?="$))"$/, '$1');
+	var token = ds_LocalStorage.getItem("token").replace(/^"(.+(?="$))"$/, '$1');
 	var channel_id = document.location.href.split('/')
 	channel_id = channel_id[channel_id.length - 1]
 
