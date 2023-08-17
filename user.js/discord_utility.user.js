@@ -177,6 +177,8 @@ function ds_pannel(delay) {
 		panel.append(button[i])
 		button[i].textContent = func_buttons[i]["ico"]
 		button[i].title = func_buttons[i]["title"]
+		if(func_buttons[i]["type"]=='mes') button[i].setAttribute('style', 'text-shadow: 0 0 6px red;')
+		if(func_buttons[i]["type"]=='rename') button[i].setAttribute('style', 'text-shadow: 0 0 6px #CDDC39;')
 		button[i].onclick = function (e) {
 			// console.log(e.shiftKey)
 			if(e.shiftKey) return ds_panel_delete(i, func_buttons)
