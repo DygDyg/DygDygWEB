@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ✅ Discord tool
 // @namespace    By ДугДуг
-// @version      0.
+// @version      0.3
 // @description  Добавляет галочку в название канала
 // @author       ДугДуг
 // @match        https://discord.com/*
@@ -14,18 +14,16 @@
 // ==/UserScript==
 
 
-// GM_registerMenuCommand('✅ Пометить завершённым', () => {
-// 	// test3(new Date())
-// 	ds_GET_Name_Chennal("✅ ")
-// });
+GM_registerMenuCommand('Перезагрузить панель', () => {ds_pannel()});
+GM_registerMenuCommand('Добавить кнопку "сообщение в чат"', () => {ds_panel_add("mes")});
+GM_registerMenuCommand('Добавить кнопку "переименовать диалог"', () => {ds_panel_add("rename")});
 
 
+
+let panel;
 const ds_LocalStorage = window.localStorage;
 
-
-
-function ds_GET_Name_Chennal(mes) {
-	console.log(ds_LocalStorage);
+function ds_GET_Name_Chennal(mes, func_buttons) {
 	var token = ds_LocalStorage.getItem("token").replace(/^"(.+(?="$))"$/, '$1');
 
 	var channel_id = document.location.href.split('/')
@@ -41,9 +39,20 @@ function ds_GET_Name_Chennal(mes) {
 	req.onload = () => {
 		const data = req.response;
 		console.log(data);
-		// console.log(data.type);
-		// console.log(data.name.startsWith("✅ "));
+		console.log("1) ", mes, data.name)
 		if (data.type == 3 && !data.name.startsWith(mes)) {
+			
+			func_buttons.forEach(e => {
+				if (e["type"]=="rename") {
+					console.log(e["message"])
+					console.log(data.name)
+					// e["message"] = e["message"]/g
+					// a = e["message"]/g
+					console.log("a", e["message"])
+					data.name = data.name.replace(new RegExp(e["message"],'g'), ``);
+					console.log("b", data.name)
+				}
+			});
 			ds_Chenal_Name(mes + data.name)
 		}
 	};
@@ -52,7 +61,6 @@ function ds_GET_Name_Chennal(mes) {
 
 
 function ds_Chenal_Name(mes) {
-
 	var token = ds_LocalStorage.getItem("token").replace(/^"(.+(?="$))"$/, '$1');
 	var channel_id = document.location.href.split('/')
 	channel_id = channel_id[channel_id.length - 1]
@@ -121,51 +129,44 @@ GM_addStyle(`
 	filter: hue-rotate(45deg);
 }
 `)
-ds_pannel()
-function ds_pannel() {
-	let func_buttons = [
-		{
-			ico: "✅",
-			type: "rename",
-			title: "Выполнено",
-			message: "✅"
-		},
-		{
-			ico: "🔄️",
-			type: "rename",
-			title: "В процессе",
-			message: "🔄️"
-		},
-		{
-			ico: "1️⃣",
-			type: "mes",
-			title: "Здравствуйте, напишите ваш ник, сервер и фракцию!!!",
-			message: "Hello, tell me your nickname, server and faction!!!"
-		},
-		{
-			ico: "2️⃣",
-			type: "mes",
-			title: "Я первый нах!!!!",
-			message: "Я первый нах!!!!"
-		},
-		{
-			ico: "3️⃣",
-			type: "mes",
-			title: "Hello world of Warcraft!!!!",
-			message: "Hello world of Warcraft!!!!"
-		},
-		{
-			ico: "4️⃣",
-			type: "mes",
-			title: "Ебал я в рот, такой поход!!!!",
-			message: "Ебал я в рот, такой поход!!!!"
-		},
-	]
-	let panel = document.createElement('div');
+ds_pannel(3000)
+
+function ds_pannel(delay) {
+	
+	for (let i = 0; i < document.getElementsByClassName("dyg_panel").length; i++) {
+		document.getElementsByClassName("dyg_panel")[i].remove()	
+	}
+
+	let func_buttons = JSON.parse(ds_LocalStorage.getItem('buttons_panel'))
+	if (func_buttons == null) {
+		func_buttons = [
+			{
+				ico: "✅",
+				type: "rename",
+				title: "Выполнено",
+				message: "✅"
+			},
+			{
+				ico: "🔄",
+				type: "rename",
+				title: "В процессе",
+				message: "🔄"
+			},
+			{
+				ico: "1️⃣",
+				type: "mes",
+				title: "Здравствуйте, напишите ваш ник, сервер и фракцию!!!",
+				message: "Hello, tell me your nickname, server and faction!!!"
+			},
+		]
+		ds_LocalStorage.setItem('buttons_panel', JSON.stringify(func_buttons))
+	}
+
+	panel = document.createElement('div');
 	panel.className = "dyg_panel";
 
-	setTimeout(() => panel.setAttribute('style', 'max-height: 100%;'), 3000);
-	
+	setTimeout(() => panel.setAttribute('style', 'max-height: 100%;'), delay);
+
 	document.body.append(panel);
 
 	let button = new Array;
@@ -177,13 +178,16 @@ function ds_pannel() {
 		button[i].textContent = func_buttons[i]["ico"]
 		button[i].title = func_buttons[i]["title"]
 		button[i].onclick = function (e) {
+			// console.log(e.shiftKey)
+			if(e.shiftKey) return ds_panel_delete(i, func_buttons)
+
 			switch (func_buttons[i]["type"]) {
 				case "mes":
 					ds_message(func_buttons[i]["message"])
 					break;
 
 				case "rename":
-					ds_GET_Name_Chennal(func_buttons[i]["message"])
+					ds_GET_Name_Chennal(func_buttons[i]["message"], func_buttons)
 				default:
 					break;
 			}
@@ -191,4 +195,28 @@ function ds_pannel() {
 
 		}
 	}
+}
+function ds_panel_add(type)
+{
+	local_button = {
+		ico: prompt("Лого Эмодзи", "✅"),
+		type: type,
+		title: prompt("Подсказка", "Выполнено"),
+		message: prompt("Сообщение чата/иконка статуса", "✅")
+	}
+	ds_pannel()
+}
+
+
+function ds_panel_delete(i, func_buttons)
+{
+	console.log(func_buttons)
+	if(confirm(`Удалить элемент №${i}`))
+	{
+		func_buttons.splice(i, 1);
+		console.log(func_buttons)
+		ds_LocalStorage.setItem('buttons_panel', JSON.stringify(func_buttons))
+		ds_pannel(0)
+	}
+
 }
