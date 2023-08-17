@@ -211,7 +211,7 @@ function ds_panel_add(type)
 function ds_panel_delete(i, func_buttons)
 {
 	console.log(func_buttons)
-	if(confirm(`Удалить элемент №${i}`))
+	if(confirm(`Удалить элемент №${i} "${func_buttons[i]["ico"]} ${func_buttons[i]["title"]}`))
 	{
 		func_buttons.splice(i, 1);
 		console.log(func_buttons)
