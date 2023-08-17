@@ -196,15 +196,19 @@ function ds_pannel(delay) {
 		}
 	}
 }
-function ds_panel_add(type)
+function ds_panel_add(type, func_buttons)
 {
+	func_buttons = JSON.parse(ds_LocalStorage.getItem('buttons_panel'))
 	local_button = {
-		ico: prompt("Лого Эмодзи", "✅"),
+		ico: prompt("Лого Эмодзи. win+. (win+Ю)", "✅"),
 		type: type,
 		title: prompt("Подсказка", "Выполнено"),
 		message: prompt("Сообщение чата/иконка статуса", "✅")
 	}
-	ds_pannel()
+
+	func_buttons.push(local_button)
+	ds_LocalStorage.setItem('buttons_panel', JSON.stringify(func_buttons))
+	ds_pannel(0)
 }
 
 
