@@ -3,7 +3,9 @@
 
     Ваш скриншот:
     <div id="result"></div>
-    <div id="content">11111<iframe src="https://www.google.com/"></iframe></div>
+    <div><iframe id="iframe"
+            src="https://krevetkaoo.github.io/kino/?data=eyJ0eXBlIjoiZmlsbSIsImlkIjoiNTM4MjI1IiwibmFtZSI6ItCf0LXRgNCy0L7QvNGDINC40LPRgNC+0LrRgyDQv9GA0LjQs9C+0YLQvtCy0LjRgtGM0YHRjyIsInllYXIiOiIyMDE4In0="></iframe>
+    </div>
     <a href="javascript: void(0);" id="get_images">Сделать скриншот элемента</a>
 </body>
 <script type="text/javascript" src="html2canvas.js"></script>
@@ -12,12 +14,16 @@
     window.onload = function () {
 
         document.getElementById("get_images").onclick = function () {
+            let someIframe = document.querySelector('body');
+            // console.log(someIframe)
+/*             html2canvas(someIframe).then(function (canvas) {
+                console, log(canvas)
+                // var my_screen = canvas;
+                document.getElementById("result").appendChild(canvas);
 
-            html2canvas(document.getElementById("content")).then(function (canvas) {
-
-                var my_screen = canvas;
-                document.getElementById("result").appendChild(my_screen);
-
+            }); */
+            html2canvas(someIframe).then(function (canvas) {
+                document.body.appendChild(canvas);
             });
 
         };
@@ -26,8 +32,9 @@
 
 </script>
 <style>
-    body, #content {
+    body,
+    #content {
         background-color: rgb(77, 77, 77);
-        color: azure;
+        color: rgb(5, 211, 211);
     }
 </style>
