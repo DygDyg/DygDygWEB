@@ -1,0 +1,33 @@
+<body>
+    <!-- <div id="content">Hello, world!</div> -->
+
+    Ваш скриншот:
+    <div id="result"></div>
+    <div id="content">11111<iframe src="https://www.google.com/"></iframe></div>
+    <a href="javascript: void(0);" id="get_images">Сделать скриншот элемента</a>
+</body>
+<script type="text/javascript" src="html2canvas.js"></script>
+<script>
+
+    window.onload = function () {
+
+        document.getElementById("get_images").onclick = function () {
+
+            html2canvas(document.getElementById("content")).then(function (canvas) {
+
+                var my_screen = canvas;
+                document.getElementById("result").appendChild(my_screen);
+
+            });
+
+        };
+
+    }
+
+</script>
+<style>
+    body, #content {
+        background-color: rgb(77, 77, 77);
+        color: azure;
+    }
+</style>
