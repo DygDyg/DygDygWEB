@@ -2,7 +2,7 @@
 // @name            PoEAutoTrade
 // @namespace       http://tampermonkey.net/
 // @version         0.3
-// @description     try to take over the world!
+// @description     Производит автопокупку товара в "живом поиске" на PoE Trade
 // @author          ДугДуг
 // @match           https://ru.pathofexile.com/*
 // @match           https://www.pathofexile.com/*
