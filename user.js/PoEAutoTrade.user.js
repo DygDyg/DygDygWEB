@@ -68,6 +68,11 @@ function tims() {
         document.querySelector('.btn.btn-xs.btn-default.direct-btn').click()
         document.querySelector('.btn.btn-xs.btn-default.direct-btn').parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.remove()
     }
+    if (document.querySelectorAll('.btn.btn-xs.btn-default.dropdown-toggle.dropdown-toggle-split').length > 0) {
+        // document.querySelector('.btn.btn-xs.btn-default.direct-btn').remove()
+        // document.querySelector('.btn.btn-xs.btn-default.direct-btn').click()
+        document.querySelector('.btn.btn-xs.btn-default.dropdown-toggle.dropdown-toggle-split').parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.remove()
+    }
 }
 
 if (document.TradeTimers == null) {
