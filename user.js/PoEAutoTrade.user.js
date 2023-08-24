@@ -14,31 +14,68 @@
 // ==/UserScript==
 
 document.TradeTimers = document.TradeTimers || null
+document.datalists = document.datalists || []
+document.col = 0
 
 
-function tims() {
+
+/* document.querySelector('.results').setAttribute('id', 'test')
+let observer = new MutationObserver(mutationRecords => {
+
+
+
+    document.datalists[document.datalists.length] = document.querySelector('.resultset').querySelector('.row.tft-enhanced.showName')
+});
+
+
+
+observer.observe(test, {
+    childList: true,
+    subtree: false,
+    characterDataOldValue: true
+}); */
+
+
+/* 
+function tims1() {
     // console.log("...")
     if (document.querySelector('.btn.search-btn').disabled == true) {
-        if (document.querySelector('.resultset')) {
-            if (document.querySelector('.resultset').querySelector('.row')) {
-                if (document.querySelector('.resultset').querySelector('.row').querySelector('.load-more-btn') == null) {
-                    if (document.querySelector('.resultset').querySelector('.row').querySelector('.btn-default')) {
-                        document.querySelector('.resultset').querySelector('.row').querySelector('.btn-default').click()
+        let res = document.querySelectorAll('.resultset')
+        if (document.querySelectorAll('.resultset').length > 0) {
+            if (document.querySelectorAll('.resultset').length > 1) {
+                // document.querySelector('.resultset').remove()
+            }
+            if (document.querySelector('.resultset').querySelector('.row.tft-enhanced.showName')) {
+                if (document.querySelector('.resultset').querySelector('.row.tft-enhanced.showName').querySelector('.load-more-btn') == null) {
+                    if (document.querySelector('.resultset').querySelector('.row.tft-enhanced.showName').querySelector('.btn-default')) {
+                        document.querySelector('.resultset').querySelector('.row.tft-enhanced.showName').querySelector('.btn-default').click()
                     }
-                    document.querySelector('.resultset').querySelector('.row').remove()
+                    document.querySelector('.resultset').querySelector('.row.tft-enhanced.showName').remove()
+                    // document.querySelector('.resultset').remove()
+                    document.col += 1
+                    console.log(document.col)
                 } else {
-                    document.querySelector('.resultset').querySelector('.row').querySelector('.load-more-btn').click()
+                    // document.querySelector('.resultset').querySelector('.row').querySelector('.load-more-btn').click()t
                 }
             }
         }
     }
+} */
+
+function tims() {
+    if (document.querySelectorAll('.btn.btn-xs.btn-default.direct-btn').length > 0) {
+        // document.querySelector('.btn.btn-xs.btn-default.direct-btn').remove()
+        document.querySelector('.btn.btn-xs.btn-default.direct-btn').click()
+        document.querySelector('.btn.btn-xs.btn-default.direct-btn').parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.remove()
+    }
 }
+
 if (document.TradeTimers == null) {
     console.log("start")
     if (document.querySelector('.multiselect__input').value) {
         document.querySelector("title").text = "🟢 " + document.querySelector('.multiselect__input').value
     } else {
-       document.querySelector("title").text = "🟢 Торговля"
+        document.querySelector("title").text = "🟢 Торговля"
     }
     document.TradeTimers = setInterval(tims, 1000)
 } else {
