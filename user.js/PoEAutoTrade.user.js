@@ -13,11 +13,12 @@
 // @grant           none
 // ==/UserScript==
 
-var TradeTimers = TradeTimers || null
+document.TradeTimers = document.TradeTimers || null
+
 
 function tims() {
     // console.log("...")
-    if (document.querySelector('.btn.search-btn').disabled==true) {
+    if (document.querySelector('.btn.search-btn').disabled == true) {
         if (document.querySelector('.resultset')) {
             if (document.querySelector('.resultset').querySelector('.row')) {
                 if (document.querySelector('.resultset').querySelector('.row').querySelector('.load-more-btn') == null) {
@@ -32,13 +33,22 @@ function tims() {
         }
     }
 }
-if(TradeTimers == null) {
+if (document.TradeTimers == null) {
     console.log("start")
-    if(document.querySelector('.multiselect__input').value) {document.title = "🟢 "+document.querySelector('.multiselect__input').value }else{ document.title = "🟢 Торговля"}
-    TradeTimers = setInterval(tims, 1000)
-}else{
+    if (document.querySelector('.multiselect__input').value) {
+        document.querySelector("title").text = "🟢 " + document.querySelector('.multiselect__input').value
+    } else {
+       document.querySelector("title").text = "🟢 Торговля"
+    }
+    document.TradeTimers = setInterval(tims, 1000)
+} else {
     console.log("stop")
-	if(document.querySelector('.multiselect__input').value) {document.title = "🔴 "+document.querySelector('.multiselect__input')}else{ document.title = "🔴 Торговля"}
-    clearInterval(TradeTimers)
-    TradeTimers = null
+    if (document.querySelector('.multiselect__input').value) {
+        // document.querySelector("title").text = "ss"
+        document.querySelector("title").text = "🔴 " + document.querySelector('.multiselect__input')
+    } else {
+        document.querySelector("title").text = "🔴 Торговля"
+    }
+    clearInterval(document.TradeTimers)
+    document.TradeTimers = null
 }
