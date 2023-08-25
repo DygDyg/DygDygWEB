@@ -3,10 +3,14 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
 </head>
+
 <body>
-
-    <p><a class="text1" href="AutoRoll.exe">autoroll.exe</a></p>
-
+    <div class="text1" id="ver">0.0</div>
+    <p><a class="text1" href="autoroll.exe">Скачать AutoRoll.exe</a></p>
+    <!-- <p><a class="text1" href="autoroll.exe"></a>AutoRoll.exe</p> -->
+    <p></p><div class="text1">Содержимое базы:</div></p>
+    <p><select id="base_list" name="select" size="10" multiple></select></p>
+    <p><a class="text1" href="base.dat">Скачать base.dat</a></p>
     <div>__________________________________________________</div>
     <p><a class="text2" href="https://dygdyg.github.io/DygDygWEB">GitHub</a></p>
     <p><a class="text2" href="http://localhost/DygDygWEB/">Local</a></p>
@@ -15,17 +19,51 @@
 
 <script>
 
+    /*     fetch("base.dat")
+            .then((res) => res.text())
+            .then((text) => {
+    
+    
+            })
+            .catch((e) => console.error(e)); */
+
+    fetch("base.dat")
+        .then((response) => response.arrayBuffer())
+        .then((buffer) => {
+            let base = new TextDecoder('windows-1251').decode(buffer).split("\n");
+
+            let l = document.getElementById("base_list")
+            base.forEach(e => {
+                var opt = document.createElement('option');
+                // opt.value = "a";
+                opt.innerHTML = e;
+                l.appendChild(opt);
+            });
+
+
+        });
+
+        fetch("config.ini")
+        .then((response) => response.arrayBuffer())
+        .then((buffer) => {
+            let base = new TextDecoder('windows-1251').decode(buffer).split("\n");
+            console.log(base[6].split("=")[1])
+            document.getElementById("ver").textContent = "Текущая версия бота: "+base[6].split("=")[1]
+        });
+
 </script>
 
 <style>
-    .text1{
+    .text1 {
         color: bisque
     }
-    .text2{
+
+    .text2 {
         color: rgb(167, 167, 255)
     }
-    body {
-    background-color: 272727;
 
-}
+    body {
+        background-color: 272727;
+
+    }
 </style>
