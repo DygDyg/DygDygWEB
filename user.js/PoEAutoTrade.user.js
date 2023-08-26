@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            PoEAutoTrade
 // @namespace       http://tampermonkey.net/
-// @version         0.5
+// @version         0.6
 // @description     Производит автопокупку товара в "живом поиске" на PoE Trade
 // @author          ДугДуг
 // @match           https://ru.pathofexile.com/*
@@ -67,11 +67,11 @@ function tims() {
 
         document.querySelector('.btn.btn-xs.btn-default.direct-btn:not(.sold)').click()
         // document.querySelector('.btn.btn-xs.btn-default.direct-btn:not(.sold)').parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.remove()
-        document.querySelector('.row.tft-enhanced.showName').style.backgroundColor = '#3f00ff42';
+        document.querySelector('.btn.btn-xs.btn-default.direct-btn:not(.sold)').parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.backgroundColor = '#3f00ff42';
         document.querySelector('.btn.btn-xs.btn-default.direct-btn:not(.sold)').classList.add("sold");
     }
-    if (document.querySelector('.btn.btn-xs.btn-default.dropdown-toggle.dropdown-toggle-split:not(.sold)').length > 0) {
-        document.querySelector('.row.tft-enhanced.showName').style.backgroundColor = 'rgb(255 0 224 / 26%)';
+    if (document.querySelectorAll('.btn.btn-xs.btn-default.dropdown-toggle.dropdown-toggle-split:not(.sold)').length > 0) {
+        document.querySelector('.btn.btn-xs.btn-default.dropdown-toggle.dropdown-toggle-split:not(.sold)').parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.backgroundColor = 'rgb(255 0 224 / 26%)';
         document.querySelector('.btn.btn-xs.btn-default.dropdown-toggle.dropdown-toggle-split:not(.sold)').classList.add("sold");
         // document.querySelector('.btn.btn-xs.btn-default.direct-btn:not(.sold)').parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.remove()
     }
