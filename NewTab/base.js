@@ -1,18 +1,22 @@
-let ver = 1.22
+let ver = 1.23
 let clock_en = true
 var loading = false
 var gets_ = {}
 var SiteURL = document.location.href.replace(/\/+$/, '');
 var Calc = false;
+var volume = localStorage.getItem("volume") || 100
 
 
 let SoundClick = new Audio();
+SoundClick.src = 'click_key.ogg'
+SoundClick.volume = volume/100
 
 $.base64.utf8encode = true;
 
 if (localStorage.getItem("access_token")) {
 	// cloud_load(true)
 }
+
 
 function stringToBool(val) {
 	return (val + '').toLowerCase() === 'true'
@@ -96,7 +100,7 @@ $(document).ready(function () {
 		// console.log(/[0-9%\/*\-+\(\)=]+$/.test($(this).val()))
 		if (/[0-9%\/*\-+\(\)=]+$/.test($(this).val())) {
 			try {
-				eval($(this).val()); 
+				eval($(this).val());
 			} catch (e) {
 				if (e instanceof SyntaxError) {
 					$('title').text("Новая вкладка")
@@ -106,13 +110,12 @@ $(document).ready(function () {
 				}
 			}
 			$('title').text(eval($(this).val()))
-			$('#calc_result').text("Результат: "+eval($(this).val()))
-			
+			$('#calc_result').text("Результат: " + eval($(this).val()))
+
 			// console.log("Результат: "+eval($(this).val()))
 			Calc = true
 		}
-		if(!$(this).val())
-		{
+		if (!$(this).val()) {
 			Calc = false
 			$('title').text("Новая вкладка")
 			$('#calc_result').text("")
@@ -338,6 +341,7 @@ function settings(th) {
 		GetBackground()
 	} else {
 		$('body').append('<div id="body_menu" style="display: flex; justify-content: center; "><div id="fon" ></div><div id=settings></div>')
+		$('#settings').append('<input id="volume1" type="range" value="20">')
 		$('#settings').append('<div id=button_top style="margin: 5px 0px 10px 0px; display: flex; justify-content: space-between;">')
 		//$('#body_menu').append('<div id="fon" ></div>')
 		$('#button_top').append('<div id="add_button" style="cursor: pointer; background-color: #ffffffeb; width: 21px; height: 21px; display: flex; align-items: center; justify-content: center;" title="Добавить вкладку"><div style=" font-size: 33px; font-weight: 900; -webkit-user-select: none;">+</div></div>')
@@ -355,6 +359,17 @@ function settings(th) {
 		$('#vk_saved').click(cloud_save)
 		$('#add_button').click(add_button)
 		$('#exit').click(exit_settings)
+		$("#volume1").val(volume)
+		SoundClick.volume = volume/100;
+		
+		$("#volume1").on("change", function (e) {
+			console.log($(this).val())
+			SoundClick.volume = $(this).val()/100
+			soundClick('click_key.ogg')
+			volume = $(this).val()
+			localStorage.setItem("volume", volume)
+
+		})
 
 		if (!localStorage.getItem("access_token")) {
 			$('.vk_ls').addClass("vk_offline")

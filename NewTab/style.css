@@ -230,6 +230,10 @@ body {
     transition: 1s;
 }
 
+input#volume1 {
+    width: 30%;
+}
+
 #fon {
     background-color: #0000007d;
     width: 100%;
