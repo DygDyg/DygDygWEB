@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            PoEAutoTrade
 // @namespace       http://tampermonkey.net/
-// @version         0.6
+// @version         0.7
 // @description     Производит автопокупку товара в "живом поиске" на PoE Trade
 // @author          ДугДуг
 // @match           https://ru.pathofexile.com/*
@@ -61,20 +61,42 @@ function tims1() {
         }
     }
 } */
+if (!document.delay_edit) {
+    document.querySelector('.nav.nav-tabs.main').innerHTML += "<input id='delay'>"
+    document.delay_edit = document.querySelector('#delay')
+    document.delay_edit.title = 'Задержка секунд: 1'
+    document.delay_edit.type = 'range'
+    document.delay_edit.value = 1
+    document.delay_edit.min = 1
+    document.delay_edit.max = 10
+    document.delay_edit.onchange = function () {
+        if(document.delay_edit.value==0) document.delay_edit.value = 1
+        console.log(this.value)
+        this.title = 'Задержка секунд: ' + this.value
+        
+    }
+}
+
+// .on("change", function (e) {console.log(e)})
 
 function tims() {
-    if (document.querySelectorAll('.btn.btn-xs.btn-default.direct-btn:not(.sold)').length > 0) {
+    but = document.querySelectorAll('.btn.btn-xs.btn-default.direct-btn:not(.sold)')
+    console.log("ok", document.delay_edit.value)
+    if (but.length > 0) {
+        but[but.length - 1].click()
+        // but[but.length-1].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.remove()
+        but[but.length - 1].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.backgroundColor = '#3f00ff42';
+        but[but.length - 1].classList.add("sold");
+         but[but.length - 1].parentNode.remove()
+    }
 
-        document.querySelector('.btn.btn-xs.btn-default.direct-btn:not(.sold)').click()
-        // document.querySelector('.btn.btn-xs.btn-default.direct-btn:not(.sold)').parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.remove()
-        document.querySelector('.btn.btn-xs.btn-default.direct-btn:not(.sold)').parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.backgroundColor = '#3f00ff42';
-        document.querySelector('.btn.btn-xs.btn-default.direct-btn:not(.sold)').classList.add("sold");
-    }
-    if (document.querySelectorAll('.btn.btn-xs.btn-default.dropdown-toggle.dropdown-toggle-split:not(.sold)').length > 0) {
-        document.querySelector('.btn.btn-xs.btn-default.dropdown-toggle.dropdown-toggle-split:not(.sold)').parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.backgroundColor = 'rgb(255 0 224 / 26%)';
-        document.querySelector('.btn.btn-xs.btn-default.dropdown-toggle.dropdown-toggle-split:not(.sold)').classList.add("sold");
-        // document.querySelector('.btn.btn-xs.btn-default.direct-btn:not(.sold)').parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.remove()
-    }
+/*     nbut = document.querySelectorAll('.btn.btn-xs.btn-default.dropdown-toggle.dropdown-toggle-split:not(.sold)')
+    if (nbut.length > 0) {
+        nbut[but.length - 1].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.backgroundColor = 'rgb(255 0 224 / 26%)';
+        nbut[but.length - 1].classList.add("sold");
+        // but[but.length-1].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.remove()
+    } */
+    if(document.TradeTimersFlag) document.TradeTimers = setTimeout(tims, document.delay_edit.value*1000)
 }
 
 if (document.TradeTimers == null) {
@@ -84,7 +106,8 @@ if (document.TradeTimers == null) {
     } else {
         document.querySelector("title").text = "🟢 Торговля"
     }
-    document.TradeTimers = setInterval(tims, 1000)
+    document.TradeTimersFlag = true
+    document.TradeTimers = setTimeout(tims, document.delay_edit.value*1000)
 } else {
     console.log("stop")
     if (document.querySelector('.multiselect__input').value) {
@@ -93,6 +116,7 @@ if (document.TradeTimers == null) {
     } else {
         document.querySelector("title").text = "🔴 Торговля"
     }
-    clearInterval(document.TradeTimers)
+    setTimeout(document.TradeTimers)
+    document.TradeTimersFlag = false
     document.TradeTimers = null
 }
