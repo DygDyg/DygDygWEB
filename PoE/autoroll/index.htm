@@ -8,7 +8,10 @@
     <div class="text1" id="ver">0.0</div>
     <p><a class="text1" href="autoroll.exe">Скачать AutoRoll.exe</a></p>
     <!-- <p><a class="text1" href="autoroll.exe"></a>AutoRoll.exe</p> -->
-    <p></p><div class="text1">Содержимое базы:</div></p>
+    <p></p>
+    <div class="text1">Содержимое базы:</div>
+    </p>
+    <input type="text" id="serch" size="75" />
     <p><select id="base_list" name="select" size="10" multiple></select></p>
     <p><a class="text1" href="base.dat">Скачать base.dat</a></p>
     <div>__________________________________________________</div>
@@ -26,29 +29,48 @@
     
             })
             .catch((e) => console.error(e)); */
+    var base, bl
+    
+    document.getElementById("serch").oninput = function()
+    {
+        // console.log()
+        list_serch(this.value)
+    }
 
     fetch("base.dat")
         .then((response) => response.arrayBuffer())
         .then((buffer) => {
-            let base = new TextDecoder('windows-1251').decode(buffer).split("\n");
+            base = new TextDecoder('windows-1251').decode(buffer).split("\n");
+            list_serch("")
+        });
 
-            let l = document.getElementById("base_list")
-            base.forEach(e => {
+    function list_serch(serch) {
+        if (document.querySelector('#base_list') == null) {
+
+        } else {
+            // bl.innerHTML = '';
+        }
+        bl = document.getElementById("base_list")
+        bl.innerHTML = '';
+
+
+        base.forEach(e => {
+            if (e.toLowerCase().includes(serch.toLowerCase())) {
                 var opt = document.createElement('option');
                 // opt.value = "a";
                 opt.innerHTML = e;
-                l.appendChild(opt);
-            });
-
-
+                bl.appendChild(opt);
+            }
         });
 
-        fetch("config.ini")
+    }
+
+    fetch("config.ini")
         .then((response) => response.arrayBuffer())
         .then((buffer) => {
             let base = new TextDecoder('windows-1251').decode(buffer).split("\n");
             console.log(base[6].split("=")[1])
-            document.getElementById("ver").textContent = "Текущая версия бота: "+base[6].split("=")[1]
+            document.getElementById("ver").textContent = "Текущая версия бота: " + base[6].split("=")[1]
         });
 
 </script>
