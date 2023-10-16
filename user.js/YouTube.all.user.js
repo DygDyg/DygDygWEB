@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            YouTube Всё сразу
 // @description     Всё сразу
-// @version         1.0
+// @version         1.1
 // @author          Креветка (Discord: Креветка#8574)
 // @match           *://*.youtube.com/*
 // @updateURL       https://dygdyg.github.io/DygDygWEB/user.js/YouTube.all.user.js
