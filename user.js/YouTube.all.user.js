@@ -1,11 +1,11 @@
 // ==UserScript==
-// @name            YouTube
+// @name            YouTube Всё сразу
 // @description     Всё сразу
 // @version         1.0
 // @author          Креветка (Discord: Креветка#8574)
 // @match           *://*.youtube.com/*
-// @updateURL       https://script.artiromiur.ru/YoutubeSpeedBtn.user.js
-// @downloadURL     https://script.artiromiur.ru/YoutubeSpeedBtn.user.js
+// @updateURL       https://dygdyg.github.io/DygDygWEB/user.js/YouTube.all.user.js
+// @downloadURL     https://dygdyg.github.io/DygDygWEB/user.js/YouTube.all.user.js
 // @icon            https://script.artiromiur.ru/icons/YouTube.svg
 // @grant           unsafeWindow
 // @grant           GM_getValue
