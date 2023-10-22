@@ -70,6 +70,8 @@ body {
     cursor: pointer;
     text-decoration: none;
     background-position: center;
+    transform-origin: center center;
+    transform: translateZ(24px);
 }
 
 .favicon {
@@ -265,6 +267,23 @@ input#volume1 {
 .clock {
     font-family: 'BebasBold', sans-serif;
     padding: 0px 60px 0px 60px;
+    color: #ffcf64;
+    border-radius: 70px;
+    background-color: #3434349e;
+}
+.date {
+    font-family: 'BebasBold', sans-serif;
+    padding: 0px 60px 0px 60px;
+    color: #ffcf64;
+    border-radius: 70px;
+    background-color: #3434349e;
+    font-size: 35px;
+    margin: 6px;
+}
+
+.separator {
+    font-family: 'BebasBold', sans-serif;
+    padding: 6px 700px 6px 700px;
     color: #ffcf64;
     border-radius: 70px;
     background-color: #3434349e;

@@ -12,6 +12,7 @@ SoundClick.src = 'click_key.ogg'
 SoundClick.volume = volume/100
 
 $.base64.utf8encode = true;
+moment.locale('ru')
 
 if (localStorage.getItem("access_token")) {
 	// cloud_load(true)
@@ -137,12 +138,25 @@ $('#ver').attr('title', 'Shift+Click чтобы открыть подробну�
 
 
 $('body').append('<div id="clockG">' +
+	'<div class="date" id="date1">Понедельник</div>' +
 	'<div class="clock" id="clock1">12:34:56</div>' +
 	'<div class="clockscroll" id="clock1scroll"></div>' +
-	'<div id="clock2" class="clock">12:34:56</div>' +
+	'<div class="separator"></div>'+
 	'<div class="clockscroll"id="clock2scroll"></div>' +
+	'<div class="clock" id="clock2">12:34:56</div>' +
+	'<div class="date" id="date2">Понедельник</div>' +
+
 	'</div>')
 
+
+/* 	'<div class="date" id="date1">Понедельник</div>' +
+	'<div class="clock" id="clock1">12:34:56</div>' +
+	'<div class="clockscroll" id="clock1scroll"></div>' +
+	'<div class="date" id="date2">Понедельник</div>' +
+	'<div class="clock" id="clock2">12:34:56</div>' +
+	'<div class="clockscroll"id="clock2scroll"></div>' +
+	'</div>')
+ */
 
 // https://api.ipify.org?format=jsonp&callback=?
 
@@ -462,7 +476,9 @@ function add_card(url) {
 	// $('#cards').append('<a class="card" id="card_' + num + '" style="background-image: url(http://mini.s-shot.ru/?' + url + ')" href="' + url + '">')
 	// console.log(image, 2)
 
-	$('#cards').append('<a class="card" id="card_' + num + '" style="background-image: url(' + images[num] + ')" href="' + url + '">')
+	$('#cards').append('<a class="card" id="card_' + num + '" style="background-image: url(' + images[num] + ')" href="' + url + '"></a>')
+
+	//<div style="width: 50%;height: 50%;"></div><div style="width: 50%;height: 50%;"></div><div style="width: 50%;height: 50%;"></div><div style="width: 50%;height: 50%;"></div>
 
 	// $('#cards').append('<a class="card" id="card_' + num + '" style="" href="' + url + '">')
 
@@ -506,8 +522,9 @@ function add_card(url) {
 }
 
 setInterval(() => {
-
+	$('#date1').text(moment().format('dddd YYYY.MM.DD'))
 	$('#clock1').text(moment().format('HH:mm:ss'))
+	$('#date2').text(moment().tz('Asia/Vladivostok').format('dddd YYYY.MM.DD'))
 	$('#clock2').text(moment().tz('Asia/Vladivostok').format('HH:mm:ss'))
 
 	time_rotator(moment().format('HH'), '#clock1scroll')
