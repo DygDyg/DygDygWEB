@@ -522,9 +522,11 @@ function add_card(url) {
 }
 
 setInterval(() => {
-	$('#date1').text(moment().format('dddd YYYY.MM.DD'))
+	$('#date1').text(moment().format('LL dddd'))
+	// $('#date1').text(moment().format('dddd YYYY.MM.DD'))
 	$('#clock1').text(moment().format('HH:mm:ss'))
-	$('#date2').text(moment().tz('Asia/Vladivostok').format('dddd YYYY.MM.DD'))
+	$('#date2').text(moment().tz('Asia/Vladivostok').format('LL dddd'))
+	// $('#date2').text(moment().tz('Asia/Vladivostok').format('dddd YYYY.MM.DD'))
 	$('#clock2').text(moment().tz('Asia/Vladivostok').format('HH:mm:ss'))
 
 	time_rotator(moment().format('HH'), '#clock1scroll')

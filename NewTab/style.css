@@ -277,13 +277,13 @@ input#volume1 {
     color: #ffcf64;
     border-radius: 70px;
     background-color: #3434349e;
-    font-size: 35px;
+    font-size: 40px;
     margin: 6px;
 }
 
 .separator {
     font-family: 'BebasBold', sans-serif;
-    padding: 6px 700px 6px 700px;
+    padding: 6px 650px 6px 650px;
     color: #ffcf64;
     border-radius: 70px;
     background-color: #3434349e;
