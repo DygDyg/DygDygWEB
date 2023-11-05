@@ -469,8 +469,8 @@ function exit_settings() {
 function add_card(url) {
 	let image = localStorage.getItem('images').split(',')[num]
 	if (!image || image == undefined) {
-		// images[num] = 'http://mini.s-shot.ru/?' + url
-		images[num] = 'https://api.screenshotmachine.com/?key=e51b85&dimension=1024x768&url=' + url
+		images[num] = 'http://mini.s-shot.ru/?' + url
+		// images[num] = 'https://api.screenshotmachine.com/?key=e51b85&dimension=1024x768&url=' + url
 		localStorage.setItem('images', images)
 		console.log('Установлено', images[num], num, images.length)
 	}
