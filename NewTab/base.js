@@ -1,4 +1,4 @@
-let ver = 1.24
+let ver = 1.25
 let clock_en = true
 var loading = false
 var gets_ = {}
