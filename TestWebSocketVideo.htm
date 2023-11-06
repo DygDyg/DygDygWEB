@@ -9,6 +9,14 @@
   body {
     background: #2b2b2b;
   }
+  #start_login{
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stre;
+  }
 </style>
 
 <script>
@@ -20,20 +28,23 @@
   let ifrm;
   let VP;
   let message;
+  let event_otvet = false;
+  let socket;
   // UserName = prompt("UserName", UserName);
   // Room = prompt("Room", Room);
 
   // iFrame(null)
-  VideoPlayer(null)
-  addElement(`Старт системы`)
+  button_connect()
 
-  addElement(`Вы входите как ${UserName}, в комнату ${Room}`, "#90ed90")
-  // addElement(`Вы входите как ${UserName}`, "#90ed90")
+  function start() {
+    VideoPlayer(null)
+    socket = new WebSocket(`ws://${url}/socket.io/?transport=websocket`);
+    // let socket = new WebSocket("ws://server.syncwatch.space/socket.io/?transport=websocket");
+    addElement(`Старт системы`)
+    addElement(`Вы входите как ${UserName}, в комнату ${Room}`, "#90ed90")
+    // addElement(`Вы входите как ${UserName}`, "#90ed90")
 
-  let socket = new WebSocket(`ws://${url}/socket.io/?transport=websocket`);
-  // let socket = new WebSocket("ws://server.syncwatch.space/socket.io/?transport=websocket");
-
-
+  
   socket.onopen = function (e) {
     addElement("[open] Соединение установлено", "#90ed90");
     addElement("Отправляем данные на сервер", "#90ed90");
@@ -44,11 +55,6 @@
 
   };
 
-  function start(sid) {
-    socket.close()
-    socket = new WebSocket("ws://localhost/socket.io/?transport=websocket&sid=" + sid);
-
-  }
 
   socket.onmessage = function (event) {
     console.log(addElement(`[message]: ${event.data}`, "rgb(192 178 247);"));
@@ -85,10 +91,17 @@
           VP.currentTime = r[1]["currentTime"]
           switch (r[1]["type"]) {
             case "pause":
+              event_otvet = true
               VP.pause()
               break;
             case "play":
+              event_otvet = true
               VP.play()
+              break;
+
+            case "seeked":
+              event_otvet = true
+              // VP.play()
               break;
 
             default:
@@ -121,18 +134,76 @@
     addElement(`[error]`);
   };
 
-
+  }
 
   //////////////////////////////////////////////////////////////////////////////////////////////
-
-  
-
-  function play()
+  function button_connect()
   {
-    VP.currentTime = message["currentTime"]
+
+      let Start_Login = {};
+      Start_Login = document.createElement("div");
+      document.body.appendChild(Start_Login);
+      Start_Login.id = "start_login"
+
+
+      Start_Login.button = document.createElement("button");
+      Start_Login.appendChild(Start_Login.button);
+      Start_Login.button.textContent = "Присоединиться"
+      // Start_Login.button.style.width = "120px";
+      // Start_Login.button.style.height = "20px";
+
+      Start_Login.UserName = document.createElement("input");
+      Start_Login.appendChild(Start_Login.UserName);
+      Start_Login.UserName.value = UserName;
+
+      Start_Login.Room = document.createElement("input");
+      Start_Login.appendChild(Start_Login.Room);
+      Start_Login.Room.value = Room;
+
+      Start_Login.button.onclick = function() {
+        start()
+        Start_Login.Room.remove()
+        Start_Login.button.remove()
+        Start_Login.UserName.remove()
+      }
+  }
+
+
+
+  function play() {
+    if (event_otvet) {
+      event_otvet = false
+      VP.currentTime = message["currentTime"]
+      return;
+    }
+
     socket.send(`42["message",{"location":"-1","type":"play","element":0,"currentTime":${VP.currentTime},"playbackRate":${VP.playbackRate}}]`);
-    
+
     console.log("play")
+  }
+
+  function pause() {
+    if (event_otvet) {
+      event_otvet = false
+      VP.currentTime = message["currentTime"]
+      return;
+    }
+
+
+    socket.send(`42["message",{"location":"-1","type":"pause","element":0,"currentTime":${VP.currentTime},"playbackRate":${VP.playbackRate}}]`);
+
+    console.log("pause")
+  }
+
+  function seeked() {
+    if (event_otvet) {
+      event_otvet = false
+      return;
+    }
+    socket.send(`42["message",{"location":"-1","type":"seeked","element":0,"currentTime":${VP.currentTime},"playbackRate":${VP.playbackRate}}]`);
+
+    //[message]: 42["message",{"location":"-1","type":"seeked","element":0,"currentTime":716.270398,"playbackRate":1}]
+    console.log("seeked")
   }
 
   function iFrame(url) {
@@ -150,6 +221,8 @@
       VP = VP || document.createElement("video");
       document.body.appendChild(VP);
       VP.addEventListener("play", play);
+      VP.addEventListener("pause", pause);
+      VP.addEventListener("seeked", seeked);
     }
     VP.setAttribute("src", url);
     VP.controls = true
