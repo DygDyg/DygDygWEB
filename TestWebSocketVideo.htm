@@ -1,0 +1,110 @@
+<head>
+
+</head>
+
+<body>
+
+</body>
+<style>
+  body {
+    background: #2b2b2b;
+  }
+</style>
+
+<script>
+  addElement(`Старт системы`)
+
+  //  let Server_ws_data = localStorage.Server_ws_data;
+  // console.log(JSON.parse(Server_ws_data)["sid"])
+  // if(Server_ws_data) Server_ws_data = JSON.parse(Server_ws_data)
+  // let Server_ws_data = JSON.parse(localStorage.Server_ws_data)
+  // let socket = new WebSocket("ws://localhost/socket.io/?EIO=4&transport=websocket");
+  // let ws_url = "ws://localhost/socket.io/?EIO=4&transport=websocket&sid=IVwdDGmEqAU9dbzsAACz";
+  // let ws_url = "ws://localhost/socket.io/?EIO=4&transport=websocket";
+
+  // if(Server_ws_data != null) ws_url = "ws://localhost/socket.io/?EIO=4&transport=websocket&sid="+Server_ws_data["sid"];
+  // let url = "localhost"
+  let url = "server.syncwatch.space"
+  let UserName = "TestApi_" + getRandomInt(10000)
+  let Room = "ДугДуг"
+  // UserName = prompt("UserName", UserName);
+  // Room = prompt("Room", Room);
+
+  addElement(`Вы входите как ${UserName}, в комнату ${Room}`, "#90ed90")
+  // addElement(`Вы входите как ${UserName}`, "#90ed90")
+
+  let socket = new WebSocket(`ws://${url}/socket.io/?transport=websocket`);
+  // let socket = new WebSocket("ws://server.syncwatch.space/socket.io/?transport=websocket");
+
+
+  socket.onopen = function (e) {
+    console.log(addElement("[open] Соединение установлено", "#90ed90"));
+    console.log(addElement("Отправляем данные на сервер", "#90ed90"));
+    socket.send("2probe");
+    socket.send("5");
+    socket.send(`42["join",{"name":"${UserName}","room":"${Room}"}]`);
+    socket.send(`42["share",{"title":"test2252","url":"https://ya.ru","user":"${UserName}"}]`);
+
+  };
+
+  function start(sid) {
+    socket.close()
+    socket = new WebSocket("ws://localhost/socket.io/?transport=websocket&sid=" + sid);
+
+  }
+
+  socket.onmessage = function (event) {
+    console.log(addElement(`[message]: ${event.data}`, "rgb(192 178 247);"));
+    if (event.data.startsWith("0{")) {
+      let r = {};
+      r = JSON.parse(event.data.slice(1))
+      console.log(r["pingInterval"])
+      setInterval(function () {
+        socket.send("2");
+      }, r["pingInterval"])
+      // socket.close()
+      // start(r["sid"])
+      // localStorage.setItem('Server_ws_data', event.data.slice(1))
+    }
+
+    if (event.data == "3") {
+      // socket.send("2");
+    }
+
+  };
+
+  socket.onclose = function (event) {
+    if (event.wasClean) {
+      console.log(addElement(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`, "red"));
+      console.log(event)
+    } else {
+      // например, сервер убил процесс или сеть недоступна
+      // обычно в этом случае event.code 1006
+      console.log(addElement('[close] Соединение прервано', "red"));
+    }
+  };
+
+  socket.onerror = function (error) {
+    console.log(addElement(`[error]`));
+  };
+
+
+
+  //////////////////////////////////////////////////////////////////////////////////////////////
+
+  function addElement(text, color) {
+    color = color || "#c5c5c5"
+    var elemDiv = document.createElement('div');
+    elemDiv.style.cssText = `color:${color};`;
+    elemDiv.textContent = text
+    document.body.appendChild(elemDiv);
+    return text;
+  }
+
+
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+
+</script>
