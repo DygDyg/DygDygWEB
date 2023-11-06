@@ -31,6 +31,7 @@
   let message;
   let event_otvet = false;
   let socket;
+  let debug = true;
   // UserName = prompt("UserName", UserName);
   // Room = prompt("Room", Room);
 
@@ -39,6 +40,7 @@
   if (extractGetAll()) {
     if (extractGetAll().UserName) UserName = decodeURI(extractGetAll().UserName)
     if (extractGetAll().Room) Room = decodeURI(extractGetAll().Room)
+    if (extractGetAll().debug) debug = decodeURI(extractGetAll().debug)
   }
 
   button_connect()
@@ -64,11 +66,11 @@
 
 
     socket.onmessage = function (event) {
-      console.log(addElement(`[message]: ${event.data}`, "rgb(192 178 247);"));
+      addElement(`[message]: ${event.data}`, "rgb(192 178 247);");
       if (event.data.startsWith("0{")) {
         let r = {};
         r = JSON.parse(event.data.slice(1))
-        console.log(r["pingInterval"])
+        // console.log(r["pingInterval"])
         setInterval(function () {
           socket.send("2");
         }, r["pingInterval"])
@@ -94,7 +96,7 @@
             break;
           case "message":
             message = r[1]
-            addElement(r[1]["currentTime"])
+            // addElement(r[1]["currentTime"])
             VP.currentTime = r[1]["currentTime"]
             switch (r[1]["type"]) {
               case "pause":
@@ -243,6 +245,7 @@
   }
 
   function addElement(text, color) {
+    if(!debug) return null;
     color = color || "#c5c5c5"
     var elemDiv = document.createElement('div');
     elemDiv.style.cssText = `color:${color};`;
