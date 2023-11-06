@@ -33,7 +33,7 @@
   addElement(`Вы входите как ${UserName}, в комнату ${Room}`, "#90ed90")
   // addElement(`Вы входите как ${UserName}`, "#90ed90")
 
-  let socket = new WebSocket(`ws://${url}/socket.io/?transport=websocket`);
+  let socket = new WebSocket(`wss://${url}/socket.io/?transport=websocket`);
   // let socket = new WebSocket("ws://server.syncwatch.space/socket.io/?transport=websocket");
 
 
