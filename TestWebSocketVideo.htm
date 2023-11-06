@@ -9,7 +9,8 @@
   body {
     background: #2b2b2b;
   }
-  #start_login{
+
+  #start_login {
     display: flex;
     align-content: flex-start;
     flex-wrap: wrap;
@@ -23,8 +24,8 @@
 
   // let url = "localhost"
   let url = "server.syncwatch.space"
-  let UserName = "TestApi_" + getRandomInt(10000)
-  let Room = "ДугДуг"
+  let UserName = "User_" + getRandomInt(10000);
+  let Room = "ДугДуг";
   let ifrm;
   let VP;
   let message;
@@ -34,6 +35,12 @@
   // Room = prompt("Room", Room);
 
   // iFrame(null)
+  console.log(extractGetAll())
+  if (extractGetAll()) {
+    if (extractGetAll().UserName) UserName = decodeURI(extractGetAll().UserName)
+    if (extractGetAll().Room) Room = decodeURI(extractGetAll().Room)
+  }
+
   button_connect()
 
   function start() {
@@ -44,128 +51,130 @@
     addElement(`Вы входите как ${UserName}, в комнату ${Room}`, "#90ed90")
     // addElement(`Вы входите как ${UserName}`, "#90ed90")
 
-  
-  socket.onopen = function (e) {
-    addElement("[open] Соединение установлено", "#90ed90");
-    addElement("Отправляем данные на сервер", "#90ed90");
-    socket.send("2probe");
-    socket.send("5");
-    socket.send(`42["join",{"name":"${UserName}","room":"${Room}"}]`);
-    // socket.send(`42["share",{"title":"test2252","url":"https://ya.ru","user":"${UserName}"}]`);
 
-  };
+    socket.onopen = function (e) {
+      addElement("[open] Соединение установлено", "#90ed90");
+      addElement("Отправляем данные на сервер", "#90ed90");
+      socket.send("2probe");
+      socket.send("5");
+      socket.send(`42["join",{"name":"${UserName}","room":"${Room}"}]`);
+      // socket.send(`42["share",{"title":"test2252","url":"https://ya.ru","user":"${UserName}"}]`);
+
+    };
 
 
-  socket.onmessage = function (event) {
-    console.log(addElement(`[message]: ${event.data}`, "rgb(192 178 247);"));
-    if (event.data.startsWith("0{")) {
-      let r = {};
-      r = JSON.parse(event.data.slice(1))
-      console.log(r["pingInterval"])
-      setInterval(function () {
-        socket.send("2");
-      }, r["pingInterval"])
-      // socket.close()
-      // start(r["sid"])
-      // localStorage.setItem('Server_ws_data', event.data.slice(1))
-    }
-
-    if (event.data.startsWith("42[")) {
-      let r = {};
-      r = JSON.parse(event.data.slice(2))
-
-      switch (r[0]) {
-        case "share":
-          console.log(r[1]["url"])
-          // ifrm.setAttribute();
-          // iFrame(r[1]["url"])
-          VideoPlayer(r[1]["url"])
-          VP.load()
-          break;
-        case "usersList":
-          console.log("usersList")
-          break;
-        case "message":
-          message = r[1]
-          addElement(r[1]["currentTime"])
-          VP.currentTime = r[1]["currentTime"]
-          switch (r[1]["type"]) {
-            case "pause":
-              event_otvet = true
-              VP.pause()
-              break;
-            case "play":
-              event_otvet = true
-              VP.play()
-              break;
-
-            case "seeked":
-              event_otvet = true
-              // VP.play()
-              break;
-
-            default:
-              break;
-          }
-          break;
-        default:
-          break;
+    socket.onmessage = function (event) {
+      console.log(addElement(`[message]: ${event.data}`, "rgb(192 178 247);"));
+      if (event.data.startsWith("0{")) {
+        let r = {};
+        r = JSON.parse(event.data.slice(1))
+        console.log(r["pingInterval"])
+        setInterval(function () {
+          socket.send("2");
+        }, r["pingInterval"])
+        // socket.close()
+        // start(r["sid"])
+        // localStorage.setItem('Server_ws_data', event.data.slice(1))
       }
-    }
 
-    if (event.data == "3") {
-      // socket.send("2");
-    }
+      if (event.data.startsWith("42[")) {
+        let r = {};
+        r = JSON.parse(event.data.slice(2))
 
-  };
+        switch (r[0]) {
+          case "share":
+            console.log(r[1]["url"])
+            // ifrm.setAttribute();
+            // iFrame(r[1]["url"])
+            VideoPlayer(r[1]["url"])
+            VP.load()
+            break;
+          case "usersList":
+            console.log("usersList")
+            break;
+          case "message":
+            message = r[1]
+            addElement(r[1]["currentTime"])
+            VP.currentTime = r[1]["currentTime"]
+            switch (r[1]["type"]) {
+              case "pause":
+                event_otvet = true
+                VP.pause()
+                break;
+              case "play":
+                event_otvet = true
+                VP.play()
+                break;
 
-  socket.onclose = function (event) {
-    if (event.wasClean) {
-      addElement(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`, "red");
-      console.log(event)
-    } else {
-      // например, сервер убил процесс или сеть недоступна
-      // обычно в этом случае event.code 1006
-      addElement('[close] Соединение прервано', "red");
-    }
-  };
+              case "seeked":
+                event_otvet = true
+                // VP.play()
+                break;
 
-  socket.onerror = function (error) {
-    addElement(`[error]`);
-  };
+              default:
+                break;
+            }
+            break;
+          default:
+            break;
+        }
+      }
+
+      if (event.data == "3") {
+        // socket.send("2");
+      }
+
+    };
+
+    socket.onclose = function (event) {
+      if (event.wasClean) {
+        addElement(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`, "red");
+        console.log(event)
+      } else {
+        // например, сервер убил процесс или сеть недоступна
+        // обычно в этом случае event.code 1006
+        addElement('[close] Соединение прервано', "red");
+      }
+    };
+
+    socket.onerror = function (error) {
+      addElement(`[error]`);
+    };
 
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////
-  function button_connect()
-  {
+  function button_connect() {
 
-      let Start_Login = {};
-      Start_Login = document.createElement("div");
-      document.body.appendChild(Start_Login);
-      Start_Login.id = "start_login"
+    let Start_Login = {};
+    Start_Login = document.createElement("div");
+    document.body.appendChild(Start_Login);
+    Start_Login.id = "start_login"
 
 
-      Start_Login.button = document.createElement("button");
-      Start_Login.appendChild(Start_Login.button);
-      Start_Login.button.textContent = "Присоединиться"
-      // Start_Login.button.style.width = "120px";
-      // Start_Login.button.style.height = "20px";
+    Start_Login.button = document.createElement("button");
+    Start_Login.appendChild(Start_Login.button);
+    Start_Login.button.textContent = "Присоединиться"
+    // Start_Login.button.style.width = "120px";
+    // Start_Login.button.style.height = "20px";
 
-      Start_Login.UserName = document.createElement("input");
-      Start_Login.appendChild(Start_Login.UserName);
-      Start_Login.UserName.value = UserName;
+    Start_Login.UserName = document.createElement("input");
+    Start_Login.appendChild(Start_Login.UserName);
+    Start_Login.UserName.value = UserName;
 
-      Start_Login.Room = document.createElement("input");
-      Start_Login.appendChild(Start_Login.Room);
-      Start_Login.Room.value = Room;
+    Start_Login.Room = document.createElement("input");
+    Start_Login.appendChild(Start_Login.Room);
+    Start_Login.Room.value = Room;
 
-      Start_Login.button.onclick = function() {
-        start()
-        Start_Login.Room.remove()
-        Start_Login.button.remove()
-        Start_Login.UserName.remove()
-      }
+    Start_Login.button.onclick = function () {
+      UserName = Start_Login.UserName.value;
+      Room = Start_Login.Room.value;
+      setGetParameter("UserName", UserName)
+      setGetParameter("Room", Room)
+      start()
+      Start_Login.remove()
+
+    }
   }
 
 
@@ -247,5 +256,40 @@
   function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
+
+
+  function extractGetAll() {
+    var vars = window.location.search.match(new RegExp('[^&?]+', 'gm'));
+    var result = {};
+    if (!vars) return null
+    for (var i = 0; i < vars.length; i++) {
+      var r = vars[i].split('=');
+      result[r[0]] = r[1];
+    }
+    // GET = result;
+    return result;
+  }
+
+  function setGetParameter(paramName, paramValue)
+{
+    var url = window.location.href;
+    if (url.indexOf(paramName + "=") >= 0)
+    {
+        var prefix = url.substring(0, url.indexOf(paramName));
+        var suffix = url.substring(url.indexOf(paramName));
+        suffix = suffix.substring(suffix.indexOf("=") + 1);
+        suffix = (suffix.indexOf("&") >= 0) ? suffix.substring(suffix.indexOf("&")) : "";
+        url = prefix + paramName + "=" + paramValue + suffix;
+    }
+    else
+    {
+    if (url.indexOf("?") < 0)
+        url += "?" + paramName + "=" + paramValue;
+    else
+        url += "&" + paramName + "=" + paramValue;
+    }
+    // window.location.href = url;
+    window.history.replaceState(null, null, url)
+}
 
 </script>
