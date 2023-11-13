@@ -366,7 +366,7 @@ function settings(th) {
 		$('#button_top').append('<div id="exit" style="cursor: pointer; background-color: #ff4444eb; color: white; width: 21px; height: 21px; display: flex; align-items: center; justify-content: center;" title="Закрыть настройки"><div style=" font-size: 40px; font-weight: 900; -webkit-user-select: none; transform: rotate(45deg);">+</div></div>')
 
 		$('#vk_button').click(function () {
-			window.location = `https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=${SiteURL}?settings=true`
+			window.location = `https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=${document.location.origin}${document.location.pathname}?settings=true`
 
 		})
 		$('#vk_load').click(cloud_load)
