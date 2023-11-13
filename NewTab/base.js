@@ -637,6 +637,11 @@ if (window.location.href.match(/.*\#.*/)) {
 	window.location = window.location.href.split('#')[0]+"?options=true"
 }
 
+if(getUrlParameter("options")==true)
+{
+	settings(new Object().shiftKey = true)
+}
+
 function cloud_load(fs) {
 	if (confirm("Загрузить из облака? Это перезапишет текущие настройки")) {
 
@@ -756,4 +761,11 @@ function cloud_save() {
 		});
 	}
 }
+
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+  };
 
