@@ -767,6 +767,7 @@ function GetDelParam(param) {
 	const searchParams = url.searchParams;
 	searchParams.delete(param); // удалить параметр "test"
 	window.history.pushState({}, '', url.toString());
+	SiteURL = document.location.href.replace(/\/+$/, '');
 }
 
 function getUrlParameter(name) {
