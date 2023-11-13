@@ -370,6 +370,8 @@ function settings(th) {
 		$('#vk_button').click(function () {
 			window.location = `https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=${SiteURL}`
 
+			// New_window = window.open("https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL, 'example', 'width=600,height=400б,location');
+			//New_window.contentWindow.addEventListener("unload", unloadHandler);
 		})
 		$('#vk_load').click(cloud_load)
 		$('#vk_saved').click(cloud_save)
@@ -699,6 +701,8 @@ function cloud_save() {
 
 		if (at == null) {
 			window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL
+			
+
 		}
 
 		$.ajax({
