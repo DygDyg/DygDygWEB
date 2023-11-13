@@ -5,6 +5,7 @@ var gets_ = {}
 var SiteURL = document.location.href.replace(/\/+$/, '');
 var Calc = false;
 var volume = localStorage.getItem("volume") || 100
+var dygdyg_test;
 
 
 let SoundClick = new Audio();
@@ -632,7 +633,8 @@ if (window.location.href.match(/.*\#.*/)) {
 	if (b["access_token"]) {
 		localStorage.setItem("access_token", b["access_token"])
 	}
-	window.location = window.location.href.split('#')[0]
+	dygdyg_test = window.location
+	window.location = window.location.href.split('#')[0]+"?options=true"
 }
 
 function cloud_load(fs) {
