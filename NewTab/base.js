@@ -635,6 +635,7 @@ if (window.location.href.match(/.*\#.*/)) {
 	}
 	dygdyg_test = window.location
 	window.location = window.location.href.split('#')[0]+"?options=true"
+	settings(new Object().shiftKey = true)
 }
 
 if(getUrlParameter("options")==true)
