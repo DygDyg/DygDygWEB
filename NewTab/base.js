@@ -10,7 +10,7 @@ var dygdyg_test;
 
 let SoundClick = new Audio();
 SoundClick.src = 'click_key.ogg'
-SoundClick.volume = volume/100
+SoundClick.volume = volume / 100
 
 $.base64.utf8encode = true;
 moment.locale('ru')
@@ -142,7 +142,7 @@ $('body').append('<div id="clockG">' +
 	'<div class="date" id="date1">Понедельник</div>' +
 	'<div class="clock" id="clock1">12:34:56</div>' +
 	'<div class="clockscroll" id="clock1scroll"></div>' +
-	'<div class="separator"></div>'+
+	'<div class="separator"></div>' +
 	'<div class="clockscroll"id="clock2scroll"></div>' +
 	'<div class="clock" id="clock2">12:34:56</div>' +
 	'<div class="date" id="date2">Понедельник</div>' +
@@ -355,6 +355,7 @@ function settings(th) {
 	if (th.shiftKey == true) {
 		GetBackground()
 	} else {
+		GetDelParam("options")
 		$('body').append('<div id="body_menu" style="display: flex; justify-content: center; "><div id="fon" ></div><div id=settings></div>')
 		$('#settings').append('<input id="volume1" type="range" value="20">')
 		$('#settings').append('<div id=button_top style="margin: 5px 0px 10px 0px; display: flex; justify-content: space-between;">')
@@ -375,11 +376,11 @@ function settings(th) {
 		$('#add_button').click(add_button)
 		$('#exit').click(exit_settings)
 		$("#volume1").val(volume)
-		SoundClick.volume = volume/100;
-		
+		SoundClick.volume = volume / 100;
+
 		$("#volume1").on("change", function (e) {
 			console.log($(this).val())
-			SoundClick.volume = $(this).val()/100
+			SoundClick.volume = $(this).val() / 100
 			soundClick('click_key.ogg')
 			volume = $(this).val()
 			localStorage.setItem("volume", volume)
@@ -634,12 +635,11 @@ if (window.location.href.match(/.*\#.*/)) {
 		localStorage.setItem("access_token", b["access_token"])
 	}
 	dygdyg_test = window.location
-	window.location = window.location.href.split('#')[0]+"?options=true"
+	window.location = window.location.href.split('#')[0] + "?options=true"
 	settings(new Object().shiftKey = false)
 }
 
-if(getUrlParameter("options")=="true")
-{
+if (getUrlParameter("options") == "true") {
 	settings(new Object().shiftKey = false)
 }
 
@@ -762,11 +762,17 @@ function cloud_save() {
 		});
 	}
 }
+function GetDelParam(param) {
+	const url = new URL(document.location);
+	const searchParams = url.searchParams;
+	searchParams.delete(param); // удалить параметр "test"
+	window.history.pushState({}, '', url.toString());
+}
 
 function getUrlParameter(name) {
-    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-    var results = regex.exec(location.search);
-    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-  };
+	name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+	var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+	var results = regex.exec(location.search);
+	return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
 
