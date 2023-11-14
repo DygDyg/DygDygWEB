@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- <div id="kodik-player"></div> -->
+  <!-- <iframe id="kodik" src="http://kodik.cc/find-player?kinopoiskID=5401195&camrip=false" width="640" height="440"
+    frameborder="0" allowfullscreen allow="autoplay *; fullscreen *">
+  </iframe> -->
+  <!-- kodik.cc/find-player?title=НАЗВАНИЕ_ФИЛЬМА&kinopoiskID=ID_КИНОПОИСКА&worldartAnimationID=ID_WORLDART_ANIME&camrip=false -->
+  <!-- &kinopoiskID=1342761 -->
+</body>
+<style>
+  #kodik {
+    height: 90%;
+    width: 90%;
+    position: absolute;
+  }
+</style>
+<script>
+  var kodik = document.createElement("iframe");
+  // kodik.setAttribute("src", "blob:https//kodik.cc/find-player?kinopoiskID=5401195&camrip=false");
+  kodik.src = "https://kodik.cc/find-player?kinopoiskID=5401195&camrip=false"
+  // kodik.style.width = "640px";
+  // kodik.style.height = "480px";
+  kodik.id = "kodik"
+  // kodik.frameborder = "0"
+  document.body.appendChild(kodik);
+  // var kodikframe = window.open('', 'Google', 'width=600,height=400');
+  // kodikframe.window.document.body.innerHTML = `<iframe src="//kodik.info/seria/1232576/170dcd1341b517c464cfdc345ba71432/720p" width="607" height="360" frameborder="0" AllowFullScreen allow="autoplay *; fullscreen *"></iframe>`
+</script>
+<!-- <script src="https://kodik-add.com/add-players.min.js"></script> -->
+<!-- <script>
+  var kodikAddPlayers = {
+    width: "640",
+    height: "440",
+    title: "НАЗВАНИЕ_ФИЛЬМА",
+    kinopoiskID: "ID_КИНОПОИСКА",
+    worldartAnimationID: "ID_WORLDART_ANIME",
+    camrip: false,
+    notFoundCallback: function (data) {}
+  };
+
+  !function(e,n,t,r,a){r=e.createElement(n),a=e.getElementsByTagName(n)
+  [0],r.async=!0,r.src=t,a.parentNode.insertBefore(r,a)}
+  (document,"script","//kodik-add.com/add-players.min.js");
+</script> -->
+
+</html>
