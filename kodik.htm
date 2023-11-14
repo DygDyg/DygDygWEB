@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
   <meta charset="UTF-8">
@@ -29,10 +29,10 @@
   #kodik {
     height: 95%;
     width: 95%;
-    top: 50%;
+    /* top: 50%; */
     left: 50%;
     margin-left: -48%;
-    margin-top: -24%;
+    /* margin-top: -24%; */
     position: absolute;
   }
 </style>
@@ -40,7 +40,12 @@
   var kodik = document.createElement("iframe");
   // kodik.setAttribute("src", "blob:https//kodik.cc/find-player?kinopoiskID=5401195&camrip=false");
   console.log(getUrlParameter("kinopoiskID"))
-  kodik.src = `https://kodik.cc/find-player?kinopoiskID=${getUrlParameter("kinopoiskID")}`
+  kodik.src = `https://kodik.cc/find-player?`
+  if(getUrlParameter("kinopoiskID")) kodik.src += `&kinopoiskID=${getUrlParameter("kinopoiskID")}`
+  if(getUrlParameter("title")) kodik.src += `&title=${getUrlParameter("kinopoiskID")}`
+  if(getUrlParameter("worldartAnimationID")) kodik.src += `&kinopoiskID=${getUrlParameter("kinopoiskID")}`
+  if(getUrlParameter("shikimoriID")) kodik.src += `shikimoriID=${getUrlParameter("shikimoriID")}`
+  // if(getUrlParameter("shikimoriID")) kodik.src += `shikimoriID=${getUrlParameter("shikimoriID")}`
   // kodik.style.width = "640px";
   // kodik.style.height = "480px";
   kodik.id = "kodik"
