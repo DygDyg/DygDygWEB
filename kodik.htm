@@ -42,8 +42,8 @@
   console.log(getUrlParameter("kinopoiskID"))
   kodik.src = `https://kodik.cc/find-player?`
   if(getUrlParameter("kinopoiskID")) kodik.src += `&kinopoiskID=${getUrlParameter("kinopoiskID")}`
-  if(getUrlParameter("title")) kodik.src += `&title=${getUrlParameter("kinopoiskID")}`
-  if(getUrlParameter("worldartAnimationID")) kodik.src += `&kinopoiskID=${getUrlParameter("kinopoiskID")}`
+  if(getUrlParameter("title")) kodik.src += `&title=${getUrlParameter("title")}`
+  if(getUrlParameter("worldartAnimationID")) kodik.src += `&worldartAnimationID=${getUrlParameter("worldartAnimationID")}`
   if(getUrlParameter("shikimoriID")) kodik.src += `shikimoriID=${getUrlParameter("shikimoriID")}`
   // if(getUrlParameter("shikimoriID")) kodik.src += `shikimoriID=${getUrlParameter("shikimoriID")}`
   // kodik.style.width = "640px";
@@ -64,21 +64,4 @@
   };
   
 </script>
-<!-- <script src="https://kodik-add.com/add-players.min.js"></script> -->
-<!-- <script>
-  var kodikAddPlayers = {
-    width: "640",
-    height: "440",
-    title: "НАЗВАНИЕ_ФИЛЬМА",
-    kinopoiskID: "ID_КИНОПОИСКА",
-    worldartAnimationID: "ID_WORLDART_ANIME",
-    camrip: false,
-    notFoundCallback: function (data) {}
-  };
-
-  !function(e,n,t,r,a){r=e.createElement(n),a=e.getElementsByTagName(n)
-  [0],r.async=!0,r.src=t,a.parentNode.insertBefore(r,a)}
-  (document,"script","//kodik-add.com/add-players.min.js");
-</script> -->
-
 </html>
