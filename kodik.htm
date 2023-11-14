@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>kodik</title>
 </head>
 
 <body>
@@ -23,9 +23,16 @@
   <!-- &kinopoiskID=1342761 -->
 </body>
 <style>
+  body{
+    background-color:rgb(32, 32, 32)
+  }
   #kodik {
-    height: 90%;
-    width: 90%;
+    height: 95%;
+    width: 95%;
+    top: 50%;
+    left: 50%;
+    margin-left: -48%;
+    margin-top: -24%;
     position: absolute;
   }
 </style>
@@ -33,7 +40,7 @@
   var kodik = document.createElement("iframe");
   // kodik.setAttribute("src", "blob:https//kodik.cc/find-player?kinopoiskID=5401195&camrip=false");
   console.log(getUrlParameter("kinopoiskID"))
-  kodik.src = `https://kodik.cc/find-player?kinopoiskID=${getUrlParameter("kinopoiskID")}&camrip=false`
+  kodik.src = `https://kodik.cc/find-player?kinopoiskID=${getUrlParameter("kinopoiskID")}`
   // kodik.style.width = "640px";
   // kodik.style.height = "480px";
   kodik.id = "kodik"
