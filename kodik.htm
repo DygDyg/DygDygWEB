@@ -26,14 +26,26 @@
   body{
     background-color:rgb(32, 32, 32)
   }
-  #kodik {
+  #kodik1 {
     height: 95%;
     width: 95%;
-    /* top: 50%; */
     left: 50%;
     margin-left: -48%;
-    /* margin-top: -24%; */
     position: absolute;
+  }
+
+  #kodik {
+    position:fixed; 
+    top:0; 
+    left:0; 
+    bottom:0; 
+    right:0; 
+    width:100%; 
+    height:100%; 
+    border:none; 
+    margin:0; 
+    padding:0; 
+    overflow:hidden;
   }
 </style>
 <script>
@@ -46,6 +58,7 @@
   if(getUrlParameter("worldartAnimationID")) kodik.src += `&worldartAnimationID=${getUrlParameter("worldartAnimationID")}`
   if(getUrlParameter("shikimoriID")) kodik.src += `shikimoriID=${getUrlParameter("shikimoriID")}`
   // if(getUrlParameter("shikimoriID")) kodik.src += `shikimoriID=${getUrlParameter("shikimoriID")}`
+  kodik.src += `&camrip=false`
   // kodik.style.width = "640px";
   // kodik.style.height = "480px";
   kodik.id = "kodik"
