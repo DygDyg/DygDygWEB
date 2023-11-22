@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>svetacdn</title>
+</head>
+<body>
+    <!-- <iframe id="player" src="https//25548813.svetacdn.in/gLTQyQJtC98L?kp_id=5401195" height="480" width="100%" frameborder="0" allowfullscreen></iframe> -->
+</body>
+<style>
+    iframe#kodik {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    
+}
+body
+{
+    overflow: hidden;
+    margin: 0px
+}
+</style>
+<script>
+    function load() {
+		// var proxy = `//p3.hosteagle.club/?__cpo=`
+		var kp = '5401195';
+		var kodik = document.createElement("div");
+		// var link = `//kodik.info/find-player?title=${title}&camrip=false`
+		// var link = `http://quickprox.com/browse.php?u=`+btoa(`https://25548813.svetacdn.in/gLTQyQJtC98L?kp_id=${kp}`)
+        var link = `https://7224.svetacdn.in/Mr1qo9bwHfJQ?kp_id=${getUrlParameter("kinopoiskID")}`
+        
+		kodik.innerHTML = `<iframe id="kodik" src="${link}" frameborder="0"  AllowFullScreen allow="autoplay *; fullscreen *"></iframe>`;
+		document.body.prepend(kodik);
+};
+load()
+
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+  };
+</script>
+</html>
