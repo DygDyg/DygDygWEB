@@ -26,9 +26,9 @@ body
 		// var proxy = `//p3.hosteagle.club/?__cpo=`
 		var kp = '5401195';
 		var kodik = document.createElement("div");
-		// var link = `//kodik.info/find-player?title=${title}&camrip=false`
-		// var link = `http://quickprox.com/browse.php?u=`+btoa(`https://25548813.svetacdn.in/gLTQyQJtC98L?kp_id=${kp}`)
-        var link = `https://7224.svetacdn.in/Mr1qo9bwHfJQ?kp_id=${getUrlParameter("kinopoiskID")}`
+		// var link = `https://proxysite.cloud/?cdURL=https%3A%2F%2F7224.svetacdn.in%2FMr1qo9bwHfJQ%3Fkp_id%3D5401195#`
+		// var link = `https://proxysite.cloud/?cdURL=`+btoa(`https://7224.svetacdn.in/Mr1qo9bwHfJQ?kp_id=${getUrlParameter("kinopoiskID")}`)
+        var link = `//${getRandomInt(999999999999)}.svetacdn.in/Mr1qo9bwHfJQ?kp_id=${getUrlParameter("kinopoiskID")}`
         
 		kodik.innerHTML = `<iframe id="kodik" src="${link}" frameborder="0"  AllowFullScreen allow="autoplay *; fullscreen *"></iframe>`;
 		document.body.prepend(kodik);
@@ -41,5 +41,9 @@ function getUrlParameter(name) {
     var results = regex.exec(location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
   };
+
+  function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 </script>
 </html>
