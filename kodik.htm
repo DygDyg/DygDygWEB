@@ -40,7 +40,8 @@
 
   #kodik {
     position:fixed; 
-    /* top:0; 
+    /* 
+    top:0; 
     left:0; 
     bottom:0; 
     right:0;  */
@@ -53,10 +54,7 @@
     overflow:hidden;
     aspect-ratio: 16/9;
   }
-  #kodik {
-    /* width: 100%; */
-    
-  }
+
   #base {
     display: flex;
     flex-wrap: nowrap;
@@ -81,6 +79,7 @@
   // kodik.style.width = "640px";
   // kodik.style.height = "480px";
   kodik.id = "kodik"
+  kodik.allow = "fullscreen"
   // kodik.frameborder = "0"
   document.body.querySelector("#base").appendChild(kodik);
   // var kodikframe = window.open('', 'Google', 'width=600,height=400');
