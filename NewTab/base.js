@@ -1,4 +1,4 @@
-let ver = 1.25
+let ver = 1.26
 let clock_en = true
 var loading = false
 var gets_ = {}
@@ -60,6 +60,7 @@ $('#search').on("input", function () {
 	soundClick('click_key.ogg')
 })
 $('#searchs').append('<div id="calc_result"></div>')
+if (getUrlParameter('search') == "false") $('#search').css('display', "none")
 
 $(document).ready(function () {
 	$('#search').keydown(function (e) {
@@ -585,15 +586,16 @@ function time_rotator(m, z) {
 
 //console.log(moment.tz.names())
 
-
-$("body").mouseover(function () {
-	// console.log("1")
-	if (clock_en == false) ShowCardF(null, true)
-})
-$("body").mouseleave(function () {
-	// console.log("2")
-	if (clock_en == true) ShowCardF(null, false)
-})
+if (getUrlParameter('ShowCardF') == "") {
+	$("body").mouseover(function () {
+		// console.log("1")
+		if (clock_en == false) ShowCardF(null, true)
+	})
+	$("body").mouseleave(function () {
+		// console.log("2")
+		if (clock_en == true) ShowCardF(null, false)
+	})
+}
 
 
 ShowCardF(null, true)
@@ -701,7 +703,7 @@ function cloud_save() {
 
 		if (at == null) {
 			window.location = "https://oauth.vk.com/authorize?client_id=5330608&display=page&response_type=token&v=5.131&scope=2048&redirect_uri=" + SiteURL
-			
+
 
 		}
 
@@ -780,4 +782,6 @@ function getUrlParameter(name) {
 	var results = regex.exec(location.search);
 	return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };
+
+
 
