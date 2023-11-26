@@ -6,6 +6,11 @@ var SiteURL = document.location.href.replace(/\/+$/, '');
 var Calc = false;
 var volume = localStorage.getItem("volume") || 100
 var dygdyg_test;
+// var timezones = ["", "Asia/Vladivostok"]
+var timezones = [
+	TZSearch("moscow"),
+	TZSearch("Vladivostok")
+]
 
 
 let SoundClick = new Audio();
@@ -19,6 +24,8 @@ if (localStorage.getItem("access_token")) {
 	// cloud_load(true)
 }
 
+if(getUrlParameter('tz1')!='') timezones[0] = TZSearch(getUrlParameter('tz1'))
+if(getUrlParameter('tz2')!='') timezones[1] = TZSearch(getUrlParameter('tz2'))
 
 function stringToBool(val) {
 	return (val + '').toLowerCase() === 'true'
@@ -528,16 +535,27 @@ function add_card(url) {
 }
 
 setInterval(() => {
-	$('#date1').text(moment().format('LL dddd'))
+	$('#date1').text(`${moment().tz(timezones[0]).format('LL dddd')} " ${timezones[0]}"`)
 	// $('#date1').text(moment().format('dddd YYYY.MM.DD'))
-	$('#clock1').text(moment().format('HH:mm:ss'))
-	$('#date2').text(moment().tz('Asia/Vladivostok').format('LL dddd'))
-	// $('#date2').text(moment().tz('Asia/Vladivostok').format('dddd YYYY.MM.DD'))
-	$('#clock2').text(moment().tz('Asia/Vladivostok').format('HH:mm:ss'))
+	$('#clock1').text(moment().tz(timezones[0]).format('HH:mm:ss'))
+	$('#date2').text(`${moment().tz(timezones[1]).format('LL dddd')} "${timezones[1]}"`)
+	// $('#date2').text(moment().tz(timezones[1]).format('dddd YYYY.MM.DD'))
+	$('#clock2').text(moment().tz(timezones[1]).format('HH:mm:ss'))
 
-	time_rotator(moment().format('HH'), '#clock1scroll')
-	time_rotator(moment().tz('Asia/Vladivostok').format('HH'), '#clock2scroll')
+	time_rotator(moment().tz(timezones[0]).format('HH'), '#clock1scroll')
+	time_rotator(moment().tz(timezones[1]).format('HH'), '#clock2scroll')
 }, 1000)
+
+function TZSearch(text) {
+	let tz_name = moment.tz.names();
+	let a
+	tz_name.findIndex(e => {
+		// console.log(e)
+		if (e.toLowerCase().includes(text.replaceAll(" ", "_").toLowerCase())) a = e
+	})
+	// if(a==undefined) a = moment.tz.guess()
+	return a || moment.tz.guess();
+}
 
 
 function serchtimezone(serch) {
