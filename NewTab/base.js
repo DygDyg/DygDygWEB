@@ -316,9 +316,9 @@ if (ShowCard == false) {
 }
 
 function ShowCardF(nil, ShowCardN) {
-	// if (ShowCardN) ShowCard = ShowCardN
 	// console.log("ShowCardTest")
 	ShowCard = !ShowCard
+	if (ShowCardN) ShowCard = ShowCardN
 	clock_en = ShowCard
 	localStorage.setItem('ShowCard', ShowCard)
 
@@ -607,19 +607,20 @@ function time_rotator(m, z) {
 // if (getUrlParameter('ShowCardF') == "") {
 
 // console.log(getUrlParameter('ShowCardF'))
+
 $(window).on('load', function() {
 	switch (getUrlParameter('ShowCardF')) {
 		case "true":
-			console.log("true")
+			console.log('ShowCardF', "true")
 			ShowCardF(null, true)
 			break;
 		case "false":
-			console.log("false")
+			console.log('ShowCardF', "false")
 			ShowCardF(null, false)
 			break;
 
 		default:
-			console.log('def')
+			console.log('ShowCardF', 'def')
 			$("body").mouseover(function () {
 				// console.log("1")
 				if (clock_en == false) ShowCardF(null, true)
@@ -634,7 +635,7 @@ $(window).on('load', function() {
 })
 
 
-// ShowCardF(null, true)
+ShowCardF(null, true)
 
 
 
