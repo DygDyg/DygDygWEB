@@ -24,8 +24,8 @@ if (localStorage.getItem("access_token")) {
 	// cloud_load(true)
 }
 
-if(getUrlParameter('tz1')!='') timezones[0] = TZSearch(getUrlParameter('tz1'))
-if(getUrlParameter('tz2')!='') timezones[1] = TZSearch(getUrlParameter('tz2'))
+if (getUrlParameter('tz1') != '') timezones[0] = TZSearch(getUrlParameter('tz1'))
+if (getUrlParameter('tz2') != '') timezones[1] = TZSearch(getUrlParameter('tz2'))
 
 function stringToBool(val) {
 	return (val + '').toLowerCase() === 'true'
@@ -604,19 +604,37 @@ function time_rotator(m, z) {
 
 //console.log(moment.tz.names())
 
-if (getUrlParameter('ShowCardF') == "") {
-	$("body").mouseover(function () {
-		// console.log("1")
-		if (clock_en == false) ShowCardF(null, true)
-	})
-	$("body").mouseleave(function () {
-		// console.log("2")
-		if (clock_en == true) ShowCardF(null, false)
-	})
-}
+// if (getUrlParameter('ShowCardF') == "") {
+
+// console.log(getUrlParameter('ShowCardF'))
+$(window).on('load', function() {
+	switch (getUrlParameter('ShowCardF')) {
+		case "true":
+			console.log("true")
+			ShowCardF(null, true)
+			break;
+		case "false":
+			console.log("false")
+			ShowCardF(null, false)
+			break;
+
+		default:
+			console.log('def')
+			$("body").mouseover(function () {
+				// console.log("1")
+				if (clock_en == false) ShowCardF(null, true)
+			})
+			$("body").mouseleave(function () {
+				// console.log("2")
+				if (clock_en == true) ShowCardF(null, false)
+			})
+			break;
+
+	}
+})
 
 
-ShowCardF(null, true)
+// ShowCardF(null, true)
 
 
 
