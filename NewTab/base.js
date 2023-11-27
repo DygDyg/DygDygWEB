@@ -535,10 +535,10 @@ function add_card(url) {
 }
 
 setInterval(() => {
-	$('#date1').text(`${moment().tz(timezones[0]).format('LL dddd')} " ${timezones[0]}"`)
+	$('#date1').text(`${moment().tz(timezones[0]).format('LL dddd')} "${timezones[0].replaceAll("_", " ").split("/")[1]}"`) //.replaceAll("/", ">")
 	// $('#date1').text(moment().format('dddd YYYY.MM.DD'))
 	$('#clock1').text(moment().tz(timezones[0]).format('HH:mm:ss'))
-	$('#date2').text(`${moment().tz(timezones[1]).format('LL dddd')} "${timezones[1]}"`)
+	$('#date2').text(`${moment().tz(timezones[1]).format('LL dddd')} "${timezones[1].replaceAll("_", " ").split("/")[1]}"`) //.replaceAll("/", ">")
 	// $('#date2').text(moment().tz(timezones[1]).format('dddd YYYY.MM.DD'))
 	$('#clock2').text(moment().tz(timezones[1]).format('HH:mm:ss'))
 
