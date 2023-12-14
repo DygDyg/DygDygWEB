@@ -1,4 +1,4 @@
-let ver = 1.26
+let ver = 1.27
 let clock_en = true
 var loading = false
 var gets_ = {}
@@ -6,13 +6,14 @@ var SiteURL = document.location.href.replace(/\/+$/, '');
 var Calc = false;
 var volume = localStorage.getItem("volume") || 100
 var dygdyg_test;
+var scrollP = [0,0];
 // var timezones = ["", "Asia/Vladivostok"]
 var timezones = [
 	TZSearch("moscow"),
 	TZSearch("Vladivostok")
 ]
 
-
+scrollP = [window.pageXOffset, window.pageYOffset];
 let SoundClick = new Audio();
 SoundClick.src = 'click_key.ogg'
 SoundClick.volume = volume / 100
@@ -325,6 +326,7 @@ function ShowCardF(nil, ShowCardN) {
 
 
 	if (!ShowCard) {
+		scrollP = [window.pageXOffset, window.pageYOffset];
 		clock_en = ShowCard
 		$('#cards').css({
 			display: 'none'
@@ -341,6 +343,7 @@ function ShowCardF(nil, ShowCardN) {
 			'border-bottom-left-radius': '5px'
 		})
 	} else {
+		window.scroll(scrollP[0], scrollP[1])
 		$('#cards').css({
 			display: 'flex'
 		})

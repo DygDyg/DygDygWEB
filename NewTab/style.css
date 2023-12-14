@@ -5,6 +5,9 @@ body {
 
     /* cursor: url(https://yastatic.net/s3/web4static/_/v2/static/media/xmas-mitten_28.c8f51feb.svg) 4 2, pointer; */
 }
+::-webkit-scrollbar {
+    width: 0px;
+}
 
 #calc_result {
     color: #f9f9f9;
