@@ -37,6 +37,7 @@
 
         kodik.innerHTML = `<iframe id="kodik" src="${link}" frameborder="0"  AllowFullScreen allow="autoplay *; fullscreen *"></iframe>`;
         document.body.prepend(kodik);
+        if(getUrlParameter("TitleTab")) document.title = `${getUrlParameter("TitleTab")}` //Получает заголовок из параметров
     };
     load()
     /////////////////////////////////////////////// utilitis //////////////////////////////////////////
