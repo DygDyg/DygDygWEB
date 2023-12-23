@@ -74,6 +74,7 @@
   if(getUrlParameter("title")) kodik.src += `&title=${getUrlParameter("title")}`
   if(getUrlParameter("worldartAnimationID")) kodik.src += `&worldartAnimationID=${getUrlParameter("worldartAnimationID")}`
   if(getUrlParameter("shikimoriID")) kodik.src += `shikimoriID=${getUrlParameter("shikimoriID")}`
+  if(getUrlParameter("TitleTab")) document.title = `${getUrlParameter("TitleTab")}`
   // if(getUrlParameter("shikimoriID")) kodik.src += `shikimoriID=${getUrlParameter("shikimoriID")}`
   kodik.src += `&camrip=false`
   // kodik.style.width = "640px";
@@ -85,7 +86,6 @@
   // var kodikframe = window.open('', 'Google', 'width=600,height=400');
   // kodikframe.window.document.body.innerHTML = `<iframe src="//kodik.info/seria/1232576/170dcd1341b517c464cfdc345ba71432/720p" width="607" height="360" frameborder="0" AllowFullScreen allow="autoplay *; fullscreen *"></iframe>`
   // if(extractGetAll().kinopoiskID) 
-  document.title = `${getUrlParameter("TitleTab")}`
 
 
   function getUrlParameter(name) {
