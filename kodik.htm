@@ -74,7 +74,7 @@
   if(getUrlParameter("title")) kodik.src += `&title=${getUrlParameter("title")}`
   if(getUrlParameter("worldartAnimationID")) kodik.src += `&worldartAnimationID=${getUrlParameter("worldartAnimationID")}`
   if(getUrlParameter("shikimoriID")) kodik.src += `shikimoriID=${getUrlParameter("shikimoriID")}`
-  if(getUrlParameter("TitleTab")) document.title = `${getUrlParameter("TitleTab")}`
+  if(getUrlParameter("TitleTab")) document.title = `${getUrlParameter("TitleTab")}` //Получает заголовок из параметров
   // if(getUrlParameter("shikimoriID")) kodik.src += `shikimoriID=${getUrlParameter("shikimoriID")}`
   kodik.src += `&camrip=false`
   // kodik.style.width = "640px";
