@@ -134,6 +134,7 @@
     }
 
     function add_button(e, i, a) {
+        if (e.name.startsWith(".")) return
         if (line == 0 || line == null) $('#table').append(`<div id="list${column}"class="list"></div>`)
         if (line == null) {
             if (adres.length > 0) $('#list' + column).append(`<div id='button' class='button'>..</div>`)
@@ -145,7 +146,7 @@
             line = 0
             column++
         }
-        if (e.name.startsWith(".")) return
+        
         $('#list' + column).append(`<div id='button${i}' class='button ${e.type}'>${e.name}</div>`)
         if (e.type == "file") {
 
