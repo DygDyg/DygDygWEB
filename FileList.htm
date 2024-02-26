@@ -58,6 +58,12 @@
         flex-direction: row;
     }
 
+    #label2 {
+        background-color: #009797;
+        color: #00076b;
+        padding: 2px;
+    }
+
     .list {
         display: flex;
         flex-direction: column;
@@ -88,8 +94,8 @@
 <script>
     var ver = "0.0.3"
     var name_ = "DygDyg MC"
-    $("#label2").text(name_+": ver " + ver)
-    $('title').text(name_+": ver " + ver)
+    $("#label2").text(name_ + ": ver " + ver)
+    $('title').text(name_ + ": ver " + ver)
     var database = {}
     var line = null
     var column = 0
@@ -120,9 +126,9 @@
         dat = {}
         adres.pop()
         if (adres.length > 0) {
-            select_button(adres[adres.length-1])            
+            select_button(adres[adres.length - 1])
         } else {
-            $('title').text(name_+": ver " + ver)
+            $('title').text(name_ + ": ver " + ver)
             select_button(database)
         }
     }
@@ -139,13 +145,13 @@
             line = 0
             column++
         }
-        if(e.name.startsWith(".")) return
+        if (e.name.startsWith(".")) return
         $('#list' + column).append(`<div id='button${i}' class='button ${e.type}'>${e.name}</div>`)
         if (e.type == "file") {
 
         } else {
             $(`#button${i}`).on("click", function () {
-                $('title').text(name_+": " + a[i].name)
+                $('title').text(name_ + ": " + a[i].name)
                 adres.push(a[i].children)
                 select_button(a[i].children)
             })
