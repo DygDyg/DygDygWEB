@@ -86,7 +86,7 @@
     }
 </style>
 <script>
-    var ver = "1.0"
+    var ver = "1.0.1"
     var name_ = "DygDyg MC"
     $("#label2").text(name_+": ver " + ver)
     $('title').text(name_+": ver " + ver)
@@ -138,7 +138,7 @@
     function add_button(e, i, a) {
         if (line == 0 || line == null) $('#table').append(`<div id="list${column}"class="list"></div>`)
         if (line == null) {
-            if (adres > 0) $('#list' + column).append(`<div id='button' class='button'>..</div>`)
+            if (adres.length > 0) $('#list' + column).append(`<div id='button' class='button'>..</div>`)
             $(`#button`).on("click", function () { back_button() })
         }
         if (line < 20) {
