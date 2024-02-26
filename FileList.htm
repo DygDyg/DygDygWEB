@@ -5,14 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>file list</title>
+    <title id="title">file list</title>
 </head>
 
 <body>
-    <div class="list1">
-        <a class="file">hello world</a>
-        <a class="file">привет мир</a>
-    </div>
+    <div id="table"></div>
 </body>
 <style>
     @font-face {
@@ -23,26 +20,36 @@
         font-style: normal;
     }
 
+    #table {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+    }
+    
     body {
 
         font-family: "clacon2", "Arial", sans-serif;
         background-color: #000075;
         color: #6fcbcb;
-
-
+        cursor: url('./cursor.png'), auto;
     }
 
-    .list1 {
+    .list {
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
         align-items: stretch;
-        width: 10%;
+        width: 128px;
+        border: solid;
     }
 
     .file {
         /* display: table; */
         padding: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        
     }
 
     .file:hover {
@@ -52,11 +59,30 @@
 </style>
 <script>
     console.log("jquery", $.fn.jquery)
-
+    var database = {}
+    var line = null
+    var column = 0
 
     $.get('./DataList.json', function (data, status) {
-        console.log(data)
+        inte = 0
+        database = data.children
+        console.log(data.children)
+        database.forEach(e => {
+            select_button(e.name)
+        });
     });
+    function select_button(name) {
+        if (line == null) $('#table').append(`<div id="list${column}"class="list"></div>`)
+        if (line < 20) {
+            $('#list' + column).append(`<a class='file'>${name}</a>`)
+            line++
+        } else {
+            line = 0
+            column++
+            $('#table').append(`<div id="list${column}"class="list"></div>`)
+            $('#list' + column).append(`<a class='file'>${name}</a>`)
+        }
+    }
 </script>
 
 </html>
