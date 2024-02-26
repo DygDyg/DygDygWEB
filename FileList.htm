@@ -25,7 +25,7 @@
         flex-wrap: nowrap;
         flex-direction: row;
     }
-    
+
     body {
 
         font-family: "clacon2", "Arial", sans-serif;
@@ -49,12 +49,16 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        
+
     }
 
     .file:hover {
         color: #00076b;
         background-color: #009797;
+    }
+
+    .directory {
+        color: #b9cdcd;
     }
 </style>
 <script>
@@ -63,24 +67,30 @@
     var line = null
     var column = 0
 
+    function sort1(o1, o2) {
+        return o1.type.localeCompare(o2.type)
+    }
+
     $.get('./DataList.json', function (data, status) {
         inte = 0
         database = data.children
-        console.log(data.children)
+
+        database.sort(sort1)
+        console.log(database)
         database.forEach(e => {
-            select_button(e.name)
+            select_button(e.name, e.type)
         });
     });
-    function select_button(name) {
+    function select_button(name, type) {
         if (line == null) $('#table').append(`<div id="list${column}"class="list"></div>`)
         if (line < 20) {
-            $('#list' + column).append(`<a class='file'>${name}</a>`)
+            $('#list' + column).append(`<a class='file ${type}'>${name}</a>`)
             line++
         } else {
             line = 0
             column++
             $('#table').append(`<div id="list${column}"class="list"></div>`)
-            $('#list' + column).append(`<a class='file'>${name}</a>`)
+            $('#list' + column).append(`<a class='file ${type}'>${name}</a>`)
         }
     }
 </script>
