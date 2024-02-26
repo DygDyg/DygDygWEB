@@ -87,8 +87,9 @@
 </style>
 <script>
     var ver = "1.0"
-    $("#label2").text("DygDyg MC: ver " + ver)
-    $('title').text("DygDyg MC: ver " + ver)
+    var name_ = "DygDyg MC"
+    $("#label2").text(name_+": ver " + ver)
+    $('title').text(name_+": ver " + ver)
     var database = {}
     var line = null
     var column = 0
@@ -122,14 +123,14 @@
         if (adres.length > 0) {
             adres.forEach(e => {
                 dat = database[e].children.sort(sort1)
-                $('title').text("DygDyg MC: " + database[e].name)
+                $('title').text(name_+": " + database[e].name)
             });
             // if(dat == {}) dat = database
             // console.log(dat, database)
             select_button(dat)
         } else {
             // console.log(dat, database)
-            $('title').text("DygDyg MC: ver " + ver)
+            $('title').text(name_+": ver " + ver)
             select_button(database)
         }
     }
@@ -151,7 +152,7 @@
 
         } else {
             $(`#button${i}`).on("click", function () {
-                $('title').text("DygDyg MC: " + a[i].name)
+                $('title').text(name_+": " + a[i].name)
                 adres.push(i)
                 select_button(a[i].children.sort(sort1))
                 // console.log(adres)
