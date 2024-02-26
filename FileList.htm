@@ -69,8 +69,9 @@
     }
 </style>
 <script>
-    console.log("jquery", $.fn.jquery)
-    $('title').text("DygDyg MC: 1.0")
+    var ver = "1.0"
+
+    $('title').text("DygDyg MC: ver "+ver)
     var database = {}
     var line = null
     var column = 0
@@ -111,7 +112,7 @@
             select_button(dat)
         } else {
             // console.log(dat, database)
-            $('title').text("DygDyg MC")
+            $('title').text("DygDyg MC: ver "+ver)
             select_button(database)
         }
     }
