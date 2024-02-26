@@ -1,4 +1,4 @@
-z7.git
+.git
 .vscode
 ascii_test
 BadApple
@@ -11,6 +11,7 @@ LoadBundle
 NewTab
 NewTab2.0
 node.js
+NyGameSandbox
 Phao
 PoE
 SpaceStation13
