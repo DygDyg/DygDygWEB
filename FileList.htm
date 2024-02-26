@@ -119,7 +119,7 @@
     function add_button(e, i, a) {
         if (line == 0 || line == null) $('#table').append(`<div id="list${column}"class="list"></div>`)
         if (line == null) {
-            $('#list' + column).append(`<div id='button' class='button'>..</div>`)
+            if(adres>0) $('#list' + column).append(`<div id='button' class='button'>..</div>`)
             $(`#button`).on("click", function () { back_button() })
         }
         if (line < 20) {
