@@ -83,11 +83,11 @@
 
         database.sort(sort1)
         console.log(database)
-        database.forEach(e => {
-            select_button(e.name, e.type)
+        database.forEach(function(e, i, a)  {
+            select_button(e, i, a)
         });
     });
-    function select_button(name, type) {
+    function select_button(e, i, a) {
         if (line == null || line == 0) $('#table').append(`<div id="list${column}"class="list"></div>`)
         if (line < 20) {
             line++
@@ -95,9 +95,8 @@
             line = 0
             column++
             // $('#table').append(`<div id="list${column}"class="list"></div>`)
-
         }
-        $('#list' + column).append(`<div class='file ${type}'>${name}</div>`)
+        $('#list' + column).append(`<div class='file ${e.type}'>${e.name}</div>`)
     }
 </script>
 
