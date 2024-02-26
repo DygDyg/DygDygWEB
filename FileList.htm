@@ -86,7 +86,7 @@
     }
 </style>
 <script>
-    var ver = "1.0.1"
+    var ver = "1.0.2"
     var name_ = "DygDyg MC"
     $("#label2").text(name_+": ver " + ver)
     $('title').text(name_+": ver " + ver)
@@ -101,14 +101,13 @@
 
     $.get('./DataList.json', function (data) {
         database = data.children
-        database.sort(sort1)
         select_button(database)
-        console.log(database)
     });
 
     function select_button(database) {
         remove_button()
-        database.forEach(function (e, i, a) {
+        console.log(adres)
+        database.sort(sort1).forEach(function (e, i, a) {
             add_button(e, i, a)
         });
     }
@@ -121,14 +120,8 @@
         dat = {}
         adres.pop()
         if (adres.length > 0) {
-            adres.forEach(e => {
-                dat = database[e].children.sort(sort1)
-                $('title').text(name_+": " + database[e].name)
-            });
-            // if(dat == {}) dat = database
-            select_button(dat)
+            select_button(adres[adres.length-1])            
         } else {
-            // console.log(dat, database)
             $('title').text(name_+": ver " + ver)
             select_button(database)
         }
@@ -153,13 +146,11 @@
         } else {
             $(`#button${i}`).on("click", function () {
                 $('title').text(name_+": " + a[i].name)
-                adres.push(i)
-                select_button(a[i].children.sort(sort1))
-                // console.log(adres)
+                adres.push(a[i].children)
+                select_button(a[i].children)
             })
         }
         $(`#button${i}`).on("click", function () {
-            // console.log(e.type, a[i])
         })
 
     }
