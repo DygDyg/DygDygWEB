@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <script src="./scripts/jquery.min.js"></script>
+<script src="./scripts/jquery.min.js"></script>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,20 +9,54 @@
 </head>
 
 <body>
-    hello world
+    <div class="list1">
+        <a class="file">hello world</a>
+        <a class="file">привет мир</a>
+    </div>
 </body>
 <style>
+    @font-face {
+        font-family: clacon2;
+        src: url('./fonts/clacon2.woff2') format("woff2"),
+            url('./fonts/clacon2.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
     body {
-        background-color: #000049;
-        color: #a1a1a1;
+
+        font-family: "clacon2", "Arial", sans-serif;
+        background-color: #000075;
+        color: #6fcbcb;
+
+
+    }
+
+    .list1 {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        width: 10%;
+    }
+
+    .file {
+        /* display: table; */
+        padding: 2px;
+    }
+
+    .file:hover {
+        color: #00076b;
+        background-color: #009797;
     }
 </style>
 <script>
     console.log("jquery", $.fn.jquery)
-    fetch('./DataList.json')
-        .then((response) => response.json())
-        .then((json) => console.log(json));
-    
+
+
+    $.get('./DataList.json', function (data, status) {
+        console.log(data)
+    });
 </script>
 
 </html>
