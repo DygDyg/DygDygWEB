@@ -19,9 +19,10 @@
         font-weight: normal;
         font-style: normal;
     }
+
     :root {
         cursor: url('./cursor.png'), auto;
-        
+
         font-family: "clacon2", "Arial", sans-serif;
         background-color: #000075;
         color: #6fcbcb;
@@ -49,7 +50,7 @@
         border: solid;
     }
 
-    .file {
+    .button {
         /* display: table; */
         padding: 2px;
         white-space: nowrap;
@@ -58,7 +59,7 @@
 
     }
 
-    .file:hover {
+    .button:hover {
         color: #00076b;
         background-color: #009797;
     }
@@ -72,31 +73,72 @@
     var database = {}
     var line = null
     var column = 0
+    var adres = []
 
     function sort1(o1, o2) {
         return o1.type.localeCompare(o2.type)
     }
 
-    $.get('./DataList.json', function (data, status) {
-        inte = 0
+    $.get('./DataList.json', function (data) {
         database = data.children
-
         database.sort(sort1)
+        select_button(database)
         console.log(database)
-        database.forEach(function(e, i, a)  {
-            select_button(e, i, a)
-        });
     });
-    function select_button(e, i, a) {
-        if (line == null || line == 0) $('#table').append(`<div id="list${column}"class="list"></div>`)
+
+    function select_button(database) {
+        remove_button()
+        database.forEach(function (e, i, a) {
+            add_button(e, i, a)
+        });
+    }
+    function remove_button(e, i, a) {
+        $("#table").empty();
+        line = null
+        column = 0
+    }
+    function back_button() {
+        dat = {}
+        adres.pop()
+        if (adres.length > 0) {
+            adres.forEach(e => {
+                dat = database[e].children.sort(sort1)
+            });
+            // if(dat == {}) dat = database
+            console.log(dat, database)
+            select_button(dat)
+        } else {
+            console.log(dat, database)
+            select_button(database)
+        }
+    }
+
+    function add_button(e, i, a) {
+        if (line == 0 || line == null) $('#table').append(`<div id="list${column}"class="list"></div>`)
+        if (line == null) {
+            $('#list' + column).append(`<div id='button' class='button'>..</div>`)
+            $(`#button`).on("click", function () { back_button() })
+        }
         if (line < 20) {
             line++
         } else {
             line = 0
             column++
-            // $('#table').append(`<div id="list${column}"class="list"></div>`)
         }
-        $('#list' + column).append(`<div class='file ${e.type}'>${e.name}</div>`)
+        $('#list' + column).append(`<div id='button${i}' class='button ${e.type}'>${e.name}</div>`)
+        if (e.type == "file") {
+
+        } else {
+            $(`#button${i}`).on("click", function () {
+                adres.push(i)
+                select_button(a[i].children.sort(sort1))
+                console.log(adres)
+            })
+        }
+        $(`#button${i}`).on("click", function () {
+            console.log(e.type, a[i])
+        })
+
     }
 </script>
 
