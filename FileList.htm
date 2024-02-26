@@ -70,6 +70,7 @@
 </style>
 <script>
     console.log("jquery", $.fn.jquery)
+    $('title').text("DygDyg MC")
     var database = {}
     var line = null
     var column = 0
@@ -103,12 +104,14 @@
         if (adres.length > 0) {
             adres.forEach(e => {
                 dat = database[e].children.sort(sort1)
+                $('title').text("DygDyg MC: "+database[e].name)
             });
             // if(dat == {}) dat = database
-            console.log(dat, database)
+            // console.log(dat, database)
             select_button(dat)
         } else {
-            console.log(dat, database)
+            // console.log(dat, database)
+            $('title').text("DygDyg MC")
             select_button(database)
         }
     }
@@ -130,13 +133,14 @@
 
         } else {
             $(`#button${i}`).on("click", function () {
+                $('title').text("DygDyg MC: "+a[i].name)
                 adres.push(i)
                 select_button(a[i].children.sort(sort1))
-                console.log(adres)
+                // console.log(adres)
             })
         }
         $(`#button${i}`).on("click", function () {
-            console.log(e.type, a[i])
+            // console.log(e.type, a[i])
         })
 
     }
