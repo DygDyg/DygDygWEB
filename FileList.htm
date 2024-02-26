@@ -9,7 +9,12 @@
 </head>
 
 <body>
-    <div id="table"></div>
+    <div id="base">
+        <div id="label1">
+            <div id="label2">DygDyg MC: ver </div>
+        </div>
+        <div id="table"></div>
+    </div>
 </body>
 <style>
     @font-face {
@@ -34,8 +39,20 @@
     /* body {
 
     } */
+    #base {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: center;
+    }
 
     #table {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+    }
+
+    #label1 {
         display: flex;
         flex-wrap: nowrap;
         flex-direction: row;
@@ -70,8 +87,8 @@
 </style>
 <script>
     var ver = "1.0"
-
-    $('title').text("DygDyg MC: ver "+ver)
+    $("#label2").text("DygDyg MC: ver " + ver)
+    $('title').text("DygDyg MC: ver " + ver)
     var database = {}
     var line = null
     var column = 0
@@ -105,14 +122,14 @@
         if (adres.length > 0) {
             adres.forEach(e => {
                 dat = database[e].children.sort(sort1)
-                $('title').text("DygDyg MC: "+database[e].name)
+                $('title').text("DygDyg MC: " + database[e].name)
             });
             // if(dat == {}) dat = database
             // console.log(dat, database)
             select_button(dat)
         } else {
             // console.log(dat, database)
-            $('title').text("DygDyg MC: ver "+ver)
+            $('title').text("DygDyg MC: ver " + ver)
             select_button(database)
         }
     }
@@ -120,7 +137,7 @@
     function add_button(e, i, a) {
         if (line == 0 || line == null) $('#table').append(`<div id="list${column}"class="list"></div>`)
         if (line == null) {
-            if(adres>0) $('#list' + column).append(`<div id='button' class='button'>..</div>`)
+            if (adres > 0) $('#list' + column).append(`<div id='button' class='button'>..</div>`)
             $(`#button`).on("click", function () { back_button() })
         }
         if (line < 20) {
@@ -134,7 +151,7 @@
 
         } else {
             $(`#button${i}`).on("click", function () {
-                $('title').text("DygDyg MC: "+a[i].name)
+                $('title').text("DygDyg MC: " + a[i].name)
                 adres.push(i)
                 select_button(a[i].children.sort(sort1))
                 // console.log(adres)
