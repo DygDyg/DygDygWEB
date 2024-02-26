@@ -19,19 +19,25 @@
         font-weight: normal;
         font-style: normal;
     }
+    :root {
+        cursor: url('./cursor.png'), auto;
+        
+        font-family: "clacon2", "Arial", sans-serif;
+        background-color: #000075;
+        color: #6fcbcb;
+        user-select: none;
+    }
+
+
+
+    body {
+
+    }
 
     #table {
         display: flex;
         flex-wrap: nowrap;
         flex-direction: row;
-    }
-
-    body {
-
-        font-family: "clacon2", "Arial", sans-serif;
-        background-color: #000075;
-        color: #6fcbcb;
-        cursor: url('./cursor.png'), auto;
     }
 
     .list {
@@ -82,16 +88,16 @@
         });
     });
     function select_button(name, type) {
-        if (line == null) $('#table').append(`<div id="list${column}"class="list"></div>`)
+        if (line == null || line == 0) $('#table').append(`<div id="list${column}"class="list"></div>`)
         if (line < 20) {
-            $('#list' + column).append(`<a class='file ${type}'>${name}</a>`)
             line++
         } else {
             line = 0
             column++
-            $('#table').append(`<div id="list${column}"class="list"></div>`)
-            $('#list' + column).append(`<a class='file ${type}'>${name}</a>`)
+            // $('#table').append(`<div id="list${column}"class="list"></div>`)
+
         }
+        $('#list' + column).append(`<div class='file ${type}'>${name}</div>`)
     }
 </script>
 
