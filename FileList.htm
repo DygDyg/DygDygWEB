@@ -126,7 +126,6 @@
                 $('title').text(name_+": " + database[e].name)
             });
             // if(dat == {}) dat = database
-            // console.log(dat, database)
             select_button(dat)
         } else {
             // console.log(dat, database)
@@ -147,6 +146,7 @@
             line = 0
             column++
         }
+        if(e.name.startsWith(".")) return
         $('#list' + column).append(`<div id='button${i}' class='button ${e.type}'>${e.name}</div>`)
         if (e.type == "file") {
 
