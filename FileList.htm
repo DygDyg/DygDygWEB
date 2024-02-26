@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
-
+    <script src="./scripts/jquery.min.js"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +8,20 @@
 </head>
 
 <body>
-
+    hello world
 </body>
 <style>
-
+    body {
+        background-color: #000049;
+        color: #a1a1a1;
+    }
 </style>
 <script>
+    console.log("jquery", $.fn.jquery)
     fetch('./DataList.json')
         .then((response) => response.json())
         .then((json) => console.log(json));
+    
 </script>
 
 </html>
