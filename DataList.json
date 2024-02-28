@@ -217,6 +217,11 @@
                             "type": "directory",
                             "children": [
                                 {
+                                    "name": "e3c2c022429fe074de9ee68d10c4103df34a5c",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "e6fc77ba180eb5de956651f6aadfdc74005816",
                                     "suffix": "",
                                     "type": "file"
@@ -318,7 +323,24 @@
                             "type": "directory",
                             "children": [
                                 {
+                                    "name": "7a4e223b1b89d360da50ef59c57b6520e2e8f3",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "8acac048cf2a0187f532ee2e7f534e26b585a2",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "12",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "ab2384025caa483726011d4775a7630c533d34",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -331,6 +353,18 @@
                             "children": [
                                 {
                                     "name": "5b66c84b875c2c75bbe7688c157fa75c8850c7",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "16",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "68b4d39f9f0994bbc69bb829d4cb26354b02dd",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -580,6 +614,18 @@
                             ]
                         },
                         {
+                            "name": "45",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "407129730357d083f33daf581dabcabf2132b7",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
                             "name": "47",
                             "suffix": "",
                             "type": "directory",
@@ -640,6 +686,18 @@
                             ]
                         },
                         {
+                            "name": "51",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "a14cd5c1759289acf7db014a423a644a7c2283",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
                             "name": "52",
                             "suffix": "",
                             "type": "directory",
@@ -664,10 +722,27 @@
                             ]
                         },
                         {
+                            "name": "56",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "8c504f0f42ad10795394537235fc6c620b9d3b",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
                             "name": "58",
                             "suffix": "",
                             "type": "directory",
                             "children": [
+                                {
+                                    "name": "14255d72e8911eb3e74adc739e776f741e9d50",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
                                 {
                                     "name": "2fa9d3c28e0e7e54b8ca0990d5d6730abb263b",
                                     "suffix": "",
@@ -756,6 +831,18 @@
                             ]
                         },
                         {
+                            "name": "78",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "c64b378b61e4f5384e1d3f900cdc815ac572dc",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
                             "name": "7b",
                             "suffix": "",
                             "type": "directory",
@@ -779,6 +866,18 @@
                                 },
                                 {
                                     "name": "787198080ce0b96b84a734cd9ee95faf796491",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "80",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "48e69e0c25071078e34a3d474640f0cbc49f4d",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -845,6 +944,30 @@
                             ]
                         },
                         {
+                            "name": "95",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "e199de2498664d286e616ef02dae16023bcbfa",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "96",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "a14863902dd7d243ec75029ede2746814ac824",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
                             "name": "97",
                             "suffix": "",
                             "type": "directory",
@@ -885,6 +1008,18 @@
                             "children": [
                                 {
                                     "name": "332c8c5d2f565b290f6cec6eba2d1b5af92346",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "a6",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "336df0d2c7bebbede0cef53cf387a486890c08",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -950,6 +1085,18 @@
                             "children": [
                                 {
                                     "name": "54cfae7c2acf272944070eb276b664afa64c22",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "b4",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "220341c22500618b86968da9913f4bfdb35466",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -1177,6 +1324,11 @@
                                     "name": "c06ab401f80b74b81fe4342a2e8124cbe14ef7",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "d5732494063e999b0ba51c1dd7dc718367aa4c",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -1185,6 +1337,11 @@
                             "suffix": "",
                             "type": "directory",
                             "children": [
+                                {
+                                    "name": "2018637749be2ef9216c8cd801aeef4e23b1a7",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
                                 {
                                     "name": "80e536ebedc68250f2baef063eecfebd2b5929",
                                     "suffix": "",
@@ -1215,7 +1372,29 @@
                             "type": "directory",
                             "children": [
                                 {
+                                    "name": "23e945a0fc5119bf50888052dc5ff71ea45f68",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "780daa9b704e8b8161c8ac4decca7806dbec42",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "d8",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "1cd2a96670c94ea514b306fa231c3cfde5489c",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "7e3ccc1d65788bd3cbbb201fbc18eeb482fafa",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -1328,6 +1507,18 @@
                             ]
                         },
                         {
+                            "name": "ea",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "99ac72d8cd228c06785b56d056652d44259cbc",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
                             "name": "ec",
                             "suffix": "",
                             "type": "directory",
@@ -1346,6 +1537,18 @@
                             "children": [
                                 {
                                     "name": "678cf8bce35322fdf7159c6fd346163697c648",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "f2",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "460f90c598f715756ad73f2c56dd903d0c947e",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -1392,6 +1595,11 @@
                             "suffix": "",
                             "type": "directory",
                             "children": [
+                                {
+                                    "name": "bc61fdf86febc923c735d82c25586965ba5088",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
                                 {
                                     "name": "f28624fbb5c7454e3dad59bc1ce58f8b2f217f",
                                     "suffix": "",
@@ -10794,6 +11002,42 @@
             "name": "Lofi-girl-art-baryshnya-art-gifki-7487743.gif",
             "suffix": ".gif",
             "type": "file"
+        },
+        {
+            "name": "MySandboxGamePrototype",
+            "suffix": "",
+            "type": "directory",
+            "children": [
+                {
+                    "name": "Концепт",
+                    "suffix": "",
+                    "type": "directory",
+                    "children": [
+                        {
+                            "name": "концепт1",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "1 этап стиль технологий_1.jpg",
+                                    "suffix": ".jpg",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "1 этап стиль технологий_2.jpg",
+                                    "suffix": ".jpg",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "Концепт1.txt",
+                                    "suffix": ".txt",
+                                    "type": "file"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         },
         {
             "name": "NewTab",
