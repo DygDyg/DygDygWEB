@@ -1,0 +1,639 @@
+body {
+	overflow-y: scroll;
+	background-color: #EFEFEF;
+
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	word-spacing: 5px;
+
+	overflow-x: hidden;
+}
+
+.content {
+	margin-left: 8px;
+	margin-right: 8px;
+}
+
+.desired_item {
+	float: left;
+	text-align: center;
+	position: relative;
+	border: 2px solid black;
+	margin: 1px;
+	background: #CCC;
+	outline: solid 0px #F80;
+	transition: outline .1s linear;
+	border-top: 2px solid #CBCBCB;
+	border-left: 2px solid #CBCBCB;
+	cursor: text;
+}
+
+.desired_item_input_focused {
+	outline: solid 6px #F80;
+	z-index: 1;
+}
+
+
+
+
+.required_item {
+	display: inline-block;
+	text-align: right;
+	vertical-align: middle;
+	font-size: .8em;
+	color: #FFF !important;
+	text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
+	margin-left: 5px;
+	border: 2px solid black;
+	border-bottom: 2px solid #CBCBCB;
+	border-right: 2px solid #CBCBCB;
+}
+
+.desired_item_count {
+	width: 100%;
+	box-sizing: border-box;
+	background: transparent;
+	font-weight: bold;
+	text-align: center;
+	vertical-align: middle;
+	position:absolute;
+	bottom: 0;
+	left: 0;
+	color: #FFF !important;
+	border:none;
+	padding-bottom: 2px;
+	-moz-appearance:textfield;
+	height: 100%;
+}
+
+
+.search_bar {
+	margin-bottom: 10px;
+
+}
+
+.search_label_wrapper {
+	float:left;
+	padding: 5px 10px;
+	border: 2px solid #8b90a1;
+	border-right: 0;
+	background: #D8D9ED;
+	border-radius: 5px 0 0 5px;
+}
+.search_label {
+}
+
+.search_box_wrapper {
+	display: block;
+	overflow: hidden;
+}
+.search_box {
+	width: 100%;
+	box-sizing:border-box;
+	padding: 5px;
+	margin: 0;
+	color: #000;
+	font-family: sans-serif;
+	background-color: #fff;
+	border: none;
+	border-top: 2px solid #8b90a1;
+	border-bottom: 2px solid #8b90a1;
+	font-size: 1em;
+}
+
+
+
+
+.hide_unused_wrapper {
+	float:right;
+	padding: 5px 10px;
+	border: 2px solid #8b90a1;
+	border-radius: 0 5px 5px 0;
+	background: #FFF;
+	transition: background-color 0.1s linear, color 0.1s linear;
+}
+.hide_unused_wrapper:hover {
+	background: #D8D9ED;
+}
+
+.hide_unused_label {
+	cursor: pointer;
+}
+
+
+
+
+#item_list {
+	text-align: center;
+}
+.chest_list {
+	overflow: hidden;
+	max-width: 324px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+
+	display: inline-block;
+	text-align: left;
+
+}
+
+.chest_list_title {
+	color: #404040;
+	padding-bottom: 6px;
+
+}
+
+
+#generatelist {
+
+}
+
+
+
+.hide_unused_checkbox {
+	display: none;
+}
+
+
+
+#hover_name {
+	position:absolute;
+	border-radius: 5px;
+	background: #FFF;
+	padding: 10px;
+	color: #000;
+	white-space: nowrap;
+	pointer-events: none;
+	/*display: none;*/
+	opacity: 0;
+	z-index: 3;
+	box-shadow: 2px 2px 5px 0 #000;
+	transition: opacity .1s linear;
+}
+
+#content_field {
+	/*overflow: hidden;*/
+	margin-bottom: 5px;
+	/*padding: 6px;*/
+}
+
+/*////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// recipe styling*/
+
+#hover_recipe {
+	position: absolute;
+	pointer-events: none;
+	display: none;
+}
+.crafting_layout {
+	position: absolute;
+	top: 22px;
+	left: 48px;
+	width: 108px;
+}
+.crafting_output {
+	position: absolute;
+	top: 50px;
+	left: 228px;
+
+	background-position: center;
+	text-align: right;
+	vertical-align: middle;
+
+	padding: 8px;
+
+	font-size: .8em;
+
+	color: #FFF !important;
+	text-shadow: 2px 2px 0 #3F3F3F;
+}
+
+
+/*////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////*/
+#recipe_select {
+	position: absolute;
+	/*border: 1px solid #222;*/
+	background-color: #fff;
+	opacity: 0;
+	z-index: 2;
+	box-shadow: 2px 2px 5px 0 #000;
+	border-radius: 5px;
+	transition: opacity .1s linear;
+
+	-webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+    padding-bottom: 5px;
+}
+.recipe_selector_title {
+	padding: 4px;
+	text-align: center;
+	font-weight: bold;
+}
+.recipe_select_item {
+	padding: 4px;
+	cursor: pointer;
+	background-color: #FFF;
+	/*position: relative;*/
+}
+.recipe_select_item:hover {
+	background-color: #3498db;
+}
+.recipe_select_item_name {
+	padding: 8px;
+	float: left;
+}
+
+.inventory_value_field {
+	width: 100%;
+	box-sizing:border-box;
+	padding: 5px;
+	margin: 0;
+	color: #000;
+	font-family: sans-serif;
+	background-color: #fff;
+	border: 2px solid #8b90a1;
+	font-size: 1em;
+	-moz-appearance: textfield;
+	border-radius: 5px;
+}
+
+/*////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// Flow chart styling*/
+
+  #chart {}
+
+  .node rect {
+	cursor: move;
+	fill-opacity: .9;
+	shape-rendering: crispEdges;
+  }
+
+  .node text {
+	pointer-events: none;
+	text-shadow: 0 1px 0 #fff;
+  }
+
+  .link {
+	fill: none;
+	stroke: #000;
+	stroke-opacity: .2;
+  }
+
+  .link:hover {
+	stroke-opacity: .5;
+  }
+
+.header_bar {
+	overflow: hidden;
+	margin-bottom: 40px;
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
+}
+
+
+.home_button_logo {
+	background: #FFF url(./logo.png) no-repeat center center;
+	padding: 10px 12px;
+	border: 2px solid #8b90a1;
+	border-right: none;
+	border-radius: 5px 0 0 5px;
+	display: inline-block;
+	background-size: 40px;
+	transition: background-size 0.1s linear;
+}
+.home_button_logo:hover {
+	/*background: url(/logo2.png) no-repeat center 0;*/
+	background-size: 80%;
+}
+
+.home_button {
+	color: #000;
+	font-size: 1em;
+	padding: 10px 20px;
+	border-top: 2px solid #8b90a1;
+	border-bottom: 2px solid #8b90a1;
+	background-color: #FFF;
+	transition: background-color 0.1s linear, color 0.1s linear;
+	display: inline-block;
+	cursor: pointer;
+}
+a:last-child .home_button {
+	border-radius: 0 5px 5px 0;
+	border-right: 2px solid #8b90a1;
+}
+.home_button:hover {
+	color: #FFF;
+	background-color: #222
+}
+
+
+
+#about_us_lightbox_background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color:rgba(0, 0, 0, 0.5);
+	display:none;
+
+}
+
+
+
+.generate_button {
+	width: 400px;
+	border: 2px solid #000;
+	border-top-color: #cbcbcb;
+	border-left-color: #cbcbcb;
+	border-radius: 5px;
+
+	position: relative;
+	margin: 0;
+	display: inline-block;
+
+
+	background: #FFF;
+
+	background-repeat: repeat;
+	padding: 10px;
+	text-align: center;
+	box-sizing: border-box;
+	font-size: 16px;
+	margin-bottom: 5px;
+
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+
+	max-width: 100%;
+	transition: background-color .1s linear;
+}
+
+
+
+.generate_button:hover {
+	background-color: #F80;
+	cursor: pointer;
+}
+
+.advertisement {
+	width: 728px;
+	max-width: 100%;
+	height: 90px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 7px;
+}
+
+.instructions {
+	color: #000;
+	text-align: center;
+	margin-bottom: 7px;
+}
+
+
+
+
+/* // Hide the up and down buttons for the number input */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.psuedo_hidden {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+a.internal_link {
+	color: #222;
+	text-decoration: underline;
+	word-wrap: break-word;
+}
+
+.clear {
+	clear: both;
+}
+
+#about_us, #inventory_import_export {
+	border: 2px solid #8B90A1;
+	padding: 10px;
+	border-radius: 5px;
+	background: #FFF;
+	width: 800px;
+	max-width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: -20px;
+	margin-bottom: 30px;
+	display: none;
+}
+
+#inventory_import_export {
+	text-align: center;
+	box-sizing: border-box;
+}
+
+.inventory_import_export_toggle {
+	display: block;
+	margin-left: auto;
+	margin-right: 0;
+	margin-bottom: 10px;
+}
+
+.inventory_import_export_textarea {
+	width: 100%;
+	display: block;
+	box-sizing: border-box;
+	min-height: 20vh;
+}
+
+.inventory_import_error {
+	color: red;
+	font-weight: bold;
+	text-align: center;
+}
+
+.hidden {
+	display: none;
+}
+
+#inventory_amount_input_wrapper {
+	box-sizing: border-box;
+	text-align: center;
+}
+
+#inventory_amount_input {
+	text-align: center;
+	box-sizing: border-box;
+	width: calc(100% - 10px);
+}
+
+.menu_style {
+	background-color: #EEE;
+	background-clip: content-box;
+}
+
+body {
+	font-family: sans-serif;
+	margin-left: 0;
+	margin-right: 0;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.desired_item_count {
+	font-family: sans-serif;
+	display: none;
+}
+
+
+
+
+
+
+
+/* Index Page Styles */
+.calculator_wrapper {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 470px);
+	justify-content: center;
+}
+
+@media only screen and (max-width:460px) and (min-width:0px){
+	/* When the screen is smaller then 1 item shrink the
+	items to fit the screen horizontally */
+	.calculator_wrapper {
+		display: block;
+	}
+}
+
+.calculator_link_wrapper {
+	/* 460 by 215 is the height of the Steam thumbnail so it's easy to drop in */
+	position: relative;
+	max-width: 460px;
+	max-height: 215px;
+	margin-bottom: 10px;
+}
+.calculator_link_wrapper img {
+	/* This lets it get smaller for mobile */
+	max-width: 100%;
+	box-shadow: 3px 3px 3px #000;
+}
+.calculator_link {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background:#FFF0;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: font-size .1s linear, color .1s linear, background-color .1s linear;
+	font-size: 1em;
+	color: #0000;
+}
+.calculator_link:hover {
+	font-size: 2em;
+	color: #FFF;
+	background-color: #000;
+}
+.icon {
+	font-size: 2em;
+	text-align: center;
+	/*background-color: #FFF;*/
+    font-family: 'Comfortaa', cursive;
+    margin-bottom: 40px;
+}
+.icon img {
+	border: 2px solid black;
+		border-top: 2px solid #CBCBCB;
+	border-left: 2px solid #CBCBCB;
+	border-radius: 5px;
+	padding: 5px;
+	background: #FFF;
+}
+
+
+/*////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////*/
+#text_instructions_title {
+	font-weight: bold;
+	font-size: 1.3em;
+	margin-top: 1em;
+}
+#text_instructions {
+	margin-left:10px;
+}
+.instruction_wrapper {
+	padding: 2px;
+
+}
+.instruction_item {
+	display: inline-block;
+	border: 1px solid #adadad;
+	padding: 2px 5px;
+	border-radius: 5px;
+}
+.instruction_item_count {
+	display: inline-block;
+}
+.instruction_item_name {
+	display: inline-block;
+}
+
+.instruction_line_break{
+	height: 1em;
+}
+.small_unit_name {
+	font-size: .7em;
+	color: #636363;
+	word-spacing: initial;
+}
+
+
+.stack_sizes {
+	margin-top: 15px;
+}
+
+.stack_sizes input[type=radio] {
+	display: none;
+}
+
+.stack_sizes input[type="radio"]+label {
+	padding: 5px;
+	margin-right: 5px;
+	border: 1px solid #444;
+	border-radius: 5px;
+	cursor:pointer;
+	transition: background-color 0.1s linear, color 0.1s linear;
+
+}
+
+.stack_sizes input[type="radio"]:checked+label {
+	background: #444;
+	color: #FFF;
+}
+
+.stack_sizes input[type="radio"]+label:hover {
+	background: #000;
+	color: #FFF;
+}

@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+    <title>ResourceCalculator</title>
+    <link rel=stylesheet href=./style/calculator-5a5cb1.css>
+    <meta charset=UTF-8>
+    <meta name=HandheldFriendly content=true>
+    <meta name=MobileOptimized content=320>
+    <meta name=viewport content="initial-scale=1.0, maximum-scale=1.0, width=device-width, user-scalable=no">
+    <style>
+        .item {
+            width: 100px;
+            height: 100px;
+            background: #8a8a8a url("astroneer.png") 0 0 no-repeat
+        }
+
+        .item_soil {
+            background-position: -1200px -1000px
+        }
+
+        .item_compound {
+            background-position: -500px -100px
+        }
+
+        .item_resin {
+            background-position: -900px -900px
+        }
+
+        .item_organic {
+            background-position: 0 -800px
+        }
+
+        .item_clay {
+            background-position: -300px -100px
+        }
+
+        .item_ammonium {
+            background-position: -300px 0
+        }
+
+        .item_graphite {
+            background-position: -800px -300px
+        }
+
+        .item_quartz {
+            background-position: -100px -900px
+        }
+
+        .item_laterite {
+            background-position: -100px -600px
+        }
+
+        .item_malachite {
+            background-position: -400px -600px
+        }
+
+        .item_sphalerite {
+            background-position: -300px -1100px
+        }
+
+        .item_wolframite {
+            background-position: -1000px -1200px
+        }
+
+        .item_lithium {
+            background-position: -300px -600px
+        }
+
+        .item_hematite {
+            background-position: -1100px -300px
+        }
+
+        .item_titanite {
+            background-position: -1300px -1100px
+        }
+
+        .item_scrap {
+            background-position: -1300px -900px
+        }
+
+        .item_exochip {
+            background-position: -400px -200px
+        }
+
+        .item_astronium {
+            background-position: -500px 0
+        }
+
+        .item_carbon {
+            background-position: 0 -100px
+        }
+
+        .item_glass {
+            background-position: -500px -300px
+        }
+
+        .item_ceramic {
+            background-position: -100px -100px
+        }
+
+        .item_aluminum {
+            background-position: -100px 0
+        }
+
+        .item_copper {
+            background-position: -600px -100px
+        }
+
+        .item_tungsten {
+            background-position: -500px -1200px
+        }
+
+        .item_iron {
+            background-position: -500px -400px
+        }
+
+        .item_zinc {
+            background-position: -400px -1300px
+        }
+
+        .item_titanium {
+            background-position: 0 -1200px
+        }
+
+        .item_hydrogen {
+            background-position: -300px -400px
+        }
+
+        .item_argon {
+            background-position: -400px 0
+        }
+
+        .item_methane {
+            background-position: -1000px -700px
+        }
+
+        .item_nitrogen {
+            background-position: -1300px -700px
+        }
+
+        .item_helium {
+            background-position: -1000px -300px
+        }
+
+        .item_sulfur {
+            background-position: -700px -1100px
+        }
+
+        .item_rubber {
+            background-position: -1200px -900px
+        }
+
+        .item_plastic {
+            background-position: -600px -800px
+        }
+
+        .item_aluminumalloy {
+            background-position: -200px 0
+        }
+
+        .item_tungstencarbide {
+            background-position: -600px -1200px
+        }
+
+        .item_graphene {
+            background-position: -700px -300px
+        }
+
+        .item_diamond {
+            background-position: -1000px -100px
+        }
+
+        .item_hydrazine {
+            background-position: 0 -400px
+        }
+
+        .item_silicone {
+            background-position: -100px -1000px
+        }
+
+        .item_explosivepowder {
+            background-position: -600px -200px
+        }
+
+        .item_steel {
+            background-position: -500px -1100px
+        }
+
+        .item_titaniumalloy {
+            background-position: -100px -1200px
+        }
+
+        .item_nanocarbonalloy {
+            background-position: -1100px -700px
+        }
+
+        .item_smallprinter {
+            background-position: -600px -1000px
+        }
+
+        .item_packager {
+            background-position: -400px -800px
+        }
+
+        .item_levelingblock {
+            background-position: -200px -600px
+        }
+
+        .item_tethers {
+            background-position: -1200px -1100px
+        }
+
+        .item_oxygenfilter {
+            background-position: -200px -800px
+        }
+
+        .item_oxygentank {
+            background-position: -300px -800px
+        }
+
+        .item_portableoxygenator {
+            background-position: -700px -800px
+        }
+
+        .item_smallcanister {
+            background-position: -400px -1000px
+        }
+
+        .item_beacon {
+            background-position: -1000px 0
+        }
+
+        .item_worklight {
+            background-position: -1100px -1200px
+        }
+
+        .item_glowsticks {
+            background-position: -600px -300px
+        }
+
+        .item_floodlight {
+            background-position: -400px -300px
+        }
+
+        .item_smallgenerator {
+            background-position: -500px -1000px
+        }
+
+        .item_powercells {
+            background-position: -900px -800px
+        }
+
+        .item_smallsolarpanel {
+            background-position: -800px -1000px
+        }
+
+        .item_smallwindturbine {
+            background-position: -1000px -1000px
+        }
+
+        .item_smallbattery {
+            background-position: -200px -1000px
+        }
+
+        .item_dynamite {
+            background-position: -300px -200px
+        }
+
+        .item_fireworks {
+            background-position: -300px -300px
+        }
+
+        .item_smallcamera {
+            background-position: -300px -1000px
+        }
+
+        .item_smalltrumpethorn {
+            background-position: -900px -1000px
+        }
+
+        .item_holographicfigurine {
+            background-position: -1200px -300px
+        }
+
+        .item_probescanner {
+            background-position: -1200px -800px
+        }
+
+        .item_solidfueljumpjet {
+            background-position: -100px -1100px
+        }
+
+        .item_hydrazinejetpack {
+            background-position: -100px -400px
+        }
+
+        .item_hoverboard {
+            background-position: -1300px -300px
+        }
+
+        .item_widemod {
+            background-position: -800px -1200px
+        }
+
+        .item_narrowmod {
+            background-position: -1200px -700px
+        }
+
+        .item_alignmentmod {
+            background-position: 0 0
+        }
+
+        .item_inhibitormod {
+            background-position: -400px -400px
+        }
+
+        .item_boostmod {
+            background-position: -1100px 0
+        }
+
+        .item_terrainanalyzer {
+            background-position: -1100px -1100px
+        }
+
+        .item_drillmod1 {
+            background-position: -1100px -100px
+        }
+
+        .item_drillmod2 {
+            background-position: -1200px -100px
+        }
+
+        .item_drillmod3 {
+            background-position: -1300px -100px
+        }
+
+        .item_mediumprinter {
+            background-position: -1300px -600px
+        }
+
+        .item_oxygenator {
+            background-position: -100px -800px
+        }
+
+        .item_mediumshredder {
+            background-position: -300px -700px
+        }
+
+        .item_fieldshelter {
+            background-position: -100px -300px
+        }
+
+        .item_autoarm {
+            background-position: -700px 0
+        }
+
+        .item_mediumresourcecanister {
+            background-position: 0 -700px
+        }
+
+        .item_mediumfluidandsoilcanister {
+            background-position: -700px -600px
+        }
+
+        .item_mediumgascanister {
+            background-position: -800px -600px
+        }
+
+        .item_powersensor {
+            background-position: -1000px -800px
+        }
+
+        .item_storagesensor {
+            background-position: -600px -1100px
+        }
+
+        .item_batterysensor {
+            background-position: -900px 0
+        }
+
+        .item_buttonrepeater {
+            background-position: -1300px 0
+        }
+
+        .item_proximityrepeater {
+            background-position: -1300px -800px
+        }
+
+        .item_delayrepeater {
+            background-position: -900px -100px
+        }
+
+        .item_countrepeater {
+            background-position: -700px -100px
+        }
+
+        .item_extenders {
+            background-position: -700px -200px
+        }
+
+        .item_powerswitch {
+            background-position: -1100px -800px
+        }
+
+        .item_splitter {
+            background-position: -400px -1100px
+        }
+
+        .item_mediumgenerator {
+            background-position: -900px -600px
+        }
+
+        .item_mediumsolarpanel {
+            background-position: -500px -700px
+        }
+
+        .item_mediumwindturbine {
+            background-position: -900px -700px
+        }
+
+        .item_mediumbattery {
+            background-position: -500px -600px
+        }
+
+        .item_rtg {
+            background-position: -1100px -900px
+        }
+
+        .item_qtrtg {
+            background-position: 0 -900px
+        }
+
+        .item_mediumplatforma {
+            background-position: -1000px -600px
+        }
+
+        .item_mediumplatformb {
+            background-position: -1100px -600px
+        }
+
+        .item_mediumplatformc {
+            background-position: -1200px -600px
+        }
+
+        .item_tallplatform {
+            background-position: -800px -1100px
+        }
+
+        .item_mediumtplatform {
+            background-position: -800px -700px
+        }
+
+        .item_mediumstorage {
+            background-position: -600px -700px
+        }
+
+        .item_mediumstoragesilo {
+            background-position: -700px -700px
+        }
+
+        .item_tallstorage {
+            background-position: -1000px -1100px
+        }
+
+        .item_roverseat {
+            background-position: -1000px -900px
+        }
+
+        .item_tractor {
+            background-position: -200px -1200px
+        }
+
+        .item_trailer {
+            background-position: -400px -1200px
+        }
+
+        .item_mediumbuggyhorn {
+            background-position: -600px -600px
+        }
+
+        .item_winch {
+            background-position: -900px -1200px
+        }
+
+        .item_paver {
+            background-position: -500px -800px
+        }
+
+        .item_drillstrength1 {
+            background-position: 0 -200px
+        }
+
+        .item_drillstrength2 {
+            background-position: -100px -200px
+        }
+
+        .item_drillstrength3 {
+            background-position: -200px -200px
+        }
+
+        .item_solidfuelthruster {
+            background-position: -200px -1100px
+        }
+
+        .item_hydrazinethruster {
+            background-position: -200px -400px
+        }
+
+        .item_railpostbundle {
+            background-position: -500px -900px
+        }
+
+        .item_tallrailpostbundle {
+            background-position: -900px -1100px
+        }
+
+        .item_railjunctionbundle {
+            background-position: -400px -900px
+        }
+
+        .item_faultfinder {
+            background-position: 0 -300px
+        }
+
+        .item_largeprinter {
+            background-position: 0 -500px
+        }
+
+        .item_smeltingfurnace {
+            background-position: -1100px -1000px
+        }
+
+        .item_portablesmeltingfurnace {
+            background-position: -800px -800px
+        }
+
+        .item_soilcentrifuge {
+            background-position: -1300px -1000px
+        }
+
+        .item_chemistrylab {
+            background-position: -200px -100px
+        }
+
+        .item_atmosphericcondenser {
+            background-position: -600px 0
+        }
+
+        .item_researchchamber {
+            background-position: -800px -900px
+        }
+
+        .item_exorequestplatform {
+            background-position: -500px -200px
+        }
+
+        .item_tradeplatform {
+            background-position: -300px -1200px
+        }
+
+        .item_largeshredder {
+            background-position: -700px -500px
+        }
+
+        .item_largesolarpanel {
+            background-position: -900px -500px
+        }
+
+        .item_largewindturbine {
+            background-position: 0 -600px
+        }
+
+        .item_largeplatforma {
+            background-position: -1100px -400px
+        }
+
+        .item_largeplatformb {
+            background-position: -1200px -400px
+        }
+
+        .item_largeplatformc {
+            background-position: -1300px -400px
+        }
+
+        .item_largetplatform {
+            background-position: -1300px -500px
+        }
+
+        .item_largecurvedplatform {
+            background-position: -800px -400px
+        }
+
+        .item_largeextendedplatform {
+            background-position: -900px -400px
+        }
+
+        .item_largeresourcecanister {
+            background-position: -100px -500px
+        }
+
+        .item_largestorage {
+            background-position: -1000px -500px
+        }
+
+        .item_largestoragesiloa {
+            background-position: -1100px -500px
+        }
+
+        .item_largestoragesilob {
+            background-position: -1200px -500px
+        }
+
+        .item_largeactivestorage {
+            background-position: -700px -400px
+        }
+
+        .item_buggy {
+            background-position: -1200px 0
+        }
+
+        .item_largeroverseat {
+            background-position: -300px -500px
+        }
+
+        .item_mediumrover {
+            background-position: -100px -700px
+        }
+
+        .item_vtol {
+            background-position: -700px -1200px
+        }
+
+        .item_crane {
+            background-position: -800px -100px
+        }
+
+        .item_largefoghorn {
+            background-position: -1000px -400px
+        }
+
+        .item_railengine {
+            background-position: -300px -900px
+        }
+
+        .item_railcar {
+            background-position: -200px -900px
+        }
+
+        .item_cole {
+            background-position: -400px -100px
+        }
+
+        .item_recreationalsphere {
+            background-position: -700px -900px
+        }
+
+        .item_gravityglobe {
+            background-position: -900px -300px
+        }
+
+        .item_shelter {
+            background-position: 0 -1000px
+        }
+
+        .item_autoextractor {
+            background-position: -800px 0
+        }
+
+        .item_extralargeshredder {
+            background-position: -1200px -200px
+        }
+
+        .item_solararray {
+            background-position: 0 -1100px
+        }
+
+        .item_xlwindturbine {
+            background-position: -300px -1300px
+        }
+
+        .item_mediumsensorarch {
+            background-position: -200px -700px
+        }
+
+        .item_xlsensorarch {
+            background-position: -1300px -1200px
+        }
+
+        .item_xlsensorcanopy {
+            background-position: 0 -1300px
+        }
+
+        .item_largesensorring {
+            background-position: -600px -500px
+        }
+
+        .item_largesensorhoopa {
+            background-position: -400px -500px
+        }
+
+        .item_largesensorhoopb {
+            background-position: -500px -500px
+        }
+
+        .item_xlsensorhoopa {
+            background-position: -100px -1300px
+        }
+
+        .item_xlsensorhoopb {
+            background-position: -200px -1300px
+        }
+
+        .item_extralargeplatforma {
+            background-position: -900px -200px
+        }
+
+        .item_extralargeplatformb {
+            background-position: -1000px -200px
+        }
+
+        .item_extralargeplatformc {
+            background-position: -1100px -200px
+        }
+
+        .item_extralargecurvedplatform {
+            background-position: -800px -200px
+        }
+
+        .item_xlextendedplatform {
+            background-position: -1200px -1200px
+        }
+
+        .item_figurineplatform {
+            background-position: -200px -300px
+        }
+
+        .item_extralargestorage {
+            background-position: -1300px -200px
+        }
+
+        .item_largerover {
+            background-position: -200px -500px
+        }
+
+        .item_landingpad {
+            background-position: -600px -400px
+        }
+
+        .item_smallshuttle {
+            background-position: -700px -1000px
+        }
+
+        .item_mediumshuttle {
+            background-position: -400px -700px
+        }
+
+        .item_largeshuttle {
+            background-position: -800px -500px
+        }
+
+        .item_railstation {
+            background-position: -600px -900px
+        }
+
+        @media only screen and (max-width:251px) and (min-width:146px) {
+            .resource_content {
+                width: 106px
+            }
+        }
+
+        @media only screen and (max-width:357px) and (min-width:252px) {
+            .resource_content {
+                width: 212px
+            }
+        }
+
+        @media only screen and (max-width:463px) and (min-width:358px) {
+            .resource_content {
+                width: 318px
+            }
+        }
+
+        @media only screen and (max-width:569px) and (min-width:464px) {
+            .resource_content {
+                width: 424px
+            }
+        }
+
+        @media only screen and (max-width:675px) and (min-width:570px) {
+            .resource_content {
+                width: 530px
+            }
+        }
+
+        @media only screen and (max-width:781px) and (min-width:676px) {
+            .resource_content {
+                width: 636px
+            }
+        }
+
+        @media only screen and (max-width:887px) and (min-width:782px) {
+            .resource_content {
+                width: 742px
+            }
+        }
+
+        @media only screen and (max-width:993px) and (min-width:888px) {
+            .resource_content {
+                width: 848px
+            }
+        }
+
+        @media only screen and (max-width:1099px) and (min-width:994px) {
+            .resource_content {
+                width: 954px
+            }
+        }
+
+        @media only screen and (max-width:1205px) and (min-width:1100px) {
+            .resource_content {
+                width: 1060px
+            }
+        }
+
+        @media only screen and (max-width:1311px) and (min-width:1206px) {
+            .resource_content {
+                width: 1166px
+            }
+        }
+
+        @media only screen and (max-width:1417px) and (min-width:1312px) {
+            .resource_content {
+                width: 1272px
+            }
+        }
+
+        @media only screen and (max-width:1523px) and (min-width:1418px) {
+            .resource_content {
+                width: 1378px
+            }
+        }
+
+        @media only screen and (max-width:1629px) and (min-width:1524px) {
+            .resource_content {
+                width: 1484px
+            }
+        }
+
+        @media only screen and (max-width:1735px) and (min-width:1630px) {
+            .resource_content {
+                width: 1590px
+            }
+        }
+
+        @media only screen and (max-width:1841px) and (min-width:1736px) {
+            .resource_content {
+                width: 1696px
+            }
+        }
+
+        @media only screen and (max-width:1947px) and (min-width:1842px) {
+            .resource_content {
+                width: 1802px
+            }
+        }
+
+        @media only screen and (max-width:2053px) and (min-width:1948px) {
+            .resource_content {
+                width: 1908px
+            }
+        }
+
+        @media only screen and (max-width:2159px) and (min-width:2054px) {
+            .resource_content {
+                width: 2014px
+            }
+        }
+
+        @media only screen and (max-width:2265px) and (min-width:2160px) {
+            .resource_content {
+                width: 2120px
+            }
+        }
+
+        @media only screen and (max-width:2371px) and (min-width:2266px) {
+            .resource_content {
+                width: 2226px
+            }
+        }
+
+        @media only screen and (max-width:2477px) and (min-width:2372px) {
+            .resource_content {
+                width: 2332px
+            }
+        }
+
+        @media only screen and (max-width:2583px) and (min-width:2478px) {
+            .resource_content {
+                width: 2438px
+            }
+        }
+
+        @media only screen and (max-width:2689px) and (min-width:2584px) {
+            .resource_content {
+                width: 2544px
+            }
+        }
+
+        @media only screen and (max-width:2795px) and (min-width:2690px) {
+            .resource_content {
+                width: 2650px
+            }
+        }
+
+        @media only screen and (max-width:2901px) and (min-width:2796px) {
+            .resource_content {
+                width: 2756px
+            }
+        }
+
+        @media only screen and (max-width:3007px) and (min-width:2902px) {
+            .resource_content {
+                width: 2862px
+            }
+        }
+
+        @media only screen and (max-width:3113px) and (min-width:3008px) {
+            .resource_content {
+                width: 2968px
+            }
+        }
+
+        @media only screen and (max-width:3219px) and (min-width:3114px) {
+            .resource_content {
+                width: 3074px
+            }
+        }
+
+        @media only screen and (max-width:3325px) and (min-width:3220px) {
+            .resource_content {
+                width: 3180px
+            }
+        }
+
+        @media only screen and (max-width:3431px) and (min-width:3326px) {
+            .resource_content {
+                width: 3286px
+            }
+        }
+
+        @media only screen and (max-width:3537px) and (min-width:3432px) {
+            .resource_content {
+                width: 3392px
+            }
+        }
+
+        @media only screen and (max-width:3643px) and (min-width:3538px) {
+            .resource_content {
+                width: 3498px
+            }
+        }
+
+        @media only screen and (max-width:3749px) and (min-width:3644px) {
+            .resource_content {
+                width: 3604px
+            }
+        }
+
+        @media only screen and (max-width:3855px) and (min-width:3750px) {
+            .resource_content {
+                width: 3710px
+            }
+        }
+
+        @media only screen and (max-width:3961px) and (min-width:3856px) {
+            .resource_content {
+                width: 3816px
+            }
+        }
+
+        .resource_content {
+            margin-left: auto;
+            margin-right: auto
+        }
+    </style>
+</head>
+
+<body>
+    <div class=header_bar><a href=/ aria-label=Home>
+            <div class=home_button_logo>&nbsp;</div>
+        </a><a href=# id=reset_item_count>
+            <div class=home_button> Reset Item Counts</div>
+        </a><a href="mailto:admin@resourcecalculator.com?Subject=Resource%20Calculator%20Issue">
+            <div class=home_button>Report An Issue</div>
+        </a><a href=https://github.com/AsherGlick/ResourceCalculator/blob/master/README.md>
+            <div class=home_button>Contribute</div>
+        </a><a>
+            <div id=about_button class=home_button>About</div>
+        </a></div>
+    <div id=about_us> Resource Calculator is an open source project to allow players to easily calculate how many raw
+        resources they need in order to construct the items they want. It was originally created by Asher Glick. You can
+        help keep Resource Calculator up to date or add resources for new games by clicking on the Contribute button
+        above. <br><br> The resources and recipes for the <b>astroneer calculator</b> were created and updated by<br> -
+        <a href=https://aglick.com>Asher</a><br> - <a>Kevin</a><br> - <a href=https://github.com/mopolita>Alban</a><br>
+    </div>
+    <div id=content class=content>
+        <div id=content_field class=menu_style>
+            <div id=inventory_import_export><input type=button class=inventory_import_export_toggle title=╳
+                    value=╳><textarea id=inventory_import_text class=inventory_import_export_textarea
+                    placeholder="Inventory as JSON object"></textarea>
+                <p id=inventory_import_error class="inventory_import_error hidden">ERROR: The inventory is no valid
+                    JSON. The inventory has not been updated.</p>
+            </div>
+            <div class=search_bar>
+                <div class=hide_unused_wrapper><input type=checkbox id=unused_hide_checkbox
+                        class=hide_unused_checkbox><label class=hide_unused_label for=unused_hide_checkbox
+                        id=unused_hide_checkbox_label>Hide Unused</label></div>
+                <div class=search_label_wrapper><label class=search_label for=item_filter>Filter:</label></div><span
+                    class=search_box_wrapper><input type=text class=search_box id=item_filter></span>
+            </div>
+            <div class=resource_content>
+                <div class="desired_item item item_soil"><input aria-label=Почва class=desired_item_count type=number
+                        id=soil></div>
+                <div class="desired_item item item_compound"><input aria-label=Соединение class=desired_item_count
+                        type=number id=compound></div>
+                <div class="desired_item item item_resin"><input aria-label=Смола class=desired_item_count type=number
+                        id=resin></div>
+                <div class="desired_item item item_organic"><input aria-label=Organic class=desired_item_count
+                        type=number id=organic></div>
+                <div class="desired_item item item_clay"><input aria-label=Clay class=desired_item_count type=number
+                        id=clay></div>
+                <div class="desired_item item item_ammonium"><input aria-label=Ammonium class=desired_item_count
+                        type=number id=ammonium></div>
+                <div class="desired_item item item_graphite"><input aria-label=Graphite class=desired_item_count
+                        type=number id=graphite></div>
+                <div class="desired_item item item_quartz"><input aria-label=Quartz class=desired_item_count type=number
+                        id=quartz></div>
+                <div class="desired_item item item_laterite"><input aria-label=Laterite class=desired_item_count
+                        type=number id=laterite></div>
+                <div class="desired_item item item_malachite"><input aria-label=Malachite class=desired_item_count
+                        type=number id=malachite></div>
+                <div class="desired_item item item_sphalerite"><input aria-label=Sphalerite class=desired_item_count
+                        type=number id=sphalerite></div>
+                <div class="desired_item item item_wolframite"><input aria-label=Wolframite class=desired_item_count
+                        type=number id=wolframite></div>
+                <div class="desired_item item item_lithium"><input aria-label=Lithium class=desired_item_count
+                        type=number id=lithium></div>
+                <div class="desired_item item item_hematite"><input aria-label=Hematite class=desired_item_count
+                        type=number id=hematite></div>
+                <div class="desired_item item item_titanite"><input aria-label=Titanite class=desired_item_count
+                        type=number id=titanite></div>
+                <div class="desired_item item item_scrap"><input aria-label=Scrap class=desired_item_count type=number
+                        id=scrap></div>
+                <div class="desired_item item item_exochip"><input aria-label="EXO Chip" class=desired_item_count
+                        type=number id=exochip></div>
+                <div class="desired_item item item_astronium"><input aria-label=Astronium class=desired_item_count
+                        type=number id=astronium></div>
+                <div class="desired_item item item_carbon"><input aria-label=Carbon class=desired_item_count type=number
+                        id=carbon></div>
+                <div class="desired_item item item_glass"><input aria-label=Glass class=desired_item_count type=number
+                        id=glass></div>
+                <div class="desired_item item item_ceramic"><input aria-label=Ceramic class=desired_item_count
+                        type=number id=ceramic></div>
+                <div class="desired_item item item_aluminum"><input aria-label=Aluminum class=desired_item_count
+                        type=number id=aluminum></div>
+                <div class="desired_item item item_copper"><input aria-label=Copper class=desired_item_count type=number
+                        id=copper></div>
+                <div class="desired_item item item_tungsten"><input aria-label=Tungsten class=desired_item_count
+                        type=number id=tungsten></div>
+                <div class="desired_item item item_iron"><input aria-label=Iron class=desired_item_count type=number
+                        id=iron></div>
+                <div class="desired_item item item_zinc"><input aria-label=Zinc class=desired_item_count type=number
+                        id=zinc></div>
+                <div class="desired_item item item_titanium"><input aria-label=Titanium class=desired_item_count
+                        type=number id=titanium></div>
+                <div class="desired_item item item_hydrogen"><input aria-label=Hydrogen class=desired_item_count
+                        type=number id=hydrogen></div>
+                <div class="desired_item item item_argon"><input aria-label=Argon class=desired_item_count type=number
+                        id=argon></div>
+                <div class="desired_item item item_methane"><input aria-label=Methane class=desired_item_count
+                        type=number id=methane></div>
+                <div class="desired_item item item_nitrogen"><input aria-label=Nitrogen class=desired_item_count
+                        type=number id=nitrogen></div>
+                <div class="desired_item item item_helium"><input aria-label=Helium class=desired_item_count type=number
+                        id=helium></div>
+                <div class="desired_item item item_sulfur"><input aria-label=Sulfur class=desired_item_count type=number
+                        id=sulfur></div>
+                <div class="desired_item item item_rubber"><input aria-label=Rubber class=desired_item_count type=number
+                        id=rubber></div>
+                <div class="desired_item item item_plastic"><input aria-label=Plastic class=desired_item_count
+                        type=number id=plastic></div>
+                <div class="desired_item item item_aluminumalloy"><input aria-label="Aluminum Alloy"
+                        class=desired_item_count type=number id=aluminumalloy></div>
+                <div class="desired_item item item_tungstencarbide"><input aria-label="Tungsten Carbide"
+                        class=desired_item_count type=number id=tungstencarbide></div>
+                <div class="desired_item item item_graphene"><input aria-label=Graphene class=desired_item_count
+                        type=number id=graphene></div>
+                <div class="desired_item item item_diamond"><input aria-label=Алмаз class=desired_item_count type=number
+                        id=diamond></div>
+                <div class="desired_item item item_hydrazine"><input aria-label=Hydrazine class=desired_item_count
+                        type=number id=hydrazine></div>
+                <div class="desired_item item item_silicone"><input aria-label=Silicone class=desired_item_count
+                        type=number id=silicone></div>
+                <div class="desired_item item item_explosivepowder"><input aria-label="Explosive Powder"
+                        class=desired_item_count type=number id=explosivepowder></div>
+                <div class="desired_item item item_steel"><input aria-label=Steel class=desired_item_count type=number
+                        id=steel></div>
+                <div class="desired_item item item_titaniumalloy"><input aria-label="Titanium Alloy"
+                        class=desired_item_count type=number id=titaniumalloy></div>
+                <div class="desired_item item item_nanocarbonalloy"><input aria-label="Nanocarbon Alloy"
+                        class=desired_item_count type=number id=nanocarbonalloy></div>
+                <div class="desired_item item item_smallprinter"><input aria-label="Small Printer"
+                        class=desired_item_count type=number id=smallprinter></div>
+                <div class="desired_item item item_packager"><input aria-label=Packager class=desired_item_count
+                        type=number id=packager></div>
+                <div class="desired_item item item_levelingblock"><input aria-label="Leveling Block"
+                        class=desired_item_count type=number id=levelingblock></div>
+                <div class="desired_item item item_tethers"><input aria-label=Tethers class=desired_item_count
+                        type=number id=tethers></div>
+                <div class="desired_item item item_oxygenfilter"><input aria-label="Oxygen Filter"
+                        class=desired_item_count type=number id=oxygenfilter></div>
+                <div class="desired_item item item_oxygentank"><input aria-label="Oxygen Tank" class=desired_item_count
+                        type=number id=oxygentank></div>
+                <div class="desired_item item item_portableoxygenator"><input aria-label="Portable Oxygenator"
+                        class=desired_item_count type=number id=portableoxygenator></div>
+                <div class="desired_item item item_smallcanister"><input aria-label="Small Canister"
+                        class=desired_item_count type=number id=smallcanister></div>
+                <div class="desired_item item item_beacon"><input aria-label=Beacon class=desired_item_count type=number
+                        id=beacon></div>
+                <div class="desired_item item item_worklight"><input aria-label=Worklight class=desired_item_count
+                        type=number id=worklight></div>
+                <div class="desired_item item item_glowsticks"><input aria-label=Glowsticks class=desired_item_count
+                        type=number id=glowsticks></div>
+                <div class="desired_item item item_floodlight"><input aria-label=Floodlight class=desired_item_count
+                        type=number id=floodlight></div>
+                <div class="desired_item item item_smallgenerator"><input aria-label="Small Generator"
+                        class=desired_item_count type=number id=smallgenerator></div>
+                <div class="desired_item item item_powercells"><input aria-label="Power Cells" class=desired_item_count
+                        type=number id=powercells></div>
+                <div class="desired_item item item_smallsolarpanel"><input aria-label="Small Solar Panel"
+                        class=desired_item_count type=number id=smallsolarpanel></div>
+                <div class="desired_item item item_smallwindturbine"><input aria-label="Small Wind Turbine"
+                        class=desired_item_count type=number id=smallwindturbine></div>
+                <div class="desired_item item item_smallbattery"><input aria-label="Small Battery"
+                        class=desired_item_count type=number id=smallbattery></div>
+                <div class="desired_item item item_dynamite"><input aria-label=Dynamite class=desired_item_count
+                        type=number id=dynamite></div>
+                <div class="desired_item item item_fireworks"><input aria-label=Fireworks class=desired_item_count
+                        type=number id=fireworks></div>
+                <div class="desired_item item item_smallcamera"><input aria-label="Small Camera"
+                        class=desired_item_count type=number id=smallcamera></div>
+                <div class="desired_item item item_smalltrumpethorn"><input aria-label="Small Trumpet Horn"
+                        class=desired_item_count type=number id=smalltrumpethorn></div>
+                <div class="desired_item item item_holographicfigurine"><input aria-label="Holographic Figurine"
+                        class=desired_item_count type=number id=holographicfigurine></div>
+                <div class="desired_item item item_probescanner"><input aria-label="Probe Scanner"
+                        class=desired_item_count type=number id=probescanner></div>
+                <div class="desired_item item item_solidfueljumpjet"><input aria-label="Solid Fuel Jump Jet"
+                        class=desired_item_count type=number id=solidfueljumpjet></div>
+                <div class="desired_item item item_hydrazinejetpack"><input aria-label="Hydrazine Jet Pack"
+                        class=desired_item_count type=number id=hydrazinejetpack></div>
+                <div class="desired_item item item_hoverboard"><input aria-label=Hoverboard class=desired_item_count
+                        type=number id=hoverboard></div>
+                <div class="desired_item item item_widemod"><input aria-label="Wide Mod" class=desired_item_count
+                        type=number id=widemod></div>
+                <div class="desired_item item item_narrowmod"><input aria-label="Narrow Mod" class=desired_item_count
+                        type=number id=narrowmod></div>
+                <div class="desired_item item item_alignmentmod"><input aria-label="Alignment Mod"
+                        class=desired_item_count type=number id=alignmentmod></div>
+                <div class="desired_item item item_inhibitormod"><input aria-label="Inhibitor Mod"
+                        class=desired_item_count type=number id=inhibitormod></div>
+                <div class="desired_item item item_boostmod"><input aria-label="Boost Mod" class=desired_item_count
+                        type=number id=boostmod></div>
+                <div class="desired_item item item_terrainanalyzer"><input aria-label="Terrain Analyzer"
+                        class=desired_item_count type=number id=terrainanalyzer></div>
+                <div class="desired_item item item_drillmod1"><input aria-label="Drill Mod 1" class=desired_item_count
+                        type=number id=drillmod1></div>
+                <div class="desired_item item item_drillmod2"><input aria-label="Drill Mod 2" class=desired_item_count
+                        type=number id=drillmod2></div>
+                <div class="desired_item item item_drillmod3"><input aria-label="Drill Mod 3" class=desired_item_count
+                        type=number id=drillmod3></div>
+                <div class="desired_item item item_mediumprinter"><input aria-label="Medium Printer"
+                        class=desired_item_count type=number id=mediumprinter></div>
+                <div class="desired_item item item_oxygenator"><input aria-label=Oxygenator class=desired_item_count
+                        type=number id=oxygenator></div>
+                <div class="desired_item item item_mediumshredder"><input aria-label="Medium Shredder"
+                        class=desired_item_count type=number id=mediumshredder></div>
+                <div class="desired_item item item_fieldshelter"><input aria-label="Field Shelter"
+                        class=desired_item_count type=number id=fieldshelter></div>
+                <div class="desired_item item item_autoarm"><input aria-label="Auto Arm" class=desired_item_count
+                        type=number id=autoarm></div>
+                <div class="desired_item item item_mediumresourcecanister"><input aria-label="Medium Resource Canister"
+                        class=desired_item_count type=number id=mediumresourcecanister></div>
+                <div class="desired_item item item_mediumfluidandsoilcanister"><input
+                        aria-label="Medium Fluid And Soil Canister" class=desired_item_count type=number
+                        id=mediumfluidandsoilcanister></div>
+                <div class="desired_item item item_mediumgascanister"><input aria-label="Medium Gas Canister"
+                        class=desired_item_count type=number id=mediumgascanister></div>
+                <div class="desired_item item item_powersensor"><input aria-label="Power Sensor"
+                        class=desired_item_count type=number id=powersensor></div>
+                <div class="desired_item item item_storagesensor"><input aria-label="Storage Sensor"
+                        class=desired_item_count type=number id=storagesensor></div>
+                <div class="desired_item item item_batterysensor"><input aria-label="Battery Sensor"
+                        class=desired_item_count type=number id=batterysensor></div>
+                <div class="desired_item item item_buttonrepeater"><input aria-label="Button Repeater"
+                        class=desired_item_count type=number id=buttonrepeater></div>
+                <div class="desired_item item item_proximityrepeater"><input aria-label="Proximity Repeater"
+                        class=desired_item_count type=number id=proximityrepeater></div>
+                <div class="desired_item item item_delayrepeater"><input aria-label="Delay Repeater"
+                        class=desired_item_count type=number id=delayrepeater></div>
+                <div class="desired_item item item_countrepeater"><input aria-label="Count Repeater"
+                        class=desired_item_count type=number id=countrepeater></div>
+                <div class="desired_item item item_extenders"><input aria-label=Extenders class=desired_item_count
+                        type=number id=extenders></div>
+                <div class="desired_item item item_powerswitch"><input aria-label="Power Switch"
+                        class=desired_item_count type=number id=powerswitch></div>
+                <div class="desired_item item item_splitter"><input aria-label=Splitter class=desired_item_count
+                        type=number id=splitter></div>
+                <div class="desired_item item item_mediumgenerator"><input aria-label="Medium Generator"
+                        class=desired_item_count type=number id=mediumgenerator></div>
+                <div class="desired_item item item_mediumsolarpanel"><input aria-label="Medium Solar Panel"
+                        class=desired_item_count type=number id=mediumsolarpanel></div>
+                <div class="desired_item item item_mediumwindturbine"><input aria-label="Medium Wind Turbine"
+                        class=desired_item_count type=number id=mediumwindturbine></div>
+                <div class="desired_item item item_mediumbattery"><input aria-label="Medium Battery"
+                        class=desired_item_count type=number id=mediumbattery></div>
+                <div class="desired_item item item_rtg"><input aria-label=RTG class=desired_item_count type=number
+                        id=rtg></div>
+                <div class="desired_item item item_qtrtg"><input aria-label=QT-RTG class=desired_item_count type=number
+                        id=qtrtg></div>
+                <div class="desired_item item item_mediumplatforma"><input aria-label="Medium Platform A"
+                        class=desired_item_count type=number id=mediumplatforma></div>
+                <div class="desired_item item item_mediumplatformb"><input aria-label="Medium Platform B"
+                        class=desired_item_count type=number id=mediumplatformb></div>
+                <div class="desired_item item item_mediumplatformc"><input aria-label="Medium Platform C"
+                        class=desired_item_count type=number id=mediumplatformc></div>
+                <div class="desired_item item item_tallplatform"><input aria-label="Tall Platform"
+                        class=desired_item_count type=number id=tallplatform></div>
+                <div class="desired_item item item_mediumtplatform"><input aria-label="Medium T-Platform"
+                        class=desired_item_count type=number id=mediumtplatform></div>
+                <div class="desired_item item item_mediumstorage"><input aria-label="Medium storage"
+                        class=desired_item_count type=number id=mediumstorage></div>
+                <div class="desired_item item item_mediumstoragesilo"><input aria-label="Medium Storage Silo"
+                        class=desired_item_count type=number id=mediumstoragesilo></div>
+                <div class="desired_item item item_tallstorage"><input aria-label="Tall Storage"
+                        class=desired_item_count type=number id=tallstorage></div>
+                <div class="desired_item item item_roverseat"><input aria-label="Rover Seat" class=desired_item_count
+                        type=number id=roverseat></div>
+                <div class="desired_item item item_tractor"><input aria-label=Tractor class=desired_item_count
+                        type=number id=tractor></div>
+                <div class="desired_item item item_trailer"><input aria-label=Trailer class=desired_item_count
+                        type=number id=trailer></div>
+                <div class="desired_item item item_mediumbuggyhorn"><input aria-label="Medium Buggy Horn"
+                        class=desired_item_count type=number id=mediumbuggyhorn></div>
+                <div class="desired_item item item_winch"><input aria-label=Winch class=desired_item_count type=number
+                        id=winch></div>
+                <div class="desired_item item item_paver"><input aria-label=Paver class=desired_item_count type=number
+                        id=paver></div>
+                <div class="desired_item item item_drillstrength1"><input aria-label="Drill Strength 1"
+                        class=desired_item_count type=number id=drillstrength1></div>
+                <div class="desired_item item item_drillstrength2"><input aria-label="Drill Strength 2"
+                        class=desired_item_count type=number id=drillstrength2></div>
+                <div class="desired_item item item_drillstrength3"><input aria-label="Drill Strength 3"
+                        class=desired_item_count type=number id=drillstrength3></div>
+                <div class="desired_item item item_solidfuelthruster"><input aria-label="Solid Fuel Thruster"
+                        class=desired_item_count type=number id=solidfuelthruster></div>
+                <div class="desired_item item item_hydrazinethruster"><input aria-label="Hydrazine Thruster"
+                        class=desired_item_count type=number id=hydrazinethruster></div>
+                <div class="desired_item item item_railpostbundle"><input aria-label="Rail Post Bundle"
+                        class=desired_item_count type=number id=railpostbundle></div>
+                <div class="desired_item item item_tallrailpostbundle"><input aria-label="Tall Rail Post Bundle"
+                        class=desired_item_count type=number id=tallrailpostbundle></div>
+                <div class="desired_item item item_railjunctionbundle"><input aria-label="Rail Junction Bundle"
+                        class=desired_item_count type=number id=railjunctionbundle></div>
+                <div class="desired_item item item_faultfinder"><input aria-label="Fault Finder"
+                        class=desired_item_count type=number id=faultfinder></div>
+                <div class="desired_item item item_largeprinter"><input aria-label="Large Printer"
+                        class=desired_item_count type=number id=largeprinter></div>
+                <div class="desired_item item item_smeltingfurnace"><input aria-label="Smelting Furnace"
+                        class=desired_item_count type=number id=smeltingfurnace></div>
+                <div class="desired_item item item_portablesmeltingfurnace"><input
+                        aria-label="Portable Smelting Furnace" class=desired_item_count type=number
+                        id=portablesmeltingfurnace></div>
+                <div class="desired_item item item_soilcentrifuge"><input aria-label="Soil Centrifuge"
+                        class=desired_item_count type=number id=soilcentrifuge></div>
+                <div class="desired_item item item_chemistrylab"><input aria-label="Chemistry Lab"
+                        class=desired_item_count type=number id=chemistrylab></div>
+                <div class="desired_item item item_atmosphericcondenser"><input aria-label="Atmospheric Condenser"
+                        class=desired_item_count type=number id=atmosphericcondenser></div>
+                <div class="desired_item item item_researchchamber"><input aria-label="Research Chamber"
+                        class=desired_item_count type=number id=researchchamber></div>
+                <div class="desired_item item item_exorequestplatform"><input aria-label="EXO Request Platform"
+                        class=desired_item_count type=number id=exorequestplatform></div>
+                <div class="desired_item item item_tradeplatform"><input aria-label="Trade Platform"
+                        class=desired_item_count type=number id=tradeplatform></div>
+                <div class="desired_item item item_largeshredder"><input aria-label="Large Shredder"
+                        class=desired_item_count type=number id=largeshredder></div>
+                <div class="desired_item item item_largesolarpanel"><input aria-label="Large Solar Panel"
+                        class=desired_item_count type=number id=largesolarpanel></div>
+                <div class="desired_item item item_largewindturbine"><input aria-label="Large Wind Turbine"
+                        class=desired_item_count type=number id=largewindturbine></div>
+                <div class="desired_item item item_largeplatforma"><input aria-label="Large Platform A"
+                        class=desired_item_count type=number id=largeplatforma></div>
+                <div class="desired_item item item_largeplatformb"><input aria-label="Large Platform B"
+                        class=desired_item_count type=number id=largeplatformb></div>
+                <div class="desired_item item item_largeplatformc"><input aria-label="Large Platform C"
+                        class=desired_item_count type=number id=largeplatformc></div>
+                <div class="desired_item item item_largetplatform"><input aria-label="Large T-Platform"
+                        class=desired_item_count type=number id=largetplatform></div>
+                <div class="desired_item item item_largecurvedplatform"><input aria-label="Large Curved Platform"
+                        class=desired_item_count type=number id=largecurvedplatform></div>
+                <div class="desired_item item item_largeextendedplatform"><input aria-label="Large Extended Platform"
+                        class=desired_item_count type=number id=largeextendedplatform></div>
+                <div class="desired_item item item_largeresourcecanister"><input aria-label="Large Resource Canister"
+                        class=desired_item_count type=number id=largeresourcecanister></div>
+                <div class="desired_item item item_largestorage"><input aria-label="Large Storage"
+                        class=desired_item_count type=number id=largestorage></div>
+                <div class="desired_item item item_largestoragesiloa"><input aria-label="Large Storage Silo A"
+                        class=desired_item_count type=number id=largestoragesiloa></div>
+                <div class="desired_item item item_largestoragesilob"><input aria-label="Large Storage Silo B"
+                        class=desired_item_count type=number id=largestoragesilob></div>
+                <div class="desired_item item item_largeactivestorage"><input aria-label="Large Active Storage"
+                        class=desired_item_count type=number id=largeactivestorage></div>
+                <div class="desired_item item item_buggy"><input aria-label=Buggy class=desired_item_count type=number
+                        id=buggy></div>
+                <div class="desired_item item item_largeroverseat"><input aria-label="Large Rover Seat"
+                        class=desired_item_count type=number id=largeroverseat></div>
+                <div class="desired_item item item_mediumrover"><input aria-label="Medium Rover"
+                        class=desired_item_count type=number id=mediumrover></div>
+                <div class="desired_item item item_vtol"><input aria-label=VTOL class=desired_item_count type=number
+                        id=vtol></div>
+                <div class="desired_item item item_crane"><input aria-label=Crane class=desired_item_count type=number
+                        id=crane></div>
+                <div class="desired_item item item_largefoghorn"><input aria-label="Large Fog Horn"
+                        class=desired_item_count type=number id=largefoghorn></div>
+                <div class="desired_item item item_railengine"><input aria-label="Rail Engine" class=desired_item_count
+                        type=number id=railengine></div>
+                <div class="desired_item item item_railcar"><input aria-label="Rail Car" class=desired_item_count
+                        type=number id=railcar></div>
+                <div class="desired_item item item_cole"><input aria-label=COLE class=desired_item_count type=number
+                        id=cole></div>
+                <div class="desired_item item item_recreationalsphere"><input aria-label="Recreational Sphere"
+                        class=desired_item_count type=number id=recreationalsphere></div>
+                <div class="desired_item item item_gravityglobe"><input aria-label="Gravity Globe"
+                        class=desired_item_count type=number id=gravityglobe></div>
+                <div class="desired_item item item_shelter"><input aria-label=Shelter class=desired_item_count
+                        type=number id=shelter></div>
+                <div class="desired_item item item_autoextractor"><input aria-label="Auto Extractor"
+                        class=desired_item_count type=number id=autoextractor></div>
+                <div class="desired_item item item_extralargeshredder"><input aria-label="Extra Large Shredder"
+                        class=desired_item_count type=number id=extralargeshredder></div>
+                <div class="desired_item item item_solararray"><input aria-label="Solar Array" class=desired_item_count
+                        type=number id=solararray></div>
+                <div class="desired_item item item_xlwindturbine"><input aria-label="XL Wind Turbine"
+                        class=desired_item_count type=number id=xlwindturbine></div>
+                <div class="desired_item item item_mediumsensorarch"><input aria-label="Medium Sensor Arch"
+                        class=desired_item_count type=number id=mediumsensorarch></div>
+                <div class="desired_item item item_xlsensorarch"><input aria-label="XL Sensor Arch"
+                        class=desired_item_count type=number id=xlsensorarch></div>
+                <div class="desired_item item item_xlsensorcanopy"><input aria-label="XL Sensor Canopy"
+                        class=desired_item_count type=number id=xlsensorcanopy></div>
+                <div class="desired_item item item_largesensorring"><input aria-label="Large Sensor Ring"
+                        class=desired_item_count type=number id=largesensorring></div>
+                <div class="desired_item item item_largesensorhoopa"><input aria-label="Large Sensor Hoop A"
+                        class=desired_item_count type=number id=largesensorhoopa></div>
+                <div class="desired_item item item_largesensorhoopb"><input aria-label="Large Sensor Hoop B"
+                        class=desired_item_count type=number id=largesensorhoopb></div>
+                <div class="desired_item item item_xlsensorhoopa"><input aria-label="XL Sensor Hoop A"
+                        class=desired_item_count type=number id=xlsensorhoopa></div>
+                <div class="desired_item item item_xlsensorhoopb"><input aria-label="XL Sensor Hoop B"
+                        class=desired_item_count type=number id=xlsensorhoopb></div>
+                <div class="desired_item item item_extralargeplatforma"><input aria-label="Extra Large Platform A"
+                        class=desired_item_count type=number id=extralargeplatforma></div>
+                <div class="desired_item item item_extralargeplatformb"><input aria-label="Extra Large Platform B"
+                        class=desired_item_count type=number id=extralargeplatformb></div>
+                <div class="desired_item item item_extralargeplatformc"><input aria-label="Extra Large Platform C"
+                        class=desired_item_count type=number id=extralargeplatformc></div>
+                <div class="desired_item item item_extralargecurvedplatform"><input
+                        aria-label="Extra Large Curved Platform" class=desired_item_count type=number
+                        id=extralargecurvedplatform></div>
+                <div class="desired_item item item_xlextendedplatform"><input aria-label="XL Extended Platform"
+                        class=desired_item_count type=number id=xlextendedplatform></div>
+                <div class="desired_item item item_figurineplatform"><input aria-label="Figurine Platform"
+                        class=desired_item_count type=number id=figurineplatform></div>
+                <div class="desired_item item item_extralargestorage"><input aria-label="Extra Large Storage"
+                        class=desired_item_count type=number id=extralargestorage></div>
+                <div class="desired_item item item_largerover"><input aria-label="Large Rover" class=desired_item_count
+                        type=number id=largerover></div>
+                <div class="desired_item item item_landingpad"><input aria-label="Landing Pad" class=desired_item_count
+                        type=number id=landingpad></div>
+                <div class="desired_item item item_smallshuttle"><input aria-label="Small Shuttle"
+                        class=desired_item_count type=number id=smallshuttle></div>
+                <div class="desired_item item item_mediumshuttle"><input aria-label="Medium Shuttle"
+                        class=desired_item_count type=number id=mediumshuttle></div>
+                <div class="desired_item item item_largeshuttle"><input aria-label="Large Shuttle"
+                        class=desired_item_count type=number id=largeshuttle></div>
+                <div class="desired_item item item_railstation"><input aria-label="Rail Station"
+                        class=desired_item_count type=number id=railstation></div>
+                <div style=clear:both></div>
+            </div>
+        </div>
+        <div class=instructions><b>1)</b> Click on an item above. <b>2)</b> Enter in the amount of that item you want.
+            <b>3)</b> Click the <u>Calculate Resources</u> button below.<br> Double click an item to change the recipe
+            used to make that item or change the amount you already own of that item. Then click <u>Calculate
+                Resources</u> again.
+        </div>
+        <div class=generate_button id=generatelist tabindex=0><span>Calculate Resources</span></div>
+        <div id=item_list></div>
+        <div style="clear: both"></div>
+        <div id=chart></div>
+        <div class=stack_sizes> Show items in units of: <input type=radio name=unit_name id="Units Single" value
+                checked><label for="Units Single">Single</label></div>
+        <div id=text_instructions></div>
+    </div>
+    <div id=hover_name></div>
+    <div id=recipe_select>
+        <div class=recipe_selector_title> All Recipes </div>
+        <div id=recipe_selector_list></div>
+        <div class=recipe_selector_title> Inventory Amount </div>
+        <div id=inventory_amount_input_wrapper><input type=number id=inventory_amount_input
+                aria-label="Inventory Amount" class=inventory_value_field></div>
+    </div>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-28401056-5', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CERZT7FFGW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-CERZT7FFGW');
+    </script>
+    <script>var resource_simple_names = {};
+    </script>
+    <script>var recipe_json = _uncompress({ 31: [{ 0: 3, 1: 5, 2: { 31: 6 } }], 17: [{ 0: 3, 1: 5, 2: { 17: 6 } }, { 0: 39, 1: 34, 2: { 31: 4 } }, { 0: 21, 1: 9, 2: { 18: 4 } }], 12: [{ 0: 3, 1: 5, 2: { 12: 6 } }, { 0: 39, 1: 34, 2: { 31: 4 } }, { 0: 21, 1: 9, 2: { 18: 4 } }], 45: [{ 0: 3, 1: 5, 2: { 45: 6 } }, { 0: 39, 1: 34, 2: { 31: 4 } }, { 0: 21, 1: 9, 2: { 18: 4 } }], 52: [{ 0: 3, 1: 5, 2: { 52: 6 } }, { 0: 202, 1: 34, 2: { 31: 4 } }, { 0: 21, 1: 9, 2: { 18: 4 } }], 48: [{ 0: 3, 1: 5, 2: { 48: 6 } }, { 0: 3, 1: 34, 2: { 31: 7 } }, { 0: 3, 1: 9, 2: { 18: 4 } }], 37: [{ 0: 3, 1: 5, 2: { 37: 6 } }, { 0: 3, 1: 34, 2: { 31: 4 } }, { 0: 21, 1: 9, 2: { 18: 4 } }], 22: [{ 0: 3, 1: 5, 2: { 22: 6 } }, { 0: 21, 1: 34, 2: { 31: 4 } }, { 0: 21, 1: 9, 2: { 18: 4 } }], 53: [{ 0: 3, 1: 5, 2: { 53: 6 } }, { 0: 3, 1: 9, 2: { 18: 4 } }], 54: [{ 0: 3, 1: 5, 2: { 54: 6 } }, { 0: 3, 1: 9, 2: { 18: 4 } }], 55: [{ 0: 3, 1: 5, 2: { 55: 6 } }, { 0: 21, 1: 9, 2: { 18: 4 } }], 56: [{ 0: 3, 1: 5, 2: { 56: 6 } }, { 0: 21, 1: 9, 2: { 18: 27 } }], 49: [{ 0: 3, 1: 5, 2: { 49: 6 } }, { 0: 3, 1: 9, 2: { 18: 46 } }], 57: [{ 0: 3, 1: 5, 2: { 57: 6 } }, { 0: 21, 1: 9, 2: { 18: 27 } }], 58: [{ 0: 3, 1: 5, 2: { 58: 6 } }, { 0: 3, 1: 9, 2: { 18: 7 } }], 18: [{ 0: 3, 1: 5, 2: { 18: 6 } }], 25: [{ 0: 3, 1: 5, 2: { 25: 6 } }, { 0: 3, 1: 9, 2: { 32: 27 } }], 32: [{ 0: 3, 1: 5, 2: { 32: 6 } }], 44: [{ 0: 3, 1: 28, 2: { 45: 4 } }, { 0: 3, 1: 5, 2: { 44: 6 } }], 26: [{ 0: 3, 1: 28, 2: { 22: 4 } }, { 0: 3, 1: 5, 2: { 26: 6 } }], 16: [{ 0: 3, 1: 28, 2: { 52: 4 } }, { 0: 3, 1: 5, 2: { 16: 6 } }], 15: [{ 0: 3, 1: 28, 2: { 53: 4 } }, { 0: 3, 1: 5, 2: { 15: 6 } }], 19: [{ 0: 3, 1: 28, 2: { 54: 4 } }, { 0: 3, 1: 5, 2: { 19: 6 } }], 40: [{ 0: 3, 1: 28, 2: { 56: 4 } }, { 0: 3, 1: 5, 2: { 40: 6 } }], 23: [{ 0: 3, 1: 28, 2: { 57: 4 } }, { 0: 3, 1: 5, 2: { 23: 6 } }], 14: [{ 0: 3, 1: 28, 2: { 55: 4 } }, { 0: 3, 1: 5, 2: { 14: 6 } }], 41: [{ 0: 3, 1: 28, 2: { 58: 4 } }, { 0: 3, 1: 5, 2: { 41: 6 } }], 59: [{ 0: 3, 1: 5, 2: { 59: 6 } }], 60: [{ 0: 3, 1: 5, 2: { 60: 6 } }], 61: [{ 0: 3, 1: 5, 2: { 61: 6 } }], 62: [{ 0: 3, 1: 5, 2: { 62: 6 } }], 63: [{ 0: 3, 1: 5, 2: { 63: 6 } }], 64: [{ 0: 3, 1: 5, 2: { 64: 6 } }], 35: [{ 0: 3, 1: 24, 2: { 45: 4, 12: 4 } }, { 0: 65, 1: 9, 2: { 20: 4 } }, { 0: 3, 1: 5, 2: { 35: 6 } }], 33: [{ 0: 3, 1: 24, 2: { 17: 4, 44: 4 } }, { 0: 65, 1: 9, 2: { 20: 4 } }, { 0: 3, 1: 5, 2: { 33: 6 } }], 29: [{ 0: 3, 1: 24, 2: { 15: 4, 19: 4 } }, { 0: 39, 1: 9, 2: { 20: 4 } }, { 0: 3, 1: 5, 2: { 29: 6 } }], 36: [{ 0: 3, 1: 24, 2: { 40: 4, 44: 4 } }, { 0: 39, 1: 9, 2: { 20: 4 } }, { 0: 3, 1: 5, 2: { 36: 6 } }], 42: [{ 0: 3, 1: 24, 2: { 37: 4, 66: 4 } }, { 0: 3, 1: 9, 2: { 20: 4 } }, { 0: 3, 1: 5, 2: { 42: 6 } }], 50: [{ 0: 3, 1: 24, 2: { 42: 7 } }, { 0: 3, 1: 9, 2: { 20: 4 } }, { 0: 3, 1: 5, 2: { 50: 6 } }], 66: [{ 0: 3, 1: 24, 2: { 48: 7, 59: 4 } }, { 0: 39, 1: 9, 2: { 32: 27 } }, { 0: 21, 1: 9, 2: { 20: 4 } }, { 0: 3, 1: 5, 2: { 66: 6 } }], 38: [{ 0: 3, 1: 24, 2: { 12: 4, 22: 4, 61: 4 } }, { 0: 21, 1: 9, 2: { 20: 4 } }, { 0: 3, 1: 5, 2: { 38: 6 } }], 51: [{ 0: 3, 1: 24, 2: { 44: 7, 64: 4 } }, { 0: 21, 1: 9, 2: { 20: 4 } }, { 0: 3, 1: 5, 2: { 51: 6 } }], 30: [{ 0: 3, 1: 24, 2: { 44: 4, 23: 4, 60: 4 } }, { 0: 21, 1: 9, 2: { 20: 4 } }, { 0: 3, 1: 5, 2: { 30: 6 } }], 43: [{ 0: 3, 1: 24, 2: { 41: 4, 42: 4, 62: 4 } }, { 0: 3, 1: 9, 2: { 20: 7 } }, { 0: 3, 1: 5, 2: { 43: 6 } }], 47: [{ 0: 3, 1: 24, 2: { 30: 4, 43: 4, 63: 4 } }, { 0: 3, 1: 9, 2: { 20: 46 } }, { 0: 3, 1: 5, 2: { 47: 6 } }], 8: [{ 0: 3, 1: 10, 2: { 17: 4 } }, { 0: 3, 1: 5, 2: { 8: 6 } }], 67: [{ 0: 3, 1: 10, 2: { 37: 4 } }, { 0: 3, 1: 5, 2: { 67: 6 } }], 68: [{ 0: 3, 1: 10, 2: { 31: 4 } }, { 0: 3, 1: 5, 2: { 68: 6 } }], 69: [{ 0: 3, 1: 10, 2: { 17: 4 } }, { 0: 3, 1: 5, 2: { 69: 6 } }], 70: [{ 0: 3, 1: 10, 2: { 12: 4 } }, { 0: 3, 1: 5, 2: { 70: 6 } }], 71: [{ 0: 3, 1: 10, 2: { 26: 4 } }, { 0: 3, 1: 5, 2: { 71: 6 } }], 72: [{ 0: 3, 1: 10, 2: { 47: 4 } }, { 0: 3, 1: 5, 2: { 72: 6 } }], 73: [{ 0: 3, 1: 10, 2: { 12: 4 } }, { 0: 3, 1: 5, 2: { 73: 6 } }], 74: [{ 0: 3, 1: 10, 2: { 22: 4 } }, { 0: 3, 1: 5, 2: { 74: 6 } }], 75: [{ 0: 3, 1: 10, 2: { 19: 4 } }, { 0: 3, 1: 5, 2: { 75: 6 } }], 76: [{ 0: 3, 1: 10, 2: { 45: 4 } }, { 0: 3, 1: 5, 2: { 76: 6 } }], 77: [{ 0: 3, 1: 10, 2: { 40: 4 } }, { 0: 3, 1: 5, 2: { 77: 6 } }], 78: [{ 0: 3, 1: 10, 2: { 17: 4 } }, { 0: 3, 1: 5, 2: { 78: 6 } }], 79: [{ 0: 3, 1: 10, 2: { 37: 4 } }, { 0: 3, 1: 5, 2: { 79: 6 } }], 80: [{ 0: 3, 1: 10, 2: { 19: 4 } }, { 0: 3, 1: 5, 2: { 80: 6 } }], 81: [{ 0: 3, 1: 10, 2: { 16: 4 } }, { 0: 3, 1: 5, 2: { 81: 6 } }], 82: [{ 0: 3, 1: 10, 2: { 14: 4 } }, { 0: 3, 1: 5, 2: { 82: 6 } }], 83: [{ 0: 3, 1: 10, 2: { 51: 4 } }, { 0: 39, 1: 9, 2: { 32: 27 } }, { 0: 3, 1: 5, 2: { 83: 6 } }], 84: [{ 0: 3, 1: 10, 2: { 51: 4 } }, { 0: 65, 1: 9, 2: { 20: 4 } }, { 0: 3, 1: 5, 2: { 84: 6 } }], 85: [{ 0: 3, 1: 10, 2: { 25: 4 } }, { 0: 3, 1: 5, 2: { 85: 6 } }], 86: [{ 0: 3, 1: 10, 2: { 12: 4 } }, { 0: 3, 1: 5, 2: { 86: 6 } }], 87: [{ 0: 3, 1: 10, 2: { 19: 4 } }, { 0: 3, 1: 5, 2: { 87: 6 } }], 88: [{ 0: 3, 1: 10, 2: { 30: 4 } }, { 0: 3, 1: 5, 2: { 88: 6 } }], 89: [{ 0: 3, 1: 10, 2: { 29: 4 } }, { 0: 21, 1: 9, 2: { 32: 4 } }, { 0: 3, 1: 5, 2: { 89: 6 } }], 90: [{ 0: 3, 1: 10, 2: { 43: 4 } }, { 0: 3, 1: 5, 2: { 90: 6 } }], 91: [{ 0: 3, 1: 10, 2: { 25: 4 } }, { 0: 3, 1: 5, 2: { 91: 6 } }], 92: [{ 0: 3, 1: 10, 2: { 14: 4 } }, { 0: 3, 1: 5, 2: { 92: 6 } }], 93: [{ 0: 3, 1: 10, 2: { 14: 4 } }, { 0: 3, 1: 5, 2: { 93: 6 } }], 94: [{ 0: 3, 1: 10, 2: { 14: 4 } }, { 0: 3, 1: 5, 2: { 94: 6 } }], 95: [{ 0: 3, 1: 10, 2: { 14: 4 } }, { 0: 3, 1: 5, 2: { 95: 6 } }], 96: [{ 0: 3, 1: 10, 2: { 14: 4 } }, { 0: 3, 1: 5, 2: { 96: 6 } }], 97: [{ 0: 3, 1: 10, 2: { 14: 4 } }, { 0: 3, 1: 5, 2: { 97: 6 } }], 98: [{ 0: 3, 1: 10, 2: { 16: 4 } }, { 0: 3, 1: 5, 2: { 98: 6 } }], 99: [{ 0: 3, 1: 10, 2: { 36: 4 } }, { 0: 3, 1: 5, 2: { 99: 6 } }], 100: [{ 0: 3, 1: 10, 2: { 50: 4 } }, { 0: 3, 1: 5, 2: { 100: 6 } }], 11: [{ 0: 3, 1: 8, 2: { 17: 7 } }, { 0: 3, 1: 5, 2: { 11: 6 } }], 101: [{ 0: 3, 1: 8, 2: { 15: 4, 16: 4 } }, { 0: 3, 1: 5, 2: { 101: 6 } }], 102: [{ 0: 3, 1: 8, 2: { 23: 7 } }, { 0: 3, 1: 5, 2: { 102: 6 } }], 103: [{ 0: 3, 1: 8, 2: { 38: 4, 42: 4 } }, { 0: 3, 1: 5, 2: { 103: 6 } }], 104: [{ 0: 3, 1: 8, 2: { 15: 4, 37: 4 } }, { 0: 3, 1: 5, 2: { 104: 6 } }], 105: [{ 0: 3, 1: 8, 2: { 33: 4, 26: 4 } }, { 0: 3, 1: 5, 2: { 105: 6 } }], 106: [{ 0: 3, 1: 8, 2: { 33: 4, 26: 4 } }, { 0: 3, 1: 5, 2: { 106: 6 } }], 107: [{ 0: 3, 1: 8, 2: { 38: 4, 26: 4 } }, { 0: 3, 1: 5, 2: { 107: 6 } }], 108: [{ 0: 3, 1: 8, 2: { 14: 4, 19: 4 } }, { 0: 3, 1: 5, 2: { 108: 6 } }], 109: [{ 0: 3, 1: 8, 2: { 14: 4, 22: 4 } }, { 0: 3, 1: 5, 2: { 109: 6 } }], 110: [{ 0: 3, 1: 8, 2: { 14: 4, 37: 4 } }, { 0: 3, 1: 5, 2: { 110: 6 } }], 111: [{ 0: 3, 1: 8, 2: { 14: 4 } }, { 0: 3, 1: 5, 2: { 111: 6 } }], 112: [{ 0: 3, 1: 8, 2: { 14: 4 } }, { 0: 3, 1: 5, 2: { 112: 6 } }], 113: [{ 0: 3, 1: 8, 2: { 14: 4 } }, { 0: 3, 1: 5, 2: { 113: 6 } }], 114: [{ 0: 3, 1: 8, 2: { 14: 4 } }, { 0: 3, 1: 5, 2: { 114: 6 } }], 115: [{ 0: 3, 1: 10, 2: { 19: 4 } }, { 0: 3, 1: 8, 2: { 19: 4 } }, { 0: 3, 1: 5, 2: { 115: 6 } }], 116: [{ 0: 3, 1: 8, 2: { 19: 4 } }, { 0: 3, 1: 5, 2: { 116: 6 } }], 117: [{ 0: 3, 1: 8, 2: { 19: 4, 37: 4 } }, { 0: 3, 1: 5, 2: { 117: 6 } }], 118: [{ 0: 3, 1: 8, 2: { 15: 4, 40: 4 } }, { 0: 3, 1: 5, 2: { 118: 6 } }], 119: [{ 0: 3, 1: 8, 2: { 19: 4, 26: 4 } }, { 0: 3, 1: 5, 2: { 119: 6 } }], 120: [{ 0: 3, 1: 8, 2: { 15: 4, 16: 4 } }, { 0: 3, 1: 5, 2: { 120: 6 } }], 121: [{ 0: 3, 1: 8, 2: { 49: 4, 14: 4 } }, { 0: 3, 1: 5, 2: { 121: 6 } }], 122: [{ 0: 3, 1: 8, 2: { 47: 4, 49: 4 } }, { 0: 3, 1: 5, 2: { 122: 6 } }], 123: [{ 0: 3, 1: 9, 2: { 20: 46 } }, { 0: 3, 1: 5, 2: { 123: 6 } }], 124: [{ 0: 3, 1: 8, 2: { 12: 4 } }, { 0: 3, 1: 5, 2: { 124: 6 } }], 125: [{ 0: 3, 1: 8, 2: { 12: 7 } }, { 0: 3, 1: 5, 2: { 125: 6 } }], 126: [{ 0: 3, 1: 8, 2: { 12: 4 } }, { 0: 3, 1: 5, 2: { 126: 6 } }], 127: [{ 0: 3, 1: 8, 2: { 16: 4 } }, { 0: 3, 1: 5, 2: { 127: 6 } }], 128: [{ 0: 3, 1: 8, 2: { 12: 7 } }, { 0: 3, 1: 5, 2: { 128: 6 } }], 129: [{ 0: 3, 1: 8, 2: { 12: 7 } }, { 0: 3, 1: 5, 2: { 129: 6 } }], 130: [{ 0: 3, 1: 8, 2: { 41: 7 } }, { 0: 3, 1: 5, 2: { 130: 6 } }], 131: [{ 0: 3, 1: 8, 2: { 16: 4 } }, { 0: 3, 1: 5, 2: { 131: 6 } }], 132: [{ 0: 3, 1: 8, 2: { 17: 7 } }, { 0: 3, 1: 5, 2: { 132: 6 } }], 133: [{ 0: 3, 1: 8, 2: { 15: 7 } }, { 0: 3, 1: 5, 2: { 133: 6 } }], 134: [{ 0: 3, 1: 8, 2: { 15: 4, 17: 4 } }, { 0: 3, 1: 5, 2: { 134: 6 } }], 135: [{ 0: 3, 1: 8, 2: { 33: 4, 35: 4 } }, { 0: 3, 1: 5, 2: { 135: 6 } }], 136: [{ 0: 3, 1: 8, 2: { 25: 4, 35: 4 } }, { 0: 3, 1: 5, 2: { 136: 6 } }], 137: [{ 0: 3, 1: 8, 2: { 29: 4, 38: 4 } }, { 0: 3, 1: 5, 2: { 137: 6 } }], 138: [{ 0: 3, 1: 8, 2: { 36: 4, 16: 4 } }, { 0: 3, 1: 5, 2: { 138: 6 } }], 139: [{ 0: 3, 1: 8, 2: { 43: 4, 36: 4 } }, { 0: 3, 1: 5, 2: { 139: 6 } }], 140: [{ 0: 3, 1: 8, 2: { 50: 4, 43: 4 } }, { 0: 3, 1: 5, 2: { 140: 6 } }], 141: [{ 0: 3, 1: 8, 2: { 15: 4, 48: 4 } }, { 0: 3, 1: 5, 2: { 141: 6 } }], 142: [{ 0: 3, 1: 8, 2: { 25: 4, 30: 4 } }, { 0: 3, 1: 5, 2: { 142: 6 } }], 143: [{ 0: 3, 1: 8, 2: { 12: 4, 15: 4 } }, { 0: 3, 1: 5, 2: { 143: 6 } }], 144: [{ 0: 3, 1: 8, 2: { 12: 4, 15: 4 } }, { 0: 3, 1: 5, 2: { 144: 6 } }], 145: [{ 0: 3, 1: 8, 2: { 15: 7 } }, { 0: 3, 1: 5, 2: { 145: 6 } }], 20: [{ 0: 3, 1: 8, 2: { 32: 4, 18: 4 } }, { 0: 3, 1: 5, 2: { 20: 6 } }], 13: [{ 0: 3, 1: 11, 2: { 17: 27 } }, { 0: 3, 1: 5, 2: { 13: 6 } }], 28: [{ 0: 3, 1: 11, 2: { 17: 4, 12: 7 } }, { 0: 3, 1: 5, 2: { 28: 6 } }], 146: [{ 0: 3, 1: 9, 2: { 32: 147 } }, { 0: 3, 1: 5, 2: { 146: 6 } }], 34: [{ 0: 3, 1: 11, 2: { 17: 7, 15: 4 } }, { 0: 3, 1: 5, 2: { 34: 6 } }], 24: [{ 0: 3, 1: 11, 2: { 16: 4, 26: 4, 40: 4 } }, { 0: 3, 1: 5, 2: { 24: 6 } }], 148: [{ 0: 3, 1: 11, 2: { 33: 4, 26: 4, 23: 4 } }, { 0: 3, 1: 5, 2: { 148: 6 } }], 149: [{ 0: 3, 1: 11, 2: { 17: 7, 12: 4 } }, { 0: 3, 1: 5, 2: { 149: 6 } }], 150: [{ 0: 3, 1: 11, 2: { 12: 7, 16: 4 } }, { 0: 3, 1: 5, 2: { 150: 6 } }], 9: [{ 0: 3, 1: 11, 2: { 25: 4, 23: 4, 40: 4 } }, { 0: 3, 1: 5, 2: { 9: 6 } }], 151: [{ 0: 3, 1: 11, 2: { 25: 4, 23: 4, 36: 4 } }, { 0: 3, 1: 5, 2: { 151: 6 } }], 152: [{ 0: 3, 1: 11, 2: { 29: 4, 26: 4, 19: 4 } }, { 0: 3, 1: 5, 2: { 152: 6 } }], 153: [{ 0: 3, 1: 11, 2: { 29: 4, 26: 4, 16: 4 } }, { 0: 3, 1: 5, 2: { 153: 6 } }], 154: [{ 0: 3, 1: 11, 2: { 12: 7 } }, { 0: 3, 1: 5, 2: { 154: 6 } }], 155: [{ 0: 3, 1: 11, 2: { 12: 27 } }, { 0: 3, 1: 5, 2: { 155: 6 } }], 156: [{ 0: 3, 1: 11, 2: { 12: 4, 16: 4, 23: 4 } }, { 0: 3, 1: 5, 2: { 156: 6 } }], 157: [{ 0: 3, 1: 11, 2: { 15: 7, 12: 4 } }, { 0: 3, 1: 5, 2: { 157: 6 } }], 158: [{ 0: 3, 1: 11, 2: { 17: 4, 16: 7 } }, { 0: 3, 1: 5, 2: { 158: 6 } }], 159: [{ 0: 3, 1: 11, 2: { 12: 7 } }, { 0: 3, 1: 5, 2: { 159: 6 } }], 160: [{ 0: 3, 1: 11, 2: { 26: 4, 41: 4, 47: 4 } }, { 0: 3, 1: 5, 2: { 160: 6 } }], 161: [{ 0: 3, 1: 11, 2: { 16: 27 } }, { 0: 3, 1: 5, 2: { 161: 6 } }], 162: [{ 0: 3, 1: 11, 2: { 15: 7, 30: 4 } }, { 0: 3, 1: 5, 2: { 162: 6 } }], 163: [{ 0: 3, 1: 11, 2: { 30: 27 } }, { 0: 3, 1: 5, 2: { 163: 6 } }], 164: [{ 0: 3, 1: 11, 2: { 14: 4, 15: 4, 12: 4 } }, { 0: 3, 1: 5, 2: { 164: 6 } }], 165: [{ 0: 3, 1: 11, 2: { 17: 4, 15: 4 } }, { 0: 3, 1: 5, 2: { 165: 6 } }], 166: [{ 0: 3, 1: 11, 2: { 33: 7, 17: 4 } }, { 0: 3, 1: 5, 2: { 166: 6 } }], 167: [{ 0: 3, 1: 11, 2: { 33: 7, 35: 4 } }, { 0: 3, 1: 5, 2: { 167: 6 } }], 168: [{ 0: 3, 1: 11, 2: { 25: 4, 36: 4, 38: 4 } }, { 0: 3, 1: 5, 2: { 168: 6 } }], 169: [{ 0: 3, 1: 11, 2: { 30: 4, 38: 4, 41: 4 } }, { 0: 3, 1: 5, 2: { 169: 6 } }], 170: [{ 0: 3, 1: 11, 2: { 33: 4, 35: 4, 30: 4 } }, { 0: 3, 1: 5, 2: { 170: 6 } }], 171: [{ 0: 3, 1: 11, 2: { 12: 4, 15: 4, 19: 4 } }, { 0: 3, 1: 5, 2: { 171: 6 } }], 172: [{ 0: 3, 1: 11, 2: { 12: 7, 15: 4 } }, { 0: 3, 1: 5, 2: { 172: 6 } }], 173: [{ 0: 3, 1: 11, 2: { 12: 4, 15: 4, 19: 4 } }, { 0: 3, 1: 5, 2: { 173: 6 } }], 174: [{ 0: 3, 1: 11, 2: { 29: 4, 35: 4 } }, { 0: 3, 1: 9, 2: { 20: 4 } }, { 0: 3, 1: 5, 2: { 174: 6 } }], 175: [{ 0: 3, 1: 11, 2: { 32: 7 } }, { 0: 3, 1: 9, 2: { 32: 147 } }, { 0: 3, 1: 5, 2: { 175: 6 } }], 176: [{ 0: 3, 1: 13, 2: { 33: 7, 38: 7 } }, { 0: 3, 1: 5, 2: { 176: 6 } }], 177: [{ 0: 3, 1: 13, 2: { 25: 4, 30: 4, 36: 4, 35: 4 } }, { 0: 3, 1: 5, 2: { 177: 6 } }], 178: [{ 0: 3, 1: 13, 2: { 25: 7, 36: 4, 30: 4 } }, { 0: 3, 1: 5, 2: { 178: 6 } }], 179: [{ 0: 3, 1: 13, 2: { 19: 4, 26: 4, 42: 4, 29: 4 } }, { 0: 3, 1: 5, 2: { 179: 6 } }], 180: [{ 0: 3, 1: 13, 2: { 23: 4, 16: 4, 42: 4, 29: 4 } }, { 0: 3, 1: 5, 2: { 180: 6 } }], 181: [{ 0: 3, 1: 13, 2: { 14: 4, 22: 4 } }, { 0: 3, 1: 5, 2: { 181: 6 } }], 182: [{ 0: 3, 1: 13, 2: { 14: 7, 22: 7 } }, { 0: 3, 1: 5, 2: { 182: 6 } }], 183: [{ 0: 3, 1: 13, 2: { 14: 7, 22: 7 } }, { 0: 3, 1: 5, 2: { 183: 6 } }], 184: [{ 0: 3, 1: 13, 2: { 14: 7, 22: 7 } }, { 0: 3, 1: 5, 2: { 184: 6 } }], 185: [{ 0: 3, 1: 13, 2: { 14: 4, 22: 7 } }, { 0: 3, 1: 5, 2: { 185: 6 } }], 186: [{ 0: 3, 1: 13, 2: { 14: 7, 22: 4 } }, { 0: 3, 1: 5, 2: { 186: 6 } }], 187: [{ 0: 3, 1: 13, 2: { 14: 7, 22: 7 } }, { 0: 3, 1: 5, 2: { 187: 6 } }], 188: [{ 0: 3, 1: 13, 2: { 14: 27, 22: 4 } }, { 0: 3, 1: 5, 2: { 188: 6 } }], 189: [{ 0: 3, 1: 13, 2: { 23: 7, 16: 7 } }, { 0: 3, 1: 5, 2: { 189: 6 } }], 190: [{ 0: 3, 1: 13, 2: { 23: 46 } }, { 0: 3, 1: 5, 2: { 190: 6 } }], 191: [{ 0: 3, 1: 13, 2: { 12: 7, 23: 7 } }, { 0: 3, 1: 5, 2: { 191: 6 } }], 192: [{ 0: 3, 1: 13, 2: { 16: 7, 17: 7 } }, { 0: 3, 1: 5, 2: { 192: 6 } }], 193: [{ 0: 3, 1: 13, 2: { 12: 27 } }, { 0: 3, 1: 5, 2: { 193: 6 } }], 194: [{ 0: 3, 1: 13, 2: { 23: 46 } }, { 0: 3, 1: 5, 2: { 194: 6 } }], 195: [{ 0: 3, 1: 13, 2: { 23: 7, 16: 7 } }, { 0: 3, 1: 5, 2: { 195: 6 } }], 196: [{ 0: 3, 1: 13, 2: { 25: 7, 29: 4, 35: 4 } }, { 0: 3, 1: 5, 2: { 196: 6 } }], 197: [{ 0: 3, 1: 13, 2: { 15: 4, 16: 7 } }, { 0: 3, 1: 5, 2: { 197: 6 } }], 198: [{ 0: 3, 1: 13, 2: { 15: 7 } }, { 0: 3, 1: 5, 2: { 198: 6 } }], 199: [{ 0: 3, 1: 13, 2: { 29: 4, 16: 7 } }, { 0: 3, 1: 5, 2: { 199: 6 } }], 200: [{ 0: 3, 1: 13, 2: { 25: 7, 43: 4, 16: 4 } }, { 0: 3, 1: 5, 2: { 200: 6 } }], 201: [{ 0: 3, 1: 13, 2: { 41: 7, 19: 4, 22: 4 } }, { 0: 3, 1: 5, 2: { 201: 6 } }] }, ["output", "recipe_type", "requirements", 1, -1, "Raw Resource", 0, -2, "Small Printer", "Trade Platform", "Backpack Printer", "Medium Printer", "Resin", "Large Printer", "Zinc", "Aluminum", "Ceramic", "Compound", "Scrap", "Copper", "Fault Finder", 2, "Quartz", "Iron", "Chemistry Lab", "EXO Chip", "Glass", -3, "Smelting Furnace", "Aluminum Alloy", "Steel", "Soil", "Astronium", "Plastic", "Soil Centrifuge", "Rubber", "Tungsten Carbide", "Graphite", "Silicone", 4, "Tungsten", "Titanium", "Graphene", "Titanium Alloy", "Carbon", "Organic", -4, "Nanocarbon Alloy", "Ammonium", "Lithium", "Diamond", "Explosive Powder", "Clay", "Laterite", "Malachite", "Sphalerite", "Wolframite", "Hematite", "Titanite", "Hydrogen", "Argon", "Methane", "Nitrogen", "Helium", "Sulfur", 8, "Hydrazine", "Packager", "Leveling Block", "Tethers", "Oxygen Filter", "Oxygen Tank", "Portable Oxygenator", "Small Canister", "Beacon", "Worklight", "Glowsticks", "Floodlight", "Small Generator", "Power Cells", "Small Solar Panel", "Small Wind Turbine", "Small Battery", "Dynamite", "Fireworks", "Small Camera", "Small Trumpet Horn", "Holographic Figurine", "Probe Scanner", "Solid Fuel Jump Jet", "Hydrazine Jet Pack", "Hoverboard", "Wide Mod", "Narrow Mod", "Alignment Mod", "Inhibitor Mod", "Boost Mod", "Terrain Analyzer", "Drill Mod 1", "Drill Mod 2", "Drill Mod 3", "Oxygenator", "Medium Shredder", "Field Shelter", "Auto Arm", "Medium Resource Canister", "Medium Fluid And Soil Canister", "Medium Gas Canister", "Power Sensor", "Storage Sensor", "Battery Sensor", "Button Repeater", "Proximity Repeater", "Delay Repeater", "Count Repeater", "Extenders", "Power Switch", "Splitter", "Medium Generator", "Medium Solar Panel", "Medium Wind Turbine", "Medium Battery", "RTG", "QT-RTG", "Medium Platform A", "Medium Platform B", "Medium Platform C", "Tall Platform", "Medium T-Platform", "Medium storage", "Medium Storage Silo", "Tall Storage", "Rover Seat", "Tractor", "Trailer", "Medium Buggy Horn", "Winch", "Paver", "Drill Strength 1", "Drill Strength 2", "Drill Strength 3", "Solid Fuel Thruster", "Hydrazine Thruster", "Rail Post Bundle", "Tall Rail Post Bundle", "Rail Junction Bundle", "Portable Smelting Furnace", -8, "Atmospheric Condenser", "Research Chamber", "EXO Request Platform", "Large Shredder", "Large Solar Panel", "Large Wind Turbine", "Large Platform A", "Large Platform B", "Large Platform C", "Large T-Platform", "Large Curved Platform", "Large Extended Platform", "Large Resource Canister", "Large Storage", "Large Storage Silo A", "Large Storage Silo B", "Large Active Storage", "Buggy", "Large Rover Seat", "Medium Rover", "VTOL", "Crane", "Large Fog Horn", "Rail Engine", "Rail Car", "COLE", "Recreational Sphere", "Gravity Globe", "Shelter", "Auto Extractor", "Extra Large Shredder", "Solar Array", "XL Wind Turbine", "Medium Sensor Arch", "XL Sensor Arch", "XL Sensor Canopy", "Large Sensor Ring", "Large Sensor Hoop A", "Large Sensor Hoop B", "XL Sensor Hoop A", "XL Sensor Hoop B", "Extra Large Platform A", "Extra Large Platform B", "Extra Large Platform C", "Extra Large Curved Platform", "XL Extended Platform", "Figurine Platform", "Extra Large Storage", "Large Rover", "Landing Pad", "Small Shuttle", "Medium Shuttle", "Large Shuttle", "Rail Station", 3]); function _uncompress(e, r) { if ("object" == typeof e) { if (Array.isArray(e)) { for (var a in e) e[a] = _uncompress(e[a], r); return e } var o = {}; for (var a in e) o[_uncompress(a, r)] = _uncompress(e[a], r); return o } return r[e] }
+    </script>
+    <script>var recipe_type_functions = { "Backpack Printer": function (e, t, n, a) { var l = document.createElement("div"); l.classList.add("instruction_wrapper"); var d = [], p = []; for (var i in e) -1 == d.indexOf(i) && p.push({ name: i, quantity: e[i] }); { let e = document.createElement("span"); e.textContent = "Use a Backpack Printer to turn ", l.appendChild(e) } for (var r = 0; r < p.length; r++) { if (r > 0 && r < p.length - 1 && p.length > 2) { let e = document.createElement("span"); e.textContent = ", ", l.appendChild(e) } else if (r > 0 && r == p.length - 1 && p.length > 2) { let e = document.createElement("span"); e.textContent = ", and ", l.appendChild(e) } else if (r > 0 && r == p.length - 1 && 2 == p.length) { let e = document.createElement("span"); e.textContent = " and ", l.appendChild(e) } l.appendChild(a(p[r].quantity, p[r].name)) } { let e = document.createElement("span"); e.textContent = " into ", l.appendChild(e) } return l.appendChild(a(n, t)), l }, "Small Printer": function (e, t, n, a) { var l = document.createElement("div"); l.classList.add("instruction_wrapper"); var d = [], p = []; for (var i in e) -1 == d.indexOf(i) && p.push({ name: i, quantity: e[i] }); { let e = document.createElement("span"); e.textContent = "Use a Small Printer to turn ", l.appendChild(e) } for (var r = 0; r < p.length; r++) { if (r > 0 && r < p.length - 1 && p.length > 2) { let e = document.createElement("span"); e.textContent = ", ", l.appendChild(e) } else if (r > 0 && r == p.length - 1 && p.length > 2) { let e = document.createElement("span"); e.textContent = ", and ", l.appendChild(e) } else if (r > 0 && r == p.length - 1 && 2 == p.length) { let e = document.createElement("span"); e.textContent = " and ", l.appendChild(e) } l.appendChild(a(p[r].quantity, p[r].name)) } { let e = document.createElement("span"); e.textContent = " into ", l.appendChild(e) } return l.appendChild(a(n, t)), l }, "Medium Printer": function (e, t, n, a) { var l = document.createElement("div"); l.classList.add("instruction_wrapper"); var d = [], p = []; for (var i in e) -1 == d.indexOf(i) && p.push({ name: i, quantity: e[i] }); { let e = document.createElement("span"); e.textContent = "Use a Medium Printer to turn ", l.appendChild(e) } for (var r = 0; r < p.length; r++) { if (r > 0 && r < p.length - 1 && p.length > 2) { let e = document.createElement("span"); e.textContent = ", ", l.appendChild(e) } else if (r > 0 && r == p.length - 1 && p.length > 2) { let e = document.createElement("span"); e.textContent = ", and ", l.appendChild(e) } else if (r > 0 && r == p.length - 1 && 2 == p.length) { let e = document.createElement("span"); e.textContent = " and ", l.appendChild(e) } l.appendChild(a(p[r].quantity, p[r].name)) } { let e = document.createElement("span"); e.textContent = " into ", l.appendChild(e) } return l.appendChild(a(n, t)), l }, "Large Printer": function (e, t, n, a) { var l = document.createElement("div"); l.classList.add("instruction_wrapper"); var d = [], p = []; for (var i in e) -1 == d.indexOf(i) && p.push({ name: i, quantity: e[i] }); { let e = document.createElement("span"); e.textContent = "Use a Large Printer to turn ", l.appendChild(e) } for (var r = 0; r < p.length; r++) { if (r > 0 && r < p.length - 1 && p.length > 2) { let e = document.createElement("span"); e.textContent = ", ", l.appendChild(e) } else if (r > 0 && r == p.length - 1 && p.length > 2) { let e = document.createElement("span"); e.textContent = ", and ", l.appendChild(e) } else if (r > 0 && r == p.length - 1 && 2 == p.length) { let e = document.createElement("span"); e.textContent = " and ", l.appendChild(e) } l.appendChild(a(p[r].quantity, p[r].name)) } { let e = document.createElement("span"); e.textContent = " into ", l.appendChild(e) } return l.appendChild(a(n, t)), l }, "Smelting Furnace": function (e, t, n, a) { var l = document.createElement("div"); l.classList.add("instruction_wrapper"); var d = [], p = []; for (var i in e) -1 == d.indexOf(i) && p.push({ name: i, quantity: e[i] }); { let e = document.createElement("span"); e.textContent = "Use a Smelting Furnace to smelt ", l.appendChild(e) } for (var r = 0; r < p.length; r++) { if (r > 0 && r < p.length - 1 && p.length > 2) { let e = document.createElement("span"); e.textContent = ", ", l.appendChild(e) } else if (r > 0 && r == p.length - 1 && p.length > 2) { let e = document.createElement("span"); e.textContent = ", and ", l.appendChild(e) } else if (r > 0 && r == p.length - 1 && 2 == p.length) { let e = document.createElement("span"); e.textContent = " and ", l.appendChild(e) } l.appendChild(a(p[r].quantity, p[r].name)) } { let e = document.createElement("span"); e.textContent = " into ", l.appendChild(e) } return l.appendChild(a(n, t)), l }, "Chemistry Lab": function (e, t, n, a) { var l = document.createElement("div"); l.classList.add("instruction_wrapper"); var d = [], p = []; for (var i in e) -1 == d.indexOf(i) && p.push({ name: i, quantity: e[i] }); { let e = document.createElement("span"); e.textContent = "Use a Chemistry Lab to turn ", l.appendChild(e) } for (var r = 0; r < p.length; r++) { if (r > 0 && r < p.length - 1 && p.length > 2) { let e = document.createElement("span"); e.textContent = ", ", l.appendChild(e) } else if (r > 0 && r == p.length - 1 && p.length > 2) { let e = document.createElement("span"); e.textContent = ", and ", l.appendChild(e) } else if (r > 0 && r == p.length - 1 && 2 == p.length) { let e = document.createElement("span"); e.textContent = " and ", l.appendChild(e) } l.appendChild(a(p[r].quantity, p[r].name)) } { let e = document.createElement("span"); e.textContent = " into ", l.appendChild(e) } return l.appendChild(a(n, t)), l }, "Soil Centrifuge": function (e, t, n, a) { var l = document.createElement("div"); l.classList.add("instruction_wrapper"); var d = [], p = []; for (var i in e) -1 == d.indexOf(i) && p.push({ name: i, quantity: e[i] }); { let e = document.createElement("span"); e.textContent = "Use a Soil Centrifuge to make ", l.appendChild(e) } l.appendChild(a(n, t)); { let e = document.createElement("span"); e.textContent = " from ", l.appendChild(e) } for (var r = 0; r < p.length; r++) { if (r > 0 && r < p.length - 1 && p.length > 2) { let e = document.createElement("span"); e.textContent = ", ", l.appendChild(e) } else if (r > 0 && r == p.length - 1 && p.length > 2) { let e = document.createElement("span"); e.textContent = ", and ", l.appendChild(e) } else if (r > 0 && r == p.length - 1 && 2 == p.length) { let e = document.createElement("span"); e.textContent = " and ", l.appendChild(e) } l.appendChild(a(p[r].quantity, p[r].name)) } return l }, "Trade Platform": function (e, t, n, a) { var l = document.createElement("div"); l.classList.add("instruction_wrapper"); var d = [], p = []; for (var i in e) -1 == d.indexOf(i) && p.push({ name: i, quantity: e[i] }); { let e = document.createElement("span"); e.textContent = "Trade ", l.appendChild(e) } for (var r = 0; r < p.length; r++) { if (r > 0 && r < p.length - 1 && p.length > 2) { let e = document.createElement("span"); e.textContent = ", ", l.appendChild(e) } else if (r > 0 && r == p.length - 1 && p.length > 2) { let e = document.createElement("span"); e.textContent = ", and ", l.appendChild(e) } else if (r > 0 && r == p.length - 1 && 2 == p.length) { let e = document.createElement("span"); e.textContent = " and ", l.appendChild(e) } l.appendChild(a(p[r].quantity, p[r].name)) } { let e = document.createElement("span"); e.textContent = " for ", l.appendChild(e) } return l.appendChild(a(n, t)), l } };
+    </script>
+    <script>var stack_sizes = {};</script>
+    <script src=./scripts/calculator.js type=text/javascript />
+    </script>
+</body>
+
+</html>
