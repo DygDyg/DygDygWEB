@@ -543,6 +543,28 @@
                                     "name": "6ce76e04fe13efb6a7e41b93e432829c6c81e5",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "6eb43e6063027cc606d27af80e2a9a1bf28933",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "ada8fde0cf74851af26999dca90830e92f2747",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "2a",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "bf66b60b771bfd869f78818ce84c391b4c2433",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -567,6 +589,11 @@
                                     "name": "6b9c2a77307d342285538b341cd11ef09b536f",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "6c020ee073fd018e610fa53a45df7bdeb6a436",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -577,6 +604,18 @@
                             "children": [
                                 {
                                     "name": "42c893221b742488c4596254dfb1dabcee0a13",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "35",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "b2050d35c2c40380dfb04fe856c07b45fc7ba7",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -947,6 +986,11 @@
                             "type": "directory",
                             "children": [
                                 {
+                                    "name": "090b45b194378ffc8ad45902ddba79784918ce",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "38447df8b5790b62653a8af6ee4fb029dde71e",
                                     "suffix": "",
                                     "type": "file"
@@ -1083,6 +1127,18 @@
                                 },
                                 {
                                     "name": "e4c8a40e27c2de2ddf6a66bb784fc937e4434c",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "a0",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "c686fd879b76fca99e19f3683e0052382c7b3e",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -1617,6 +1673,18 @@
                                 },
                                 {
                                     "name": "a954562836e1bc9931a6aee60a2b01f9ab7f8c",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "e5",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "f2899f234430dfdf6667fc00a5e3d2bebea49e",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -12320,6 +12388,112 @@
                     "name": "index.htm",
                     "suffix": ".htm",
                     "type": "file"
+                },
+                {
+                    "name": "MyRoguelike",
+                    "suffix": "",
+                    "type": "directory",
+                    "children": [
+                        {
+                            "name": "Build",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "web_build.data",
+                                    "suffix": ".data",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "web_build.framework.js",
+                                    "suffix": ".js",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "web_build.loader.js",
+                                    "suffix": ".js",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "web_build.wasm",
+                                    "suffix": ".wasm",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "index.html",
+                            "suffix": ".html",
+                            "type": "file"
+                        },
+                        {
+                            "name": "TemplateData",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "favicon.ico",
+                                    "suffix": ".ico",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "fullscreen-button.png",
+                                    "suffix": ".png",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "MemoryProfiler.png",
+                                    "suffix": ".png",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "progress-bar-empty-dark.png",
+                                    "suffix": ".png",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "progress-bar-empty-light.png",
+                                    "suffix": ".png",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "progress-bar-full-dark.png",
+                                    "suffix": ".png",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "progress-bar-full-light.png",
+                                    "suffix": ".png",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "style.css",
+                                    "suffix": ".css",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "unity-logo-dark.png",
+                                    "suffix": ".png",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "unity-logo-light.png",
+                                    "suffix": ".png",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "webgl-logo.png",
+                                    "suffix": ".png",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "webmemd-icon.png",
+                                    "suffix": ".png",
+                                    "type": "file"
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     "name": "VK_API",
