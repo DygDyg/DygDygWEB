@@ -1,9 +1,9 @@
 const cacheName = "DefaultCompany-MyRoguelike-0.1";
 const contentToCache = [
     "Build/web_build.loader.js",
-    "Build/web_build.framework.js",
-    "Build/web_build.data",
-    "Build/web_build.wasm",
+    "Build/web_build.framework.js.gz",
+    "Build/web_build.data.gz",
+    "Build/web_build.wasm.gz",
     "TemplateData/style.css"
 
 ];
