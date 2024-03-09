@@ -54,7 +54,7 @@
 <script>
   var linktodo = document.createElement("iframe");
   console.log(getUrlParameter("kinopoiskID"))
-  linktodo.src = `https://api.linktodo.ws/embed/`
+  linktodo.src = `//api.linktodo.ws/embed/`
   if(getUrlParameter("kinopoiskID")) linktodo.src += `kp/${getUrlParameter("kinopoiskID")}`
 
 /*   if(getUrlParameter("title")) linktodo.src += `&title=${getUrlParameter("title")}`
