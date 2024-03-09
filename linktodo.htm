@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>linktodo</title>
+  <link rel="icon" type="image/x-icon" href="./linktodo.png">
+  
+</head>
+
+<body>
+  <div id="base"></div>
+</body>
+<style>
+  body{
+    background-color:rgb(32, 32, 32)
+  }
+  #linktodo1 {
+    height: 95%;
+    width: 95%;
+    left: 50%;
+    margin-left: -48%;
+    position: absolute;
+  }
+
+  #linktodo {
+    position:fixed; 
+    /* 
+    top:0; 
+    left:0; 
+    bottom:0; 
+    right:0;  */
+    
+    width:100%; 
+    height:100%; 
+    border:none; 
+    margin:0; 
+    padding:0; 
+    overflow:hidden;
+    aspect-ratio: 16/9;
+  }
+
+  #base {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: stretch;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+<script>
+  var linktodo = document.createElement("iframe");
+  console.log(getUrlParameter("kinopoiskID"))
+  linktodo.src = `https://api.linktodo.ws/embed/`
+  if(getUrlParameter("kinopoiskID")) linktodo.src += `kp/${getUrlParameter("kinopoiskID")}`
+
+/*   if(getUrlParameter("title")) linktodo.src += `&title=${getUrlParameter("title")}`
+  if(getUrlParameter("worldartAnimationID")) linktodo.src += `&worldartAnimationID=${getUrlParameter("worldartAnimationID")}`
+  if(getUrlParameter("shikimoriID")) linktodo.src += `shikimoriID=${getUrlParameter("shikimoriID")}` */
+
+  if(getUrlParameter("TitleTab")) document.title = `${getUrlParameter("TitleTab")}` //Получает заголовок из параметров
+  // if(getUrlParameter("shikimoriID")) linktodo.src += `shikimoriID=${getUrlParameter("shikimoriID")}`
+  // linktodo.src += `&camrip=false`
+  if(getUrlParameter("title")) document.title = `${getUrlParameter("title")}` //Получает заголовок из параметров title
+  if(getUrlParameter("TitleTab")) document.title = `${getUrlParameter("TitleTab")}` //Получает заголовок из параметров TitleTab
+  linktodo.id = "linktodo"
+  linktodo.allow = "fullscreen"
+  linktodo.frameborder = "0"
+  document.body.querySelector("#base").appendChild(linktodo);
+
+
+  function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+  };
+  
+</script>
+</html>
