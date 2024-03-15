@@ -137,6 +137,7 @@ function video_player(n) {
 		id: 'new_tab_btn',
 		class: 'player_btn',
 		textContent: '📑',
+		title: 'Открыть видео в новой вкладке',
 		href: localurl,
 		target: "_blank",
 	})
@@ -144,7 +145,8 @@ function video_player(n) {
 	var kodik_btn = GM_addElement(player_btn_click, 'div', {
 		id: 'kodik_btn',
 		class: 'player_btn',
-		textContent: 'kodik'
+		textContent: 'kodik',
+		title: 'kodik',
 	})
 	kodik_btn.onclick = function () {
 		console.log("kodik")
@@ -154,7 +156,8 @@ function video_player(n) {
 	var svetacdn_btn = GM_addElement(player_btn_click, 'div', {
 		id: 'svetacdn_btn',
 		class: 'player_btn',
-		textContent: 'svetacdn'
+		textContent: 'svetacdn',
+		title: 'svetacdn',
 	})
 	svetacdn_btn.onclick = function () {
 		video_player('svetacdn')
@@ -164,7 +167,8 @@ function video_player(n) {
 	var linktodo_btn = GM_addElement(player_btn_click, 'div', {
 		id: 'linktodo_btn',
 		class: 'player_btn',
-		textContent: 'linktodo'
+		textContent: 'linktodo',
+		title: 'linktodo',
 	})
 	linktodo_btn.onclick = function () {
 		video_player('linktodo')
