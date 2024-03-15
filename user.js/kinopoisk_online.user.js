@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Кинопоиск kodik online
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.6
 // @description  try to take over the world!
 // @author       ДугДуг
 // @run-at       document-end
@@ -88,15 +88,19 @@ z-index: 13;
 	 width: 32px;
 	// background-color: #5b3333;
 }
+.active_btn {
+    border: solid;
+	padding: 2px;
+}
 
 	`);
 let old_url = ""
 if (!window.onurlchange) {
 	// player_button()
 	// "urlchange"
-	window.addEventListener('urlchange', function(e) {
+	window.addEventListener('urlchange', function (e) {
 		console.log("url ", old_url, e.url)
-		if(old_url != e.url){
+		if (old_url != e.url) {
 			setTimeout(video_player("svetacdn"), 500);
 			console.log(e.url)
 			old_url = e.url
@@ -105,23 +109,23 @@ if (!window.onurlchange) {
 }
 
 function video_player(n) {
-	if(document.querySelector('[data-test-id="encyclopedic-table"]')==null) return
+	if (document.querySelector('[data-test-id="encyclopedic-table"]') == null) return
 	let link = location.pathname.split('/').filter(Boolean)
 	let url = `//dygdyg.github.io/DygDygWEB/svetacdn.htm?kinopoiskID=${link[1]}&TitleTab=${document.title}`
 	let localurl = url;
 	localurl = `${url}&loadserv=` + n
-	
-	// document.body.querySelector("#player_body")?.remove()
+
+	document.body.querySelector("#player_body")?.remove()
 	const elp = document.createElement('div')
 	elp.id = "player_body"
 	// document.body.prepend(elp)
 	document.querySelector('[data-test-id="encyclopedic-table"]').parentNode.parentNode.before(elp)
-	
+
 
 	var player_btn_click = GM_addElement(elp, 'div', {
 		id: 'player_btn_click'
 	})
-	
+
 	GM_addElement(elp, 'iframe', {
 		src: localurl,
 		id: "player_",
@@ -166,11 +170,21 @@ function video_player(n) {
 		video_player('linktodo')
 		console.log("linktodo")
 	};
-	
-}
+	switch (n) {
+		case "kodik":
+			kodik_btn.classList.add("active_btn");
+			break;
+		case "svetacdn":
+			svetacdn_btn.classList.add("active_btn");
+			break;
+		case "linktodo":
+			linktodo_btn.classList.add("active_btn");
+			break;
 
-function player_button() {
-	
+		default:
+			break;
+	}
+
 }
 
 // <iframe src="//kodik.info/seria/1232576/170dcd1341b517c464cfdc345ba71432/720p" width="607" height="360" frameborder="0" AllowFullScreen allow="autoplay *; fullscreen *"></iframe>
