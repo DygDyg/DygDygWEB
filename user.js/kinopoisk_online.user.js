@@ -1,12 +1,11 @@
 // ==UserScript==
 // @name         Кинопоиск kodik online
 // @namespace    http://tampermonkey.net/
-// @version      0.4
+// @version      0.5
 // @description  try to take over the world!
 // @author       ДугДуг
 // @run-at       document-end
-// @match        https://www.kinopoisk.ru/series/*
-// @match        https://www.kinopoisk.ru/film/*
+// @match        https://www.kinopoisk.ru/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=kinopoisk.ru
 // @grant        window.onurlchange
 // @grant        GM_addStyle
@@ -91,96 +90,87 @@ z-index: 13;
 }
 
 	`);
-// setTimeout(player(null, "svetacdn"), 500);
+let old_url = ""
 if (!window.onurlchange) {
-    // window.addEventListener('urlchange', _ => setTimeout(updateBanner, 250))
-	window.addEventListener('urlchange', _ => setTimeout(player(null, "svetacdn"), 500))
+	// player_button()
+	// "urlchange"
+	window.addEventListener('urlchange', function(e) {
+		console.log("url ", old_url, e.url)
+		if(old_url != e.url){
+			setTimeout(video_player("svetacdn"), 500);
+			console.log(e.url)
+			old_url = e.url
+		}
+	})
 }
 
-
-
-function utf8_to_b64(str) {
-    return window.btoa(unescape(encodeURIComponent(str)));
-}
-
-function b64_to_utf8(str) {
-    return decodeURIComponent(escape(window.atob(str)));
-}
-
-
-function player(e, n)
-{
+function video_player(n) {
+	if(document.querySelector('[data-test-id="encyclopedic-table"]')==null) return
 	let link = location.pathname.split('/').filter(Boolean)
 	let url = `//dygdyg.github.io/DygDygWEB/svetacdn.htm?kinopoiskID=${link[1]}&TitleTab=${document.title}`
 	let localurl = url;
-	if(!n){
-
-		//if(kodik) localurl = `${url}&loadserv=kodik`
-		//kodik = !kodik
-	}else{
-		localurl = `${url}&loadserv=` + n
-	}
-	if(e){
-		if(e.ctrlKey || e.shiftKey){
-			//window.open(localurl, '_blank');
-			return
-		}
-	}
-	document.body.querySelector("#player_body")?.remove()
+	localurl = `${url}&loadserv=` + n
+	
+	// document.body.querySelector("#player_body")?.remove()
 	const elp = document.createElement('div')
 	elp.id = "player_body"
 	// document.body.prepend(elp)
 	document.querySelector('[data-test-id="encyclopedic-table"]').parentNode.parentNode.before(elp)
+	
 
 	var player_btn_click = GM_addElement(elp, 'div', {
-		id:'player_btn_click'
+		id: 'player_btn_click'
 	})
+	
+	GM_addElement(elp, 'iframe', {
+		src: localurl,
+		id: "player_",
+		allow: "fullscreen",
+		frameBorder: 0
+	});
 
 	var new_tab_btn = GM_addElement(player_btn_click, 'a', {
-		id:'new_tab_btn',
+		id: 'new_tab_btn',
 		class: 'player_btn',
 		textContent: '📑',
 		href: localurl,
 		target: "_blank",
 	})
-	/*.onclick = function() {
-		window.open(localurl, '_blank');
-		console.log("remove")
-	};*/
 
 	var kodik_btn = GM_addElement(player_btn_click, 'div', {
-		id:'kodik_btn',
+		id: 'kodik_btn',
 		class: 'player_btn',
 		textContent: 'kodik'
-	}).onclick = function() {
+	})
+	kodik_btn.onclick = function () {
 		console.log("kodik")
-		player(null, 'kodik')
+		video_player('kodik')
 	};
 
 	var svetacdn_btn = GM_addElement(player_btn_click, 'div', {
-		id:'svetacdn_btn',
+		id: 'svetacdn_btn',
 		class: 'player_btn',
 		textContent: 'svetacdn'
-	}).onclick = function() {
-		player(null, 'svetacdn')
+	})
+	svetacdn_btn.onclick = function () {
+		video_player('svetacdn')
 		console.log("svetacdn")
 	};
 
 	var linktodo_btn = GM_addElement(player_btn_click, 'div', {
-		id:'linktodo_btn',
+		id: 'linktodo_btn',
 		class: 'player_btn',
 		textContent: 'linktodo'
-	}).onclick = function() {
-		player(null, 'linktodo')
+	})
+	linktodo_btn.onclick = function () {
+		video_player('linktodo')
 		console.log("linktodo")
 	};
+	
+}
 
-	GM_addElement(elp, 'iframe', {
-  		src: localurl,
-		id: "player_",
-		allow: "fullscreen",
-		frameBorder: 0
-	});
+function player_button() {
+	
 }
 
 // <iframe src="//kodik.info/seria/1232576/170dcd1341b517c464cfdc345ba71432/720p" width="607" height="360" frameborder="0" AllowFullScreen allow="autoplay *; fullscreen *"></iframe>
