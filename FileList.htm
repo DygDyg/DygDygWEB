@@ -118,6 +118,7 @@
     var line = null
     var column = 0
     var adres = []
+    var pyt = []
     var col_num = 0
 
     function sort1(o1, o2) {
@@ -169,6 +170,7 @@
     function back_button() {
         dat = {}
         adres.pop()
+        pyt.pop()
         if (adres.length > 0) {
             select_button(adres[adres.length - 1])
         } else {
@@ -211,10 +213,14 @@
 
         $('#list' + column).append(`<div id='button${i}' class='button ${e.type}'>${e.name}</div>`)
         if (e.type == "file") {
-
+            $(`#button${i}`).on("click", function () {
+                
+                get_file(a[i].name, pyt, a)
+            })
         } else {
             $(`#button${i}`).on("click", function () {
                 $('title').text(name_ + ": " + a[i].name)
+                pyt.push(a[i].name)
                 adres.push(a[i].children)
                 select_button(a[i].children)
             })
@@ -222,6 +228,16 @@
         $(`#button${i}`).on("click", function () {
         })
 
+    }
+    function get_file(filename, patch, a)
+    {
+        // local_patch = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+        let local_patch = ""
+        console.log(patch)
+        patch.forEach(e => {
+            local_patch = local_patch + e +"/"
+        });
+        console.log(window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) + local_patch+filename)
     }
 </script>
 
