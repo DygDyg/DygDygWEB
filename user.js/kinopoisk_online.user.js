@@ -15,7 +15,7 @@
 
 var url;
 var kodik = false;
-var dev = true;
+// var dev = true;
 GM_addStyle(`
 
 #banner-kino-kodik {
