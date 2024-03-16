@@ -7,6 +7,7 @@
 // @run-at       document-end
 // @match        https://www.kinopoisk.ru/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=kinopoisk.ru
+// @require 
 // @grant        window.onurlchange
 // @grant        GM_addStyle
 // @grant        GM_addElement
@@ -101,10 +102,10 @@ if (!window.onurlchange) {
 	// player_button()
 	// "urlchange"
 	window.addEventListener('urlchange', function (e) {
-		debug.log("url ", old_url, e.url)
+		console.log("url ", old_url, e.url)
 		if (old_url != e.url) {
 			setTimeout(video_player("svetacdn"), 500);
-			debug.log(e.url)
+			console.log(e.url)
 			old_url = e.url
 		}
 	})
@@ -151,7 +152,7 @@ function video_player(n) {
 		title: 'kodik',
 	})
 	kodik_btn.onclick = function () {
-		debug.log("kodik")
+		console.log("kodik")
 		video_player('kodik')
 	};
 
@@ -162,7 +163,7 @@ function video_player(n) {
 		title: 'kinobox',
 	})
 	kinobox_btn.onclick = function () {
-		debug.log("kinobox")
+		console.log("kinobox")
 		video_player('kinobox')
 	};
 
@@ -174,7 +175,7 @@ function video_player(n) {
 	})
 	svetacdn_btn.onclick = function () {
 		video_player('svetacdn')
-		debug.log("svetacdn")
+		console.log("svetacdn")
 	};
 
 	var linktodo_btn = GM_addElement(player_btn_click, 'div', {
@@ -185,7 +186,7 @@ function video_player(n) {
 	})
 	linktodo_btn.onclick = function () {
 		video_player('linktodo')
-		debug.log("linktodo")
+		console.log("linktodo")
 	};
 	switch (n) {
 		case "kodik":
@@ -205,9 +206,4 @@ function video_player(n) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-class Debug {
-	log(mes) {
-		if (!dev) return
-		console.log(mes)
-	}
-}
+
