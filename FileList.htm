@@ -237,7 +237,7 @@
         patch.forEach(e => {
             local_patch = local_patch + e +"/"
         });
-        console.log(window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) + local_patch+filename)
+        console.log(encodeURI(window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) + local_patch+filename))
     }
 </script>
 
