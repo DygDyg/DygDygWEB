@@ -1,7 +1,9 @@
 class Debug {
     log(mes) {
         if (typeof dev !== 'undefined') {
-            console.log(mes)
+            if(dev==true){
+                console.log(mes)
+            }
         }
     }
 }
