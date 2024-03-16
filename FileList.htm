@@ -121,6 +121,12 @@
     var pyt = []
     var col_num = 0
 
+    var type_files = {
+        // '.mp3': '♫',
+        // '.htm':'📄',
+
+    }
+
     function sort1(o1, o2) {
         return o1.type.localeCompare(o2.type)
     }
@@ -210,12 +216,13 @@
             column++
         }
         col_num++
-
-        $('#list' + column).append(`<div id='button${i}' class='button ${e.type}'>${e.name}</div>`)
+        let type_files_local = ""
+        if(type_files[a[i].suffix]) type_files_local = type_files[a[i].suffix] + " "
+        $('#list' + column).append(`<div id='button${i}' class='button ${e.type}'>${type_files_local}${e.name}</div>`)
         if (e.type == "file") {
             $(`#button${i}`).on("click", function () {
-                
-                get_file(a[i].name, pyt, a)
+                console.log(a[i].suffix)
+                // get_file(a[i].name, pyt, a)
             })
         } else {
             $(`#button${i}`).on("click", function () {
