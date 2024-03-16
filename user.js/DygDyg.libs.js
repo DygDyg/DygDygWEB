@@ -4,3 +4,4 @@ class Debug {
 		console.log(mes)
 	}
 }
+const debug = new Debug();
