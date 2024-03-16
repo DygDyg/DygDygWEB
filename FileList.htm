@@ -104,6 +104,10 @@
     .directory {
         color: #b9cdcd;
     }
+
+    .void {
+        height: 17px;
+    }
 </style>
 <script>
     var ver = "0.0.3"
@@ -114,27 +118,54 @@
     var line = null
     var column = 0
     var adres = []
+    var col_num = 0
 
     function sort1(o1, o2) {
         return o1.type.localeCompare(o2.type)
     }
 
-    $.get('./DataList.json', function (data) {
-        database = data.children
-        select_button(database)
+    // $.get('./DataList.json', function (data) {
+    //     database = data.children
+    //     // select_button(database)
+    //     // console.log(database)
+    // });
+
+    $.ajax({
+        url: './DataList.json',
+        dataType: 'text',
+        success: function (data) {
+            var jsonData = jQuery.parseJSON($('<div />').html(data).text());
+            database = jsonData.children
+            select_button(database)
+        },
+        error: function () {
+            console.log('Error occurred while fetching data.');
+        },
+        beforeSend: function (xhr) {
+            xhr.overrideMimeType("text/plain; charset=windows-1251")
+        }
     });
+
+
 
     function select_button(database) {
         remove_button()
+        col_num = 0
         database.sort(sort1).forEach(function (e, i, a) {
+
             add_button(e, i, a)
         });
+
+        for (let i = col_num; i < 80; i++) {
+            add_void()
+        }
     }
     function remove_button(e, i, a) {
         $("#table").empty();
         line = null
         column = 0
     }
+
     function back_button() {
         dat = {}
         adres.pop()
@@ -146,7 +177,24 @@
         }
     }
 
+    function add_void() {
+        if (line == 0 || line == null) $('#table').append(`<div id="list${column}"class="list"></div>`)
+        if (line == null) {
+            if (adres.length > 0) $('#list' + column).append(`<div id='button' class='button'>..</div>`)
+            $(`#button`).on("click", function () { back_button() })
+        }
+        if (line < 20) {
+            line++
+        } else {
+            line = 0
+            column++
+        }
+        $('#list' + column).append(`<div id='void' class='void'></div>`)
+    }
+
     function add_button(e, i, a) {
+
+
         if (e.name.startsWith(".")) return
         if (line == 0 || line == null) $('#table').append(`<div id="list${column}"class="list"></div>`)
         if (line == null) {
@@ -159,6 +207,7 @@
             line = 0
             column++
         }
+        col_num++
 
         $('#list' + column).append(`<div id='button${i}' class='button ${e.type}'>${e.name}</div>`)
         if (e.type == "file") {
