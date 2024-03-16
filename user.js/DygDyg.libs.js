@@ -1,7 +1,6 @@
 class Debug {
 	log(mes) {
-		if (!dev) return
-		console.log(mes)
+		if (typeof variable !== 'undefined') console.log(mes)
 	}
 }
 const debug = new Debug();
