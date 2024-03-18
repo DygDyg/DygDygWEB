@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>svetacdn</title>
     <link rel="icon" type="image/x-icon" href="/DygDygWEB/svetacdn.jpg">
-    <div class="kinobox_player"></div>
     <script src="https://kinobox.tv/kinobox.min.js"></script>
 
 </head>
@@ -58,6 +57,7 @@
                 break;
 
             case "kinobox":
+                document.body.innerHTML = '<div class="kinobox_player"></div>'
                 new Kinobox('.kinobox_player', { search: { kinopoisk: getUrlParameter("kinopoiskID") } }).init();
                 console.log("asdasdasd")
                 break;
