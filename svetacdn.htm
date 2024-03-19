@@ -13,26 +13,9 @@
 <body>
     <!-- <iframe id="player" src="https//25548813.svetacdn.in/gLTQyQJtC98L?kp_id=5401195" height="480" width="100%" frameborder="0" allowfullscreen></iframe> -->
 </body>
-<style>
-    iframe#kodik {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-    }
 
-    body {
-        overflow: hidden;
-        margin: 0px
-    }
 
-    .kinobox_player {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-    }
-</style>
 <script>
-
     let playerConfigs = { "file": "~mlI-Y-fNMw9oiJBWRHfimbpicZBSQzD0cYJHEN7TEgNhSJ+Gixw3RZX9kiajhL7ctdvQuSsNe86Dt6fEKFS5aUdXEyR43HUvN1DNbhXHJEcNtsTERV+eKDr1EbiAXOd8bTUFh99Tb3edWGBnBgi5it6VGnI4cBMnky7+SZZr-RLzFmrzsGCAMW1RcCuRebu5M1cDqSCAvvaPyJhlsJXpA+0a$HBzOL9YmZ91tL9vrfTrY-LYE8bn0-pm7IMd50ZS8zcVkKSgCAzXPc75G4405Q!!", "hls": 0, "country_list": false, "user_country": "ru", "translator": "107", "id": "player-0fcdce1063bdce922a51ec915b7f9fd7", "cuid": "0fcdce1063bdce922a51ec915b7f9fd7", "key": "qDOJZihSc8m5kU75EwDUkJOFbhv0rBBj1j+ZhkMzUy+n-g1-kol4DskOkkUg78kA", "movie": "0fcdce1063bdce922a51ec915b7f9fd7", "host": "films-smotret.online", "masterId": "543", "masterHash": "6a6050cefe9983b204c28fdadc9fd30f", "userIp": "176.193.204.189", "poster": "", "p2p": true, "rek": { "preroll": ["https:\/\/aj1907.online\/zl7RmCFJuxYfgmUiQP0A7iR_ejIspofF73vUgp0eqd5sGiXVNo01fxLlereqtX4ZuqH7zw5N5512kexuQWInHirPdh0F0qkU", "https:\/\/aj1907.online\/zeiQP4JCJSSPGWGfE48Hzm7Gq9J70C-zQPgHmxq5cW_-n9Qe7-yn-h5Tn-fKQ6AHGXg5s45Cg97mLjzDSrED3S0wsXeWItzY"], "midroll": [{ "time": "7%", "url": "https:\/\/aj1907.online\/ztRNubDJshz8pWnA9urRGAznNmgil8wal_e5UdMjDEp6JziE1wGKIDat02nS-tmVlN-ZQl_vSIYmzJvoAa7i_NKLtcEckgSA" }, { "time": "20%", "url": "https:\/\/aj1907.online\/zbXin1pugQdBDLZiMtgMkAq5FdSrgcUSn5Yju3Us-_gH-Ug7PyCKkp4VdhFfZzDWMbGwvc-Rz7zbEOdPoQUj54pO-l3p_LQc" }, { "time": "40%", "url": "https:\/\/aj1907.online\/zHoglZ2qAoQelUuKdkYCRAyJttJF0XKyd1HoNHN2BvsLSVl-NLw9VH1VHdHVvpNKJi1ucUKJV4X7vk6ZYji8B1Y5fElNHYAA" }, { "time": "60%", "url": "https:\/\/aj1907.online\/zgZPa2DU8JxzNs61DhSi5Z_psmS7BoFnj2eiixRKEvMPoSKcU7RrWYimkvSY1ncWYJ81M2KwfqX_7MrzHtgNiWcuIwSOlbvs" }], "pausebanner": { "key": "bbe8fc89d1b4ec0363fafb361a1f5ab9", "script": "https:\/\/aj1907.online\/63c0d7d8.js", "show": true }, "endtag": { "key": "6c4661276978c9c87d15d0ba61646a8c", "script": "https:\/\/aj1907.online\/63c0d7d8.js", "conf": { "show_time": 60, "skip_time": 15, "movie_et": "0", "banner_show": true, "banner_time": 600 } }, "starttag": [], "pushbanner": [], "qr_code": null }, "href": "vb17123filippaaniketos.pw", "kp": "505898", "uniq_hash": "ebd23619d520ed369509b25c97e9ed3c" };
     let loadserv = getUrlParameter("loadserv")
 
@@ -57,7 +40,7 @@
                 break;
 
             case "kinobox":
-                document.body.innerHTML = '<div class="kinobox_player"></div>'
+                document.body.innerHTML = '<div class="kinobox_player">'
                 new Kinobox('.kinobox_player', { search: { kinopoisk: getUrlParameter("kinopoiskID") } }).init();
                 console.log("asdasdasd")
                 break;
@@ -89,5 +72,23 @@
         return Math.floor(Math.random() * max);
     }
 </script>
+<style>
+    iframe#kodik {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+
+    body {
+        overflow: hidden;
+        margin: 0px
+    }
+
+    .kinobox_player {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+</style>
 
 </html>
