@@ -1,5 +1,7 @@
 {
   "version": 1.0,
   "file": "ImgurUpload.exe",
-  "title": "Imgur Upload" 
+  "title": "Imgur Upload", 
+  "text": "",
+  "icon": ""
 }
