@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>CRT</title>
+    <script src="./scripts/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
     <link rel="icon" type="image/x-icon" href="EnergyStar.png">
@@ -15,14 +16,15 @@
     <input type="checkbox" id="switch" checked>
     <label for="switch" class="switch-label"></label>
 
-    <div class="container">
+
+    <div class="" id="a1">
         <!-- <iframe src="./FileList.htm" class="screen" width="800" height="600"></iframe> -->
-        <iframe src="./StartBoot.htm" class="screen" width="800" height="600"></iframe>
+        <iframe class="screen" width="800" height="600" id="a2"></iframe>
         <div class="overlay">AV-1</div>
     </div>
-    <audio autoplay src="./crt-startup.mp3"></audio>
+
+    <!-- <audio autoplay src="./crt-startup.mp3"></audio> -->
     <!-- partial -->
-    <script src="./scripts/jquery.min.js"></script>
 </body>
 <style>
     body {
@@ -319,11 +321,33 @@
     }
 </style>
 <script>
+    start = true
+    document.addEventListener('click', start_pc);
+
+    function start_pc() {
+        console.log(1)
+        if(start){
+        // document.body.innerHTML = ''
+        document.getElementById("a1").classList.add("container")
+        document.getElementById("a2").src = "./StartBoot.htm"
+        var audio1 = new Audio('./crt-startup.mp3');
+        var audio2 = new Audio('./BIOS_Start.mp3');
+        audio1.play();
+        audio2.play();
+
+        start = false
+        }
+    }
+    document.body.onblur = function () {
+        // console.log("dfgdfg")
+    }
 
     $("iframe.screen").on('load', function () {
 
-        $('title').text("CRT "+$(this).contents().find('title').text());
+        $('title').text("CRT " + $(this).contents().find('title').text());
     });
+
+    // 
 </script>
 
 </html>
