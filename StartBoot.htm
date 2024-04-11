@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <div id="display">
+    <div class="disable" id="display">
         <div id="EnergyStar"></div>
         <div class="text1">Award Modular BIOS v4.50G, Energy Star Ally</div>
         <div class="text1">Copyright (C) 1984-2024, Award Software, inc.</div>
@@ -57,6 +57,10 @@
         font-family: "clacon2", "Arial", sans-serif;
         background-color: black;
         color: azure;
+        width: 100%;
+        height: 100%;
+
+        position: fixed;
     }
 
     #display {
@@ -105,45 +109,59 @@
     }
 </style>
 <script>
-    const memory = document.getElementById("memory");
-    var mem_clok = 0;
+    document.body.addEventListener("click", (event) => {
+        console.log("sdfsd")
+        start()
+    })
+    
+    function start() {
+        var display = document.getElementById("display")
+        const memory = document.getElementById("memory");
+        var mem_clok = 0;
 
-    var f2 = document.querySelectorAll(".f2")
-    var f3 = document.querySelectorAll(".f3")
-    var f4 = document.querySelectorAll(".f4")
-    var f5 = document.querySelectorAll(".f5")
+        var f2 = document.querySelectorAll(".f2")
+        var f3 = document.querySelectorAll(".f3")
+        var f4 = document.querySelectorAll(".f4")
+        var f5 = document.querySelectorAll(".f5")
 
-    const timer = setInterval(function () {
-        // 181072K OK
-        if (mem_clok < 181072) {
-            memory.textContent = mem_clok + "K"
-            mem_clok = mem_clok + 2048
-        } else {
-            memory.textContent = "181072K OK"
+        display.classList.remove("disable")
+
+        const timer = setInterval(function () {
+            // 181072K OK
+            if (mem_clok < 181072) {
+                memory.textContent = mem_clok + "K"
+                mem_clok = mem_clok + 2048
+            } else {
+                memory.textContent = "181072K OK"
 
 
-            setTimeout(function () {
-                f2.forEach(e => {
-                    e.classList.remove("disable")
-                });
                 setTimeout(function () {
-                    f3.forEach(e => {
+                    f2.forEach(e => {
                         e.classList.remove("disable")
                     });
                     setTimeout(function () {
-                        f4.forEach(e => {
-                            e.classList.add("disable")
-                        });
-                        f5.forEach(e => {
+                        f3.forEach(e => {
                             e.classList.remove("disable")
                         });
+                        setTimeout(function () {
+                            f4.forEach(e => {
+                                e.classList.add("disable")
+                            });
+                            f5.forEach(e => {
+                                e.classList.remove("disable")
+                            });
+                            setTimeout(function () {
+                                window.location.pathname = "FileList.htm"
+                            }, 3000)
+                        }, 1000)
                     }, 1000)
                 }, 1000)
-            }, 1000)
 
-            clearTimeout(timer)
-        }
-    }, 100)
+                clearTimeout(timer)
+            }
+        }, 100)
+    }
+
 </script>
 
 </html>
