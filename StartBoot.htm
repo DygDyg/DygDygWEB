@@ -105,7 +105,7 @@
 
     .hdd {
         justify-content: space-between;
-        width: 23%;
+        width: 40%
     }
 </style>
 <script>
@@ -114,6 +114,9 @@
         // start()
     })
     start()
+    function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
 
     function start() {
         var display = document.getElementById("display")
@@ -126,6 +129,7 @@
         var f5 = document.querySelectorAll(".f5")
 
         display.classList.remove("disable")
+        var t1 = 0
 
         const timer = setInterval(function () {
             // 181072K OK
@@ -142,7 +146,11 @@
                     });
                     setTimeout(function () {
                         f3.forEach(e => {
-                            e.classList.remove("disable")
+                            setTimeout(function(){
+                                e.classList.remove("disable")
+                            }, t1);
+                            // t1 = t1+ 300;
+                            t1 = t1 + getRandomArbitrary(100, 600)
                         });
                         setTimeout(function () {
                             f4.forEach(e => {
@@ -152,7 +160,7 @@
                                 e.classList.remove("disable")
                             });
                             setTimeout(function () {
-                                window.location.href = "./FileList.htm"
+                                // window.location.href = "./FileList.htm"
                             }, 1500)
                         }, 1000)
                     }, 1000)
