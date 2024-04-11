@@ -1,21 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>StartBoot</title>
 </head>
+
 <body>
-    
+    <div id="display">
+        <div id="EnergyStar"></div>
+        <div class="text1">Award Modular BIOS v4.50G, Energy Star Ally</div>
+        <div class="text1">Copyright (C) 1984-2024, Award Software, inc.</div>
+        <div class="text1 ot1">#401A0-0106x1</div>
+        <div class="text1">PENTUM PRO-S CPU at 200MHz</div>
+        <div class="text1">Memory Text :<div id="memory"> 181072K OK</div>
+        </div>
+        <div class="text1 ot2 f2 disable">Award Plug and Play BIOS Extension v1.0A</div>
+        <div class="text1 f2 disable">Copyright (C) 1995, Award Software, Ink.</div>
+        <div class="text1 ot2 f2 disable">Initialize Plug and Play Cards...</div>
+        <div class="text1 f2 disable">PNP Init Completed</div>
+        <div class="text1 hdd f3 disable">Detecting HDD Primary Master <div>... None</div>
+        </div>
+        <div class="text1 hdd f3 disable">Detecting HDD Primary Slave <div>... None</div>
+        </div>
+        <div class="text1 hdd f3 disable">Detecting HDD Secondary Master <div>... None</div>
+        </div>
+        <div class="text1 hdd f3 disable">Detecting HDD Secondary Slave <div>... None</div>
+        </div>
+        <div id="bottom_text">
+            <div class="text2 f4">Prepare to Enter Setup...</div>
+            <div class="text2  f5 disable">Press DEL to enter SETUP</div>
+            <div class="text2">09/19/2009-P55-7AVRCHC-00</div>
+        </div>
+    </div>
 </body>
 <style>
-    body{
+    @font-face {
+        font-family: clacon2;
+        src: url('./fonts/clacon2.woff2') format("woff2"),
+            url('./fonts/clacon2.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    .ot1 {
+        margin: 14px 0px 14px 0px;
+    }
+
+    .disable {
+        display: none !important
+    }
+
+    body {
+        user-select: none;
+        font-family: "clacon2", "Arial", sans-serif;
         background-color: black;
         color: azure;
-        
+    }
+
+    #display {
+        display: flex;
+        flex-direction: column;
+        width: 800px;
+        height: 600px;
+    }
+
+    #EnergyStar {
+        position: fixed;
+        background-image: url("EnergyStar.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 20ch;
+        height: 20ch;
+        right: 3ch;
+        top: 2ch;
+    }
+
+    .text1 {
+        color: #b8b8b8;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+    #memory {
+        margin: 0px 0px 0px 7px;
+    }
+
+    #bottom_text {
+        position: fixed;
+        bottom: 0;
+    }
+
+    .text2 {
+
+        color: #b8b8b8;
+
+    }
+
+    .hdd {
+        justify-content: space-between;
+        width: 23%;
     }
 </style>
 <script>
+    const memory = document.getElementById("memory");
+    var mem_clok = 0;
 
+    var f2 = document.querySelectorAll(".f2")
+    var f3 = document.querySelectorAll(".f3")
+    var f4 = document.querySelectorAll(".f4")
+    var f5 = document.querySelectorAll(".f5")
+
+    const timer = setInterval(function () {
+        // 181072K OK
+        if (mem_clok < 181072) {
+            memory.textContent = mem_clok + "K"
+            mem_clok = mem_clok + 2048
+        } else {
+            memory.textContent = "181072K OK"
+
+
+            setTimeout(function () {
+                f2.forEach(e => {
+                    e.classList.remove("disable")
+                });
+                setTimeout(function () {
+                    f3.forEach(e => {
+                        e.classList.remove("disable")
+                    });
+                    setTimeout(function () {
+                        f4.forEach(e => {
+                            e.classList.add("disable")
+                        });
+                        f5.forEach(e => {
+                            e.classList.remove("disable")
+                        });
+                    }, 1000)
+                }, 1000)
+            }, 1000)
+
+            clearTimeout(timer)
+        }
+    }, 100)
 </script>
+
 </html>
