@@ -14,9 +14,9 @@
 <body>
 
     <input type="checkbox" id="switch" checked>
-    <label for="switch" class="switch-label"></label>
+    <!-- <label for="switch" class="switch-label"></label> -->
 
-
+    <button id="button_start">Включить PC</button>
     <div class="" id="a1">
         <!-- <iframe src="./FileList.htm" class="screen" width="800" height="600"></iframe> -->
         <iframe class="screen" width="800" height="600" id="a2"></iframe>
@@ -27,6 +27,19 @@
     <!-- partial -->
 </body>
 <style>
+    #button_start {
+        height: 50px;
+        width: 300px;
+        color: white;
+        background-color: #484d6a;
+        border-radius: 23px;
+        border: none;
+    }
+
+    .disable {
+        display: none !important
+    }
+
     body {
         background: #111;
         color: white;
@@ -322,20 +335,23 @@
 </style>
 <script>
     start = true
-    document.addEventListener('click', start_pc);
+    // document.addEventListener('click', start_pc);
+    button_start = document.getElementById("button_start");
+    button_start.addEventListener('click', start_pc);
 
     function start_pc() {
-        console.log(1)
-        if(start){
-        // document.body.innerHTML = ''
-        document.getElementById("a1").classList.add("container")
-        document.getElementById("a2").src = "./StartBoot.htm"
-        var audio1 = new Audio('./crt-startup.mp3');
-        var audio2 = new Audio('./BIOS_Start.mp3');
-        audio1.play();
-        audio2.play();
+        button_start.remove();
+        // console.log(1)
+        if (start) {
+            // document.body.innerHTML = ''
+            document.getElementById("a1").classList.add("container")
+            document.getElementById("a2").src = "./StartBoot.htm"
+            var audio1 = new Audio('./crt-startup.mp3');
+            var audio2 = new Audio('./BIOS_Start.mp3');
+            audio1.play();
+            audio2.play();
 
-        start = false
+            start = false
         }
     }
     document.body.onblur = function () {
