@@ -13,11 +13,11 @@
         <div class="text1">Award Modular BIOS v4.50G, Energy Star Ally</div>
         <div class="text1">Copyright (C) 1984-2024, Award Software, inc.</div>
         <div class="text1 ot1" id="platform">#401A0-0106x1</div>
-        <div class="text1" id ="UserAgent">PENTUM PRO-S CPU at 200MHz</div>
+        <div class="text1" id="UserAgent">PENTUM PRO-S CPU at 200MHz</div>
         <div class="text1">Memory Text :<div id="memory"> 181072K OK</div>
         </div>
         <!-- <div class="text1 ot2 f2 disable">Award Plug and Play BIOS Extension v1.0A</div> -->
-        <div class="text1 ot2 f2 disable" >Award Plug and Play BIOS Extension v1.0A</div>
+        <div class="text1 ot2 f2 disable">Award Plug and Play BIOS Extension v1.0A</div>
         <div class="text1 f2 disable">Copyright (C) 1995, Award Software, Ink.</div>
         <div class="text1 ot2 f2 disable">Initialize Plug and Play Cards...</div>
         <div class="text1 f2 disable">PNP Init Completed</div>
@@ -37,9 +37,10 @@
     </div>
 </body>
 <style>
-    body{
+    body {
         cursor: none;
     }
+
     @font-face {
         font-family: clacon2;
         src: url('./fonts/clacon2.woff2') format("woff2"),
@@ -111,6 +112,10 @@
         justify-content: space-between;
         width: 40%
     }
+
+    #UserAgent {
+        margin: 0px 0px 14px 0px;
+    }
 </style>
 <script>
     document.body.addEventListener("click", (event) => {
@@ -129,7 +134,7 @@
 
         document.getElementById('UserAgent').textContent = window.navigator.appVersion;
         document.getElementById('platform').textContent = `#401A0-0106x1 ${window.navigator.platform}`
-        
+
         var f2 = document.querySelectorAll(".f2")
         var f3 = document.querySelectorAll(".f3")
         var f4 = document.querySelectorAll(".f4")
@@ -167,7 +172,7 @@
                                 e.classList.remove("disable")
                             });
                             setTimeout(function () {
-                                window.location.href = "./FileList.htm"
+                                // window.location.href = "./FileList.htm"
                             }, 1500)
                         }, 1000)
                     }, 1000)
