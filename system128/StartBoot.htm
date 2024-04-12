@@ -12,7 +12,7 @@
         <div id="EnergyStar"></div>
         <div class="text1">Award Modular BIOS v4.50G, Energy Star Ally</div>
         <div class="text1">Copyright (C) 1984-2024, Award Software, inc.</div>
-        <div class="text1 ot1">#401A0-0106x1</div>
+        <div class="text1 ot1" id="platform">#401A0-0106x1</div>
         <div class="text1" id ="UserAgent">PENTUM PRO-S CPU at 200MHz</div>
         <div class="text1">Memory Text :<div id="memory"> 181072K OK</div>
         </div>
@@ -126,8 +126,10 @@
         var display = document.getElementById("display")
         const memory = document.getElementById("memory")
         var mem_clok = 0
-        // var a =  window.navigator.appVersion;
+
         document.getElementById('UserAgent').textContent = window.navigator.appVersion;
+        document.getElementById('platform').textContent = `#401A0-0106x1 ${window.navigator.platform}`
+        
         var f2 = document.querySelectorAll(".f2")
         var f3 = document.querySelectorAll(".f3")
         var f4 = document.querySelectorAll(".f4")
