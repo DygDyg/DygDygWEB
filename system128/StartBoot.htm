@@ -115,8 +115,8 @@
     })
     start()
     function getRandomArbitrary(min, max) {
-  return Math.random() * (max - min) + min;
-}
+        return Math.random() * (max - min) + min;
+    }
 
     function start() {
         var display = document.getElementById("display")
@@ -135,7 +135,7 @@
             // 181072K OK
             if (mem_clok < 181072) {
                 memory.textContent = mem_clok + "K"
-                mem_clok = mem_clok + 2048
+                mem_clok = mem_clok + Math.ceil(getRandomArbitrary(1024, 5500))
             } else {
                 memory.textContent = "181072K OK"
 
@@ -146,7 +146,7 @@
                     });
                     setTimeout(function () {
                         f3.forEach(e => {
-                            setTimeout(function(){
+                            setTimeout(function () {
                                 e.classList.remove("disable")
                             }, t1);
                             // t1 = t1+ 300;
