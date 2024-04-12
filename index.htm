@@ -7,7 +7,7 @@
     <script src="./scripts/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-    <link rel="icon" type="image/x-icon" href="EnergyStar.png">
+    <link rel="icon" type="image/x-icon" href="system128/EnergyStar.png">
 
 </head>
 
@@ -345,9 +345,9 @@
         if (start) {
             // document.body.innerHTML = ''
             document.getElementById("a1").classList.add("container")
-            document.getElementById("a2").src = "./StartBoot.htm"
-            var audio1 = new Audio('./crt-startup.mp3');
-            var audio2 = new Audio('./BIOS_Start.mp3');
+            document.getElementById("a2").src = "./system128/StartBoot.htm"
+            var audio1 = new Audio('./system128/crt-startup.mp3');
+            var audio2 = new Audio('./system128/BIOS_Start.mp3');
             audio1.play();
             audio2.play();
 
