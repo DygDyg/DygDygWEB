@@ -264,8 +264,9 @@
         patch.forEach(e => {
             local_patch = local_patch + e + "/"
         });
-        let url = encodeURI(window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) + local_patch + filename)
+        let url = encodeURI(window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1).replace("/system128", "") + local_patch + filename)
         console.log(url)
+
         window.open(url, '_blank');
     }
 </script>
