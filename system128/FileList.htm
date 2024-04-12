@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
-<script src="./scripts/jquery.min.js"></script>
+<script src="../scripts/jquery.min.js"></script>
 
 <head>
     <meta charset="UTF-8">
@@ -148,7 +148,7 @@
     // });
 
     $.ajax({
-        url: './DataList.json',
+        url: '../DataList.json',
         dataType: 'text',
         success: function (data) {
             var jsonData = jQuery.parseJSON($('<div />').html(data).text());
