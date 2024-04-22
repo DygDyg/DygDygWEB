@@ -7,8 +7,8 @@
 // @include       /^https?://(.*).astar.bz/.*$/
 // @include       /^https?://(.*).online-star(.*)\.org/.*$/
 // @include       /^https?://(.*)anistar(.*)\.org/.*$/
-// @updateURL       https://dygdyg.github.io/DygDygWEB/user.js/Anistar_kodik,user.js
-// @downloadURL     https://dygdyg.github.io/DygDygWEB/user.js/Anistar_kodik,user.js
+// @updateURL       https://dygdyg.github.io/DygDygWEB/user.js/Anistar_kodik.user.js
+// @downloadURL     https://dygdyg.github.io/DygDygWEB/user.js/Anistar_kodik.user.js
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=https://v3.astar.bz/
 // @grant        GM_addStyle
 // ==/UserScript==
