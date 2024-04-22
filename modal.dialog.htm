@@ -14,7 +14,10 @@
     </dialog>
 </body>
 <script>
+    const myDialog1 = document.createElement("dialog");
+    document.body.appendChild(myDialog1)
     const myDialog = document.getElementById('myDialog');
+
     myDialog.showModal();
     const closeDialogButton = document.getElementById('closeDialogButton');
     closeDialogButton.addEventListener('click', () => {

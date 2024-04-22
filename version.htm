@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #333;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      flex-direction: column;
+      text-align: center;
+    }
+    p {
+      margin: 0;
+      padding: 10px 0;
+    }
+  </style>
+  <title>Browser Detection</title>
+</head>
+<body>
+  <p id="browserName"></p>
+  <p id="userAgent"></p>
+
+  <script>
+    function getBrowserName() {
+      let userAgent = navigator.userAgent.toLowerCase();
+
+      if (userAgent.indexOf('edg/') > -1) {
+        return 'Microsoft Edge (Chromium)';
+      } else if (userAgent.indexOf('chrome') > -1 && userAgent.indexOf('edg/') === -1) {
+        return 'Google Chrome';
+      } else if (userAgent.indexOf('firefox') > -1) {
+        return 'Mozilla Firefox';
+      } else if (userAgent.indexOf('yabrowser') > -1) {
+        return 'Yandex Browser';
+      } else if (userAgent.indexOf('safari') > -1 && userAgent.indexOf('chrome') === -1) {
+        return 'Safari';
+      } else if (userAgent.indexOf('trident') > -1) {
+        return 'Microsoft Internet Explorer';
+      } else if (userAgent.indexOf('opr') > -1) {
+        return 'Opera';
+      } else if (userAgent.indexOf('vivaldi') > -1) {
+        return 'Vivaldi';
+      } else if (userAgent.indexOf('brave') > -1) {
+        return 'Brave';
+      } else if (userAgent.indexOf('tor') > -1 || userAgent.indexOf('firefox/') > -1 && userAgent.indexOf('rx') > -1) {
+        return 'Tor Browser';
+      } else {
+        return 'Unknown browser';
+      }
+    }
+
+    document.getElementById('browserName').textContent = getBrowserName();
+    document.getElementById('userAgent').textContent = navigator.userAgent;
+  </script>
+</body>
+</html>
