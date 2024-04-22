@@ -1,15 +1,4 @@
 
-<head>
-    <meta property="og:title" content="Скрипт колесо фортуны - виджет, повышающий конверсию сайта">
-    <meta property="og:site_name" content="Smartlanding.biz">
-    <meta property="og:url" content="https://smartlanding.biz/smartroulette-lp/">
-    <meta property="og:description" content="SmartRoulette - скрипт (виджет) для сайта, который в игровой форме повышает конверсию и собирает в 2 раза больше заявок. В простонародье - «Колесо фортуны»">
-    <meta property="og:image" content="https://smartlanding.biz/smartroulette-lp/img/preview-koleso-fortuny.png">
-    <meta property="og:image:width" content="968">
-    <meta property="og:image:height" content="504">
-</head>
-    
-
 // ==UserScript==
 // @name         Anistar kodik pleer
 // @namespace    http://tampermonkey.net/
