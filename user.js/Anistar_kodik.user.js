@@ -1,3 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My User Script</title>
+  <meta property="og:title" content="My User Script" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://example.com/my-user-script.html" />
+  <meta property="og:image" content="https://example.com/my-user-script-preview.png" />
+  <meta property="og:description" content="A brief description of my user script." />
+</head>
+<body>
+  <h1>My User Script</h1>
+  <p>A brief description of my user script.</p>
+  <p><a href="https://example.com/my-user-script.user.js">Download User Script</a></p>
+</body>
+</html>
+
 
 // ==UserScript==
 // @name         Anistar kodik pleer
