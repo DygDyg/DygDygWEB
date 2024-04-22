@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Anistar kodik
+// @name         Anistar kodik pleer
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  try to take over the world!
