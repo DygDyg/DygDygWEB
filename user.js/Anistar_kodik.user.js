@@ -27,8 +27,8 @@ function spavn(title1) {
         title = _switch ? title1[1] : title1[0]
 
         link = encodeURI(`//dygdyg.github.io/DygDygWEB/kodik.htm?title=${title}`)
-        console.log(link)
-        console.log("fdfdf", _switch)
+        // console.log(link)
+        // console.log("fdfdf", _switch)
         kodik_url.href = link
         kodik_url.title = title
         document.body.querySelector('#kodik').src = link
@@ -46,7 +46,7 @@ function spavn(title1) {
 
     // var link = `//kodik.info/find-player?title=${title}&camrip=false`
     link = encodeURI(`//dygdyg.github.io/DygDygWEB/kodik.htm?title=${title}`)
-    console.log(link)
+    // console.log(link)
     kodik.innerHTML = `<iframe id="kodik" src="${link}" frameborder="0" allow="fullscreen"></iframe>`;
     kodik_url.textContent = "Открыть на сервере"
     kodik_url.href = link
