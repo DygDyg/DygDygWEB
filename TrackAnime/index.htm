@@ -20,7 +20,10 @@
 </body>
 <style>
     body {
-        background-color: rgb(66, 66, 66)
+        background-color: rgb(66, 66, 66);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 </style>
 <script>
@@ -120,6 +123,7 @@
 
 
     data.forEach(e => {
+        if(e.type == 'anime-serial') {
         const card = createCard(
             e.title,
             '',
@@ -135,6 +139,7 @@
             `${e.last_episode} / ${e.episodes_count}`
         );
         document.body.appendChild(card);
+        }
     });
 
 </script>
