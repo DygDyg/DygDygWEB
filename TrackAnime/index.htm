@@ -27,6 +27,16 @@
     }
 </style>
 <script>
+    var base_anime = localStorage.getItem('BaseAnime')
+    if(base_anime)
+    {
+        base_anime = JSON.parse(base_anime)
+    }else
+    {
+        base_anime = {}
+        console.log(JSON.stringify({}))
+    }
+    console.log(base_anime)
     function httpGet(theUrl) {
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.open("GET", theUrl, false); // false for synchronous request
@@ -117,18 +127,28 @@
     }
 
 
+    
     const data = JSON.parse(httpGet("https://kodikapi.com/list?limit=50&token=45c53578f11ecfb74e31267b634cc6a8").response).results
     // const data = JSON.parse(httpGet("test.json").response).results
     console.log(data)
 
+    // console.log(JSON.parse(httpGet("https://shikimori.one/api/animes/52588").response))
 
     data.forEach(e => {
         if(e.type == 'anime-serial') {
+            if(!base_anime[e.shikimori_id]) {
+                base_anime[e.shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e.shikimori_id}`).response)
+                JSON.stringify(base_anime)
+                localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+            }
+            console.log(base_anime[e.shikimori_id]) 
+            console.log(base_anime[e.shikimori_id].image.preview)  
         const card = createCard(
             e.title,
             '',
             [
-                e.screenshots[0],
+                // e.screenshots[0],
+                `https://shikimori.one/${base_anime[e.shikimori_id].image.original}`,
                 e.screenshots[1],
                 e.screenshots[2],
                 e.screenshots[3],
@@ -136,7 +156,7 @@
             ],
             e.updated_at,
             e.translation.title,
-            `${e.last_episode} / ${e.episodes_count}`
+            `${e.last_episode} / ${base_anime[e.shikimori_id].episodes}`
         );
         document.body.appendChild(card);
         }
