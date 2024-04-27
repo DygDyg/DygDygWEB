@@ -238,49 +238,25 @@
     }
 
     function VoiceTranslate(name) {
-        switch (name) {
-            case value:
-                return true
-                break;
 
-            default:
-                return true
-                break;
-        }
+        const voice = [
+            "AniStar",
+            "Dream Cast",
+            "AnimeVost",
+            "AniDub Online",
+            "AniDUB",
+            "JAM",
+            "AniLibria.TV",
+            "SHIZA Project",
+        ]
+        return voice.includes(name)
+
+
     }
     const data = JSON.parse(httpGet("https://kodikapi.com/list?limit=100&token=45c53578f11ecfb74e31267b634cc6a8").response).results
     // const data = JSON.parse(httpGet("test.json").response).results
     console.log(data)
 
-    // console.log(JSON.parse(httpGet("https://shikimori.one/api/animes/52588").response))
-
-    /*     data.forEach(e => {
-            if (e.type == 'anime-serial') {
-                if (!base_anime[e.shikimori_id]) {
-                    base_anime[e.shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e.shikimori_id}`).response)
-                    JSON.stringify(base_anime)
-                    localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-                }
-                const dat = new Date(e.updated_at)
-                // console.log(base_anime[e.shikimori_id])
-                // console.log(base_anime[e.shikimori_id].screenshots)
-                const card = createCard(
-                    e.title,
-                    // base_anime[e.shikimori_id].description?.substring(0, 200) || "",
-                    "",
-                    [
-                        // e.screenshots[0],
-                        `https://shikimori.one/${base_anime[e.shikimori_id].image.original}`,
-                        `https://shikimori.one/${base_anime[e.shikimori_id].screenshots[0].preview}`,
-                        `https://shikimori.one/${base_anime[e.shikimori_id].screenshots[1].preview}`
-                    ],
-                    formatDate(e.updated_at),
-                    e.translation.title,
-                    `${e.last_episode} / ${base_anime[e.shikimori_id].episodes}`
-                );
-                document.body.appendChild(card);
-            }
-        }); */
     console.log(base_anime.base)
     var aaa = []
     data.forEach(e => {
@@ -292,9 +268,7 @@
                 localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
                 // console.log(base_anime.base[e.shikimori_id])
             }
-            /*             if(base_anime.base[e.shikimori_id].screenshots[0]==undefined){
-                            // console.log(base_anime.base[e.shikimori_id])
-                        } */
+
 
             const dat = new Date(e.updated_at)
 
@@ -313,14 +287,15 @@
                 e.link
 
             );
-            if(!base_anime.translation) base_anime.translation = [];
+            if (!base_anime.translation) base_anime.translation = [];
             if (!base_anime.translation.includes(e.translation.title)) base_anime.translation.push(e.translation.title);
-            console.log()
+            // console.log()
             // console.log(e)
             document.body.appendChild(card);
         }
 
     });
+    console.log(base_anime.translation)
     localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
 
 </script>
