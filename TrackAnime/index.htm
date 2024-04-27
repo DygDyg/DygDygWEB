@@ -9,9 +9,21 @@
     
 </body>
 <style>
-
+    body{
+        background-color: rgb(66, 66, 66)
+    }
 </style>
 <script>
-    
+    function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp;
+} 
+
+// const data = JSON.parse(httpGet("https://kodikapi.com/list?limit=100&token=45c53578f11ecfb74e31267b634cc6a8").response).results
+const data = JSON.parse(httpGet("test.json").response).results
+console.log(data)
 </script>
 </html>
