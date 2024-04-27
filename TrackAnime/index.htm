@@ -261,7 +261,7 @@
     var aaa = []
     data.forEach(e => {
 
-        if ((e.type == 'anime-serial') && e.translation.type == "voice") {
+        if ((e.type == 'anime-serial') && e.translation.type == "voice" && VoiceTranslate(e.translation.title)) {
             if (!base_anime.base[e.shikimori_id] || base_anime.base[e.shikimori_id].screenshots[0] == undefined) {
                 base_anime.base[e.shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e.shikimori_id}`).response)
                 JSON.stringify(base_anime)
