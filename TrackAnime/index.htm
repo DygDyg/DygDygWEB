@@ -154,7 +154,7 @@
         return `${day}.${month}.${year} ${hours}:${minutes}:${seconds}`;
     }
 
-    const data = JSON.parse(httpGet("https://kodikapi.com/list?limit=50&token=45c53578f11ecfb74e31267b634cc6a8").response).results
+    const data = JSON.parse(httpGet("https://kodikapi.com/list?limit=100&token=45c53578f11ecfb74e31267b634cc6a8").response).results
     // const data = JSON.parse(httpGet("test.json").response).results
     console.log(data)
 
