@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    
+
 </body>
 <style>
     body {
@@ -30,9 +30,9 @@
         xmlHttp.send(null);
         return xmlHttp;
     }
-    function createCard(title, description, screenshots) {
+    function createCard(title, description, screenshots, releaseDate, translator, seriesNumber) {
         const card = document.createElement('div');
-        card.classList.add('card');
+        card.classList.add('card', 'bg-dark', 'text-white');
         card.style.width = '22rem';
 
         const imgTop = document.createElement('img');
@@ -53,6 +53,21 @@
         cardText.classList.add('card-text');
         cardText.textContent = description;
         cardBody.appendChild(cardText);
+
+        const cardReleaseDate = document.createElement('p');
+        cardReleaseDate.classList.add('card-text');
+        cardReleaseDate.textContent = `Дата выхода: ${releaseDate}`;
+        cardBody.appendChild(cardReleaseDate);
+
+        const cardTranslator = document.createElement('p');
+        cardTranslator.classList.add('card-text');
+        cardTranslator.textContent = `Переводчик: ${translator}`;
+        cardBody.appendChild(cardTranslator);
+
+        const cardSeriesNumber = document.createElement('p');
+        cardSeriesNumber.classList.add('card-text');
+        cardSeriesNumber.textContent = `Номер серии: ${seriesNumber}`;
+        cardBody.appendChild(cardSeriesNumber);
 
         const row1 = document.createElement('div');
         row1.classList.add('row');
@@ -95,7 +110,6 @@
         cardBody.appendChild(row2);
 
         card.appendChild(cardBody);
-        document.body.appendChild(card);
         return card;
     }
 
@@ -107,7 +121,7 @@
 
     data.forEach(e => {
         const card = createCard(
-            `${e.title} | ${e.other_title}`,
+            e.title,
             'Описание карточки. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.',
             [
                 e.screenshots[0],
@@ -115,8 +129,12 @@
                 e.screenshots[2],
                 e.screenshots[3],
                 e.screenshots[4]
-            ]
+            ],
+            '2023-02-01',
+            'Иван Иванов',
+            '1'
         );
+        document.body.appendChild(card);
     });
 
 </script>
