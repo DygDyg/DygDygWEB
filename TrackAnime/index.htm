@@ -28,11 +28,9 @@
 </style>
 <script>
     var base_anime = localStorage.getItem('BaseAnime')
-    if(base_anime)
-    {
+    if (base_anime) {
         base_anime = JSON.parse(base_anime)
-    }else
-    {
+    } else {
         base_anime = {}
         console.log(JSON.stringify({}))
     }
@@ -64,7 +62,7 @@
 
         const cardText = document.createElement('p');
         cardText.classList.add('card-text');
-        cardText.textContent = description;
+        cardText.innerHTML = description;
         cardBody.appendChild(cardText);
 
         const cardReleaseDate = document.createElement('p');
@@ -86,38 +84,48 @@
         row1.classList.add('row');
         const col1 = document.createElement('div');
         col1.classList.add('col');
-        const img1 = document.createElement('img');
-        img1.src = screenshots[1];
-        img1.classList.add('img-fluid');
-        img1.alt = 'Скриншот 2';
-        col1.appendChild(img1);
+
+        if (screenshots[1]) {
+            const img1 = document.createElement('img');
+            img1.src = screenshots[1];
+            img1.classList.add('img-fluid');
+            img1.alt = 'Скриншот 2';
+            col1.appendChild(img1);
+        }
         const col2 = document.createElement('div');
         col2.classList.add('col');
-        const img2 = document.createElement('img');
-        img2.src = screenshots[2];
-        img2.classList.add('img-fluid');
-        img2.alt = 'Скриншот 3';
-        col2.appendChild(img2);
+        if (screenshots[2]) {
+            const img2 = document.createElement('img');
+            img2.src = screenshots[2];
+            img2.classList.add('img-fluid');
+            img2.alt = 'Скриншот 3';
+            col2.appendChild(img2);
+        }
         row1.appendChild(col1);
         row1.appendChild(col2);
         cardBody.appendChild(row1);
-
         const row2 = document.createElement('div');
         row2.classList.add('row');
         const col3 = document.createElement('div');
         col3.classList.add('col');
-        const img3 = document.createElement('img');
-        img3.src = screenshots[3];
-        img3.classList.add('img-fluid');
-        img3.alt = 'Скриншот 4';
-        col3.appendChild(img3);
+
+        if (screenshots[3]) {
+            const img3 = document.createElement('img');
+            img3.src = screenshots[3];
+            img3.classList.add('img-fluid');
+            img3.alt = 'Скриншот 4';
+            col3.appendChild(img3);
+        }
         const col4 = document.createElement('div');
         col4.classList.add('col');
-        const img4 = document.createElement('img');
-        img4.src = screenshots[4];
-        img4.classList.add('img-fluid');
-        img4.alt = 'Скриншот 5';
-        col4.appendChild(img4);
+        
+        if (screenshots[4]) {
+            const img4 = document.createElement('img');
+            img4.src = screenshots[4];
+            img4.classList.add('img-fluid');
+            img4.alt = 'Скриншот 5';
+            col4.appendChild(img4);
+        }
         row2.appendChild(col3);
         row2.appendChild(col4);
         cardBody.appendChild(row2);
@@ -127,7 +135,7 @@
     }
 
 
-    
+
     const data = JSON.parse(httpGet("https://kodikapi.com/list?limit=50&token=45c53578f11ecfb74e31267b634cc6a8").response).results
     // const data = JSON.parse(httpGet("test.json").response).results
     console.log(data)
@@ -135,30 +143,28 @@
     // console.log(JSON.parse(httpGet("https://shikimori.one/api/animes/52588").response))
 
     data.forEach(e => {
-        if(e.type == 'anime-serial') {
-            if(!base_anime[e.shikimori_id]) {
+        if (e.type == 'anime-serial') {
+            if (!base_anime[e.shikimori_id]) {
                 base_anime[e.shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e.shikimori_id}`).response)
                 JSON.stringify(base_anime)
                 localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
             }
-            console.log(base_anime[e.shikimori_id]) 
-            console.log(base_anime[e.shikimori_id].image.preview)  
-        const card = createCard(
-            e.title,
-            '',
-            [
-                // e.screenshots[0],
-                `https://shikimori.one/${base_anime[e.shikimori_id].image.original}`,
-                e.screenshots[1],
-                e.screenshots[2],
-                e.screenshots[3],
-                e.screenshots[4]
-            ],
-            e.updated_at,
-            e.translation.title,
-            `${e.last_episode} / ${base_anime[e.shikimori_id].episodes}`
-        );
-        document.body.appendChild(card);
+            console.log(base_anime[e.shikimori_id])
+            console.log(base_anime[e.shikimori_id].screenshots)
+            const card = createCard(
+                e.title,
+                base_anime[e.shikimori_id].description,
+                [
+                    // e.screenshots[0],
+                    `https://shikimori.one/${base_anime[e.shikimori_id].image.original}`,
+                    `https://shikimori.one/${base_anime[e.shikimori_id].screenshots[0].preview}`,
+                    `https://shikimori.one/${base_anime[e.shikimori_id].screenshots[1].preview}`
+                ],
+                e.updated_at,
+                e.translation.title,
+                `${e.last_episode} / ${base_anime[e.shikimori_id].episodes}`
+            );
+            document.body.appendChild(card);
         }
     });
 
