@@ -153,7 +153,7 @@
             console.log(base_anime[e.shikimori_id].screenshots)
             const card = createCard(
                 e.title,
-                base_anime[e.shikimori_id].description,
+                base_anime[e.shikimori_id].description?.substring(0, 200)||"",
                 [
                     // e.screenshots[0],
                     `https://shikimori.one/${base_anime[e.shikimori_id].image.original}`,
