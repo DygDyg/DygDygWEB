@@ -116,13 +116,13 @@
 
     // const data = JSON.parse(httpGet("https://kodikapi.com/list?limit=100&token=45c53578f11ecfb74e31267b634cc6a8").response).results
     const data = JSON.parse(httpGet("test.json").response).results
-    console.log(data[0])
+    console.log(data)
 
 
     data.forEach(e => {
         const card = createCard(
             e.title,
-            'Описание карточки. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.',
+            '',
             [
                 e.screenshots[0],
                 e.screenshots[1],
@@ -130,9 +130,9 @@
                 e.screenshots[3],
                 e.screenshots[4]
             ],
-            '2023-02-01',
-            'Иван Иванов',
-            '1'
+            e.updated_at,
+            e.translation.title,
+            `${e.last_episode} / ${e.episodes_count}`
         );
         document.body.appendChild(card);
     });
