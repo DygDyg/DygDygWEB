@@ -75,6 +75,10 @@
         base_anime = { "base": {} }
         // console.log(JSON.stringify({}))
     }
+    if(!base_anime.base) {
+        localStorage.setItem('BaseAnime', JSON.stringify({ "base": {} }));
+        location.reload();
+    }
     // console.log(base_anime)
     function httpGet(theUrl) {
         var xmlHttp = new XMLHttpRequest();
