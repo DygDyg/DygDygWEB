@@ -25,15 +25,46 @@
         flex-wrap: wrap;
         justify-content: center;
     }
+
     .card-title {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
     .card-img-top {
         width: 100%;
         height: 495px;
         object-fit: cover;
+    }
+
+    .card {
+        border: solid;
+        border-color: rgba(255, 0, 0, 0);
+    }
+
+    .card:hover {
+        border-color: rgb(201, 201, 201);
+        background-color: rgb(75, 75, 75) !important;
+    }
+
+    .AniLibria\.TV 
+    {
+        color: #faa2a2;
+    }
+
+    .DreamCast 
+    {
+        color: rgb(136, 255, 255)
+    }
+
+    .AniStar 
+    {
+        color: rgb(251, 73, 251);
+    }
+    .AnimeVost
+    {
+        color: rgb(101, 214, 101);
     }
 </style>
 <script>
@@ -41,10 +72,10 @@
     if (base_anime) {
         base_anime = JSON.parse(base_anime)
     } else {
-        base_anime = {}
-        console.log(JSON.stringify({}))
+        base_anime = { "base": {} }
+        // console.log(JSON.stringify({}))
     }
-    console.log(base_anime)
+    // console.log(base_anime)
     function httpGet(theUrl) {
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.open("GET", theUrl, false); // false for synchronous request
@@ -83,7 +114,8 @@
 
         const cardTranslator = document.createElement('p');
         cardTranslator.classList.add('card-text');
-        cardTranslator.textContent = `Переводчик: ${translator}`;
+        cardTranslator.classList.add(translator.replaceAll(/\s/g, ''));
+        cardTranslator.textContent = `Перевод: ${translator}`;
         cardBody.appendChild(cardTranslator);
 
         const cardSeriesNumber = document.createElement('p');
@@ -163,34 +195,65 @@
 
     // console.log(JSON.parse(httpGet("https://shikimori.one/api/animes/52588").response))
 
+    /*     data.forEach(e => {
+            if (e.type == 'anime-serial') {
+                if (!base_anime[e.shikimori_id]) {
+                    base_anime[e.shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e.shikimori_id}`).response)
+                    JSON.stringify(base_anime)
+                    localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+                }
+                const dat = new Date(e.updated_at)
+                // console.log(base_anime[e.shikimori_id])
+                // console.log(base_anime[e.shikimori_id].screenshots)
+                const card = createCard(
+                    e.title,
+                    // base_anime[e.shikimori_id].description?.substring(0, 200) || "",
+                    "",
+                    [
+                        // e.screenshots[0],
+                        `https://shikimori.one/${base_anime[e.shikimori_id].image.original}`,
+                        `https://shikimori.one/${base_anime[e.shikimori_id].screenshots[0].preview}`,
+                        `https://shikimori.one/${base_anime[e.shikimori_id].screenshots[1].preview}`
+                    ],
+                    formatDate(e.updated_at),
+                    e.translation.title,
+                    `${e.last_episode} / ${base_anime[e.shikimori_id].episodes}`
+                );
+                document.body.appendChild(card);
+            }
+        }); */
+
     data.forEach(e => {
-        if (e.type == 'anime-serial') {
-            if (!base_anime[e.shikimori_id]) {
-                base_anime[e.shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e.shikimori_id}`).response)
+
+        if ((e.type == 'anime-serial') && e.translation.type == "voice") {
+            if (!base_anime.base[e.shikimori_id] || base_anime.base[e.shikimori_id].screenshots[0] == undefined) {
+                base_anime.base[e.shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e.shikimori_id}`).response)
                 JSON.stringify(base_anime)
                 localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+                // console.log(base_anime.base[e.shikimori_id])
             }
+            /*             if(base_anime.base[e.shikimori_id].screenshots[0]==undefined){
+                            // console.log(base_anime.base[e.shikimori_id])
+                        } */
+
             const dat = new Date(e.updated_at)
-            console.log(base_anime[e.shikimori_id])
-            console.log(base_anime[e.shikimori_id].screenshots)
+
             const card = createCard(
-                e.title,
-                // base_anime[e.shikimori_id].description?.substring(0, 200) || "",
+                base_anime.base[e.shikimori_id].russian,
                 "",
                 [
                     // e.screenshots[0],
-                    `https://shikimori.one/${base_anime[e.shikimori_id].image.original}`,
-                    `https://shikimori.one/${base_anime[e.shikimori_id].screenshots[0].preview}`,
-                    `https://shikimori.one/${base_anime[e.shikimori_id].screenshots[1].preview}`
+                    `https://shikimori.one/${base_anime.base[e.shikimori_id].image.original}`,
+                    `https://shikimori.one/${base_anime.base[e.shikimori_id].screenshots[0]?.preview || "assets/layouts/l-top_menu-v2/glyph.svg"}`,
+                    `https://shikimori.one/${base_anime.base[e.shikimori_id].screenshots[1]?.preview || "assets/layouts/l-top_menu-v2/glyph.svg"}`
                 ],
                 formatDate(e.updated_at),
                 e.translation.title,
-                `${e.last_episode} / ${base_anime[e.shikimori_id].episodes}`
+                `${e.last_episode} / ${base_anime.base[e.shikimori_id].episodes}`
             );
             document.body.appendChild(card);
         }
     });
-
 </script>
 
 </html>
