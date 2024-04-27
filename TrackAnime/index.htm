@@ -16,9 +16,42 @@
 </head>
 
 <body>
-
+    <dialog id="myDialog">
+        <iframe id="VideoPlayer"></iframe>
+        <button type="button" class="btn btn-secondary" id="closeDialogButton">X</button>
+    </dialog>
 </body>
 <style>
+    #closeDialogButton {
+        position: absolute;
+        right: 6px;
+        top: 6px;
+        width: 45px;
+        height: 45px;
+
+    }
+
+    dialog#myDialog {
+        padding: 0;
+        width: 80%;
+        height: 80%;
+    }
+
+    dialog::backdrop {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    iframe#VideoPlayer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+    }
+
     body {
         background-color: rgb(66, 66, 66);
         display: flex;
@@ -48,26 +81,29 @@
         background-color: rgb(75, 75, 75) !important;
     }
 
-    .AniLibria\.TV 
-    {
+    .AniLibria\.TV {
         color: #faa2a2;
     }
 
-    .DreamCast 
-    {
+    .DreamCast {
         color: rgb(136, 255, 255)
     }
 
-    .AniStar 
-    {
+    .AniStar {
         color: rgb(251, 73, 251);
     }
-    .AnimeVost
-    {
+
+    .AnimeVost {
         color: rgb(101, 214, 101);
     }
 </style>
 <script>
+    const myDialog = document.getElementById('myDialog');
+    const VideoPlayer = document.getElementById('VideoPlayer');
+    closeDialogButton.addEventListener('click', () => {
+        myDialog.close();
+    });
+
     var base_anime = localStorage.getItem('BaseAnime')
     if (base_anime) {
         base_anime = JSON.parse(base_anime)
@@ -75,7 +111,7 @@
         base_anime = { "base": {} }
         // console.log(JSON.stringify({}))
     }
-    if(!base_anime.base) {
+    if (!base_anime.base) {
         localStorage.setItem('BaseAnime', JSON.stringify({ "base": {} }));
         location.reload();
     }
@@ -86,10 +122,14 @@
         xmlHttp.send(null);
         return xmlHttp;
     }
-    function createCard(title, description, screenshots, releaseDate, translator, seriesNumber) {
+    function createCard(title, description, screenshots, releaseDate, translator, seriesNumber, url_video) {
         const card = document.createElement('div');
         card.classList.add('card', 'bg-dark', 'text-white');
         card.style.width = '22rem';
+        card.addEventListener("click", (event) => {
+            console.log(url_video)
+            dialog(url_video)
+        })
 
         const imgTop = document.createElement('img');
         imgTop.src = screenshots[0];
@@ -192,7 +232,10 @@
 
         return `${day}.${month}.${year} ${hours}:${minutes}:${seconds}`;
     }
-
+    function dialog(url) {
+        myDialog.showModal();
+        VideoPlayer.contentWindow.location.href = url
+    }
     const data = JSON.parse(httpGet("https://kodikapi.com/list?limit=100&token=45c53578f11ecfb74e31267b634cc6a8").response).results
     // const data = JSON.parse(httpGet("test.json").response).results
     console.log(data)
@@ -226,7 +269,7 @@
                 document.body.appendChild(card);
             }
         }); */
-
+    console.log(base_anime.base)
     data.forEach(e => {
 
         if ((e.type == 'anime-serial') && e.translation.type == "voice") {
@@ -253,8 +296,11 @@
                 ],
                 formatDate(e.updated_at),
                 e.translation.title,
-                `${e.last_episode} / ${base_anime.base[e.shikimori_id].episodes}`
+                `${e.last_episode} / ${base_anime.base[e.shikimori_id].duration}`,
+                e.link
+
             );
+            console.log(e)
             document.body.appendChild(card);
         }
     });
