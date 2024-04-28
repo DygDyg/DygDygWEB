@@ -119,6 +119,8 @@
     const VideoPlayer = document.getElementById('VideoPlayer');
     closeDialogButton.addEventListener('click', () => {
         myDialog.close();
+        VideoPlayer.contentWindow.location.href = null;
+
     });
 
     var base_anime = localStorage.getItem('BaseAnime')
