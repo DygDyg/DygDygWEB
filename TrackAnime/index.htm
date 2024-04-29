@@ -17,12 +17,30 @@
 
 <body>
     <input class="form-control" aria-describedby="emailHelp" placeholder="Просто для красоты"></input>
+
+    <div class="progress loading hide" id="loading">
+        <div class="progress-bar" id="loading-bar" role="progressbar" style="width: 0;" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100">0%</div>
+    </div>
+
     <dialog id="myDialog">
         <iframe id="VideoPlayer" allowfullscreen="" allow="autoplay *; fullscreen *"></iframe>
         <button type="button" class="btn btn-secondary" id="closeDialogButton">X</button>
     </dialog>
 </body>
 <style>
+    .loading {
+        width: 100%;
+        z-index: 10000;
+        position: fixed;
+        top: 99%;
+    }
+
+    .hide{
+        display: none;
+    }
+
+
     #closeDialogButton {
         position: absolute;
         right: 6px;
@@ -141,6 +159,7 @@
         xmlHttp.send(null);
         return xmlHttp;
     }
+
     function createCard(title, description, screenshots, releaseDate, translator, seriesNumber, url_video) {
         const card = document.createElement('div');
         card.classList.add('card', 'bg-dark', 'text-white');
@@ -273,46 +292,82 @@
     }
     const data = JSON.parse(httpGet("https://kodikapi.com/list?limit=100&token=45c53578f11ecfb74e31267b634cc6a8").response).results
     // const data = JSON.parse(httpGet("test.json").response).results
-    // console.log(data)
+    console.log(data)
 
     // console.log(base_anime.base)
-    var aaa = []
-    data.forEach(e => {
+    ScanBase(data, 0);
 
-        if ((e.type == 'anime-serial') && e.translation.type == "voice" && VoiceTranslate(e.translation.title)) {
-            if (!base_anime.base[e.shikimori_id] || base_anime.base[e.shikimori_id].screenshots[0] == undefined) {
-                base_anime.base[e.shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e.shikimori_id}`).response)
+    // GetKodiScan(data)
+
+    function ScanBase(e, i) {
+        document.getElementById("loading").classList.remove("hide");
+        var t = 0
+        if (i >= e.length) {
+            GetKodiScan(data)
+            document.getElementById("loading").classList.add("hide");
+            return;
+        }
+        const prog = `${i}%`
+        document.getElementById("loading-bar").style.width = prog
+        document.getElementById("loading-bar").textContent = prog
+        // console.log(prog)
+
+        if ((e[i].type == 'anime-serial') && e[i].translation.type == "voice" && VoiceTranslate(e[i].translation.title)) {
+            if (!base_anime.base[e[i].shikimori_id] || base_anime.base[e[i].shikimori_id].screenshots[0] == undefined) {
+                t = 100
+
+                base_anime.base[e[i].shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e[i].shikimori_id}`).response)
                 JSON.stringify(base_anime)
                 localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-                // console.log(base_anime.base[e.shikimori_id])
+
+            }
+        }
+        // console.log(base_anime.base)
+        // console.log(base_anime.base[e[i].shikimori_id])
+
+        setTimeout(() => {
+            ScanBase(e, i + 1);
+        }, t);
+    }
+
+    function GetKodiScan(data) {
+        data.forEach(e => {
+
+            if ((e.type == 'anime-serial') && e.translation.type == "voice" && VoiceTranslate(e.translation.title)) {
+                if (!base_anime.base[e.shikimori_id] || base_anime.base[e.shikimori_id].screenshots[0] == undefined) {
+                    base_anime.base[e.shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e.shikimori_id}`).response)
+                    JSON.stringify(base_anime)
+                    localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+                    // console.log(base_anime.base[e.shikimori_id])
+                }
+
+
+                const dat = new Date(e.updated_at)
+
+                const card = createCard(
+                    base_anime.base[e.shikimori_id].russian,
+                    "",
+                    [
+                        // e.screenshots[0],
+                        `https://shikimori.one/${base_anime.base[e.shikimori_id].image.original}`,
+                        `https://shikimori.one/${base_anime.base[e.shikimori_id].screenshots[0]?.preview || "assets/layouts/l-top_menu-v2/glyph.svg"}`,
+                        `https://shikimori.one/${base_anime.base[e.shikimori_id].screenshots[1]?.preview || "assets/layouts/l-top_menu-v2/glyph.svg"}`
+                    ],
+                    formatDate(e.updated_at),
+                    e.translation.title,
+                    `${e.last_episode} / ${base_anime.base[e.shikimori_id].duration}`,
+                    e.link
+
+                );
+                if (!base_anime.translation) base_anime.translation = [];
+                if (!base_anime.translation.includes(e.translation.title)) base_anime.translation.push(e.translation.title);
+                // console.log()
+                // console.log(e)
+                document.body.appendChild(card);
             }
 
-
-            const dat = new Date(e.updated_at)
-
-            const card = createCard(
-                base_anime.base[e.shikimori_id].russian,
-                "",
-                [
-                    // e.screenshots[0],
-                    `https://shikimori.one/${base_anime.base[e.shikimori_id].image.original}`,
-                    `https://shikimori.one/${base_anime.base[e.shikimori_id].screenshots[0]?.preview || "assets/layouts/l-top_menu-v2/glyph.svg"}`,
-                    `https://shikimori.one/${base_anime.base[e.shikimori_id].screenshots[1]?.preview || "assets/layouts/l-top_menu-v2/glyph.svg"}`
-                ],
-                formatDate(e.updated_at),
-                e.translation.title,
-                `${e.last_episode} / ${base_anime.base[e.shikimori_id].duration}`,
-                e.link
-
-            );
-            if (!base_anime.translation) base_anime.translation = [];
-            if (!base_anime.translation.includes(e.translation.title)) base_anime.translation.push(e.translation.title);
-            // console.log()
-            // console.log(e)
-            document.body.appendChild(card);
-        }
-
-    });
+        });
+    }
     // console.log(base_anime.translation)
     localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
 
