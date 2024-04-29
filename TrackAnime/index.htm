@@ -305,6 +305,7 @@
         if (i >= e.length) {
             GetKodiScan(data)
             document.getElementById("loading").classList.add("hide");
+            localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
             return;
         }
         const prog = `${i}%`
@@ -315,11 +316,8 @@
         if ((e[i].type == 'anime-serial') && e[i].translation.type == "voice" && VoiceTranslate(e[i].translation.title)) {
             if (!base_anime.base[e[i].shikimori_id] || base_anime.base[e[i].shikimori_id].screenshots[0] == undefined) {
                 t = 100
-
                 base_anime.base[e[i].shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e[i].shikimori_id}`).response)
-                JSON.stringify(base_anime)
-                localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-
+                // JSON.stringify(base_anime)
             }
         }
         // console.log(base_anime.base)
