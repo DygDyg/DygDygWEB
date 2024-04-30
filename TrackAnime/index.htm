@@ -394,6 +394,7 @@
         if (base_anime.translationActive) {
             return base_anime.translationActive.includes(name)
         } else {
+            base_anime.translationActive = voice;
             return voice.includes(name)
         }
 
