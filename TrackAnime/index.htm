@@ -199,6 +199,7 @@
 </style>
 <script>
     var data, dat, targetFrame
+    var ignoreVoice = false
     var HistoryIsActivy = true
     const VideoPlayerAnime = document.getElementById('VideoPlayerAnime');
     const VoiceSettings = document.getElementById('VoiceSettings');
@@ -439,16 +440,18 @@
     function GetKodi(seartch) {
         if (!seartch || seartch == undefined || seartch == "") {
             HistoryIsActivy = true
+            ignoreVoice = false
             document.getElementById('list_history').classList.add("hide")
             targetFrame = document.getElementById('list_serch')
             targetFrame.classList.remove("hide")
-
+            console.log(1234)
             dat = JSON.parse(httpGet(URLList).response)
             URLList = dat.next_page
             // document.getElementById('list_history')
 
         } else {
             HistoryIsActivy = false
+            ignoreVoice = true
             targetFrame = document.getElementById('list_history')
             targetFrame.classList.remove("hide")
             targetFrame.innerHTML = ""
@@ -477,7 +480,7 @@
             GetKodiScan(data)
             document.getElementById("loading-bar").classList.add("hide");
             localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-            if(window.innerHeight>=document.body.scrollHeight){
+            if(window.innerHeight>=document.body.scrollHeight && HistoryIsActivy){
                 GetKodi()
             }
             return;
@@ -487,7 +490,7 @@
         document.getElementById("loading-bar").textContent = prog
         // console.log(prog)
 
-        if ((e[i].type == 'anime-serial') && e[i].translation.type == "voice" && VoiceTranslate(e[i].translation.title)) {
+        if ((e[i].type == 'anime-serial') && e[i].translation.type == "voice" && (VoiceTranslate(e[i].translation.title)||ignoreVoice==true)) {
             if (!base_anime.base[e[i].shikimori_id] || base_anime.base[e[i].shikimori_id].screenshots[0] == undefined) {
                 t = 500
                 base_anime.base[e[i].shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e[i].shikimori_id}`).response)
