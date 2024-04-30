@@ -291,7 +291,7 @@
                     base_anime.translationActive.push(checkbox.nextElementSibling.textContent);
                 }
             });
-            localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+            if(base_anime.translationActive.length>0)localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
             console.log('base_anime.translationActive:', base_anime.translationActive);
             VoiceSettings.innerHTML = ""
             VoiceSettings.close()
