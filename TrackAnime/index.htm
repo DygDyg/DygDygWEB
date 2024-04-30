@@ -237,7 +237,7 @@
             checkboxDiv.appendChild(checkbox);
             checkboxDiv.appendChild(checkboxLabel);
 
-            VoiceSettings.appendChild(checkboxDiv);
+            checkbox.checked?VoiceSettings.prepend(checkboxDiv):VoiceSettings.appendChild(checkboxDiv);
         });
 
         const saveButton = document.createElement('button');
