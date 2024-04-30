@@ -17,8 +17,8 @@
 </head>
 
 <body>
-    <div class="input-group mb-3"><input class="form-control" aria-describedby="emailHelp"
-            placeholder="Просто для красоты"></input>
+    <div class="input-group mb-3"><input id="search_input" class="form-control" aria-describedby="emailHelp"
+            placeholder="Поиск аниме"></input>
         <div class="input-group-append">
             <button type="button" class="btn btn-secondary" id="VoiceButtonMenu">Озвучки</button>
         </div>
@@ -30,6 +30,7 @@
             aria-valuemin="0" aria-valuemax="100">0%</div>
     </div>
     <dib class="anime_list" id="list_history"></dib>
+    <dib class="anime_list hide" id="list_serch"></dib>
 
     <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
     <dialog id="VoiceSettings">
@@ -172,10 +173,12 @@
     }
 </style>
 <script>
-    var data, dat
+    var data, dat, targetFrame 
+    var HistoryIsActivy = true
     const VideoPlayerAnime = document.getElementById('VideoPlayerAnime');
     const VoiceSettings = document.getElementById('VoiceSettings');
     const VideoPlayer = document.getElementById('VideoPlayer');
+    const URLSearch = "https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&title="
     var URLList = "https://kodikapi.com/list?limit=100&token=45c53578f11ecfb74e31267b634cc6a8"
     const voice = [
         "AniStar",
@@ -192,6 +195,11 @@
         VoiceSettingsMenu()
     })
 
+    document.getElementById('search_input').addEventListener('change', (e)=>{
+        console.log(e.target.value)
+        GetKodi(encodeURI(e.target.value))
+    })
+
 
     closeDialogButton.addEventListener('click', () => {
         VideoPlayerAnime.close();
@@ -201,7 +209,7 @@
 
 
     window.onscroll = function () {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && HistoryIsActivy == true) {
             // console.log("Вы достигли конца страницы!");
             GetKodi();
         }
@@ -404,13 +412,29 @@
 
     }
 
-    function GetKodi() {
-        dat = JSON.parse(httpGet(URLList).response)
+    function GetKodi(seartch) {
+        if (!seartch ||seartch==undefined||seartch=="")  {
+            HistoryIsActivy = true
+            document.getElementById('list_history').classList.add("hide")
+            targetFrame = document.getElementById('list_serch')
+            targetFrame.classList.remove("hide")
+            dat = JSON.parse(httpGet(URLList).response)
+            URLList = dat.next_page
+            // document.getElementById('list_history')
+        }else{
+            HistoryIsActivy = false
+            targetFrame = document.getElementById('list_history')
+            targetFrame.classList.remove("hide")
+            document.getElementById('list_serch').classList.add("hide")
+            dat = JSON.parse(httpGet(`${URLSearch}${seartch}`).response)
+            console.log(dat)
+        } 
         data = dat.results
-        URLList = dat.next_page
+        
         // const data = JSON.parse(httpGet("test.json").response).results
         // console.log(data)
         ScanBase(data, 0);
+        return seartch
     }
     // console.log(base_anime.base)
     GetKodi()
@@ -478,7 +502,7 @@
                         e.link
 
                     );
-                    document.getElementById('list_history').appendChild(card);
+                    targetFrame.appendChild(card);
                 }
                 if (!base_anime.translation) base_anime.translation = [];
                 if (!base_anime.translationActive) base_anime.translationActive = voice;
