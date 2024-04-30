@@ -224,6 +224,7 @@
     var data, dat, targetFrame
     var ignoreVoice = false
     var HistoryIsActivy = true
+    var url_get = new URL(window.location.href)
     const VideoPlayerAnime = document.getElementById('VideoPlayerAnime');
     const VoiceSettings = document.getElementById('VoiceSettings');
     const VideoPlayer = document.getElementById('VideoPlayer');
@@ -450,6 +451,7 @@
     }
     function VoiceTranslate(name) {
 
+        if (ignoreVoice || base_anime.translationActive < 1) return true
         if (base_anime.translationActive) {
             return base_anime.translationActive.includes(name)
         } else {
@@ -470,16 +472,31 @@
             console.log(1234)
             dat = JSON.parse(httpGet(URLList).response)
             URLList = dat.next_page
+            url_get = new URL(window.location.href)
+            url_get.searchParams.delete("seartch")
+            window.history.pushState({}, '', url_get);
             // document.getElementById('list_history')
 
         } else {
             HistoryIsActivy = false
             ignoreVoice = true
+            document.getElementById('search_input').value = decodeURIComponent(seartch)
             targetFrame = document.getElementById('list_history')
             targetFrame.classList.remove("hide")
             targetFrame.innerHTML = ""
             document.getElementById('list_serch').classList.add("hide")
-            dat = JSON.parse(httpGet(`${URLSearch}${seartch}`).response)
+            dat1 = JSON.parse(httpGet(`${URLSearch}${seartch}`).response)
+            dat = {}
+            
+            dat.results = dat1.results.filter((value, index, self) =>
+                index === self.findIndex((t) => (
+                    t.shikimori_id === value.shikimori_id
+                ))
+            );
+            // dat = Object.assign({}, dat1); 
+            url_get = new URL(window.location.href)
+            url_get.searchParams.set("seartch", `${seartch}`)
+            window.history.pushState({}, '', url_get);
             console.log(dat)
         }
         data = dat.results
@@ -490,7 +507,12 @@
         return seartch
     }
     // console.log(base_anime.base)
-    GetKodi()
+    // if(url_get.searchParams.get('seartch')){
+    //      GetKodi(url_get.searchParams.get('seartch'))
+    // }else{
+    //     GetKodi()
+    // }
+    GetKodi(url_get.searchParams.get('seartch'))
 
 
 
@@ -513,7 +535,7 @@
         document.getElementById("loading-bar").textContent = prog
         // console.log(prog)
 
-        if ((e[i].type == 'anime-serial') && e[i].translation.type == "voice" && (VoiceTranslate(e[i].translation.title) || ignoreVoice == true)) {
+        if ((e[i].type == 'anime-serial') && e[i].translation.type == "voice" && (VoiceTranslate(e[i].translation.title))) {
             if (!base_anime.base[e[i].shikimori_id] || base_anime.base[e[i].shikimori_id].screenshots[0] == undefined) {
                 t = 500
                 base_anime.base[e[i].shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e[i].shikimori_id}`).response)
