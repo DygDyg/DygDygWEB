@@ -221,7 +221,7 @@
     })
 
     document.getElementById('search_input').addEventListener('change', (e) => {
-        console.log(e.target.value)
+        // console.log(e.target.value)
         GetKodi(encodeURI(e.target.value))
     })
 
@@ -307,7 +307,6 @@
         xmlHttp.send("https://shikimori.one/assets/layouts/l-top_menu-v2/glyph.svg");
         return xmlHttp;
     }
-
     function createCard(title, description, screenshots, releaseDate, translator, seriesNumber, url_video) {
         const card = document.createElement('div');
         card.classList.add('card', 'bg-dark', 'text-white');
@@ -447,6 +446,7 @@
             dat = JSON.parse(httpGet(URLList).response)
             URLList = dat.next_page
             // document.getElementById('list_history')
+
         } else {
             HistoryIsActivy = false
             targetFrame = document.getElementById('list_history')
@@ -477,6 +477,9 @@
             GetKodiScan(data)
             document.getElementById("loading-bar").classList.add("hide");
             localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+            if(window.innerHeight>=document.body.scrollHeight){
+                GetKodi()
+            }
             return;
         }
         const prog = `${i}%`
