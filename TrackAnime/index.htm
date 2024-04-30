@@ -173,7 +173,16 @@
     const VoiceSettings = document.getElementById('VoiceSettings');
     const VideoPlayer = document.getElementById('VideoPlayer');
     var URLList = "https://kodikapi.com/list?limit=100&token=45c53578f11ecfb74e31267b634cc6a8"
-
+    const voice = [
+            "AniStar",
+            "Dream Cast",
+            "AnimeVost",
+            "AniDub Online",
+            "AniDUB",
+            "JAM",
+            "AniLibria.TV",
+            "SHIZA Project",
+        ]
 
     document.getElementById('VoiceButtonMenu').addEventListener('click', () => {
         VoiceSettingsMenu()
@@ -381,16 +390,6 @@
     }
     function VoiceTranslate(name) {
 
-        const voice = [
-            "AniStar",
-            "Dream Cast",
-            "AnimeVost",
-            "AniDub Online",
-            "AniDUB",
-            "JAM",
-            "AniLibria.TV",
-            "SHIZA Project",
-        ]
         if (base_anime.translationActive) {
             return base_anime.translationActive.includes(name)
         } else {
@@ -478,11 +477,11 @@
                     document.getElementById('list_history').appendChild(card);
                 }
                 if (!base_anime.translation) base_anime.translation = [];
-                if (!base_anime.translationActive) base_anime.translationActive = [];
-                if (!base_anime.translation.includes(e.translation.title)) {
-                    base_anime.translation.push(e.translation.title);
-                    base_anime.translationActive.push(e.translation.title);
-                }
+                if (!base_anime.translationActive) base_anime.translationActive = voice;
+                if (!base_anime.translation.includes(e.translation.title)) base_anime.translation.push(e.translation.title);
+                    
+                    // base_anime.translationActive.push(e.translation.title);
+                
                 // console.log()
                 // console.log(e)
 
