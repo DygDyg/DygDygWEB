@@ -12,23 +12,54 @@
         crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>Track Anime</title>
 </head>
 
 <body>
-    <input class="form-control" aria-describedby="emailHelp" placeholder="Просто для красоты"></input>
+    <div class="input-group mb-3"><input class="form-control" aria-describedby="emailHelp"
+            placeholder="Просто для красоты"></input>
+        <div class="input-group-append">
+            <button type="button" class="btn btn-secondary" id="VoiceButtonMenu">Озвучки</button>
+        </div>
+    </div>
+    </div>
 
     <div class="progress loading" id="loading">
         <div class="progress-bar" id="loading-bar" role="progressbar" style="width: 0;" aria-valuenow="0"
             aria-valuemin="0" aria-valuemax="100">0%</div>
     </div>
+    <dib class="anime_list" id="list_history"></dib>
 
-    <dialog id="myDialog">
+    <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <dialog id="VoiceSettings">
+        <!-- <button type="button" class="btn btn-secondary" id="closeDialogButton">X</button> -->
+    </dialog>
+
+    <dialog id="VideoPlayerAnime">
         <iframe id="VideoPlayer" allowfullscreen="" allow="autoplay *; fullscreen *"></iframe>
         <button type="button" class="btn btn-secondary" id="closeDialogButton">X</button>
     </dialog>
 </body>
 <style>
+    .anime_list {
+        width: 100%;
+        height: 100%;
+        /* position: absolute; */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 45px;
+        margin-bottom: 20px;
+    }
+
+    .input-group.mb-3 {
+        width: 100%;
+        z-index: 10000;
+        position: fixed;
+        top: 0px;
+    }
+
     .loading {
         width: 100%;
         z-index: 10000;
@@ -50,7 +81,7 @@
 
     }
 
-    dialog#myDialog {
+    dialog#VideoPlayerAnime {
         padding: 0;
         width: 80%;
         height: 80%;
@@ -138,15 +169,23 @@
 </style>
 <script>
     var data, dat
-    const myDialog = document.getElementById('myDialog');
+    const VideoPlayerAnime = document.getElementById('VideoPlayerAnime');
+    const VoiceSettings = document.getElementById('VoiceSettings');
     const VideoPlayer = document.getElementById('VideoPlayer');
     var URLList = "https://kodikapi.com/list?limit=100&token=45c53578f11ecfb74e31267b634cc6a8"
 
+
+    document.getElementById('VoiceButtonMenu').addEventListener('click', () => {
+        VoiceSettingsMenu()
+    })
+
+
     closeDialogButton.addEventListener('click', () => {
-        myDialog.close();
-        VideoPlayer.contentWindow.location.href = "https//:ya.ru";
+        VideoPlayerAnime.close();
+        VideoPlayer.contentWindow.location.href = "https://ya.ru";
 
     });
+
 
     window.onscroll = function () {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
@@ -167,6 +206,55 @@
         location.reload();
     }
     // console.log(base_anime)
+    // VoiceSettingsMenu()
+    function VoiceSettingsMenu() {
+        const checkboxList = document.getElementById('checkbox-list');
+        const buttonContainer = document.getElementById('button-container');
+
+        base_anime.translation.forEach((voice, index) => {
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = `voice-${index}`;
+            checkbox.className = 'form-check-input';
+            checkbox.checked = base_anime.translationActive.includes(voice);
+
+            const checkboxLabel = document.createElement('label');
+            checkboxLabel.htmlFor = `voice-${index}`;
+            checkboxLabel.className = 'form-check-label';
+            checkboxLabel.textContent = voice;
+
+            const checkboxDiv = document.createElement('div');
+            checkboxDiv.className = 'form-check';
+            checkboxDiv.appendChild(checkbox);
+            checkboxDiv.appendChild(checkboxLabel);
+
+            VoiceSettings.appendChild(checkboxDiv);
+        });
+
+        const saveButton = document.createElement('button');
+        saveButton.type = 'button';
+        saveButton.className = 'btn btn-primary mt-3';
+        saveButton.textContent = 'Сохранить';
+        VoiceSettings.appendChild(saveButton)
+        saveButton.addEventListener('click', () => {
+            base_anime.translationActive = [];
+            const checkboxes = document.querySelectorAll('.form-check-input');
+
+            checkboxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    base_anime.translationActive.push(checkbox.nextElementSibling.textContent);
+                }
+            });
+            localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+            console.log('base_anime.translationActive:', base_anime.translationActive);
+            VoiceSettings.innerHTML = ""
+            VoiceSettings.close()
+            location.reload();
+        });
+
+        VoiceSettings.showModal()
+
+    }
     function httpGet(theUrl) {
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.open("GET", theUrl, false); // false for synchronous request
@@ -288,7 +376,7 @@
         return days, `${days.day}.${days.month}.${days.year} ${days.hours}:${days.minutes}:${days.seconds}  ${days.name[Number(days.dayOfWeek)]}`;
     }
     function dialog(url) {
-        myDialog.showModal();
+        VideoPlayerAnime.showModal();
         VideoPlayer.contentWindow.location.href = url
     }
     function VoiceTranslate(name) {
@@ -303,7 +391,11 @@
             "AniLibria.TV",
             "SHIZA Project",
         ]
-        return voice.includes(name)
+        if (base_anime.translationActive) {
+            return base_anime.translationActive.includes(name)
+        } else {
+            return voice.includes(name)
+        }
 
 
     }
@@ -355,37 +447,46 @@
     function GetKodiScan(data) {
         data.forEach(e => {
 
-            if ((e.type == 'anime-serial') && e.translation.type == "voice" && VoiceTranslate(e.translation.title)) {
-                if (!base_anime.base[e.shikimori_id] || base_anime.base[e.shikimori_id].screenshots[0] == undefined) {
-                    base_anime.base[e.shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e.shikimori_id}`).response)
-                    JSON.stringify(base_anime)
-                    localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-                    // console.log(base_anime.base[e.shikimori_id])
+            if ((e.type == 'anime-serial') && e.translation.type == "voice") {
+                if (VoiceTranslate(e.translation.title)) {
+                    if (!base_anime.base[e.shikimori_id] || base_anime.base[e.shikimori_id].screenshots[0] == undefined) {
+                        base_anime.base[e.shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e.shikimori_id}`).response)
+                        JSON.stringify(base_anime)
+                        localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+                        // console.log(base_anime.base[e.shikimori_id])
+                    }
+
+
+                    const dat = new Date(e.updated_at)
+
+                    const card = createCard(
+                        base_anime.base[e.shikimori_id].russian,
+                        "",
+                        [
+                            // e.screenshots[0],
+                            `https://shikimori.one/${base_anime.base[e.shikimori_id].image.original}`,
+                            `https://shikimori.one/${base_anime.base[e.shikimori_id].screenshots[0]?.preview || "assets/layouts/l-top_menu-v2/glyph.svg"}`,
+                            `https://shikimori.one/${base_anime.base[e.shikimori_id].screenshots[1]?.preview || "assets/layouts/l-top_menu-v2/glyph.svg"}`
+                        ],
+                        formatDate(e.updated_at),
+                        e.translation.title,
+                        `${e.last_episode} / ${base_anime.base[e.shikimori_id].duration}`,
+                        e.link
+
+                    );
+                    document.getElementById('list_history').appendChild(card);
                 }
-
-
-                const dat = new Date(e.updated_at)
-
-                const card = createCard(
-                    base_anime.base[e.shikimori_id].russian,
-                    "",
-                    [
-                        // e.screenshots[0],
-                        `https://shikimori.one/${base_anime.base[e.shikimori_id].image.original}`,
-                        `https://shikimori.one/${base_anime.base[e.shikimori_id].screenshots[0]?.preview || "assets/layouts/l-top_menu-v2/glyph.svg"}`,
-                        `https://shikimori.one/${base_anime.base[e.shikimori_id].screenshots[1]?.preview || "assets/layouts/l-top_menu-v2/glyph.svg"}`
-                    ],
-                    formatDate(e.updated_at),
-                    e.translation.title,
-                    `${e.last_episode} / ${base_anime.base[e.shikimori_id].duration}`,
-                    e.link
-
-                );
                 if (!base_anime.translation) base_anime.translation = [];
-                if (!base_anime.translation.includes(e.translation.title)) base_anime.translation.push(e.translation.title);
+                if (!base_anime.translationActive) base_anime.translationActive = [];
+                if (!base_anime.translation.includes(e.translation.title)) {
+                    base_anime.translation.push(e.translation.title);
+                    base_anime.translationActive.push(e.translation.title);
+                }
                 // console.log()
                 // console.log(e)
-                document.body.appendChild(card);
+
+                
+                // document.body.appendChild(card);
             }
 
         });
