@@ -284,7 +284,7 @@
         days.minutes = String(date.getMinutes()).padStart(2, '0');
         days.seconds = String(date.getSeconds()).padStart(2, '0');
         days.dayOfWeek = String(date.getDay()).padStart(2, '0');
-        console.log(days.dayOfWeek, days.name)
+        // console.log(days.dayOfWeek, days.name)
         return days, `${days.day}.${days.month}.${days.year} ${days.hours}:${days.minutes}:${days.seconds}  ${days.name[Number(days.dayOfWeek)]}`;
     }
     function dialog(url) {
