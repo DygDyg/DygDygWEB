@@ -42,6 +42,10 @@
     </dialog>
 </body>
 <style>
+    button.btn.btn-primary.mt-3 {
+        width: 100%;
+    }
+
     .anime_list {
         width: 100%;
         height: 100%;
@@ -174,15 +178,15 @@
     const VideoPlayer = document.getElementById('VideoPlayer');
     var URLList = "https://kodikapi.com/list?limit=100&token=45c53578f11ecfb74e31267b634cc6a8"
     const voice = [
-            "AniStar",
-            "Dream Cast",
-            "AnimeVost",
-            "AniDub Online",
-            "AniDUB",
-            "JAM",
-            "AniLibria.TV",
-            "SHIZA Project",
-        ]
+        "AniStar",
+        "Dream Cast",
+        "AnimeVost",
+        "AniDub Online",
+        "AniDUB",
+        "JAM",
+        "AniLibria.TV",
+        "SHIZA Project",
+    ]
 
     document.getElementById('VoiceButtonMenu').addEventListener('click', () => {
         VoiceSettingsMenu()
@@ -237,14 +241,14 @@
             checkboxDiv.appendChild(checkbox);
             checkboxDiv.appendChild(checkboxLabel);
 
-            checkbox.checked?VoiceSettings.prepend(checkboxDiv):VoiceSettings.appendChild(checkboxDiv);
+            checkbox.checked ? VoiceSettings.prepend(checkboxDiv) : VoiceSettings.appendChild(checkboxDiv);
         });
 
         const saveButton = document.createElement('button');
         saveButton.type = 'button';
         saveButton.className = 'btn btn-primary mt-3';
         saveButton.textContent = 'Сохранить';
-        VoiceSettings.appendChild(saveButton)
+        VoiceSettings.prepend(saveButton)
         saveButton.addEventListener('click', () => {
             base_anime.translationActive = [];
             const checkboxes = document.querySelectorAll('.form-check-input');
@@ -479,13 +483,13 @@
                 if (!base_anime.translation) base_anime.translation = [];
                 if (!base_anime.translationActive) base_anime.translationActive = voice;
                 if (!base_anime.translation.includes(e.translation.title)) base_anime.translation.push(e.translation.title);
-                    
-                    // base_anime.translationActive.push(e.translation.title);
-                
+
+                // base_anime.translationActive.push(e.translation.title);
+
                 // console.log()
                 // console.log(e)
 
-                
+
                 // document.body.appendChild(card);
             }
 
