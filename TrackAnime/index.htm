@@ -2,6 +2,29 @@
 <html lang="ru" data-bs-theme="dark">
 
 <head>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date();
+            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })
+            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym(97169372, "init", {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true
+        });
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/97169372" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -292,7 +315,7 @@
                     base_anime.translationActive.push(checkbox.nextElementSibling.textContent);
                 }
             });
-            if(base_anime.translationActive.length>0)localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+            if (base_anime.translationActive.length > 0) localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
             console.log('base_anime.translationActive:', base_anime.translationActive);
             VoiceSettings.innerHTML = ""
             VoiceSettings.close()
@@ -480,7 +503,7 @@
             GetKodiScan(data)
             document.getElementById("loading-bar").classList.add("hide");
             localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-            if(window.innerHeight>=document.body.scrollHeight && HistoryIsActivy){
+            if (window.innerHeight >= document.body.scrollHeight && HistoryIsActivy) {
                 GetKodi()
             }
             return;
@@ -490,7 +513,7 @@
         document.getElementById("loading-bar").textContent = prog
         // console.log(prog)
 
-        if ((e[i].type == 'anime-serial') && e[i].translation.type == "voice" && (VoiceTranslate(e[i].translation.title)||ignoreVoice==true)) {
+        if ((e[i].type == 'anime-serial') && e[i].translation.type == "voice" && (VoiceTranslate(e[i].translation.title) || ignoreVoice == true)) {
             if (!base_anime.base[e[i].shikimori_id] || base_anime.base[e[i].shikimori_id].screenshots[0] == undefined) {
                 t = 500
                 base_anime.base[e[i].shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e[i].shikimori_id}`).response)
