@@ -274,7 +274,7 @@
     }
     function formatDate(isoDateString) {
         var days = {}
-        days.name = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+        days.name = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
         const date = new Date(isoDateString);
 
         days.day = String(date.getDate()).padStart(2, '0');
@@ -284,8 +284,8 @@
         days.minutes = String(date.getMinutes()).padStart(2, '0');
         days.seconds = String(date.getSeconds()).padStart(2, '0');
         days.dayOfWeek = String(date.getDay()).padStart(2, '0');
-
-        return 2, `${days.day}.${days.month}.${days.year} ${days.hours}:${days.minutes}:${days.seconds}  ${days.name[days.dayOfWeek-1]}`;
+        console.log(days.dayOfWeek, days.name)
+        return 2, `${days.day}.${days.month}.${days.year} ${days.hours}:${days.minutes}:${days.seconds}  ${days.name[Number(days.dayOfWeek)]}`;
     }
     function dialog(url) {
         myDialog.showModal();
