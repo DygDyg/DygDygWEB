@@ -369,12 +369,12 @@
         const cardTranslator = document.createElement('p');
         cardTranslator.classList.add('card-text');
         cardTranslator.classList.add(translator.replaceAll(/\s/g, ''));
-        cardTranslator.textContent = `Перевод: ${translator}`;
+        cardTranslator.textContent = `${translator}`;
         cardBody.appendChild(cardTranslator);
 
         const cardSeriesNumber = document.createElement('p');
         cardSeriesNumber.classList.add('card-text');
-        cardSeriesNumber.textContent = `Номер серии: ${seriesNumber}`;
+        cardSeriesNumber.textContent = `${seriesNumber}`;
         cardBody.appendChild(cardSeriesNumber);
 
         const row1 = document.createElement('div');
@@ -443,7 +443,7 @@
         days.seconds = String(date.getSeconds()).padStart(2, '0');
         days.dayOfWeek = String(date.getDay()).padStart(2, '0');
         // console.log(days.dayOfWeek, days.name)
-        return days, `${days.day}.${days.month}.${days.year} ${days.hours}:${days.minutes}:${days.seconds}  ${days.name[Number(days.dayOfWeek)]}`;
+        return days, `${days.day}.${days.month}.${days.year} ${days.hours}:${days.minutes}:${days.seconds} ${days.name[Number(days.dayOfWeek)]}`;
     }
     function dialog(url) {
         VideoPlayerAnime.showModal();
@@ -534,8 +534,8 @@
         document.getElementById("loading-bar").style.width = prog
         document.getElementById("loading-bar").textContent = prog
         // console.log(prog)
-
-        if ((e[i].type == 'anime-serial') && e[i].translation.type == "voice" && (VoiceTranslate(e[i].translation.title))) {
+        // console.log(e[i].type)
+        if ((e[i].type == 'anime-serial'|| e[i].type == "anime") && e[i].translation.type == "voice" && (VoiceTranslate(e[i].translation.title))) {
             if (!base_anime.base[e[i].shikimori_id] || base_anime.base[e[i].shikimori_id].screenshots[0] == undefined) {
                 t = 500
                 base_anime.base[e[i].shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e[i].shikimori_id}`).response)
@@ -553,7 +553,7 @@
     function GetKodiScan(data) {
         data.forEach(e => {
 
-            if ((e.type == 'anime-serial') && e.translation.type == "voice") {
+            if ((e.type == 'anime-serial'||e.type =="anime") && e.translation.type == "voice") {
                 if (VoiceTranslate(e.translation.title)) {
                     if (!base_anime.base[e.shikimori_id] || base_anime.base[e.shikimori_id].screenshots[0] == undefined) {
                         base_anime.base[e.shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e.shikimori_id}`).response)
@@ -576,7 +576,7 @@
                         ],
                         formatDate(e.updated_at),
                         e.translation.title,
-                        `${e.last_episode} / ${base_anime.base[e.shikimori_id].duration}`,
+                        `${e.last_episode?"Серий: "+e.last_episode:"фильм"} `, // ${base_anime.base[e.shikimori_id].duration}
                         e.link
 
                     );
