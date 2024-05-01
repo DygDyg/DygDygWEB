@@ -274,7 +274,7 @@
     }
     if (!base_anime.base) {
         localStorage.removeItem('BaseAnime');
-        localStorage.setItem('BaseAnime', JSON.stringify({ "base": {} }));
+        localStorage.setItem('BaseAnime', JSON.stringify({ "base": {}}));
         location.reload();
     }
     // console.log(base_anime)
