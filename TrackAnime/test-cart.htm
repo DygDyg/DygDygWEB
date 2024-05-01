@@ -55,7 +55,7 @@
         background-color: #5d5d5dde;
         text-align: center;
         margin: 0px;
-    padding: 5px;
+        padding: 5px;
 
     }
 
@@ -74,7 +74,13 @@
     }
 </style>
 <script>
-
+    function httpGet(theUrl) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", theUrl, false); // false for synchronous request
+        xmlHttp.send(null);
+        if(xmlHttp.status==200) return JSON.parse(xmlHttp.response)
+        return xmlHttp;
+    }
 
 
     /////////////////////////////////////////////////////////////////////////////////////
@@ -116,7 +122,7 @@
     }
 
     ////////////////////////////////////////////////////////////////////////////////////
-
+    console.log(httpGet("./test.json"))
     for (let i = 0; i < 10; i++) {
         cart = add_cart(config)
         carts_body.appendChild(cart)
