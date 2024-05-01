@@ -116,6 +116,7 @@
         var days = {}
         var data
         days.name = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
+        days.name_s = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
         // console.log(isoDateString)
         // data = isoDateString?new Date(isoDateString):new Date()
 
@@ -131,9 +132,10 @@
         days.hours = String(date.getHours()).padStart(2, '0');
         days.minutes = String(date.getMinutes()).padStart(2, '0');
         days.seconds = String(date.getSeconds()).padStart(2, '0');
-        days.dayOfWeek = String(date.getDay()).padStart(2, '0');
+        days.dayOfWeek = Number(String(date.getDay()).padStart(2, '0'));
+        days.string = `${days.day}.${days.month}.${days.year} ${days.hours}:${days.minutes}:${days.seconds} `; //${days.name[Number(days.dayOfWeek)]}
         // console.log(days.dayOfWeek, days.name)
-        return days, `${days.day}.${days.month}.${days.year} ${days.hours}:${days.minutes}:${days.seconds} ${days.name[Number(days.dayOfWeek)]}`;
+        return days;
     }
 
     function httpGet(theUrl) {
@@ -169,9 +171,15 @@
 
         const cartTime = document.createElement('h5');
         cartTime.classList.add('card-time');
-        cartTime.textContent = e.date;
-        cartTime.title = e.date;
+        cartTime.textContent = e.date.string; 
+        cartTime.title = e.date.string;
         imgTop.appendChild(cartTime);
+
+        const cartCal = document.createElement('h5');
+        cartCal.classList.add('card-cal');
+        cartCal.textContent = e.date.name[Number(e.date.dayOfWeek)];//
+        cartCal.title = e.date.name[e.date.dayOfWeek]; //${days.name[Number(days.dayOfWeek)]}
+        cartTime.appendChild(cartCal);
 
         const cartVoice = document.createElement('h5');
         cartVoice.classList.add('card-voice');
@@ -211,7 +219,8 @@
         if (e.type == "anime-serial" && base_anime.base[e.shikimori_id]) {
             console.log(base_anime.base[e.shikimori_id], e)
             var a, b = formatDate(base_anime.base[e.shikimori_id].next_episode_at)
-            console.log(a, b)
+            console.log(a)
+            console.log(b)
             cart = add_cart({
                 "title": base_anime.base[e.shikimori_id].russian,
                 "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
