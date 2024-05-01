@@ -274,6 +274,7 @@
     }
     if (!base_anime.base) {
         localStorage.removeItem('BaseAnime');
+        // localStorage.setItem('BaseAnime', JSON.stringify({ "base": {}, "translation":{}, "translationActive":{}}));
         localStorage.setItem('BaseAnime', JSON.stringify({ "base": {}}));
         location.reload();
     }
