@@ -48,6 +48,8 @@
     .card-title {
         background-color: #5d5d5dde;
         text-align: center;
+        padding: 10px 0px 10px 0px;
+        visibility: hidden;
         /* height: 125px; */
     }
 
@@ -71,6 +73,10 @@
 
     .card:hover {
         border-color: rgb(255, 255, 255);
+
+        .card-title {
+            visibility: visible;
+        }
     }
 </style>
 <script>
@@ -82,10 +88,10 @@
         days.name = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
         // console.log(isoDateString)
         // data = isoDateString?new Date(isoDateString):new Date()
-        
-        if(isoDateString)  {
+
+        if (isoDateString) {
             date = new Date(isoDateString)
-        }else{
+        } else {
             date = new Date()
         };
 
@@ -130,7 +136,7 @@
         cardTitle.title = e.title;
         imgTop.appendChild(cardTitle);
 
-        
+
         const cartTime = document.createElement('h5');
         cartTime.classList.add('card-time');
         cartTime.textContent = e.date;
