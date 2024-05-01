@@ -74,11 +74,12 @@
     }
 </style>
 <script>
+    var base_anime
     function httpGet(theUrl) {
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.open("GET", theUrl, false); // false for synchronous request
         xmlHttp.send(null);
-        if(xmlHttp.status==200) return JSON.parse(xmlHttp.response)
+        if (xmlHttp.status == 200) return JSON.parse(xmlHttp.response)
         return xmlHttp;
     }
 
@@ -122,11 +123,30 @@
     }
 
     ////////////////////////////////////////////////////////////////////////////////////
-    console.log(httpGet("./test.json"))
-    for (let i = 0; i < 10; i++) {
-        cart = add_cart(config)
-        carts_body.appendChild(cart)
+    const res = httpGet("./test.json").results
+    var base_anime = localStorage.getItem('BaseAnime')
+    if (base_anime) {
+        base_anime = JSON.parse(base_anime)
     }
+    console.log(res)
+    // console.log(base_anime.base[e.shikimori_id])
+
+    res.forEach(e => {
+        if(e.type!="anime-serial") return
+        console.log(base_anime.base[e.shikimori_id])
+        cart = add_cart({
+            "title": e.title,
+            "cover": e.screenshots[0],
+            "date": "01.05.2024 03:04:27 Среда",
+        })
+        carts_body.appendChild(cart)
+    });
+
+
+    // for (let i = 0; i < 10; i++) {
+    //     cart = add_cart(config)
+    //     carts_body.appendChild(cart)
+    // }
 
 </script>
 
