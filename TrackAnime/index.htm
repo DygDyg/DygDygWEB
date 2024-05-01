@@ -273,6 +273,7 @@
         // console.log(JSON.stringify({}))
     }
     if (!base_anime.base) {
+        localStorage.removeItem('BaseAnime')
         localStorage.setItem('BaseAnime', JSON.stringify({ "base": {} }));
         location.reload();
     }
