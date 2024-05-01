@@ -52,8 +52,10 @@
         text-align: center;
         padding: 10px 0px 25px 0px;
         visibility: hidden;
+        z-index: 2;
         /* height: 125px; */
     }
+
     .card-voice {
         position: absolute;
         height: 100%;
@@ -77,6 +79,16 @@
 
     }
 
+    .card-series {
+        position: absolute;
+        right: 0px;
+        background-color: #353434bd;
+        padding: 0px 15px 5px 15px;
+        border-radius: 0px 0px 0px 20px;
+        font-size: 3.2rem;
+        z-index: 1;
+    }
+
 
     .card {
         border-color: rgba(0, 0, 0, 0);
@@ -96,8 +108,6 @@
         }
 
     }
-
-
 </style>
 <script>
     var base_anime
@@ -169,6 +179,12 @@
         cartVoice.title = e.voice;
         imgTop.appendChild(cartVoice);
 
+        const cartSeries = document.createElement('h5');
+        cartSeries.classList.add('card-series');
+        cartSeries.textContent = e.series;
+        cartSeries.title = e.series;
+        imgTop.appendChild(cartSeries);
+
         return card
     }
     /////////////////////////////////////////////////////////////////////////////////////
@@ -201,6 +217,7 @@
                 "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
                 "date": b,
                 "voice": e.translation.title,
+                "series": e.episodes_count,
 
             })
             carts_body.appendChild(cart)
