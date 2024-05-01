@@ -33,26 +33,42 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        position: fixed;
     }
 
     .card-img-top {
         background-size: cover;
         height: 32rem;
-        
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+
     }
+
     .card-title {
         background-color: #5d5d5dde;
         text-align: center;
     }
+
+    .card-time {
+        background-color: #5d5d5dde;
+        text-align: center;
+        margin: 0px;
+    padding: 5px;
+
+    }
+
     .card {
         border-color: rgba(0, 0, 0, 0);
         /* border-color: rgb(255, 255, 255); */
-        overflow:hidden;
+        overflow: hidden;
         border-radius: 15px;
         border-style: groove;
         border-width: 0.3rem;
 
     }
+
     .card:hover {
         border-color: rgb(255, 255, 255);
     }
@@ -82,6 +98,12 @@
         cardTitle.title = e.title;
         imgTop.appendChild(cardTitle);
 
+        const cartTime = document.createElement('h5');
+        cartTime.classList.add('card-time');
+        cartTime.textContent = e.date;
+        cartTime.title = e.date;
+        imgTop.appendChild(cartTime);
+
         return card
     }
     /////////////////////////////////////////////////////////////////////////////////////
@@ -89,7 +111,8 @@
     const carts_body = document.getElementById('carts_body')
     const config = {
         "title": "Реинкарнация безработного: История о приключениях в другом мире 2. Часть 2",
-        "cover": "https://desu.shikimori.one/uploads/poster/animes/55888/ebd6671dee632ec6567f6f8d5c814884.jpeg"
+        "cover": "https://desu.shikimori.one/uploads/poster/animes/55888/ebd6671dee632ec6567f6f8d5c814884.jpeg",
+        "date": "01.05.2024 03:04:27 Среда",
     }
 
     ////////////////////////////////////////////////////////////////////////////////////
