@@ -46,23 +46,36 @@
     }
 
     .card-title {
-        background: linear-gradient(180deg, rgb(69, 69, 69, 0.8) 0%,rgba(69, 69, 69, 0.8) 80%, rgba(191,191,191,0) 100%);
+        background: linear-gradient(180deg, rgb(69, 69, 69, 0.8) 0%, rgba(69, 69, 69, 0.8) 80%, rgba(191, 191, 191, 0) 100%);
         /*background-color: #5d5d5dde; */
         text-align: center;
         padding: 10px 0px 25px 0px;
         visibility: hidden;
         /* height: 125px; */
     }
+    .card-voice {
+        position: absolute;
+        height: 100%;
+        writing-mode: vertical-rl;
+        padding: 5px;
+        text-align: center;
+        margin: 0px;
+        z-index: 1;
+        /* background-color: #5d5d5d99; */
+        background: linear-gradient(193deg, rgba(69, 69, 69, 0) 0%, rgba(69, 69, 69, 0.8) 25%, rgba(69, 69, 69, 0.8) 75%, rgba(69, 69, 69, 0) 100%);
+    }
 
     .card-time {
         /* background-color: #5d5d5dde; */
-        background: linear-gradient(0deg, rgb(69, 69, 69, 0.8) 0%,rgba(69, 69, 69, 0.8) 80%, rgba(191,191,191,0) 100%);
+        background: linear-gradient(0deg, rgb(69, 69, 69, 0.8) 0%, rgba(69, 69, 69, 0.8) 80%, rgba(191, 191, 191, 0) 100%);
         padding: 25px 0px 10px 0px;
         text-align: center;
         margin: 0px;
         padding: 5px;
+        z-index: 2;
 
     }
+
 
     .card {
         border-color: rgba(0, 0, 0, 0);
@@ -80,7 +93,10 @@
         .card-title {
             visibility: visible;
         }
+
     }
+
+
 </style>
 <script>
     var base_anime
@@ -146,6 +162,12 @@
         cartTime.title = e.date;
         imgTop.appendChild(cartTime);
 
+        const cartVoice = document.createElement('h5');
+        cartVoice.classList.add('card-voice');
+        cartVoice.textContent = e.voice;
+        cartVoice.title = e.voice;
+        imgTop.appendChild(cartVoice);
+
         return card
     }
     /////////////////////////////////////////////////////////////////////////////////////
@@ -170,13 +192,15 @@
 
     res.forEach(e => {
         if (e.type == "anime-serial" && base_anime.base[e.shikimori_id]) {
-            console.log(base_anime.base[e.shikimori_id])
+            console.log(base_anime.base[e.shikimori_id], e)
             var a, b = formatDate(base_anime.base[e.shikimori_id].next_episode_at)
             console.log(a, b)
             cart = add_cart({
                 "title": base_anime.base[e.shikimori_id].russian,
                 "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
                 "date": b,
+                "voice": e.translation.title,
+
             })
             carts_body.appendChild(cart)
         }
