@@ -33,7 +33,6 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        position: fixed;
     }
 
     .card-img-top {
@@ -75,6 +74,31 @@
 </style>
 <script>
     var base_anime
+
+    function formatDate(isoDateString) {
+        var days = {}
+        var data
+        days.name = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
+        // console.log(isoDateString)
+        // data = isoDateString?new Date(isoDateString):new Date()
+        
+        if(isoDateString)  {
+            date = new Date(isoDateString)
+        }else{
+            date = new Date()
+        };
+
+        days.day = String(date.getDate()).padStart(2, '0');
+        days.month = String(date.getMonth() + 1).padStart(2, '0');
+        days.year = date.getFullYear();
+        days.hours = String(date.getHours()).padStart(2, '0');
+        days.minutes = String(date.getMinutes()).padStart(2, '0');
+        days.seconds = String(date.getSeconds()).padStart(2, '0');
+        days.dayOfWeek = String(date.getDay()).padStart(2, '0');
+        // console.log(days.dayOfWeek, days.name)
+        return days, `${days.day}.${days.month}.${days.year} ${days.hours}:${days.minutes}:${days.seconds} ${days.name[Number(days.dayOfWeek)]}`;
+    }
+
     function httpGet(theUrl) {
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.open("GET", theUrl, false); // false for synchronous request
@@ -105,6 +129,7 @@
         cardTitle.title = e.title;
         imgTop.appendChild(cardTitle);
 
+        
         const cartTime = document.createElement('h5');
         cartTime.classList.add('card-time');
         cartTime.textContent = e.date;
@@ -131,15 +156,20 @@
     console.log(res)
     // console.log(base_anime.base[e.shikimori_id])
 
+    //////////////////////////////////////////////////////////////////////////////////
+
     res.forEach(e => {
-        if(e.type!="anime-serial") return
-        console.log(base_anime.base[e.shikimori_id])
-        cart = add_cart({
-            "title": e.title,
-            "cover": e.screenshots[0],
-            "date": "01.05.2024 03:04:27 Среда",
-        })
-        carts_body.appendChild(cart)
+        if (e.type == "anime-serial" && base_anime.base[e.shikimori_id]) {
+            console.log(base_anime.base[e.shikimori_id])
+            var a, b = formatDate(base_anime.base[e.shikimori_id].next_episode_at)
+            console.log(a, b)
+            cart = add_cart({
+                "title": base_anime.base[e.shikimori_id].russian,
+                "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
+                "date": b,
+            })
+            carts_body.appendChild(cart)
+        }
     });
 
 
