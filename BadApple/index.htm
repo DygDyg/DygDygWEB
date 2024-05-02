@@ -90,10 +90,11 @@
     var audio = new Audio();
 
 
-    if (getAllUrlParams().local == "ru") {
-        audio.src = "https://dygdyg.github.io/DygDygWEB/BadApple/BadAppleRUS.mp3";
-    } else {
+    if (getAllUrlParams().local == "en") {
         audio.src = "https://dygdyg.github.io/DygDygWEB/BadApple/BadApple.mp3";
+        
+    } else {
+        audio.src = "https://dygdyg.github.io/DygDygWEB/BadApple/BadAppleRUS.mp3";
     }
 
     function StartPlay() {
