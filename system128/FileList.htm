@@ -245,9 +245,10 @@
         }
         // $('#list' + column).append(`<div id='button${i}' class='button ${e.type}'>${type_files_local}${e.name}</div>`)
         if (e.type == "file") {
-            $(`#button${i}`).on("click", function () {
-                console.log(a[i].suffix)
-                get_file(a[i].name, pyt, a)
+            $(`#button${i}`).on("click", function (ev) {
+                console.log(ev.shiftKey)
+                // console.log(a[i].suffix)
+                get_file(a[i].name, pyt, a, ev)
             })
             $(`#button${i}`).on("mouseenter", function () {
                 $('#patch').text(a[i].name)
@@ -256,10 +257,10 @@
                 $('#patch').text("")
             })
         } else {
-            $(`#button${i}`).on("click", function () {
+            $(`#button${i}`).on("click", function (ev) {
                 a[i].children.forEach(e => {
 
-                    console.log(e.name)
+                    
                     if (e.name == "start.html") {
                         let  local_patch = ""
                         pyt.forEach(e => {
@@ -284,7 +285,7 @@
         })
 
     }
-    function get_file(filename, patch, a) {
+    function get_file(filename, patch, a, ev) {
         // local_patch = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
         let local_patch = ""
         // console.log(patch)
@@ -295,7 +296,7 @@
 
 
 
-        if (filename == "start.html") {
+        if (filename == "start.html"||ev.shiftKey) {
             window.location.replace(url)
             return
         }
