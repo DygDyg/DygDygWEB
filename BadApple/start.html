@@ -110,14 +110,16 @@
         // document.getElementsByClassName("title")[0].classList.add('hide')
         console.log(url, audio.src)
         // play(1)
-        audio.play()
+        start()
+        // audio.play()
     })
     document.getElementById("type2").addEventListener("click", function () {
         url = 'https://dygdyg.github.io/DygDygWEB/BadApple/frames2.txt'
         document.getElementsByClassName("type")[0].classList.add('hide')
         // document.getElementsByClassName("title")[0].classList.add('hide')
         console.log(url, audio.src)
-        audio.play()
+        start()
+        // audio.play()
         // play(1)
     })
 
@@ -136,19 +138,9 @@
     };
 
     function start() {
+        mass = httpGet(url).response.split(":frame:")
         audio.play()
-    }
-
-    audio.addEventListener("play", () => {
-        play(1)
-    });
-
-    function play(numer) {
-        if (numer == 1) {
-            audio.volume = 0.5;
-
-            mass = httpGet(url).response.split(":frame:")
-
+        audio.volume = 0.5;
             document.body.addEventListener("wheel", (e) => {
                 if (audio.volume > 0 && e.deltaY > 0) {
                     audio.volume = audio.volume - 0.1
@@ -159,7 +151,13 @@
                     // document.getElementsByClassName("title")[0].textContent = "BadApple By ДугДуг volume: " + Math.round(audio.volume*100)
                 }
             });
-        }
+    }
+
+    audio.addEventListener("play", () => {
+        play(1)
+    });
+
+    function play(numer) {
         title.textContent = `BadApple By ДугДуг volume: ${Math.round(audio.volume * 100)} frame: ${numer}/${mass.length}`
         // console.log(mass[mass.length-2], mass.length)
         // return
