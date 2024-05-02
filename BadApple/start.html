@@ -119,6 +119,20 @@
         play(1)
     })
 
+    document.onkeydown = function (evt) {
+        evt = evt || window.event;
+        var isEscape = false;
+        if ("key" in evt) {
+            isEscape = (evt.key === "Escape" || evt.key === "Esc");
+        } else {
+            isEscape = (evt.keyCode === 27);
+        }
+        if (isEscape) {
+            console.log("esc")
+            window.location.replace(document.referrer)
+        }
+    };
+
     function play(numer) {
         if (numer == 1) {
             audio.volume = 0.5;
@@ -160,10 +174,10 @@
         if (numer < mass.length - 1) {
             setTimeout(function () { play(numer + 1) }, 1000 / 16);
         } else {
-            
+
             // window.history.go(-1)
             console.log("ok")
-            
+
         }
     }
 
