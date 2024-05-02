@@ -5,10 +5,11 @@
 </head>
 
 <body>
-    <br><input type="checkbox" id="RuVoice" checked/><label id="RuVoiceText">Русская озвучка</label><br>
+    <br><input type="checkbox" id="RuVoice" checked /><label id="RuVoiceText">Русская озвучка</label><br>
     <br><input type="checkbox" id="version" /><label id="versiontext">Альтернативная версия</label><br>
     <input type="button" , class="Button" , id="StartButton1" , value="Старт">
-    <pre class="text111" , style="word-wrap: break-word; white-space: pre-wrap; font-weight: bold; display: inline-table;"></pre>
+    <pre class="text111" ,
+        style="word-wrap: break-word; white-space: pre-wrap; font-weight: bold; display: inline-table;"></pre>
     <pre class="Copyrate" , style="word-wrap: break-word; white-space: pre-wrap;"></pre>
 
     <style>
@@ -92,13 +93,14 @@
     var audio = new Audio();
 
 
-    if (getAllUrlParams().local == "ru"||document.getElementById("RuVoice").checked) {
-        audio.src = "https://dygdyg.github.io/DygDygWEB/BadApple/BadAppleRUS.mp3";
-    } else {
-        audio.src = "https://dygdyg.github.io/DygDygWEB/BadApple/BadApple.mp3";
-    }
-
+    $("#StartButton1").click(start_);
     function StartPlay() {
+        if (getAllUrlParams().local == "ru" || document.getElementById("RuVoice").checked == true) {
+            audio.src = "https://dygdyg.github.io/DygDygWEB/BadApple/BadAppleRUS.mp3";
+        } else {
+            audio.src = "https://dygdyg.github.io/DygDygWEB/BadApple/BadApple.mp3";
+        }
+        console.log(audio.src, document.getElementById("RuVoice").checked)
         ascii();
         audio.play();
         $("#StartButton1").toggle();
@@ -110,7 +112,9 @@
         console.log(audio.volume);
         $('Body').append('<input type="range" min="0" max="100" value="50" style="width: 200px;" oninput="audio.volume = this.value/100"  id="volume">');
     }
-    if (getAllUrlParams().ver == "2"||document.getElementById("version").checked) {
+
+    function start_(){
+    if (getAllUrlParams().ver == "2" || document.getElementById("version").checked == true) {
         url = 'https://dygdyg.github.io/DygDygWEB/BadApple/frames2.txt'
     } else {
         url = 'https://dygdyg.github.io/DygDygWEB/BadApple/frames.txt'
@@ -128,11 +132,12 @@
             $(".Copyrate").text("Create by " + info[1]);
             document.title = info[0];
             maxnumer = text.length - 1;
-            $("#StartButton1").click(StartPlay);
+            StartPlay()
 
         }
     });
-    
+}
+
 
 
     function ascii() {
