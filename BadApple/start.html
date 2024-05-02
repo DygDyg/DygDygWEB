@@ -120,26 +120,24 @@
 
     function play(numer) {
         // console.log(numer)
-        
+
         if (numer == 1) {
             audio.volume = 0.5;
             audio.play()
             mass = httpGet(url).response.split(":frame:")
-            
+
             document.body.addEventListener("wheel", (e) => {
-                if(audio.volume>0 && e.deltaY>0)
-                {
-                    audio.volume =audio.volume - 0.1
+                if (audio.volume > 0 && e.deltaY > 0) {
+                    audio.volume = audio.volume - 0.1
                     // document.getElementsByClassName("title")[0].textContent = "BadApple By ДугДуг volume: " + Math.round(audio.volume*100)
                 }
-                if(audio.volume<1 && e.deltaY<0)
-                {
-                    audio.volume =audio.volume + 0.1
+                if (audio.volume < 1 && e.deltaY < 0) {
+                    audio.volume = audio.volume + 0.1
                     // document.getElementsByClassName("title")[0].textContent = "BadApple By ДугДуг volume: " + Math.round(audio.volume*100)
                 }
             });
         }
-        title.textContent = `BadApple By ДугДуг volume: ${Math.round(audio.volume*100)} frame: ${numer}/${mass.length}`
+        title.textContent = `BadApple By ДугДуг volume: ${Math.round(audio.volume * 100)} frame: ${numer}/${mass.length}`
         // console.log(mass[mass.length-2], mass.length)
         // return
         ascii_frame.textContent = mass[numer]
@@ -149,9 +147,21 @@
 
         if (numer < mass.length - 1) {
             setTimeout(function () { play(numer + 1) }, 1000 / 16);
-        }else{
-            console.log("ok")
+        } else {
+            
             // window.history.go(-1)
+
+            var isFramed = false;
+            try {
+                isFramed = window != window.top || document != top.document || self.location != top.location;
+            } catch (e) {
+                isFramed = true;
+            }
+            if (isFramed) {
+                window.history.go(-1)
+            } else {
+                console.log("ok")
+            }
         }
     }
 
