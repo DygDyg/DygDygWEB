@@ -268,6 +268,7 @@
                         let url = encodeURI(window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1).replace("/system128", "") + local_patch + a[i].name+"/start.html")
                         console.log(url, local_patch + a[i].name + "/start.html", pyt)
                         window.location.replace(url)
+                        return
                         // get_file(a[i].name+"/start.html", pyt, a)
                     }
 
