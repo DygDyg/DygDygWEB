@@ -170,27 +170,6 @@
         justify-content: center;
     }
 
-    .card-title {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .card-img-top {
-        width: 100%;
-        height: 495px;
-        object-fit: cover;
-    }
-
-    .card {
-        border: solid;
-        border-color: rgba(255, 0, 0, 0);
-    }
-
-    .card:hover {
-        border-color: rgb(201, 201, 201);
-        background-color: rgb(75, 75, 75) !important;
-    }
 
     .AniLibria\.TV {
         color: rgb(250, 145, 145);
@@ -218,6 +197,81 @@
 
     .JAM {
         color: rgb(214, 101, 101);
+    }
+
+
+    .card-img-top {
+        background-size: cover;
+        height: 25rem;
+        width: 17rem;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+
+    }
+
+    .card-title {
+        background: linear-gradient(180deg, rgb(69, 69, 69, 0.8) 0%, rgba(69, 69, 69, 0.8) 80%, rgba(191, 191, 191, 0) 100%);
+        /*background-color: #5d5d5dde; */
+        text-align: center;
+        padding: 10px 0px 25px 0px;
+        visibility: hidden;
+        z-index: 2;
+        /* height: 125px; */
+    }
+
+    .card-voice {
+        position: absolute;
+        height: 100%;
+        writing-mode: vertical-rl;
+        padding: 5px;
+        text-align: center;
+        margin: 0px;
+        z-index: 1;
+        /* background-color: #5d5d5d99; */
+        background: linear-gradient(193deg, rgba(69, 69, 69, 0) 0%, rgba(69, 69, 69, 0.8) 25%, rgba(69, 69, 69, 0.8) 75%, rgba(69, 69, 69, 0) 100%);
+    }
+
+    .card-time {
+        /* background-color: #5d5d5dde; */
+        background: linear-gradient(0deg, rgb(69, 69, 69, 0.8) 0%, rgba(69, 69, 69, 0.8) 80%, rgba(191, 191, 191, 0) 100%);
+        padding: 25px 0px 10px 0px;
+        text-align: center;
+        margin: 0px;
+        padding: 5px;
+        z-index: 2;
+
+    }
+
+    .card-series {
+        position: absolute;
+        right: 0px;
+        background-color: #353434bd;
+        padding: 0px 15px 7px 18px;
+        border-radius: 0px 0px 0px 20px;
+        font-size: 2.2rem;
+        z-index: 1;
+    }
+
+
+    .card {
+        border-color: rgba(0, 0, 0, 0);
+        /* border-color: rgb(255, 255, 255); */
+        overflow: hidden;
+        border-radius: 15px;
+        border-style: solid;
+        border-width: 0.3rem;
+        margin: 5px;
+    }
+
+    .card:hover {
+        border-color: rgb(255, 255, 255);
+
+        .card-title {
+            visibility: visible;
+        }
+
     }
 </style>
 <script>
@@ -275,7 +329,7 @@
     if (!base_anime.base) {
         localStorage.removeItem('BaseAnime');
         // localStorage.setItem('BaseAnime', JSON.stringify({ "base": {}, "translation":{}, "translationActive":{}}));
-        localStorage.setItem('BaseAnime', JSON.stringify({ "base": {}}));
+        localStorage.setItem('BaseAnime', JSON.stringify({ "base": {} }));
         location.reload();
     }
     // console.log(base_anime)
@@ -432,10 +486,66 @@
         card.appendChild(cardBody);
         return card;
     }
+    function add_cart(e) {
+        const card = document.createElement('div');
+        card.classList.add('card', 'bg-dark', 'text-white');
+        // card.style.width = '22rem';
+        // card.style.height = '22rem';
+
+        const imgTop = document.createElement('div');
+        imgTop.style.backgroundImage = `url(${e.cover}`;
+        // imgTop.style.height = '22rem';
+        imgTop.src = e.cover;
+        imgTop.classList.add('card-img-top');
+        imgTop.alt = 'cover';
+        card.appendChild(imgTop);
+
+        const cardTitle = document.createElement('h5');
+        cardTitle.classList.add('card-title');
+        cardTitle.textContent = e.title;
+        cardTitle.title = e.title;
+        imgTop.appendChild(cardTitle);
+
+
+        const cartTime = document.createElement('h5');
+        cartTime.classList.add('card-time');
+        cartTime.textContent = e.date.string;
+        cartTime.title = e.date.string;
+        imgTop.appendChild(cartTime);
+
+        const cartCal = document.createElement('h5');
+        cartCal.classList.add('card-cal');
+        cartCal.textContent = e.date.name[Number(e.date.dayOfWeek)];//
+        cartCal.title = e.date.name[e.date.dayOfWeek]; //${days.name[Number(days.dayOfWeek)]}
+        cartTime.appendChild(cartCal);
+
+        const cartVoice = document.createElement('h5');
+        cartVoice.classList.add('card-voice');
+        cartVoice.textContent = e.voice;
+        cartVoice.title = e.voice;
+        imgTop.appendChild(cartVoice);
+
+        const cartSeries = document.createElement('h5');
+        cartSeries.classList.add('card-series');
+        cartSeries.textContent = e.series;
+        cartSeries.title = e.series;
+        imgTop.appendChild(cartSeries);
+
+        return card
+    }
     function formatDate(isoDateString) {
         var days = {}
+        var data
         days.name = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
-        const date = new Date(isoDateString);
+        days.name_s = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
+        // console.log(isoDateString)
+        // data = isoDateString?new Date(isoDateString):new Date()
+
+        if (isoDateString) {
+            date = new Date(isoDateString)
+        } else {
+            date = new Date()
+        };
 
         days.day = String(date.getDate()).padStart(2, '0');
         days.month = String(date.getMonth() + 1).padStart(2, '0');
@@ -443,10 +553,12 @@
         days.hours = String(date.getHours()).padStart(2, '0');
         days.minutes = String(date.getMinutes()).padStart(2, '0');
         days.seconds = String(date.getSeconds()).padStart(2, '0');
-        days.dayOfWeek = String(date.getDay()).padStart(2, '0');
+        days.dayOfWeek = Number(String(date.getDay()).padStart(2, '0'));
+        days.string = `${days.day}.${days.month}.${days.year} ${days.hours}:${days.minutes}:${days.seconds} ${days.name_s[Number(days.dayOfWeek)]}`;
         // console.log(days.dayOfWeek, days.name)
-        return days, `${days.day}.${days.month}.${days.year} ${days.hours}:${days.minutes}:${days.seconds} ${days.name[Number(days.dayOfWeek)]}`;
+        return days;
     }
+
     function dialog(url) {
         VideoPlayerAnime.showModal();
         VideoPlayer.contentWindow.location.href = url
@@ -488,7 +600,7 @@
             document.getElementById('list_serch').classList.add("hide")
             dat1 = JSON.parse(httpGet(`${URLSearch}${seartch}`).response)
             dat = {}
-            
+
             dat.results = dat1.results.filter((value, index, self) =>
                 index === self.findIndex((t) => (
                     t.shikimori_id === value.shikimori_id
@@ -536,8 +648,8 @@
         document.getElementById("loading-bar").textContent = prog
         // console.log(prog)
         // console.log(e[i].type)
-        if ((e[i].type == 'anime-serial'|| e[i].type == "anime") && e[i].translation.type == "voice" && (VoiceTranslate(e[i].translation.title))) {
-            if (!base_anime.base[e[i].shikimori_id] || base_anime.base[e[i].shikimori_id].screenshots[0] == undefined) {
+        if ((e[i].type == 'anime-serial' || e[i].type == "anime") && e[i].translation.type == "voice" && (VoiceTranslate(e[i].translation.title))) {
+            if (!base_anime.base[e[i].shikimori_id]) {
                 t = 500
                 base_anime.base[e[i].shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e[i].shikimori_id}`).response)
                 // JSON.stringify(base_anime)
@@ -554,9 +666,9 @@
     function GetKodiScan(data) {
         data.forEach(e => {
 
-            if ((e.type == 'anime-serial'||e.type =="anime") && e.translation.type == "voice") {
+            if ((e.type == 'anime-serial' || e.type == "anime") && e.translation.type == "voice") {
                 if (VoiceTranslate(e.translation.title)) {
-                    if (!base_anime.base[e.shikimori_id] || base_anime.base[e.shikimori_id].screenshots[0] == undefined) {
+                    if (!base_anime.base[e.shikimori_id] ) {
                         base_anime.base[e.shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e.shikimori_id}`).response)
                         JSON.stringify(base_anime)
                         localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
@@ -566,21 +678,29 @@
 
                     const dat = new Date(e.updated_at)
 
-                    const card = createCard(
-                        base_anime.base[e.shikimori_id].russian,
-                        "",
-                        [
-                            // e.screenshots[0],
-                            `https://shikimori.one/${base_anime.base[e.shikimori_id].image.original}`,
-                            `https://shikimori.one/${base_anime.base[e.shikimori_id].screenshots[0]?.preview || "assets/layouts/l-top_menu-v2/glyph.svg"}`,
-                            `https://shikimori.one/${base_anime.base[e.shikimori_id].screenshots[1]?.preview || "assets/layouts/l-top_menu-v2/glyph.svg"}`
-                        ],
-                        formatDate(e.updated_at),
-                        e.translation.title,
-                        `${e.last_episode?"Серий: "+e.last_episode:"фильм"} `, // ${base_anime.base[e.shikimori_id].duration}
-                        e.link
+                    // const card = createCard(
+                    //     base_anime.base[e.shikimori_id].russian,
+                    //     "",
+                    //     [
+                    //         // e.screenshots[0],
+                    //         `https://shikimori.one/${base_anime.base[e.shikimori_id].image.original}`,
+                    //         `https://shikimori.one/${base_anime.base[e.shikimori_id].screenshots[0]?.preview || "assets/layouts/l-top_menu-v2/glyph.svg"}`,
+                    //         `https://shikimori.one/${base_anime.base[e.shikimori_id].screenshots[1]?.preview || "assets/layouts/l-top_menu-v2/glyph.svg"}`
+                    //     ],
+                    //     formatDate(e.updated_at),
+                    //     e.translation.title,
+                    //     `${e.last_episode ? "Серий: " + e.last_episode : "фильм"} `, // ${base_anime.base[e.shikimori_id].duration}
+                    //     e.link
 
-                    );
+                    // );
+                    const card = add_cart({
+                        "title": base_anime.base[e.shikimori_id].russian,
+                        "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
+                        "date": formatDate(base_anime.base[e.shikimori_id].next_episode_at),
+                        "voice": e.translation.title,
+                        "series": e.episodes_count,
+
+                    })
                     targetFrame.appendChild(card);
                 }
                 if (!base_anime.translation) base_anime.translation = [];

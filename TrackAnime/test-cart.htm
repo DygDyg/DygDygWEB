@@ -219,8 +219,8 @@
         if (e.type == "anime-serial" && base_anime.base[e.shikimori_id]) {
             console.log(base_anime.base[e.shikimori_id], e)
             var a, b = formatDate(base_anime.base[e.shikimori_id].next_episode_at)
-            console.log(a)
-            console.log(b)
+            console.log(1, a)
+            console.log(2, b)
             cart = add_cart({
                 "title": base_anime.base[e.shikimori_id].russian,
                 "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
