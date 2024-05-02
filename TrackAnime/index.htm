@@ -388,109 +388,16 @@
         xmlHttp.send(null);
         return xmlHttp;
     }
-    function createCard(title, description, screenshots, releaseDate, translator, seriesNumber, url_video) {
-        const card = document.createElement('div');
-        card.classList.add('card', 'bg-dark', 'text-white');
-        card.style.width = '22rem';
-        card.addEventListener("click", (event) => {
-            console.log(url_video)
-            dialog(url_video)
-        })
-
-        const imgTop = document.createElement('img');
-        imgTop.src = screenshots[0];
-        imgTop.classList.add('card-img-top');
-        imgTop.alt = 'Скриншот 1';
-        card.appendChild(imgTop);
-
-        const cardBody = document.createElement('div');
-        cardBody.classList.add('card-body');
-
-        const cardTitle = document.createElement('h5');
-        cardTitle.classList.add('card-title');
-        cardTitle.textContent = title;
-        cardTitle.title = title;
-        cardBody.appendChild(cardTitle);
-
-        const cardText = document.createElement('p');
-        cardText.classList.add('card-text');
-        cardText.innerHTML = description;
-        cardBody.appendChild(cardText);
-
-        const cardReleaseDate = document.createElement('p');
-        cardReleaseDate.classList.add('card-text');
-        cardReleaseDate.textContent = `Дата выхода: ${releaseDate}`;
-        cardBody.appendChild(cardReleaseDate);
-
-        const cardTranslator = document.createElement('p');
-        cardTranslator.classList.add('card-text');
-        cardTranslator.classList.add(translator.replaceAll(/\s/g, ''));
-        cardTranslator.textContent = `${translator}`;
-        cardBody.appendChild(cardTranslator);
-
-        const cardSeriesNumber = document.createElement('p');
-        cardSeriesNumber.classList.add('card-text');
-        cardSeriesNumber.textContent = `${seriesNumber}`;
-        cardBody.appendChild(cardSeriesNumber);
-
-        const row1 = document.createElement('div');
-        row1.classList.add('row');
-        const col1 = document.createElement('div');
-        col1.classList.add('col');
-
-        if (screenshots[1]) {
-            const img1 = document.createElement('img');
-            img1.src = screenshots[1];
-            img1.classList.add('img-fluid');
-            img1.alt = 'Скриншот 2';
-            col1.appendChild(img1);
-        }
-        const col2 = document.createElement('div');
-        col2.classList.add('col');
-        if (screenshots[2]) {
-            const img2 = document.createElement('img');
-            img2.src = screenshots[2];
-            img2.classList.add('img-fluid');
-            img2.alt = 'Скриншот 3';
-            col2.appendChild(img2);
-        }
-        row1.appendChild(col1);
-        row1.appendChild(col2);
-        cardBody.appendChild(row1);
-        const row2 = document.createElement('div');
-        row2.classList.add('row');
-        const col3 = document.createElement('div');
-        col3.classList.add('col');
-
-        if (screenshots[3]) {
-            const img3 = document.createElement('img');
-            img3.src = screenshots[3];
-            img3.classList.add('img-fluid');
-            img3.alt = 'Скриншот 4';
-            col3.appendChild(img3);
-        }
-        const col4 = document.createElement('div');
-        col4.classList.add('col');
-
-        if (screenshots[4]) {
-            const img4 = document.createElement('img');
-            img4.src = screenshots[4];
-            img4.classList.add('img-fluid');
-            img4.alt = 'Скриншот 5';
-            col4.appendChild(img4);
-        }
-        row2.appendChild(col3);
-        row2.appendChild(col4);
-        cardBody.appendChild(row2);
-
-        card.appendChild(cardBody);
-        return card;
-    }
-    function add_cart(e) {
+function add_cart(e) {
         const card = document.createElement('div');
         card.classList.add('card', 'bg-dark', 'text-white');
         // card.style.width = '22rem';
         // card.style.height = '22rem';
+
+        card.addEventListener("click", (event) => {
+            console.log(e.link)
+            dialog(e.link)
+        })
 
         const imgTop = document.createElement('div');
         imgTop.style.backgroundImage = `url(${e.cover}`;
@@ -533,6 +440,7 @@
 
         return card
     }
+
     function formatDate(isoDateString) {
         var days = {}
         var data
@@ -668,7 +576,7 @@
 
             if ((e.type == 'anime-serial' || e.type == "anime") && e.translation.type == "voice") {
                 if (VoiceTranslate(e.translation.title)) {
-                    if (!base_anime.base[e.shikimori_id] ) {
+                    if (!base_anime.base[e.shikimori_id]) {
                         base_anime.base[e.shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e.shikimori_id}`).response)
                         JSON.stringify(base_anime)
                         localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
@@ -694,13 +602,15 @@
 
                     // );
                     console.log(base_anime.base[e.shikimori_id], e)
-                    if(!e.shikimori_id) return
+                    if (!e.shikimori_id) return
                     const card = add_cart({
                         "title": base_anime.base[e.shikimori_id].russian,
                         "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
                         "date": formatDate(base_anime.base[e.shikimori_id].next_episode_at),
                         "voice": e.translation.title,
-                        "series": e.episodes_count?e.episodes_count:"M",
+                        "series": e.episodes_count ? e.episodes_count : "M",
+                        "link": e.link,
+
 
                     })
                     targetFrame.appendChild(card);
