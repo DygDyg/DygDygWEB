@@ -130,7 +130,7 @@
     var adres = []
     var pyt = []
     var col_num = 0
-    
+
     var type_files = {
         // '.mp3': '♫',
         // '.htm':'📄',
@@ -233,7 +233,17 @@
         col_num++
         let type_files_local = ""
         if (type_files[a[i].suffix]) type_files_local = type_files[a[i].suffix] + " "
-        $('#list' + column).append(`<div id='button${i}' class='button ${e.type}'>${type_files_local}${e.name}</div>`)
+
+        switch (e.name) {
+            case "start.html":
+                $('#list' + column).append(`<div id='button${i}' class='button ${e.type}'>◙${type_files_local}${e.name}◙</div>`)
+                break;
+
+            default:
+                $('#list' + column).append(`<div id='button${i}' class='button ${e.type}'>${type_files_local}${e.name}</div>`)
+                break;
+        }
+        // $('#list' + column).append(`<div id='button${i}' class='button ${e.type}'>${type_files_local}${e.name}</div>`)
         if (e.type == "file") {
             $(`#button${i}`).on("click", function () {
                 console.log(a[i].suffix)
@@ -247,6 +257,22 @@
             })
         } else {
             $(`#button${i}`).on("click", function () {
+                a[i].children.forEach(e => {
+
+                    console.log(e.name)
+                    if (e.name == "start.html") {
+                        let  local_patch = ""
+                        pyt.forEach(e => {
+                            local_patch = local_patch + e + "/"
+                        });
+                        let url = encodeURI(window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1).replace("/system128", "") + local_patch + a[i].name+"/start.html")
+                        console.log(url, local_patch + a[i].name + "/start.html", pyt)
+
+                        // get_file(a[i].name+"/start.html", pyt, a)
+                    }
+
+                });
+                // console.log(a[i].children)
                 $('title').text(name_ + ": " + a[i].name)
                 pyt.push(a[i].name)
                 adres.push(a[i].children)
@@ -265,14 +291,14 @@
             local_patch = local_patch + e + "/"
         });
         let url = encodeURI(window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1).replace("/system128", "") + local_patch + filename)
-        
-        
-        
-        if(filename=="start.html"){
+
+
+
+        if (filename == "start.html") {
             window.location.replace(url)
             return
         }
-        
+
         window.open(url, '_blank');
     }
 </script>
