@@ -130,7 +130,7 @@
     var adres = []
     var pyt = []
     var col_num = 0
-
+    
     var type_files = {
         // '.mp3': '♫',
         // '.htm':'📄',
@@ -265,8 +265,14 @@
             local_patch = local_patch + e + "/"
         });
         let url = encodeURI(window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1).replace("/system128", "") + local_patch + filename)
-        console.log(url)
-
+        
+        
+        
+        if(filename=="start.html"){
+            window.location.replace(url)
+            return
+        }
+        
         window.open(url, '_blank');
     }
 </script>

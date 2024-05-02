@@ -32,6 +32,7 @@
         --wight1: #eeedff;
         --black1: black;
         font-family: "clacon2", "Arial", sans-serif;
+        cursor: default;
     }
 
     body {
@@ -119,8 +120,6 @@
     })
 
     function play(numer) {
-        // console.log(numer)
-
         if (numer == 1) {
             audio.volume = 0.5;
             audio.play()
@@ -144,13 +143,7 @@
 
         // document.title = info[0] + " " + numer + " / " + mass.length-2;
         // numer++
-
-        if (numer < mass.length - 1) {
-            setTimeout(function () { play(numer + 1) }, 1000 / 16);
-        } else {
-            
-            // window.history.go(-1)
-
+        audio.addEventListener("ended", (e) => {
             var isFramed = false;
             try {
                 isFramed = window != window.top || document != top.document || self.location != top.location;
@@ -158,10 +151,19 @@
                 isFramed = true;
             }
             if (isFramed) {
-                window.history.go(-1)
+                window.location.replace(document.referrer)
             } else {
                 console.log("ok")
             }
+        })
+
+        if (numer < mass.length - 1) {
+            setTimeout(function () { play(numer + 1) }, 1000 / 16);
+        } else {
+            
+            // window.history.go(-1)
+            console.log("ok")
+            
         }
     }
 
