@@ -191,7 +191,8 @@
         color: rgb(101, 214, 101);
     }
 
-    .AniDUB, .AniDub\%20Online {
+    .AniDUB,
+    .AniDub\%20Online {
         color: rgb(214, 161, 101);
     }
 
@@ -202,14 +203,16 @@
     .JAM {
         color: rgb(214, 101, 101);
     }
-    .SHIZA\%20Project{
+
+    .SHIZA\%20Project {
         color: rgb(101, 214, 180);
     }
-    .\%D0\%94\%D1\%83\%D0\%B1\%D0\%BB\%D0\%B8\%D1\%80\%D0\%BE\%D0\%B2\%D0\%B0\%D0\%BD\%D0\%BD\%D1\%8B\%D0\%B9
-    {
+
+    .\%D0\%94\%D1\%83\%D0\%B1\%D0\%BB\%D0\%B8\%D1\%80\%D0\%BE\%D0\%B2\%D0\%B0\%D0\%BD\%D0\%BD\%D1\%8B\%D0\%B9 {
         color: rgb(151, 255, 31);
     }
-    .VF-Studio{
+
+    .VF-Studio {
         color: rgb(243, 73, 73);
     }
 
@@ -313,7 +316,7 @@
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     setInterval(() => {
-        if(!HistoryIsActivy) return
+        if (!HistoryIsActivy) return
         GetKodi("", true)
         // console.log("scan")
     }, 30 * 1000);  //Автопроверка 
@@ -365,6 +368,21 @@
     function getCookie(name) {
         var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
         return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+    async function add_push(e) {
+        const perm = await Notification.requestPermission()
+        if (perm != "granted") {
+
+            return
+        }
+        notification = new Notification(e.title,
+            {
+                body: `Серия ${e.series} в озвучке ${e.voice}`,
+                tag: e.date.string,
+                icon: e.cover,
+            })
+
+
     }
     function VoiceSettingsMenu() {
         const checkboxList = document.getElementById('checkbox-list');
@@ -429,6 +447,12 @@
         // card.style.height = '22rem';
 
         card.addEventListener("click", (event) => {
+            console.log(event.shiftKey)
+            if (event.shiftKey) {
+                console.log(e)
+                add_push(e)
+                return
+            }
             // console.log(e.link)
             document.title = `TA: ${e.title}`
             dialog(e.link)
@@ -642,7 +666,7 @@
 
                     // console.log(base_anime.base[e.shikimori_id], e)
                     if (!e.shikimori_id) return
-                    const card = add_cart({
+                    const e1 = {
                         "title": base_anime.base[e.shikimori_id].russian,
                         "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
                         "date": formatDate(base_anime.base[e.shikimori_id].next_episode_at),
@@ -651,15 +675,17 @@
                         "link": e.link,
 
 
-                    })
-                    
-                                        if(revers){
-                                            targetFrame.prepend(card)
-                                            card.classList.add("new_cart")
-                                        }else{
-                                            targetFrame.appendChild(card)
-                                            
-                                        };
+                    }
+                    const card = add_cart(e1)
+
+                    if (revers) {
+                        targetFrame.prepend(card)
+                        card.classList.add("new_cart")
+                        add_push(e1)
+                    } else {
+                        targetFrame.appendChild(card)
+
+                    };
 
 
                 }
