@@ -17,6 +17,7 @@
     }
 </style>
 <script>
+    var notification;
     async function initNotif() {
         const perm = await Notification.requestPermission()
         if (perm != "granted") return
@@ -43,7 +44,7 @@
             alert(perm)
             return
         }
-        const notification = new Notification('title',
+        notification = new Notification('title',
             {
                 body: Math.random(),
                 // tag: "1",
@@ -53,6 +54,11 @@
 
     }
     test()
+
+    notification.addEventListener("close", ()=>{})
+    notification.addEventListener("click", ()=>{})
+    notification.addEventListener("show", ()=>{})
+    notification.addEventListener("error", ()=>{})
     // initNotif()
 
 
