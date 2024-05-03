@@ -308,6 +308,7 @@
     closeDialogButton.addEventListener('click', () => {
         VideoPlayerAnime.close();
         VideoPlayer.contentWindow.location.href = "https://ya.ru";
+        document.title = "Track Anime By ДугДуг"
 
     });
 
@@ -388,14 +389,15 @@
         xmlHttp.send(null);
         return xmlHttp;
     }
-function add_cart(e) {
+    function add_cart(e) {
         const card = document.createElement('div');
         card.classList.add('card', 'bg-dark', 'text-white');
         // card.style.width = '22rem';
         // card.style.height = '22rem';
 
         card.addEventListener("click", (event) => {
-            console.log(e.link)
+            // console.log(e.link)
+            document.title = e.title
             dialog(e.link)
         })
 
