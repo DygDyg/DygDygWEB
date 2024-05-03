@@ -53,13 +53,40 @@
 
 
     }
-    test()
+    // test()
 
-    notification.addEventListener("close", ()=>{})
-    notification.addEventListener("click", ()=>{})
-    notification.addEventListener("show", ()=>{})
-    notification.addEventListener("error", ()=>{})
-    // initNotif()
+    // notification.addEventListener("close", ()=>{})
+    // notification.addEventListener("click", ()=>{})
+    // notification.addEventListener("show", ()=>{})
+    // notification.addEventListener("error", ()=>{})
+    const KeyTab = Math.floor(Math.random() * 10000000000)
+
+    document.cookie = getCookie("KeyTab") ? `` : `KeyTab=${KeyTab}; path=/; max-age=10`
+
+
+
+
+
+    setInterval(() => {
+        // 
+        if (getCookie("KeyTab") == KeyTab) {
+            console.log("yes")
+        } else {
+            console.log("no")
+        }
+        if(!getCookie("KeyTab"))
+        {
+            document.cookie = getCookie("KeyTab") ? `` : `KeyTab=${KeyTab}; path=/; max-age=10`
+        }
+        console.log(getCookie("KeyTab"))
+    }, 1000);
+
+
+
+    function getCookie(name) {
+        var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
 
 
 </script>
