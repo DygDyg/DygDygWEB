@@ -275,7 +275,7 @@
     }
 </style>
 <script>
-    var data, dat, targetFrame
+    var data, dat, targetFrame, endid, endid2
     var ignoreVoice = false
     var HistoryIsActivy = true
     var url_get = new URL(window.location.href)
@@ -284,6 +284,7 @@
     const VideoPlayer = document.getElementById('VideoPlayer');
     const URLSearch = "https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&title="
     var URLList = "https://kodikapi.com/list?limit=100&token=45c53578f11ecfb74e31267b634cc6a8"
+    var URLListStart = "https://kodikapi.com/list?limit=100&token=45c53578f11ecfb74e31267b634cc6a8"
     const voice = [
         "AniStar",
         "Dream Cast",
@@ -294,6 +295,10 @@
         "AniLibria.TV",
         "SHIZA Project",
     ]
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    setInterval(() => GetKodi("", true), 30 * 1000);  //Автопроверка 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     document.getElementById('VoiceButtonMenu').addEventListener('click', () => {
         VoiceSettingsMenu()
@@ -308,7 +313,7 @@
     closeDialogButton.addEventListener('click', () => {
         VideoPlayerAnime.close();
         VideoPlayer.contentWindow.location.href = "https://ya.ru";
-        
+
 
     });
     VideoPlayerAnime.addEventListener("close", () => {
@@ -400,7 +405,7 @@
 
         card.addEventListener("click", (event) => {
             // console.log(e.link)
-            document.title = e.title
+            document.title = `TA: ${e.title}`
             dialog(e.link)
         })
 
@@ -488,16 +493,23 @@
 
 
     }
-    function GetKodi(seartch) {
+    function GetKodi(seartch, revers) {
         if (!seartch || seartch == undefined || seartch == "") {
             HistoryIsActivy = true
             ignoreVoice = false
             document.getElementById('list_history').classList.add("hide")
             targetFrame = document.getElementById('list_serch')
             targetFrame.classList.remove("hide")
-            console.log(1234)
-            dat = JSON.parse(httpGet(URLList).response)
-            URLList = dat.next_page
+            // console.log(1234)
+            if (revers) {
+                dat = JSON.parse(httpGet(URLListStart).response)
+                endid2 = dat.results[0].id
+            } else {
+                dat = JSON.parse(httpGet(URLList).response)
+                URLList = dat.next_page
+                endid = endid ? endid : dat.results[0].id
+                console.log(dat.results[0].id)
+            }
             url_get = new URL(window.location.href)
             url_get.searchParams.delete("seartch")
             window.history.pushState({}, '', url_get);
@@ -529,7 +541,7 @@
 
         // const data = JSON.parse(httpGet("test.json").response).results
         // console.log(data)
-        ScanBase(data, 0);
+        ScanBase(data, 0, revers);
         return seartch
     }
     // console.log(base_anime.base)
@@ -544,11 +556,11 @@
 
     // GetKodiScan(data)
 
-    function ScanBase(e, i) {
+    function ScanBase(e, i, revers) {
         document.getElementById("loading-bar").classList.remove("hide");
         var t = 0
         if (i >= e.length) {
-            GetKodiScan(data)
+            GetKodiScan(data, revers)
             document.getElementById("loading-bar").classList.add("hide");
             localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
             if (window.innerHeight >= document.body.scrollHeight && HistoryIsActivy) {
@@ -572,14 +584,23 @@
         // console.log(base_anime.base[e[i].shikimori_id])
 
         setTimeout(() => {
-            ScanBase(e, i + 1);
+            ScanBase(e, i + 1, revers);
         }, t);
     }
 
-    function GetKodiScan(data) {
+    function GetKodiScan(data, revers) {
+        var t1 = false
         data.forEach(e => {
 
+            if (revers && endid == e.id || t1) {
+                // console.log(1, e.id)
+                t1 = true
+                endid = endid2
+                return
+            }
             if ((e.type == 'anime-serial' || e.type == "anime") && e.translation.type == "voice") {
+                // console.log(endid)
+
                 if (VoiceTranslate(e.translation.title)) {
                     if (!base_anime.base[e.shikimori_id]) {
                         base_anime.base[e.shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e.shikimori_id}`).response)
@@ -591,22 +612,7 @@
 
                     const dat = new Date(e.updated_at)
 
-                    // const card = createCard(
-                    //     base_anime.base[e.shikimori_id].russian,
-                    //     "",
-                    //     [
-                    //         // e.screenshots[0],
-                    //         `https://shikimori.one/${base_anime.base[e.shikimori_id].image.original}`,
-                    //         `https://shikimori.one/${base_anime.base[e.shikimori_id].screenshots[0]?.preview || "assets/layouts/l-top_menu-v2/glyph.svg"}`,
-                    //         `https://shikimori.one/${base_anime.base[e.shikimori_id].screenshots[1]?.preview || "assets/layouts/l-top_menu-v2/glyph.svg"}`
-                    //     ],
-                    //     formatDate(e.updated_at),
-                    //     e.translation.title,
-                    //     `${e.last_episode ? "Серий: " + e.last_episode : "фильм"} `, // ${base_anime.base[e.shikimori_id].duration}
-                    //     e.link
-
-                    // );
-                    console.log(base_anime.base[e.shikimori_id], e)
+                    // console.log(base_anime.base[e.shikimori_id], e)
                     if (!e.shikimori_id) return
                     const card = add_cart({
                         "title": base_anime.base[e.shikimori_id].russian,
@@ -618,7 +624,14 @@
 
 
                     })
-                    targetFrame.appendChild(card);
+                    /* 
+                                        if(revers){
+                                            targetFrame.prepend(card)
+                                        }else{
+                                            targetFrame.appendChild(card)
+                                        }; */
+
+                    revers ? targetFrame.prepend(card) : targetFrame.appendChild(card)
                 }
                 if (!base_anime.translation) base_anime.translation = [];
                 if (!base_anime.translationActive) base_anime.translationActive = voice;
