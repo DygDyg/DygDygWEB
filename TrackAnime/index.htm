@@ -342,7 +342,7 @@
         const checkboxList = document.getElementById('checkbox-list');
         const buttonContainer = document.getElementById('button-container');
 
-        base_anime.translation.forEach((voice, index) => {
+        base_anime.translation.sort().forEach((voice, index) => {
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.id = `voice-${index}`;
