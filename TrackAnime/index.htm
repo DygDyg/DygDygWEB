@@ -125,7 +125,7 @@
     }
 
     .new_cart {
-        border-color: #1008b6;
+        border-color: #1008b6 !important;
     }
 
 
@@ -654,9 +654,10 @@
                     
                                         if(revers){
                                             targetFrame.prepend(card)
+                                            card.classList.add("new_cart")
                                         }else{
                                             targetFrame.appendChild(card)
-                                            card.classList.add("new_cart")
+                                            
                                         };
 
 
