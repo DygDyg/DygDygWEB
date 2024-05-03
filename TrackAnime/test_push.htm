@@ -39,6 +39,10 @@
 
     async function test() {
         const perm = await Notification.requestPermission()
+        if (perm != "granted") {
+            alert(perm)
+            return
+        }
         const Notification1 = new Notification('title',
             {
                 body: "text text text",
