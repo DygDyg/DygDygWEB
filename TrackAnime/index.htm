@@ -381,7 +381,10 @@
                 // tag: e.date.string,
                 icon: e.cover,
             })
-
+        notification.addEventListener("click", ()=>{
+            dialog(e.link)
+            card.classList.remove("new_cart")
+        })
 
     }
     function VoiceSettingsMenu() {
@@ -454,7 +457,7 @@
                 return
             }
             // console.log(e.link)
-            document.title = `TA: ${e.title}`
+            
             dialog(e.link)
             card.classList.remove("new_cart")
         })
@@ -529,6 +532,7 @@
     }
 
     function dialog(url) {
+        document.title = `TA: ${e.title}`
         VideoPlayerAnime.showModal();
         VideoPlayer.contentWindow.location.href = url
     }
