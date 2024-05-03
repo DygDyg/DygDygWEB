@@ -382,8 +382,9 @@
                 icon: e.cover,
             })
         notification.addEventListener("click", ()=>{
-            dialog(e.link)
-            card.classList.remove("new_cart")
+            console.log(e)
+            dialog(e)
+            // card.classList.remove("new_cart")
         })
 
     }
@@ -458,7 +459,7 @@
             }
             // console.log(e.link)
             
-            dialog(e.link)
+            dialog(e)
             card.classList.remove("new_cart")
         })
 
@@ -531,10 +532,10 @@
         return days;
     }
 
-    function dialog(url) {
+    function dialog(e) {
         document.title = `TA: ${e.title}`
         VideoPlayerAnime.showModal();
-        VideoPlayer.contentWindow.location.href = url
+        VideoPlayer.contentWindow.location.href = e.link
     }
     function VoiceTranslate(name) {
 
