@@ -39,10 +39,10 @@
 
     async function test() {
         const perm = await Notification.requestPermission()
-        // if (perm != "granted") {
-        //     alert(perm)
-        //     return
-        // }
+        if (perm != "granted") {
+            alert(perm)
+            return
+        }
         const notification = new Notification('title',
             {
                 body: Math.random(),
