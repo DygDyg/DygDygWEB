@@ -179,7 +179,7 @@
         color: rgb(250, 145, 145);
     }
 
-    .DreamCast {
+    .Dream\%20Cast {
         color: rgb(136, 255, 255)
     }
 
@@ -191,7 +191,7 @@
         color: rgb(101, 214, 101);
     }
 
-    .AniDubOnline {
+    .AniDUB, .AniDub\%20Online {
         color: rgb(214, 161, 101);
     }
 
@@ -201,6 +201,16 @@
 
     .JAM {
         color: rgb(214, 101, 101);
+    }
+    .SHIZA\%20Project{
+        color: rgb(101, 214, 180);
+    }
+    .\%D0\%94\%D1\%83\%D0\%B1\%D0\%BB\%D0\%B8\%D1\%80\%D0\%BE\%D0\%B2\%D0\%B0\%D0\%BD\%D0\%BD\%D1\%8B\%D0\%B9
+    {
+        color: rgb(151, 255, 31);
+    }
+    .VF-Studio{
+        color: rgb(243, 73, 73);
     }
 
 
@@ -302,7 +312,11 @@
     ]
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    setInterval(() => GetKodi("", true), 30 * 1000);  //Автопроверка 
+    setInterval(() => {
+        if(!HistoryIsActivy) return
+        GetKodi("", true)
+        // console.log("scan")
+    }, 30 * 1000);  //Автопроверка 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     document.getElementById('VoiceButtonMenu').addEventListener('click', () => {
@@ -367,6 +381,8 @@
             checkboxLabel.htmlFor = `voice-${index}`;
             checkboxLabel.className = 'form-check-label';
             checkboxLabel.textContent = voice;
+            console.log(voice, encodeURIComponent(voice))
+            checkboxLabel.classList.add(encodeURIComponent(voice));
 
             const checkboxDiv = document.createElement('div');
             checkboxDiv.className = 'form-check';
@@ -447,6 +463,7 @@
 
         const cartVoice = document.createElement('h5');
         cartVoice.classList.add('card-voice');
+        cartVoice.classList.add(encodeURIComponent(e.voice));
         cartVoice.textContent = e.voice;
         cartVoice.title = e.voice;
         imgTop.appendChild(cartVoice);
@@ -550,6 +567,7 @@
 
         // const data = JSON.parse(httpGet("test.json").response).results
         // console.log(data)
+        // console.log("scan")
         ScanBase(data, 0, revers);
         return seartch
     }
@@ -638,7 +656,7 @@
                                             targetFrame.prepend(card)
                                         }else{
                                             targetFrame.appendChild(card)
-                                            targetFrame.classList.add("new_cart")
+                                            card.classList.add("new_cart")
                                         };
 
 
