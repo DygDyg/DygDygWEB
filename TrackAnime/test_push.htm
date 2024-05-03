@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<style>
+    body {
+        background-color: rgb(66, 66, 66);
+        color: aliceblue;
+    }
+</style>
+<script>
+    async function initNotif() {
+        const perm = await Notification.requestPermission()
+        if (perm != "granted") return
+
+        const notification = setTimeout(() => {
+            if (document.visibilityState == "hidden") {
+                const Notification1 = new Notification('title',
+                    {
+                        body: "text text text",
+                        tag: "1",
+                        icon: "favicon.png",
+                    }, 3000)
+            }
+        })
+
+        document.addEventListener('visibilitychange', () => {
+            notification.close()
+        })
+    }
+
+    async function test() {
+        const perm = await Notification.requestPermission()
+        const Notification1 = new Notification('title',
+            {
+                body: "text text text",
+                tag: "1",
+                icon: "favicon.png",
+            })
+
+
+    }
+    test()
+    // initNotif()
+
+
+</script>
+
+</html>
