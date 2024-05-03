@@ -124,6 +124,10 @@
         display: none;
     }
 
+    .new_cart {
+        border-color: #1008b6;
+    }
+
 
     #closeDialogButton {
         position: absolute;
@@ -624,14 +628,15 @@
 
 
                     })
-                    /* 
+                    
                                         if(revers){
                                             targetFrame.prepend(card)
                                         }else{
                                             targetFrame.appendChild(card)
-                                        }; */
+                                            targetFrame.classList.add("new_cart")
+                                        };
 
-                    revers ? targetFrame.prepend(card) : targetFrame.appendChild(card)
+
                 }
                 if (!base_anime.translation) base_anime.translation = [];
                 if (!base_anime.translationActive) base_anime.translationActive = voice;
