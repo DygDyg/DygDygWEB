@@ -308,8 +308,11 @@
     closeDialogButton.addEventListener('click', () => {
         VideoPlayerAnime.close();
         VideoPlayer.contentWindow.location.href = "https://ya.ru";
-        document.title = "Track Anime By ДугДуг"
+        
 
+    });
+    VideoPlayerAnime.addEventListener("close", () => {
+        document.title = "Track Anime By ДугДуг"
     });
 
 
