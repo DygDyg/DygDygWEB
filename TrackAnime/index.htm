@@ -670,12 +670,12 @@
 
                     const dat = new Date(e.updated_at)
 
-                    // console.log(base_anime.base[e.shikimori_id], e)
+                    console.log(base_anime.base[e.shikimori_id])
                     if (!e.shikimori_id) return
                     const e1 = {
                         "title": base_anime.base[e.shikimori_id].russian,
                         "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
-                        "date": formatDate(base_anime.base[e.shikimori_id].next_episode_at),
+                        "date": formatDate(base_anime.base[e.shikimori_id].updated_at),
                         "voice": e.translation.title,
                         "series": e.episodes_count ? e.episodes_count : "M",
                         "link": e.link,
