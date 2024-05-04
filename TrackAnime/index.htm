@@ -294,7 +294,8 @@
     }
 </style>
 <script>
-    var data, dat, targetFrame, endid, endid2
+    var data, dat, targetFrame, endid, endid2, prev_page
+
     var ignoreVoice = false
     moment.locale('ru');
     var HistoryIsActivy = true
@@ -540,6 +541,7 @@
         days.dayOfWeek = Number(String(date.getDay()).padStart(2, '0'));
         // days.string = `${days.day}.${days.month}.${days.year} ${days.hours}:${days.minutes}:${days.seconds} ${days.name_s[Number(days.dayOfWeek)]}`;
         days.string = `${days.moment.calendar()}`
+        days.moment_7 = days.moment.add(7, 'days')
         // days.str_days = `${days.moment.fromNow()}`
         // console.log(days.dayOfWeek, days.name)
         return days;
@@ -563,12 +565,14 @@
 
     }
     function GetKodi(seartch, revers) {
+
         if (!seartch || seartch == undefined || seartch == "") {
             HistoryIsActivy = true
             ignoreVoice = false
             document.getElementById('list_history').classList.add("hide")
             targetFrame = document.getElementById('list_serch')
             targetFrame.classList.remove("hide")
+            console.log(dat)
             if (revers) {
                 dat = JSON.parse(httpGet(URLListStart).response)
                 endid2 = dat.results[0].id
@@ -578,6 +582,7 @@
                 endid = endid ? endid : dat.results[0].id
                 // console.log(dat.results[0].id)
             }
+            
             url_get = new URL(window.location.href)
             url_get.searchParams.delete("seartch")
             window.history.pushState({}, '', url_get);
@@ -612,10 +617,12 @@
             console.log(dat.results)
         }
         data = dat.results
+        prev_page = dat.prev_page
 
         // const data = JSON.parse(httpGet("test.json").response).results
         // console.log(data)
         // console.log("scan")
+        console.log(dat.prev_page)
         ScanBase(data, 0, revers);
         return seartch
     }
@@ -702,8 +709,7 @@
 
                     }
                     const card = add_cart(e1)
-
-                    if (revers) {
+                    if (revers&&prev_page==null) {
                         targetFrame.prepend(card)
                         card.classList.add("new_cart")
                         add_push(e1)
