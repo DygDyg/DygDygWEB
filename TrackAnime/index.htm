@@ -624,7 +624,7 @@
         // const data = JSON.parse(httpGet("test.json").response).results
         // console.log(data)
         // console.log("scan")
-        console.log(dat.prev_page)
+        // console.log(dat.prev_page)
         ScanBase(data, 0, revers);
         return seartch
     }
@@ -725,14 +725,6 @@
                 if (!base_anime.translation) base_anime.translation = [];
                 if (!base_anime.translationActive) base_anime.translationActive = voice;
                 if (!base_anime.translation.includes(e.translation.title)) base_anime.translation.push(e.translation.title);
-
-                // base_anime.translationActive.push(e.translation.title);
-
-                // console.log()
-                // console.log(e)
-
-
-                // document.body.appendChild(card);
             }
 
         });
