@@ -541,8 +541,9 @@
         days.dayOfWeek = Number(String(date.getDay()).padStart(2, '0'));
         // days.string = `${days.day}.${days.month}.${days.year} ${days.hours}:${days.minutes}:${days.seconds} ${days.name_s[Number(days.dayOfWeek)]}`;
         days.string = `${days.moment.calendar()}`
-        days.moment_7 = days.moment
-        // days.moment_7.add(7, 'days')
+        days.moment_7 = moment.utc(isoDateString)
+        // days.moment
+        days.moment_7.add(7, 'days')
         // days.str_days = `${days.moment.fromNow()}`
         // console.log(days.dayOfWeek, days.name)
         return days;
