@@ -569,7 +569,6 @@
             document.getElementById('list_history').classList.add("hide")
             targetFrame = document.getElementById('list_serch')
             targetFrame.classList.remove("hide")
-            // console.log(1234)
             if (revers) {
                 dat = JSON.parse(httpGet(URLListStart).response)
                 endid2 = dat.results[0].id
@@ -606,7 +605,6 @@
             window.history.pushState({}, '', url_get);
 
             dat.results.sort((a, b) => {
-                console.log(a, b)
                 let dateA = new Date(a.updated_at);
                 let dateB = new Date(b.updated_at);
                 return dateB-dateA;
@@ -689,8 +687,8 @@
 
                     const dat = new Date(e.updated_at)
 
-                    // console.log(base_anime.base[e.shikimori_id])
-                    console.log(e)
+                    console.log(base_anime.base[e.shikimori_id], e)
+                    // console.log(e)
                     if (!e.shikimori_id) return
                     const e1 = {
                         "title": base_anime.base[e.shikimori_id].russian,
