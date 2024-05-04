@@ -40,6 +40,8 @@
     <link rel="icon" type="image/x-icon" href="./favicon.png">
 
 
+    <script src="../scripts/moment.js"></script>
+    <script src="../scripts/moment-with-locales.js"></script>
 
     <!-- Primary Meta Tags -->
     <title>Track Anime By ДугДуг</title>
@@ -294,6 +296,7 @@
 <script>
     var data, dat, targetFrame, endid, endid2
     var ignoreVoice = false
+    moment.locale('ru');
     var HistoryIsActivy = true
     var url_get = new URL(window.location.href)
     const KeyTab = Math.floor(Math.random() * 10000000000)
@@ -382,7 +385,7 @@
                 // tag: e.date.string,
                 icon: e.cover,
             })
-        notification.addEventListener("click", ()=>{
+        notification.addEventListener("click", () => {
             console.log(e)
             dialog(e)
             // card.classList.remove("new_cart")
@@ -459,7 +462,7 @@
                 return
             }
             // console.log(e.link)
-            
+
             dialog(e)
             card.classList.remove("new_cart")
         })
@@ -481,14 +484,17 @@
 
         const cartTime = document.createElement('h5');
         cartTime.classList.add('card-time');
-        cartTime.textContent = e.date.string;
-        cartTime.title = e.date.string;
+        cartTime.textContent = e.date.moment.calendar();
+        cartTime.title = e.date.moment.calendar();
         imgTop.appendChild(cartTime);
 
         const cartCal = document.createElement('h5');
         cartCal.classList.add('card-cal');
-        cartCal.textContent = e.date.name[Number(e.date.dayOfWeek)];//
-        cartCal.title = e.date.name[e.date.dayOfWeek]; //${days.name[Number(days.dayOfWeek)]}
+        // console.log()
+        cartCal.textContent = e.date.moment.fromNow();//
+        // cartCal.textContent = e.date.name[Number(e.date.dayOfWeek)];//
+        cartCal.title = e.date.moment.format('MMMM Do YYYY, HH:mm:ss'); //${days.name[Number(days.dayOfWeek)]}
+        // cartCal.title = e.date.name[e.date.dayOfWeek]; //${days.name[Number(days.dayOfWeek)]}
         cartTime.appendChild(cartCal);
 
         const cartVoice = document.createElement('h5');
@@ -510,6 +516,10 @@
     function formatDate(isoDateString) {
         var days = {}
         var data
+
+        // var moment = moment().locale('ru').utc(isoDateString);
+        days.moment = moment.utc(isoDateString)
+        // console.log(moment(isoDateString).calendar().locale('ru'))
         days.name = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
         days.name_s = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
         // console.log(isoDateString)
@@ -528,7 +538,9 @@
         days.minutes = String(date.getMinutes()).padStart(2, '0');
         days.seconds = String(date.getSeconds()).padStart(2, '0');
         days.dayOfWeek = Number(String(date.getDay()).padStart(2, '0'));
-        days.string = `${days.day}.${days.month}.${days.year} ${days.hours}:${days.minutes}:${days.seconds} ${days.name_s[Number(days.dayOfWeek)]}`;
+        // days.string = `${days.day}.${days.month}.${days.year} ${days.hours}:${days.minutes}:${days.seconds} ${days.name_s[Number(days.dayOfWeek)]}`;
+        days.string = `${days.moment.calendar()}`
+        // days.str_days = `${days.moment.fromNow()}`
         // console.log(days.dayOfWeek, days.name)
         return days;
     }
@@ -565,7 +577,7 @@
                 dat = JSON.parse(httpGet(URLList).response)
                 URLList = dat.next_page
                 endid = endid ? endid : dat.results[0].id
-                console.log(dat.results[0].id)
+                // console.log(dat.results[0].id)
             }
             url_get = new URL(window.location.href)
             url_get.searchParams.delete("seartch")
@@ -592,7 +604,14 @@
             url_get = new URL(window.location.href)
             url_get.searchParams.set("seartch", `${seartch}`)
             window.history.pushState({}, '', url_get);
-            console.log(dat)
+
+            dat.results.sort((a, b) => {
+                console.log(a, b)
+                let dateA = new Date(a.updated_at);
+                let dateB = new Date(b.updated_at);
+                return dateB-dateA;
+            });
+            console.log(dat.results)
         }
         data = dat.results
 
