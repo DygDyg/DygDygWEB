@@ -8,7 +8,7 @@
 </head>
 
 <body>
-
+ <div>ghbdtn</div>
 </body>
 <style>
     body {
@@ -69,13 +69,28 @@
 
 
 
+    // Открываем новое окно
+// var newWindow = window.open("", "New Window", "width=500,height=500");
+
+
+// newWindow.document.body.innerHTML = localStorage.getItem('BaseAnime');
 
 
 
+var jsonObject = { name: "John", age: 30, city: "New York" }; // ваш JSON-объект
 
-    
+var windowFeatures = "width=500,height=500,scrollbars=yes,resizable=yes"; // параметры нового окна
 
-    return
+var newWindow = window.open("", "JSON Window", windowFeatures); // открываем новое окно
+
+// newWindow.document.write("<pre>" +  JSON.stringify(localStorage.getItem('BaseAnime'), null, 2) + "</pre>"); // выводим JSON-объект в новом окне
+// newWindow.document.body.innerHTML = `<div>${localStorage.getItem('BaseAnime').toString()}</div>`
+newWindow.document.body.textContent = localStorage.getItem('BaseAnime')
+newWindow.document.body.select()
+// JSON.stringify(jsonObject, null, 2)
+
+
+
     const KeyTab = Math.floor(Math.random() * 10000000000)
 
     document.cookie = getCookie("KeyTab") ? `` : `KeyTab=${KeyTab}; path=/; max-age=10`
@@ -84,7 +99,7 @@
 
 
 
-    setInterval(() => {
+/*     setInterval(() => {
         // 
         if (getCookie("KeyTab") == KeyTab) {
             console.log("yes")
@@ -96,7 +111,7 @@
             document.cookie = getCookie("KeyTab") ? `` : `KeyTab=${KeyTab}; path=/; max-age=10`
         }
         console.log(getCookie("KeyTab"))
-    }, 1000);
+    }, 1000); */
 
 
 
