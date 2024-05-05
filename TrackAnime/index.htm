@@ -364,7 +364,7 @@
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
     }
-    
+
     closeDialogButton.addEventListener('click', () => {
         VideoPlayerAnime.close();
         VideoPlayer.contentWindow.location.href = "../index.htm";
@@ -600,7 +600,8 @@
         VideoPlayerAnime.showModal();
         console.log(e)
         if (e.imdb && e.shift) {
-            VideoPlayer.contentWindow.location.href = `//${getRandomInt(999999999999)}.svetacdn.in/Mr1qo9bwHfJQ?imdb_id=${e.imdb}`
+            // VideoPlayer.contentWindow.location.href = `//${getRandomInt(999999999999)}.svetacdn.in/Mr1qo9bwHfJQ?imdb_id=${e.imdb}`
+            VideoPlayer.contentWindow.location.href = `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&imdb=${e.imdb}`
             // VideoPlayer.contentWindow.location.href =  `//api.linktodo.ws/embed/imdb/${e.imdb}`
             return
         }
