@@ -620,6 +620,8 @@
         cartCal.textContent = e.date.moment.fromNow();//
         // cartCal.textContent = e.date.name[Number(e.date.dayOfWeek)];//
         cartCal.title = e.date.moment.format('MMMM Do YYYY, HH:mm:ss'); //${days.name[Number(days.dayOfWeek)]}
+        cartCal.style.color = e.kp ? "#ffcccc" : "#ffffff"
+        cartCal.style.color = e.imdb ? "#daedff" : "#ffffff"
         // cartCal.title = e.date.name[e.date.dayOfWeek]; //${days.name[Number(days.dayOfWeek)]}
         cartTime.appendChild(cartCal);
 
@@ -627,15 +629,17 @@
         cartVoice.classList.add('card-voice');
         cartVoice.classList.add(encodeURIComponent(e.voice));
         cartVoice.textContent = e.voice;
-        cartVoice.title = e.voice;
+        // cartVoice.title = e.voice;
+        cartVoice.title = e.status;
         imgTop.appendChild(cartVoice);
 
         const cartSeries = document.createElement('h5');
         cartSeries.classList.add('card-series');
         cartSeries.textContent = e.series;
-        cartSeries.title = e.series;
+        cartSeries.title = e.status;
         cartSeries.style.color = e.kp ? "#ffa9a9" : "#ffffff"
         cartSeries.style.color = e.imdb ? "#a9d5ff" : "#ffffff"
+        cartSeries.style.color = e.status=="released" ? "#a9ffb4" : "#ffffff"
         imgTop.appendChild(cartSeries);
 
         // console.log(1,e)
@@ -884,6 +888,7 @@
                         "kp": e.kinopoisk_id,
                         "imdb": e.imdb_id,
                         "shikimori": e.shikimori_id,
+                        "status":e.material_data.all_status,
                     }
                     const card = add_cart(e1)
                     if (revers && prev_page == null) {
