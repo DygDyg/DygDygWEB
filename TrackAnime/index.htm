@@ -365,7 +365,7 @@
 </style>
 <script>
     var data, dat, targetFrame, endid, endid2, prev_page
-
+    const scrollM = 2000;
     var ignoreVoice = false
     moment.locale('ru');
     var HistoryIsActivy = true
@@ -443,7 +443,7 @@
 
     window.onscroll = function () {
 
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight-1000 && HistoryIsActivy == true) {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight-scrollM && HistoryIsActivy == true) {
             // console.log("Вы достигли конца страницы!");
             // GetKodi();
             setTimeout(GetKodi, 0)
@@ -798,7 +798,7 @@
         // console.log(dat.prev_page)
         // ScanBase(data, 0, revers);
         GetKodiScan(data, revers)
-        if (window.innerHeight >= document.body.scrollHeight-1000 && HistoryIsActivy) {
+        if (window.innerHeight >= document.body.scrollHeight-scrollM && HistoryIsActivy) {
                 // GetKodi()
                 setTimeout(GetKodi, 0)
             }
@@ -823,7 +823,7 @@
             GetKodiScan(data, revers)
             document.getElementById("loading-bar").classList.add("hide");
             // localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-            if (window.innerHeight >= document.body.scrollHeight-1000 && HistoryIsActivy) {
+            if (window.innerHeight >= document.body.scrollHeight-scrollM && HistoryIsActivy) {
                 GetKodi()
             }
             return;
