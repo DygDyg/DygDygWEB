@@ -90,7 +90,8 @@
     <dialog id="VideoPlayerAnime">
         <div id="DialogVideoInfo">
             <div id="VideoInfo"></div>
-            <button type="button" id="VideoInfoBtn" class="VideoInfoBtn btn btn-secondary">▼ Вниз ▼<br>▲ Вверх ▲</button>
+            <button type="button" id="VideoInfoBtn" class="VideoInfoBtn btn btn-secondary">▼ Вниз ▼<br>▲ Вверх
+                ▲</button>
             <iframe id="VideoPlayer" allowfullscreen="" allow="autoplay *; fullscreen *"></iframe>
         </div>
         <button type="button" class="btn btn-secondary" id="closeDialogButton">X</button>
@@ -131,7 +132,7 @@
         /* position: absolute; */
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: space-around;
         margin-top: 45px;
         margin-bottom: 20px;
     }
@@ -355,9 +356,10 @@
         opacity: 0%;
         /* transition: scale 0.5s ease; */
         transition: opacity 2s ease;
-        
+
     }
-    .card_spawn{
+
+    .card_spawn {
         /* scale: 1; */
         opacity: 100%;
     }
@@ -452,7 +454,7 @@
 
     window.onscroll = function () {
 
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight-scrollM && HistoryIsActivy == true) {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - scrollM && HistoryIsActivy == true) {
             // console.log("Вы достигли конца страницы!");
             // GetKodi();
             setTimeout(GetKodi, 0)
@@ -466,18 +468,17 @@
         base_anime = {}
         // console.log(JSON.stringify({}))
     }
-    if(base_anime.base)
-    {
+    if (base_anime.base) {
         delete base_anime.base;
         localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
     }
     base_anime.fav = base_anime.fav ? base_anime.fav : []
-/*     if (!base_anime.base) {
-        localStorage.removeItem('BaseAnime');
-        // localStorage.setItem('BaseAnime', JSON.stringify({ "base": {}, "translation":{}, "translationActive":{}}));
-        localStorage.setItem('BaseAnime', JSON.stringify({ "base": {} }));
-        location.reload();
-    } */
+    /*     if (!base_anime.base) {
+            localStorage.removeItem('BaseAnime');
+            // localStorage.setItem('BaseAnime', JSON.stringify({ "base": {}, "translation":{}, "translationActive":{}}));
+            localStorage.setItem('BaseAnime', JSON.stringify({ "base": {} }));
+            location.reload();
+        } */
     // console.log(base_anime)
     // VoiceSettingsMenu()
     function getCookie(name) {
@@ -648,7 +649,7 @@
         cartSeries.title = e.status;
         cartSeries.style.color = e.kp ? "#ffa9a9" : "#ffffff"
         cartSeries.style.color = e.imdb ? "#a9d5ff" : "#ffffff"
-        cartSeries.style.color = e.status=="released" ? "#a9ffb4" : "#ffffff"
+        cartSeries.style.color = e.status == "released" ? "#a9ffb4" : "#ffffff"
         imgTop.appendChild(cartSeries);
 
         // console.log(1,e)
@@ -680,7 +681,7 @@
             // cartFavorite.style.color = cartFavorite.triggers ? "#ffdd00" : "#ffffff"
             // console.log(cartFavorite.triggers)
         })
-        setTimeout(()=>card.classList.add("card_spawn"), 0)
+        setTimeout(() => card.classList.add("card_spawn"), 0)
 
         return card
     }
@@ -791,11 +792,11 @@
             url_get.searchParams.set("seartch", `${seartch}`)
             window.history.pushState({}, '', url_get);
 
-/*             dat.results.sort((a, b) => {
-                let dateA = new Date(a.updated_at);
-                let dateB = new Date(b.updated_at);
-                return dateB - dateA;
-            }); */
+            /*             dat.results.sort((a, b) => {
+                            let dateA = new Date(a.updated_at);
+                            let dateB = new Date(b.updated_at);
+                            return dateB - dateA;
+                        }); */
 
             // console.log(dat.results)
         }
@@ -808,10 +809,10 @@
         // console.log(dat.prev_page)
         // ScanBase(data, 0, revers);
         GetKodiScan(data, revers)
-        if (window.innerHeight >= document.body.scrollHeight-scrollM && HistoryIsActivy) {
-                // GetKodi()
-                setTimeout(GetKodi, 0)
-            }
+        if (window.innerHeight >= document.body.scrollHeight - scrollM && HistoryIsActivy) {
+            // GetKodi()
+            setTimeout(GetKodi, 0)
+        }
         return seartch
     }
     // console.log(base_anime.base)
@@ -833,7 +834,7 @@
             GetKodiScan(data, revers)
             document.getElementById("loading-bar").classList.add("hide");
             // localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-            if (window.innerHeight >= document.body.scrollHeight-scrollM && HistoryIsActivy) {
+            if (window.innerHeight >= document.body.scrollHeight - scrollM && HistoryIsActivy) {
                 GetKodi()
             }
             return;
@@ -843,13 +844,13 @@
         document.getElementById("loading-bar").textContent = prog
         // console.log(prog)
         // console.log(e[i].type)
-/*         if ((e[i].type == 'anime-serial' || e[i].type == "anime") && e[i].translation.type == "voice" && (VoiceTranslate(e[i].translation.title))) {
-            if (!base_anime.base[e[i].shikimori_id]) {
-                t = 500
-                base_anime.base[e[i].shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e[i].shikimori_id}`).response)
-                // JSON.stringify(base_anime)
-            }
-        } */
+        /*         if ((e[i].type == 'anime-serial' || e[i].type == "anime") && e[i].translation.type == "voice" && (VoiceTranslate(e[i].translation.title))) {
+                    if (!base_anime.base[e[i].shikimori_id]) {
+                        t = 500
+                        base_anime.base[e[i].shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e[i].shikimori_id}`).response)
+                        // JSON.stringify(base_anime)
+                    }
+                } */
         // console.log(base_anime.base)
         // console.log(base_anime.base[e[i].shikimori_id])
 
@@ -883,7 +884,7 @@
                     const dat = new Date(e.updated_at)
 
                     // console.log("shikimori", base_anime.base[e.shikimori_id], "kodik", e)
-                    console.log(1,e.material_data)
+                    console.log(1, e.material_data)
                     if (!e.shikimori_id) return
                     // console.log(e)
                     const e1 = {
@@ -898,7 +899,7 @@
                         "kp": e.kinopoisk_id,
                         "imdb": e.imdb_id,
                         "shikimori": e.shikimori_id,
-                        "status":e.material_data.all_status,
+                        "status": e.material_data.all_status,
                     }
                     const card = add_cart(e1)
                     if (revers && prev_page == null) {
