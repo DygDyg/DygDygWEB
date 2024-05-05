@@ -442,9 +442,11 @@
 
 
     window.onscroll = function () {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && HistoryIsActivy == true) {
+
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight-50 && HistoryIsActivy == true) {
             // console.log("Вы достигли конца страницы!");
-            GetKodi();
+            // GetKodi();
+            setTimeout(GetKodi, 0)
         }
     };
 
@@ -792,7 +794,7 @@
         // console.log(dat.prev_page)
         // ScanBase(data, 0, revers);
         GetKodiScan(data, revers)
-        if (window.innerHeight >= document.body.scrollHeight && HistoryIsActivy) {
+        if (window.innerHeight >= document.body.scrollHeight-100 && HistoryIsActivy) {
                 // GetKodi()
                 setTimeout(GetKodi, 0)
             }
@@ -817,7 +819,7 @@
             GetKodiScan(data, revers)
             document.getElementById("loading-bar").classList.add("hide");
             // localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-            if (window.innerHeight >= document.body.scrollHeight && HistoryIsActivy) {
+            if (window.innerHeight >= document.body.scrollHeight-100 && HistoryIsActivy) {
                 GetKodi()
             }
             return;
