@@ -93,6 +93,29 @@
     </dialog>
 </body>
 <style>
+    .card-fav {
+        border-style: solid;
+        border-width: 0.3rem 0rem 0.3rem 0.3rem;
+        border-color: #ffffff00;
+        visibility: hidden;
+        position: absolute;
+        right: 0;
+        width: 3rem;
+        /* height: 4rem; */
+        top: 33%;
+        background-color: #353434bd;
+        padding: 0px 17px 0px 17px;
+        border-radius: 25px 0px 0px 25px;
+        font-size: 2.2rem;
+        z-index: 1;
+        cursor: pointer;
+
+    }
+
+    .card-fav:hover {
+        border-color: #ffffff;
+    }
+
     button.btn.btn-primary.mt-3 {
         width: 100%;
     }
@@ -287,7 +310,8 @@
     .card:hover {
         border-color: rgb(255, 255, 255);
 
-        .card-title {
+        .card-title,
+        .card-fav {
             visibility: visible;
         }
 
@@ -511,6 +535,20 @@
         cartSeries.title = e.series;
         imgTop.appendChild(cartSeries);
 
+        const cartFavorite = document.createElement('div');
+        cartFavorite.classList.add('card-fav');
+        cartFavorite.textContent = "♥";
+        cartFavorite.title = e.series;
+        imgTop.appendChild(cartFavorite);
+
+        cartFavorite.addEventListener("click", (e) => {
+            cartFavorite.triggers = cartFavorite.triggers ? (!cartFavorite.triggers) : true
+            e.stopPropagation();
+
+            cartFavorite.style.color = cartFavorite.triggers ? "#ffdd00" : "#ffffff"
+            console.log(cartFavorite.triggers)
+        })
+
         return card
     }
 
@@ -584,7 +622,7 @@
                 endid = endid ? endid : dat.results[0].id
                 // console.log(dat.results[0].id)
             }
-            
+
             url_get = new URL(window.location.href)
             url_get.searchParams.delete("seartch")
             window.history.pushState({}, '', url_get);
@@ -614,7 +652,7 @@
             dat.results.sort((a, b) => {
                 let dateA = new Date(a.updated_at);
                 let dateB = new Date(b.updated_at);
-                return dateB-dateA;
+                return dateB - dateA;
             });
             console.log(dat.results)
         }
@@ -711,7 +749,7 @@
 
                     }
                     const card = add_cart(e1)
-                    if (revers&&prev_page==null) {
+                    if (revers && prev_page == null) {
                         targetFrame.prepend(card)
                         card.classList.add("new_cart")
                         add_push(e1)
