@@ -455,6 +455,11 @@
         base_anime = {}
         // console.log(JSON.stringify({}))
     }
+    if(base_anime.base)
+    {
+        delete base_anime.base;
+        localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+    }
     base_anime.fav = base_anime.fav ? base_anime.fav : []
 /*     if (!base_anime.base) {
         localStorage.removeItem('BaseAnime');
