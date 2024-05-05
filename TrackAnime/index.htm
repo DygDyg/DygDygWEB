@@ -390,6 +390,7 @@
         base_anime = { "base": {} }
         // console.log(JSON.stringify({}))
     }
+    base_anime.fav = base_anime.fav ? base_anime.fav : []
     if (!base_anime.base) {
         localStorage.removeItem('BaseAnime');
         // localStorage.setItem('BaseAnime', JSON.stringify({ "base": {}, "translation":{}, "translationActive":{}}));
@@ -404,6 +405,9 @@
     }
     async function add_push(e) {
         const perm = await Notification.requestPermission()
+        
+        if(!GetFavorite(e.shikimori)&&base_anime.fav.length>0) return
+
         if (perm != "granted") {
 
             return
@@ -421,6 +425,24 @@
             // card.classList.remove("new_cart")
         })
 
+    }
+
+    function SetFavorite(e) {
+        base_anime.fav.push(e)
+        return base_anime.fav
+    }
+
+    function DeleteFavorite(e) {
+        base_anime.fav = base_anime.fav.filter(item => !item.includes(e));
+        return base_anime.fav
+    }
+
+    function GetFavorite(e) {
+        let result = base_anime.fav.filter(item => item.toLowerCase().includes(e.toLowerCase()));
+        if (result.length > 0) {
+            return true
+        }
+        return false
     }
     function VoiceSettingsMenu() {
         const checkboxList = document.getElementById('checkbox-list');
@@ -549,13 +571,22 @@
         cartFavorite.textContent = "♥";
         cartFavorite.title = e.series;
         imgTop.appendChild(cartFavorite);
+        cartFavorite.style.color = GetFavorite(e.shikimori) ? "#ffdd00" : "#ffffff"
+        cartFavorite.addEventListener("click", (ev) => {
+            ev.stopPropagation();
+            console.log(GetFavorite(e.shikimori))
+            if (GetFavorite(e.shikimori)) {
+                cartFavorite.style.color = "#ffffff"
+                DeleteFavorite(e.shikimori)
+            } else {
+                cartFavorite.style.color = "#ffdd00"
+                SetFavorite(e.shikimori)
+            }
+            // cartFavorite.triggers = cartFavorite.triggers ? (!cartFavorite.triggers) : true
 
-        cartFavorite.addEventListener("click", (e) => {
-            cartFavorite.triggers = cartFavorite.triggers ? (!cartFavorite.triggers) : true
-            e.stopPropagation();
 
-            cartFavorite.style.color = cartFavorite.triggers ? "#ffdd00" : "#ffffff"
-            console.log(cartFavorite.triggers)
+            // cartFavorite.style.color = cartFavorite.triggers ? "#ffdd00" : "#ffffff"
+            // console.log(cartFavorite.triggers)
         })
 
         return card
@@ -600,9 +631,9 @@
         document.title = `TA: ${e.title}`
         VideoPlayerAnime.showModal();
         console.log(e)
-        if ((e.imdb||e.kp) && e.shift) {
+        if ((e.imdb || e.kp) && e.shift) {
             // VideoPlayer.contentWindow.location.href = `//${getRandomInt(999999999999)}.svetacdn.in/Mr1qo9bwHfJQ?imdb_id=${e.imdb}`
-            VideoPlayer.contentWindow.location.href = e.kp?`//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&kinopoiskID=${e.kp}`:`//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&imdb=${e.imdb}`
+            VideoPlayer.contentWindow.location.href = e.kp ? `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&kinopoiskID=${e.kp}` : `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&imdb=${e.imdb}`
             // VideoPlayer.contentWindow.location.href =  `//api.linktodo.ws/embed/imdb/${e.imdb}`
             return
         }
@@ -764,7 +795,7 @@
                         "link": e.link,
                         "kp": e.kinopoisk_id,
                         "imdb": e.imdb_id,
-
+                        "shikimori": e.shikimori_id,
                     }
                     const card = add_cart(e1)
                     if (revers && prev_page == null) {
