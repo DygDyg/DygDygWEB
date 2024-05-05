@@ -40,6 +40,10 @@
 
             case "kinobox":
                 document.body.innerHTML = '<div class="kinobox_player">'
+                if(getUrlParameter("imdb")) {
+                    new Kinobox('.kinobox_player', { search: { imdb: getUrlParameter("imdb") } }).init();
+                break
+                }
                 new Kinobox('.kinobox_player', { search: { kinopoisk: getUrlParameter("kinopoiskID") } }).init();
                 console.log("asdasdasd")
                 break;

@@ -361,6 +361,10 @@
     })
 
 
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+    }
+    
     closeDialogButton.addEventListener('click', () => {
         VideoPlayerAnime.close();
         VideoPlayer.contentWindow.location.href = "../index.htm";
@@ -412,6 +416,7 @@
             })
         notification.addEventListener("click", () => {
             console.log(e)
+            e.shift = event.shiftKey
             dialog(e)
             // card.classList.remove("new_cart")
         })
@@ -480,14 +485,14 @@
         // card.style.height = '22rem';
 
         card.addEventListener("click", (event) => {
-            console.log(event.shiftKey)
-            if (event.shiftKey) {
-                console.log(e)
-                add_push(e)
-                return
-            }
+            // console.log(event.shiftKey)
+            // if (event.shiftKey) {
+            //     console.log(e)
+            //     add_push(e)
+            //     return
+            // }
             // console.log(e.link)
-
+            e.shift = event.shiftKey
             dialog(e)
             card.classList.remove("new_cart")
         })
@@ -533,7 +538,10 @@
         cartSeries.classList.add('card-series');
         cartSeries.textContent = e.series;
         cartSeries.title = e.series;
+        cartSeries.style.color = e.imdb ? "#a9d5ff" : "#ffffff"
         imgTop.appendChild(cartSeries);
+
+        // console.log(1,e.imdb)
 
         const cartFavorite = document.createElement('div');
         cartFavorite.classList.add('card-fav');
@@ -590,6 +598,12 @@
     function dialog(e) {
         document.title = `TA: ${e.title}`
         VideoPlayerAnime.showModal();
+        console.log(e)
+        if (e.imdb && e.shift) {
+            VideoPlayer.contentWindow.location.href = `//${getRandomInt(999999999999)}.svetacdn.in/Mr1qo9bwHfJQ?imdb_id=${e.imdb}`
+            // VideoPlayer.contentWindow.location.href =  `//api.linktodo.ws/embed/imdb/${e.imdb}`
+            return
+        }
         VideoPlayer.contentWindow.location.href = e.link
     }
     function VoiceTranslate(name) {
@@ -737,6 +751,7 @@
                     console.log(base_anime.base[e.shikimori_id], e)
                     // console.log(e)
                     if (!e.shikimori_id) return
+                    console.log(e.kinopoisk_id)
                     const e1 = {
                         "title": base_anime.base[e.shikimori_id].russian,
                         "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
@@ -745,7 +760,8 @@
                         "voice": e.translation.title,
                         "series": e.episodes_count ? e.episodes_count : "M",
                         "link": e.link,
-
+                        "kp": e.kinopoisk_id,
+                        "imdb": e.imdb_id,
 
                     }
                     const card = add_cart(e1)
