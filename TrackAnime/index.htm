@@ -576,13 +576,13 @@
         card.addEventListener("mouseover", (ev) => {
             cartFavorite.style.color = GetFavorite(e.shikimori) ? "#ffdd00" : "#ffffff"
         });
-        
+
         cartFavorite.addEventListener("click", (ev) => {
             ev.stopPropagation();
-            console.log(GetFavorite(e.shikimori))
+            // console.log(GetFavorite(e.shikimori))
             if (GetFavorite(e.shikimori)) {
                 cartFavorite.style.color = "#ffffff"
-                DeleteFavorite(e.shikimori)
+                console.log(DeleteFavorite(e.shikimori))
             } else {
                 cartFavorite.style.color = "#ffdd00"
                 SetFavorite(e.shikimori)
