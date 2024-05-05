@@ -456,12 +456,12 @@
         // console.log(JSON.stringify({}))
     }
     base_anime.fav = base_anime.fav ? base_anime.fav : []
-    if (!base_anime.base) {
+/*     if (!base_anime.base) {
         localStorage.removeItem('BaseAnime');
         // localStorage.setItem('BaseAnime', JSON.stringify({ "base": {}, "translation":{}, "translationActive":{}}));
         localStorage.setItem('BaseAnime', JSON.stringify({ "base": {} }));
         location.reload();
-    }
+    } */
     // console.log(base_anime)
     // VoiceSettingsMenu()
     function getCookie(name) {
@@ -817,13 +817,13 @@
         document.getElementById("loading-bar").textContent = prog
         // console.log(prog)
         // console.log(e[i].type)
-        if ((e[i].type == 'anime-serial' || e[i].type == "anime") && e[i].translation.type == "voice" && (VoiceTranslate(e[i].translation.title))) {
+/*         if ((e[i].type == 'anime-serial' || e[i].type == "anime") && e[i].translation.type == "voice" && (VoiceTranslate(e[i].translation.title))) {
             if (!base_anime.base[e[i].shikimori_id]) {
                 t = 500
                 base_anime.base[e[i].shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e[i].shikimori_id}`).response)
                 // JSON.stringify(base_anime)
             }
-        }
+        } */
         // console.log(base_anime.base)
         // console.log(base_anime.base[e[i].shikimori_id])
 
@@ -846,17 +846,17 @@
                 // console.log(endid)
 
                 if (VoiceTranslate(e.translation.title)) {
-                    if (!base_anime.base[e.shikimori_id]) {
+                    /* if (!base_anime.base[e.shikimori_id]) {
                         base_anime.base[e.shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e.shikimori_id}`).response)
                         JSON.stringify(base_anime)
                         localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
                         // console.log(base_anime.base[e.shikimori_id])
-                    }
+                    } */
 
 
                     const dat = new Date(e.updated_at)
 
-                    console.log("shikimori", base_anime.base[e.shikimori_id], "kodik", e)
+                    // console.log("shikimori", base_anime.base[e.shikimori_id], "kodik", e)
                     console.log(1,e.material_data)
                     if (!e.shikimori_id) return
                     // console.log(e)
