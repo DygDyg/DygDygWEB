@@ -351,6 +351,12 @@
         border-style: solid;
         border-width: 0.3rem;
         margin: 5px;
+        scale: 0;
+        transition: scale 1s ease;
+        
+    }
+    .card_spawn{
+        scale: 1;
     }
 
     .card:hover {
@@ -671,6 +677,7 @@
             // cartFavorite.style.color = cartFavorite.triggers ? "#ffdd00" : "#ffffff"
             // console.log(cartFavorite.triggers)
         })
+        setTimeout(()=>card.classList.add("card_spawn"), 0)
 
         return card
     }
