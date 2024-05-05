@@ -538,10 +538,11 @@
         cartSeries.classList.add('card-series');
         cartSeries.textContent = e.series;
         cartSeries.title = e.series;
+        cartSeries.style.color = e.kp ? "#ffa9a9" : "#ffffff"
         cartSeries.style.color = e.imdb ? "#a9d5ff" : "#ffffff"
         imgTop.appendChild(cartSeries);
 
-        // console.log(1,e.imdb)
+        // console.log(1,e)
 
         const cartFavorite = document.createElement('div');
         cartFavorite.classList.add('card-fav');
@@ -599,9 +600,9 @@
         document.title = `TA: ${e.title}`
         VideoPlayerAnime.showModal();
         console.log(e)
-        if (e.imdb && e.shift) {
+        if ((e.imdb||e.kp) && e.shift) {
             // VideoPlayer.contentWindow.location.href = `//${getRandomInt(999999999999)}.svetacdn.in/Mr1qo9bwHfJQ?imdb_id=${e.imdb}`
-            VideoPlayer.contentWindow.location.href = `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&imdb=${e.imdb}`
+            VideoPlayer.contentWindow.location.href = e.kp?`//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&kinopoiskID=${e.kp}`:`//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&imdb=${e.imdb}`
             // VideoPlayer.contentWindow.location.href =  `//api.linktodo.ws/embed/imdb/${e.imdb}`
             return
         }
