@@ -785,7 +785,8 @@
         // console.log(data)
         // console.log("scan")
         // console.log(dat.prev_page)
-        ScanBase(data, 0, revers);
+        // ScanBase(data, 0, revers);
+        GetKodiScan(data, revers)
         return seartch
     }
     // console.log(base_anime.base)
@@ -806,7 +807,7 @@
         if (i >= e.length) {
             GetKodiScan(data, revers)
             document.getElementById("loading-bar").classList.add("hide");
-            localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+            // localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
             if (window.innerHeight >= document.body.scrollHeight && HistoryIsActivy) {
                 GetKodi()
             }
