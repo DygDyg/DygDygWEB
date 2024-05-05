@@ -405,7 +405,7 @@
     }
     async function add_push(e) {
         const perm = await Notification.requestPermission()
-        
+
         if(!GetFavorite(e.shikimori)&&base_anime.fav.length>0) return
 
         if (perm != "granted") {
@@ -572,6 +572,11 @@
         cartFavorite.title = e.series;
         imgTop.appendChild(cartFavorite);
         cartFavorite.style.color = GetFavorite(e.shikimori) ? "#ffdd00" : "#ffffff"
+
+        card.addEventListener("mouseover", (ev) => {
+            cartFavorite.style.color = GetFavorite(e.shikimori) ? "#ffdd00" : "#ffffff"
+        });
+        
         cartFavorite.addEventListener("click", (ev) => {
             ev.stopPropagation();
             console.log(GetFavorite(e.shikimori))
