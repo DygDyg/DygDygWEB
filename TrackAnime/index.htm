@@ -88,8 +88,13 @@
     </dialog>
 
     <dialog id="VideoPlayerAnime">
-        <iframe id="VideoPlayer" allowfullscreen="" allow="autoplay *; fullscreen *"></iframe>
+        <div id="DialogVideoInfo">
+            <div id="VideoInfo"></div>
+            <button type="button" id="VideoInfoBtn" class="VideoInfoBtn btn btn-secondary">▼ Вниз ▼<br>▲ Вверх ▲</button>
+            <iframe id="VideoPlayer" allowfullscreen="" allow="autoplay *; fullscreen *"></iframe>
+        </div>
         <button type="button" class="btn btn-secondary" id="closeDialogButton">X</button>
+
     </dialog>
 </body>
 <style>
@@ -161,15 +166,18 @@
         width: 45px;
         height: 45px;
 
+
     }
 
     dialog#VideoPlayerAnime {
         padding: 0;
         width: 80%;
-        height: 80%;
+        /* height: 80%; */
         border-radius: 12px;
         border-width: thin;
         border-color: #6d757d;
+        aspect-ratio: 16 / 9;
+        overflow-y: hidden;
 
     }
 
@@ -177,7 +185,34 @@
         background-color: rgba(0, 0, 0, 0.5);
     }
 
+    .DialogVideoInfoScroll {
+        top: 0% !important;
+    }
+
+
+    #DialogVideoInfo {
+        position: absolute;
+        width: 100%;
+        height: 200%;
+        top: -100%;
+        transition: top 1s ease;
+    }
+
+
     iframe#VideoPlayer {
+        position: absolute;
+        width: 100%;
+        height: 50%;
+        border: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+        top: 50%;
+
+    }
+
+    #VideoInfo {
         position: absolute;
         width: 100%;
         height: 100%;
@@ -186,6 +221,17 @@
         padding: 0;
         overflow: hidden;
         aspect-ratio: 16 / 9;
+        top: 0%;
+        transition: top 1s ease;
+    }
+
+    .VideoInfoBtn {
+        top: 50%;
+        left: 40%;
+        margin-top: -30px;
+        position: absolute;
+        z-index: 2;
+        width: 20%;
     }
 
     p {
@@ -360,6 +406,25 @@
         GetKodi(encodeURI(e.target.value))
     })
 
+    // document.body.addEventListener("wheel", (e) => {
+    //     console.log(e.deltaY)
+    //     if (e.deltaY > 0) {
+    //         document.getElementById('DialogVideoInfo').classList.add("DialogVideoInfoScroll")
+    //     }
+    //     if (e.deltaY < 0) {
+    //         document.getElementById('DialogVideoInfo').classList.remove("DialogVideoInfoScroll")
+    //     }
+    // });
+    document.getElementById("VideoInfoBtn").addEventListener('click', () => {
+        let DialogVideoInfo = document.getElementById('DialogVideoInfo')
+        DialogVideoInfo.classList.contains('DialogVideoInfoScroll') ? DialogVideoInfo.classList.remove("DialogVideoInfoScroll") : DialogVideoInfo.classList.add("DialogVideoInfoScroll")
+        // if(DialogVideoInfo.classList.contains('DialogVideoInfoScroll'))
+        // {
+
+        // }else{
+
+        // }
+    })
 
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
@@ -406,7 +471,7 @@
     async function add_push(e) {
         const perm = await Notification.requestPermission()
 
-        if(!GetFavorite(e.shikimori)&&base_anime.fav.length>0) return
+        if (!GetFavorite(e.shikimori) && base_anime.fav.length > 0) return
 
         if (perm != "granted") {
 
