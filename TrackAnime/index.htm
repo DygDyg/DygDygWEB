@@ -429,11 +429,13 @@
 
     function SetFavorite(e) {
         base_anime.fav.push(e)
+        localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
         return base_anime.fav
     }
 
     function DeleteFavorite(e) {
         base_anime.fav = base_anime.fav.filter(item => !item.includes(e));
+        localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
         return base_anime.fav
     }
 
