@@ -747,6 +747,8 @@
             window.history.pushState({}, '', url_get);
             // document.getElementById('list_history')
 
+
+
         } else {
             HistoryIsActivy = false
             ignoreVoice = true
@@ -768,12 +770,13 @@
             url_get.searchParams.set("seartch", `${seartch}`)
             window.history.pushState({}, '', url_get);
 
-            dat.results.sort((a, b) => {
+/*             dat.results.sort((a, b) => {
                 let dateA = new Date(a.updated_at);
                 let dateB = new Date(b.updated_at);
                 return dateB - dateA;
-            });
-            console.log(dat.results)
+            }); */
+
+            // console.log(dat.results)
         }
         data = dat.results
         prev_page = dat.prev_page
