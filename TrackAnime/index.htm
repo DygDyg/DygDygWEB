@@ -792,6 +792,9 @@
         // console.log(dat.prev_page)
         // ScanBase(data, 0, revers);
         GetKodiScan(data, revers)
+        if (window.innerHeight >= document.body.scrollHeight && HistoryIsActivy) {
+                GetKodi()
+            }
         return seartch
     }
     // console.log(base_anime.base)
