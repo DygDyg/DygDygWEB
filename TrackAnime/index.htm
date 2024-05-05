@@ -856,13 +856,14 @@
 
                     const dat = new Date(e.updated_at)
 
-                    console.log(base_anime.base[e.shikimori_id], e)
-                    // console.log(e)
+                    console.log("shikimori", base_anime.base[e.shikimori_id], "kodik", e)
+                    console.log(1,e.material_data)
                     if (!e.shikimori_id) return
-                    console.log(e.kinopoisk_id)
+                    // console.log(e)
                     const e1 = {
-                        "title": base_anime.base[e.shikimori_id].russian,
-                        "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
+                        "title": e.material_data.title,
+                        "cover": `${e.material_data.poster_url}`,
+                        // "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
                         "date": formatDate(e.updated_at),
                         // "date": formatDate(base_anime.base[e.shikimori_id].next_episode_at),
                         "voice": e.translation.title,
