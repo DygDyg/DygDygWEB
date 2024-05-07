@@ -587,7 +587,7 @@
                     // "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
                     "date": formatDate(e.material_data.next_episode_at),
                     // "date": formatDate(base_anime.base[e.shikimori_id].next_episode_at),
-                    "voice": formatDate(e.material_data.next_episode_at).moment.format('dddd') +" "+ formatDate(e.material_data.next_episode_at).moment.day()+" "+formatDate(e.material_data.next_episode_at).moment.day(),
+                    "voice": formatDate(e.material_data.next_episode_at).moment.format('dddd'),
                     "series": e.episodes_count ? e.episodes_count : "M",
                     "link": e.link,
                     "kp": e.kinopoisk_id,
