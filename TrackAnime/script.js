@@ -84,13 +84,13 @@ if (base_anime.base) {
 base_anime.fav = base_anime.fav ? base_anime.fav : []
 
 
-document.addEventListener('keydown', function (event) {
+/* document.addEventListener('keydown', function (event) {
     if (event.code == 'F2') {
 
     }
-});
+}); */
 
-function getCalendar() {
+async function getCalendar() {
     HistoryIsActivy = false
     var tmp1 = list_calendar.getElementsByClassName('ned')
     document.getElementById("load").classList.remove("hide")
