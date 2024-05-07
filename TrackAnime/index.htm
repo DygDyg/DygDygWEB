@@ -81,12 +81,19 @@
     </div>
     <div class="anime_list hide" id="list_calendar">
 
+        <div class="ned_name">Понедельник</div>
         <div class="ned"></div>
+        <div class="ned_name">Вторник</div>
         <div class="ned"></div>
+        <div class="ned_name">Среда</div>
         <div class="ned"></div>
+        <div class="ned_name">Четверг</div>
         <div class="ned"></div>
+        <div class="ned_name">Пятница</div>
         <div class="ned"></div>
+        <div class="ned_name">Суббота</div>
         <div class="ned"></div>
+        <div class="ned_name">Воскресенье</div>
         <div class="ned"></div>
     </div>
     <div class="anime_list" id="list_history"></div>
@@ -116,6 +123,19 @@
         border-radius: 15px;
         border-style: solid;
         border-width: 0.3rem;
+        border-color: #c6c6c6;
+    }
+
+    .ned_name {
+        background-color: #c6c6c6;
+        color: #424242;
+        width: 100%;
+        text-align: center;
+        border-radius: 7px;
+        margin: 15px 0px 15px 0px;
+        padding: 5px 0px 5px 0px;
+        font-size: 1.2rem;
+        font-weight: 700;
     }
 
     .card-fav {
@@ -502,7 +522,7 @@
         } */
     // console.log(base_anime)
     // VoiceSettingsMenu()
-    
+
     document.addEventListener('keydown', async function (event) {
         // console.log(event.code)
         if (event.code == 'F2') {
@@ -510,7 +530,7 @@
             document.getElementById("list_calendar").classList.remove("hide")
             document.getElementById("list_history").classList.add("hide")
             document.getElementById("list_serch").classList.add("hide")
-            HistoryIsActivy =false
+            HistoryIsActivy = false
             // list_calendar.innerHTML = 
             var tmp1 = list_calendar.getElementsByClassName('ned')
 
@@ -518,7 +538,7 @@
                 tmp1[i].innerHTML = ""
                 // console.log()    
             }
-            
+
             // .forEach(e => {
             //     e.innerHTML = ""
             // });
@@ -565,8 +585,7 @@
                 d3[formatDate(e.material_data.next_episode_at).dayOfWeek].appendChild(card)
             }
         });
-
-
+        list_calendar.getElementsByClassName('ned_name')[formatDate().dayOfWeek].scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
     }
 
     function getCookie(name) {
