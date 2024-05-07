@@ -1,138 +1,494 @@
 var data, dat, targetFrame, endid, endid2, prev_page
-    const scrollM = 2000;
-    var ignoreVoice = false
-    moment.locale('ru');
-    var HistoryIsActivy = true
-    var url_get = new URL(window.location.href)
-    const KeyTab = Math.floor(Math.random() * 10000000000)
-    const VideoPlayerAnime = document.getElementById('VideoPlayerAnime');
-    const VoiceSettings = document.getElementById('VoiceSettings');
-    const VideoPlayer = document.getElementById('VideoPlayer');
-    const list_calendar = document.getElementById("list_calendar")
-    const URLSearch = "https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&title="
-    var URLList = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"
-    var URLCalendar = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8&anime_status=ongoing"
-    var URLListStart = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"
-    Notification.requestPermission()
-    const voice = [
-        "AniStar",
-        "Dream Cast",
-        "AnimeVost",
-        "AniDub Online",
-        "AniDUB",
-        "JAM",
-        "AniLibria.TV",
-        "SHIZA Project",
-    ]
+const scrollM = 2000;
+var ignoreVoice = false
+moment.locale('ru');
+var HistoryIsActivy = true
+var url_get = new URL(window.location.href)
+const KeyTab = Math.floor(Math.random() * 10000000000)
+const VideoPlayerAnime = document.getElementById('VideoPlayerAnime');
+const VoiceSettings = document.getElementById('VoiceSettings');
+const VideoPlayer = document.getElementById('VideoPlayer');
+const list_calendar = document.getElementById("list_calendar")
+const URLSearch = "https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&title="
+var URLList = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"
+var URLCalendar = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8&anime_status=ongoing"
+var URLListStart = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"
+Notification.requestPermission()
+const voice = [
+    "AniStar",
+    "Dream Cast",
+    "AnimeVost",
+    "AniDub Online",
+    "AniDUB",
+    "JAM",
+    "AniLibria.TV",
+    "SHIZA Project",
+]
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    setInterval(() => {
-        if (!HistoryIsActivy) return
-        GetKodi("", true)
-    }, 30 * 1000);  //Автопроверка 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+setInterval(() => {
+    if (!HistoryIsActivy) return
+    GetKodi("", true)
+}, 30 * 1000);  //Автопроверка 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    document.getElementById('VoiceButtonMenu').addEventListener('click', () => {
-        VoiceSettingsMenu()
-    })
+document.getElementById('VoiceButtonMenu').addEventListener('click', () => {
+    VoiceSettingsMenu()
+})
 
-    document.getElementById('search_input').addEventListener('change', (e) => {
-        // console.log(e.target.value)
-        GetKodi(encodeURI(e.target.value))
-    })
+document.getElementById('search_input').addEventListener('change', (e) => {
+    // console.log(e.target.value)
+    GetKodi(encodeURI(e.target.value))
+})
 
 
-    document.getElementById("VideoInfoBtn").addEventListener('click', () => {
-        let DialogVideoInfo = document.getElementById('DialogVideoInfo')
-        DialogVideoInfo.classList.contains('DialogVideoInfoScroll') ? DialogVideoInfo.classList.remove("DialogVideoInfoScroll") : DialogVideoInfo.classList.add("DialogVideoInfoScroll")
+document.getElementById("VideoInfoBtn").addEventListener('click', () => {
+    let DialogVideoInfo = document.getElementById('DialogVideoInfo')
+    DialogVideoInfo.classList.contains('DialogVideoInfoScroll') ? DialogVideoInfo.classList.remove("DialogVideoInfoScroll") : DialogVideoInfo.classList.add("DialogVideoInfoScroll")
 
-    })
+})
 
-    function getRandomInt(max) {
-        return Math.floor(Math.random() * max);
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+
+closeDialogButton.addEventListener('click', () => {
+    VideoPlayerAnime.close();
+    VideoPlayer.contentWindow.location.href = "../index.htm";
+});
+document.getElementById("list_calendar_Button").addEventListener('click', async () => {
+    getCalendar()
+});
+VideoPlayerAnime.addEventListener("close", () => {
+    document.title = "Track Anime By ДугДуг"
+});
+
+
+window.onscroll = function () {
+
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - scrollM && HistoryIsActivy == true) {
+        setTimeout(GetKodi, 0)
+    }
+};
+
+var base_anime = localStorage.getItem('BaseAnime')
+if (base_anime) {
+    base_anime = JSON.parse(base_anime)
+} else {
+    base_anime = {}
+}
+if (base_anime.base) {
+    delete base_anime.base;
+    localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+}
+base_anime.fav = base_anime.fav ? base_anime.fav : []
+
+
+document.addEventListener('keydown', function (event) {
+    if (event.code == 'F2') {
+
+    }
+});
+
+function getCalendar() {
+    HistoryIsActivy = false
+    var tmp1 = list_calendar.getElementsByClassName('ned')
+    document.getElementById("load").classList.remove("hide")
+    document.getElementById("list_calendar").classList.add("hide")
+
+    setTimeout(addCalendar, 0)
+}
+
+async function addCalendar() {
+    document.getElementById("list_history").classList.add("hide")
+    document.getElementById("list_serch").classList.add("hide")
+    document.getElementById("list_calendar").classList.remove("hide")
+    var URLCalendarAdd = URLCalendar;
+    var data = []
+    var d1
+    var d3 = list_calendar.getElementsByClassName('ned')
+
+    for (let i = 0; i < d3.length; i++) {
+        d3[i].innerHTML = ""
     }
 
-    closeDialogButton.addEventListener('click', () => {
-        VideoPlayerAnime.close();
-        VideoPlayer.contentWindow.location.href = "../index.htm";
-    });
-    document.getElementById("list_calendar_Button").addEventListener('click', async () => {
-        getCalendar()
-    });
-    VideoPlayerAnime.addEventListener("close", () => {
-        document.title = "Track Anime By ДугДуг"
-    });
-
-
-    window.onscroll = function () {
-
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - scrollM && HistoryIsActivy == true) {
-            setTimeout(GetKodi, 0)
+    // return
+    while (URLCalendarAdd) {
+        d1 = JSON.parse(httpGet(URLCalendarAdd).response)
+        var d2 = data
+        var id = []
+        data = d2.concat(d1.results)
+        URLCalendarAdd = d1.next_page
+    }
+    data.forEach(e => {
+        if ((e.type == 'anime-serial') && e.translation.type == "voice" && e.shikimori_id) {
+            tttt = formatDate(e.material_data.next_episode_at).moment
+            if (id.includes(e.shikimori_id)) return
+            // console.log(e)
+            id.push(e.shikimori_id)
+            const e1 = {
+                "title": e.material_data.anime_title,
+                "cover": `${e.material_data.poster_url}`,
+                // "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
+                "date": formatDate(e.material_data.next_episode_at),
+                // "date": formatDate(base_anime.base[e.shikimori_id].next_episode_at),
+                "voice": formatDate(e.material_data.next_episode_at).moment.format('dddd'),
+                "series": e.episodes_count ? e.episodes_count : "M",
+                "link": e.link,
+                "kp": e.kinopoisk_id,
+                "imdb": e.imdb_id,
+                "shikimori": e.shikimori_id,
+                "status": e.material_data.all_status,
+            }
+            const card = add_cart(e1)
+            formatDate(e.material_data.next_episode_at).moment.day() == 0 ? d3[6].appendChild(card) : d3[formatDate(e.material_data.next_episode_at).moment.day() - 1].appendChild(card)
         }
+    });
+    list_calendar.getElementsByClassName('ned_spoiler')[formatDate().moment.day() - 1].open = true
+    list_calendar.getElementsByClassName('ned_name')[formatDate().moment.day() - 1].scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
+    document.getElementById("load").classList.add("hide")
+}
+
+function getCookie(name) {
+    var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+async function add_push(e) {
+    const perm = await Notification.requestPermission()
+
+    if (!GetFavorite(e.shikimori) && base_anime.fav.length > 0) return
+
+    if (perm != "granted") {
+
+        return
+    }
+    notification = new Notification(e.title,
+        {
+            body: `Серия ${e.series} в озвучке ${e.voice}`,
+            // tag: e.date.string,
+            icon: e.cover,
+        })
+    notification.addEventListener("click", () => {
+        e.shift = event.shiftKey
+        dialog(e)
+    })
+
+}
+
+function SetFavorite(e) {
+    base_anime.fav.push(e)
+    localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+    return base_anime.fav
+}
+
+function DeleteFavorite(e) {
+    base_anime.fav = base_anime.fav.filter(item => !item.includes(e));
+    localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+    return base_anime.fav
+}
+
+function GetFavorite(e) {
+    let result = base_anime.fav.filter(item => item.toLowerCase().includes(e.toLowerCase()));
+    if (result.length > 0) {
+        return true
+    }
+    return false
+}
+function VoiceSettingsMenu() {
+    const checkboxList = document.getElementById('checkbox-list');
+    const buttonContainer = document.getElementById('button-container');
+
+    base_anime.translation.sort().forEach((voice, index) => {
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = `voice-${index}`;
+        checkbox.className = 'form-check-input';
+        checkbox.checked = base_anime.translationActive.includes(voice);
+
+        const checkboxLabel = document.createElement('label');
+        checkboxLabel.htmlFor = `voice-${index}`;
+        checkboxLabel.className = 'form-check-label';
+        checkboxLabel.textContent = voice;
+        console.log(voice, encodeURIComponent(voice))
+        checkboxLabel.classList.add(encodeURIComponent(voice));
+
+        const checkboxDiv = document.createElement('div');
+        checkboxDiv.className = 'form-check';
+        checkboxDiv.appendChild(checkbox);
+        checkboxDiv.appendChild(checkboxLabel);
+
+        checkbox.checked ? VoiceSettings.prepend(checkboxDiv) : VoiceSettings.appendChild(checkboxDiv);
+    });
+
+    const saveButton = document.createElement('button');
+    saveButton.type = 'button';
+    saveButton.className = 'btn btn-primary mt-3';
+    saveButton.textContent = 'Сохранить';
+    VoiceSettings.prepend(saveButton)
+    saveButton.addEventListener('click', () => {
+        base_anime.translationActive = [];
+        const checkboxes = document.querySelectorAll('.form-check-input');
+
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                base_anime.translationActive.push(checkbox.nextElementSibling.textContent);
+            }
+        });
+        if (base_anime.translationActive.length > 0) localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+        console.log('base_anime.translationActive:', base_anime.translationActive);
+        VoiceSettings.innerHTML = ""
+        VoiceSettings.close()
+        location.reload();
+    });
+
+    VoiceSettings.showModal()
+
+}
+function httpGet(theUrl) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", theUrl, false); // false for synchronous request
+    xmlHttp.send(null);
+    return xmlHttp;
+}
+function add_cart(e) {
+    const card = document.createElement('div');
+    card.classList.add('card', 'bg-dark', 'text-white');
+
+    card.addEventListener("click", (event) => {
+
+        e.shift = event.shiftKey
+        dialog(e)
+        card.classList.remove("new_cart")
+    })
+
+    const imgTop = document.createElement('div');
+    imgTop.style.backgroundImage = `url(${e.cover}`;
+    imgTop.src = e.cover;
+    imgTop.classList.add('card-img-top');
+    imgTop.alt = 'cover';
+    card.appendChild(imgTop);
+
+    const cardTitle = document.createElement('h5');
+    cardTitle.classList.add('card-title');
+    cardTitle.textContent = e.title;
+    cardTitle.title = e.title;
+    imgTop.appendChild(cardTitle);
+
+
+    const cartTime = document.createElement('h5');
+    cartTime.classList.add('card-time');
+    cartTime.textContent = e.date.moment.calendar();
+    cartTime.title = e.date.moment.calendar();
+    imgTop.appendChild(cartTime);
+
+    const cartCal = document.createElement('h5');
+    cartCal.classList.add('card-cal');
+    cartCal.textContent = e.date.moment.fromNow();//
+    cartCal.title = e.date.moment.format('MMMM Do YYYY, HH:mm:ss'); //${days.name[Number(days.dayOfWeek)]}
+    cartCal.style.color = e.kp ? "#ffcccc" : "#ffffff"
+    cartCal.style.color = e.imdb ? "#daedff" : "#ffffff"
+    cartTime.appendChild(cartCal);
+
+    const cartVoice = document.createElement('h5');
+    cartVoice.classList.add('card-voice');
+    cartVoice.classList.add(encodeURIComponent(e.voice));
+    cartVoice.textContent = e.voice;
+    cartVoice.title = e.status;
+    imgTop.appendChild(cartVoice);
+
+    const cartSeries = document.createElement('h5');
+    cartSeries.classList.add('card-series');
+    cartSeries.textContent = e.series;
+    cartSeries.title = e.status;
+    cartSeries.style.color = e.kp ? "#ffa9a9" : "#ffffff"
+    cartSeries.style.color = e.imdb ? "#a9d5ff" : "#ffffff"
+    cartSeries.style.color = e.status == "released" ? "#a9ffb4" : "#ffffff"
+    imgTop.appendChild(cartSeries);
+
+
+    const cartFavorite = document.createElement('div');
+    cartFavorite.classList.add('card-fav');
+    cartFavorite.textContent = "♥";
+    cartFavorite.title = e.series;
+    imgTop.appendChild(cartFavorite);
+    cartFavorite.style.color = GetFavorite(e.shikimori) ? "#ffdd00" : "#ffffff"
+
+    card.addEventListener("mouseover", (ev) => {
+        cartFavorite.style.color = GetFavorite(e.shikimori) ? "#ffdd00" : "#ffffff"
+    });
+
+    cartFavorite.addEventListener("click", (ev) => {
+        ev.stopPropagation();
+        if (GetFavorite(e.shikimori)) {
+            cartFavorite.style.color = "#ffffff"
+            console.log(DeleteFavorite(e.shikimori))
+        } else {
+            cartFavorite.style.color = "#ffdd00"
+            SetFavorite(e.shikimori)
+        }
+
+
+    })
+    setTimeout(() => card.classList.add("card_spawn"), 0)
+
+    return card
+}
+
+function formatDate(isoDateString) {
+    var days = {}
+    var data
+
+    days.moment = moment.utc(isoDateString)
+    days.name = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
+    days.name_s = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
+
+    if (isoDateString) {
+        date = new Date(isoDateString)
+    } else {
+        date = new Date()
     };
 
-    var base_anime = localStorage.getItem('BaseAnime')
-    if (base_anime) {
-        base_anime = JSON.parse(base_anime)
+    days.day = String(date.getDate()).padStart(2, '0');
+    days.month = String(date.getMonth() + 1).padStart(2, '0');
+    days.year = date.getFullYear();
+    days.hours = String(date.getHours()).padStart(2, '0');
+    days.minutes = String(date.getMinutes()).padStart(2, '0');
+    days.seconds = String(date.getSeconds()).padStart(2, '0');
+    days.dayOfWeek = Number(String(date.getDay()).padStart(2, '0'));
+    days.dayOfWeek_n = days.moment.format('dddd');
+    days.dayOfWeek_ns = days.name_s[days.dayOfWeek + 1]
+    days.string = `${days.moment.calendar()}`
+    days.moment_7 = moment.utc(isoDateString)
+    days.moment_7.add(7, 'days')
+    return days;
+}
+
+function dialog(e) {
+    document.title = `TA: ${e.title}`
+    VideoPlayerAnime.showModal();
+    if ((e.imdb || e.kp) && e.shift) {
+        VideoPlayer.contentWindow.location.href = e.kp ? `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&kinopoiskID=${e.kp}` : `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&imdb=${e.imdb}`
+        return
+    }
+    VideoPlayer.contentWindow.location.href = e.link
+}
+function VoiceTranslate(name) {
+
+    if (ignoreVoice || base_anime.translationActive < 1) return true
+    if (base_anime.translationActive) {
+        return base_anime.translationActive.includes(name)
     } else {
-        base_anime = {}
+        base_anime.translationActive = voice;
+        return voice.includes(name)
     }
-    if (base_anime.base) {
-        delete base_anime.base;
-        localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-    }
-    base_anime.fav = base_anime.fav ? base_anime.fav : []
 
 
-    document.addEventListener('keydown', function (event) {
-        if (event.code == 'F2') {
+}
+function GetKodi(seartch, revers) {
+
+    if (!seartch || seartch == undefined || seartch == "") {
+        HistoryIsActivy = true
+        ignoreVoice = false
+        document.getElementById('list_history').classList.add("hide")
+        targetFrame = document.getElementById('list_serch')
+        targetFrame.classList.remove("hide")
+
+        if (revers) {
+            dat = JSON.parse(httpGet(URLListStart).response)
+            endid2 = dat.results[0].id
+        } else {
+            dat = JSON.parse(httpGet(URLList).response)
+            URLList = dat.next_page
+            endid = endid ? endid : dat.results[0].id
 
         }
-    });
 
-    function getCalendar() {
+        url_get = new URL(window.location.href)
+        url_get.searchParams.delete("seartch")
+        window.history.pushState({}, '', url_get);
+    } else {
         HistoryIsActivy = false
-        var tmp1 = list_calendar.getElementsByClassName('ned')
-        document.getElementById("load").classList.remove("hide")
-        document.getElementById("list_calendar").classList.add("hide")
+        ignoreVoice = true
+        document.getElementById('search_input').value = decodeURIComponent(seartch)
+        targetFrame = document.getElementById('list_history')
+        targetFrame.classList.remove("hide")
+        targetFrame.innerHTML = ""
+        document.getElementById('list_serch').classList.add("hide")
+        dat1 = JSON.parse(httpGet(`${URLSearch}${seartch}`).response)
+        dat = {}
 
-        setTimeout(addCalendar, 0)
+        dat.results = dat1.results.filter((value, index, self) =>
+            index === self.findIndex((t) => (
+                t.shikimori_id === value.shikimori_id
+            ))
+        );
+
+        url_get = new URL(window.location.href)
+        url_get.searchParams.set("seartch", `${seartch}`)
+        window.history.pushState({}, '', url_get);
+        console.log(dat1)
     }
+    data = dat.results
+    prev_page = dat.prev_page
 
-    async function addCalendar() {
-        document.getElementById("list_history").classList.add("hide")
-        document.getElementById("list_serch").classList.add("hide")
-        document.getElementById("list_calendar").classList.remove("hide")
-        var URLCalendarAdd = URLCalendar;
-        var data = []
-        var d1
-        var d3 = list_calendar.getElementsByClassName('ned')
 
-        for (let i = 0; i < d3.length; i++) {
-            d3[i].innerHTML = ""
+    GetKodiScan(data, revers)
+    if (window.innerHeight >= document.body.scrollHeight - scrollM && HistoryIsActivy) {
+        setTimeout(GetKodi, 0)
+    }
+    return seartch
+}
+
+GetKodi(url_get.searchParams.get('seartch'))
+
+
+
+
+
+function ScanBase(e, i, revers) {
+    document.getElementById("loading-bar").classList.remove("hide");
+    var t = 0
+    if (i >= e.length) {
+        GetKodiScan(data, revers)
+        document.getElementById("loading-bar").classList.add("hide");
+        // localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+        if (window.innerHeight >= document.body.scrollHeight - scrollM && HistoryIsActivy) {
+            GetKodi()
         }
+        return;
+    }
+    const prog = `${i}%`
+    document.getElementById("loading-bar").style.width = prog
+    document.getElementById("loading-bar").textContent = prog
 
-        // return
-        while (URLCalendarAdd) {
-            d1 = JSON.parse(httpGet(URLCalendarAdd).response)
-            var d2 = data
-            var id = []
-            data = d2.concat(d1.results)
-            URLCalendarAdd = d1.next_page
+    setTimeout(() => {
+        ScanBase(e, i + 1, revers);
+    }, t);
+}
+
+function GetKodiScan(data, revers) {
+    var t1 = false
+    data.forEach(e => {
+
+        if (revers && endid == e.id || t1) {
+
+            t1 = true
+            endid = endid2
+            return
         }
-        data.forEach(e => {
-            if ((e.type == 'anime-serial') && e.translation.type == "voice" && e.shikimori_id) {
-                tttt = formatDate(e.material_data.next_episode_at).moment
-                if (id.includes(e.shikimori_id)) return
-                // console.log(e)
-                id.push(e.shikimori_id)
+        if ((e.type == 'anime-serial' || e.type == "anime") && e.translation.type == "voice") {
+            // console.log(endid)
+
+            if (VoiceTranslate(e.translation.title)) {
+                const dat = new Date(e.updated_at)
+                if (!e.shikimori_id) return
                 const e1 = {
                     "title": e.material_data.anime_title,
                     "cover": `${e.material_data.poster_url}`,
                     // "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
-                    "date": formatDate(e.material_data.next_episode_at),
+                    "date": formatDate(e.updated_at),
                     // "date": formatDate(base_anime.base[e.shikimori_id].next_episode_at),
-                    "voice": formatDate(e.material_data.next_episode_at).moment.format('dddd'),
+                    "voice": e.translation.title,
                     "series": e.episodes_count ? e.episodes_count : "M",
                     "link": e.link,
                     "kp": e.kinopoisk_id,
@@ -141,379 +497,23 @@ var data, dat, targetFrame, endid, endid2, prev_page
                     "status": e.material_data.all_status,
                 }
                 const card = add_cart(e1)
-                formatDate(e.material_data.next_episode_at).moment.day() == 0 ? d3[6].appendChild(card) : d3[formatDate(e.material_data.next_episode_at).moment.day() - 1].appendChild(card)
-            }
-        });
-        list_calendar.getElementsByClassName('ned_spoiler')[formatDate().moment.day() - 1].open = true
-        list_calendar.getElementsByClassName('ned_name')[formatDate().moment.day() - 1].scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
-        document.getElementById("load").classList.add("hide")
-    }
+                if (revers && prev_page == null) {
+                    targetFrame.prepend(card)
+                    card.classList.add("new_cart")
+                    add_push(e1)
+                } else {
+                    targetFrame.appendChild(card)
 
-    function getCookie(name) {
-        var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
-        return matches ? decodeURIComponent(matches[1]) : undefined;
-    }
-    async function add_push(e) {
-        const perm = await Notification.requestPermission()
+                };
 
-        if (!GetFavorite(e.shikimori) && base_anime.fav.length > 0) return
-
-        if (perm != "granted") {
-
-            return
-        }
-        notification = new Notification(e.title,
-            {
-                body: `Серия ${e.series} в озвучке ${e.voice}`,
-                // tag: e.date.string,
-                icon: e.cover,
-            })
-        notification.addEventListener("click", () => {
-            e.shift = event.shiftKey
-            dialog(e)
-        })
-
-    }
-
-    function SetFavorite(e) {
-        base_anime.fav.push(e)
-        localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-        return base_anime.fav
-    }
-
-    function DeleteFavorite(e) {
-        base_anime.fav = base_anime.fav.filter(item => !item.includes(e));
-        localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-        return base_anime.fav
-    }
-
-    function GetFavorite(e) {
-        let result = base_anime.fav.filter(item => item.toLowerCase().includes(e.toLowerCase()));
-        if (result.length > 0) {
-            return true
-        }
-        return false
-    }
-    function VoiceSettingsMenu() {
-        const checkboxList = document.getElementById('checkbox-list');
-        const buttonContainer = document.getElementById('button-container');
-
-        base_anime.translation.sort().forEach((voice, index) => {
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.id = `voice-${index}`;
-            checkbox.className = 'form-check-input';
-            checkbox.checked = base_anime.translationActive.includes(voice);
-
-            const checkboxLabel = document.createElement('label');
-            checkboxLabel.htmlFor = `voice-${index}`;
-            checkboxLabel.className = 'form-check-label';
-            checkboxLabel.textContent = voice;
-            console.log(voice, encodeURIComponent(voice))
-            checkboxLabel.classList.add(encodeURIComponent(voice));
-
-            const checkboxDiv = document.createElement('div');
-            checkboxDiv.className = 'form-check';
-            checkboxDiv.appendChild(checkbox);
-            checkboxDiv.appendChild(checkboxLabel);
-
-            checkbox.checked ? VoiceSettings.prepend(checkboxDiv) : VoiceSettings.appendChild(checkboxDiv);
-        });
-
-        const saveButton = document.createElement('button');
-        saveButton.type = 'button';
-        saveButton.className = 'btn btn-primary mt-3';
-        saveButton.textContent = 'Сохранить';
-        VoiceSettings.prepend(saveButton)
-        saveButton.addEventListener('click', () => {
-            base_anime.translationActive = [];
-            const checkboxes = document.querySelectorAll('.form-check-input');
-
-            checkboxes.forEach((checkbox) => {
-                if (checkbox.checked) {
-                    base_anime.translationActive.push(checkbox.nextElementSibling.textContent);
-                }
-            });
-            if (base_anime.translationActive.length > 0) localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-            console.log('base_anime.translationActive:', base_anime.translationActive);
-            VoiceSettings.innerHTML = ""
-            VoiceSettings.close()
-            location.reload();
-        });
-
-        VoiceSettings.showModal()
-
-    }
-    function httpGet(theUrl) {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("GET", theUrl, false); // false for synchronous request
-        xmlHttp.send(null);
-        return xmlHttp;
-    }
-    function add_cart(e) {
-        const card = document.createElement('div');
-        card.classList.add('card', 'bg-dark', 'text-white');
-
-        card.addEventListener("click", (event) => {
-
-            e.shift = event.shiftKey
-            dialog(e)
-            card.classList.remove("new_cart")
-        })
-
-        const imgTop = document.createElement('div');
-        imgTop.style.backgroundImage = `url(${e.cover}`;
-        imgTop.src = e.cover;
-        imgTop.classList.add('card-img-top');
-        imgTop.alt = 'cover';
-        card.appendChild(imgTop);
-
-        const cardTitle = document.createElement('h5');
-        cardTitle.classList.add('card-title');
-        cardTitle.textContent = e.title;
-        cardTitle.title = e.title;
-        imgTop.appendChild(cardTitle);
-
-
-        const cartTime = document.createElement('h5');
-        cartTime.classList.add('card-time');
-        cartTime.textContent = e.date.moment.calendar();
-        cartTime.title = e.date.moment.calendar();
-        imgTop.appendChild(cartTime);
-
-        const cartCal = document.createElement('h5');
-        cartCal.classList.add('card-cal');
-        cartCal.textContent = e.date.moment.fromNow();//
-        cartCal.title = e.date.moment.format('MMMM Do YYYY, HH:mm:ss'); //${days.name[Number(days.dayOfWeek)]}
-        cartCal.style.color = e.kp ? "#ffcccc" : "#ffffff"
-        cartCal.style.color = e.imdb ? "#daedff" : "#ffffff"
-        cartTime.appendChild(cartCal);
-
-        const cartVoice = document.createElement('h5');
-        cartVoice.classList.add('card-voice');
-        cartVoice.classList.add(encodeURIComponent(e.voice));
-        cartVoice.textContent = e.voice;
-        cartVoice.title = e.status;
-        imgTop.appendChild(cartVoice);
-
-        const cartSeries = document.createElement('h5');
-        cartSeries.classList.add('card-series');
-        cartSeries.textContent = e.series;
-        cartSeries.title = e.status;
-        cartSeries.style.color = e.kp ? "#ffa9a9" : "#ffffff"
-        cartSeries.style.color = e.imdb ? "#a9d5ff" : "#ffffff"
-        cartSeries.style.color = e.status == "released" ? "#a9ffb4" : "#ffffff"
-        imgTop.appendChild(cartSeries);
-
-
-        const cartFavorite = document.createElement('div');
-        cartFavorite.classList.add('card-fav');
-        cartFavorite.textContent = "♥";
-        cartFavorite.title = e.series;
-        imgTop.appendChild(cartFavorite);
-        cartFavorite.style.color = GetFavorite(e.shikimori) ? "#ffdd00" : "#ffffff"
-
-        card.addEventListener("mouseover", (ev) => {
-            cartFavorite.style.color = GetFavorite(e.shikimori) ? "#ffdd00" : "#ffffff"
-        });
-
-        cartFavorite.addEventListener("click", (ev) => {
-            ev.stopPropagation();
-            if (GetFavorite(e.shikimori)) {
-                cartFavorite.style.color = "#ffffff"
-                console.log(DeleteFavorite(e.shikimori))
-            } else {
-                cartFavorite.style.color = "#ffdd00"
-                SetFavorite(e.shikimori)
-            }
-
-
-        })
-        setTimeout(() => card.classList.add("card_spawn"), 0)
-
-        return card
-    }
-
-    function formatDate(isoDateString) {
-        var days = {}
-        var data
-
-        days.moment = moment.utc(isoDateString)
-        days.name = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
-        days.name_s = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
-
-        if (isoDateString) {
-            date = new Date(isoDateString)
-        } else {
-            date = new Date()
-        };
-
-        days.day = String(date.getDate()).padStart(2, '0');
-        days.month = String(date.getMonth() + 1).padStart(2, '0');
-        days.year = date.getFullYear();
-        days.hours = String(date.getHours()).padStart(2, '0');
-        days.minutes = String(date.getMinutes()).padStart(2, '0');
-        days.seconds = String(date.getSeconds()).padStart(2, '0');
-        days.dayOfWeek = Number(String(date.getDay()).padStart(2, '0'));
-        days.dayOfWeek_n = days.moment.format('dddd');
-        days.dayOfWeek_ns = days.name_s[days.dayOfWeek + 1]
-        days.string = `${days.moment.calendar()}`
-        days.moment_7 = moment.utc(isoDateString)
-        days.moment_7.add(7, 'days')
-        return days;
-    }
-
-    function dialog(e) {
-        document.title = `TA: ${e.title}`
-        VideoPlayerAnime.showModal();
-        if ((e.imdb || e.kp) && e.shift) {
-            VideoPlayer.contentWindow.location.href = e.kp ? `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&kinopoiskID=${e.kp}` : `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&imdb=${e.imdb}`
-            return
-        }
-        VideoPlayer.contentWindow.location.href = e.link
-    }
-    function VoiceTranslate(name) {
-
-        if (ignoreVoice || base_anime.translationActive < 1) return true
-        if (base_anime.translationActive) {
-            return base_anime.translationActive.includes(name)
-        } else {
-            base_anime.translationActive = voice;
-            return voice.includes(name)
-        }
-
-
-    }
-    function GetKodi(seartch, revers) {
-
-        if (!seartch || seartch == undefined || seartch == "") {
-            HistoryIsActivy = true
-            ignoreVoice = false
-            document.getElementById('list_history').classList.add("hide")
-            targetFrame = document.getElementById('list_serch')
-            targetFrame.classList.remove("hide")
-
-            if (revers) {
-                dat = JSON.parse(httpGet(URLListStart).response)
-                endid2 = dat.results[0].id
-            } else {
-                dat = JSON.parse(httpGet(URLList).response)
-                URLList = dat.next_page
-                endid = endid ? endid : dat.results[0].id
 
             }
-
-            url_get = new URL(window.location.href)
-            url_get.searchParams.delete("seartch")
-            window.history.pushState({}, '', url_get);
-        } else {
-            HistoryIsActivy = false
-            ignoreVoice = true
-            document.getElementById('search_input').value = decodeURIComponent(seartch)
-            targetFrame = document.getElementById('list_history')
-            targetFrame.classList.remove("hide")
-            targetFrame.innerHTML = ""
-            document.getElementById('list_serch').classList.add("hide")
-            dat1 = JSON.parse(httpGet(`${URLSearch}${seartch}`).response)
-            dat = {}
-
-            dat.results = dat1.results.filter((value, index, self) =>
-                index === self.findIndex((t) => (
-                    t.shikimori_id === value.shikimori_id
-                ))
-            );
-
-            url_get = new URL(window.location.href)
-            url_get.searchParams.set("seartch", `${seartch}`)
-            window.history.pushState({}, '', url_get);
-            console.log(dat1)
+            if (!base_anime.translation) base_anime.translation = [];
+            if (!base_anime.translationActive) base_anime.translationActive = voice;
+            if (!base_anime.translation.includes(e.translation.title)) base_anime.translation.push(e.translation.title);
         }
-        data = dat.results
-        prev_page = dat.prev_page
 
-
-        GetKodiScan(data, revers)
-        if (window.innerHeight >= document.body.scrollHeight - scrollM && HistoryIsActivy) {
-            setTimeout(GetKodi, 0)
-        }
-        return seartch
-    }
-
-    GetKodi(url_get.searchParams.get('seartch'))
-
-
-
-
-
-    function ScanBase(e, i, revers) {
-        document.getElementById("loading-bar").classList.remove("hide");
-        var t = 0
-        if (i >= e.length) {
-            GetKodiScan(data, revers)
-            document.getElementById("loading-bar").classList.add("hide");
-            // localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-            if (window.innerHeight >= document.body.scrollHeight - scrollM && HistoryIsActivy) {
-                GetKodi()
-            }
-            return;
-        }
-        const prog = `${i}%`
-        document.getElementById("loading-bar").style.width = prog
-        document.getElementById("loading-bar").textContent = prog
-
-        setTimeout(() => {
-            ScanBase(e, i + 1, revers);
-        }, t);
-    }
-
-    function GetKodiScan(data, revers) {
-        var t1 = false
-        data.forEach(e => {
-
-            if (revers && endid == e.id || t1) {
-
-                t1 = true
-                endid = endid2
-                return
-            }
-            if ((e.type == 'anime-serial' || e.type == "anime") && e.translation.type == "voice") {
-                // console.log(endid)
-
-                if (VoiceTranslate(e.translation.title)) {
-                    const dat = new Date(e.updated_at)
-                    if (!e.shikimori_id) return
-                    const e1 = {
-                        "title": e.material_data.anime_title,
-                        "cover": `${e.material_data.poster_url}`,
-                        // "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
-                        "date": formatDate(e.updated_at),
-                        // "date": formatDate(base_anime.base[e.shikimori_id].next_episode_at),
-                        "voice": e.translation.title,
-                        "series": e.episodes_count ? e.episodes_count : "M",
-                        "link": e.link,
-                        "kp": e.kinopoisk_id,
-                        "imdb": e.imdb_id,
-                        "shikimori": e.shikimori_id,
-                        "status": e.material_data.all_status,
-                    }
-                    const card = add_cart(e1)
-                    if (revers && prev_page == null) {
-                        targetFrame.prepend(card)
-                        card.classList.add("new_cart")
-                        add_push(e1)
-                    } else {
-                        targetFrame.appendChild(card)
-
-                    };
-
-
-                }
-                if (!base_anime.translation) base_anime.translation = [];
-                if (!base_anime.translationActive) base_anime.translationActive = voice;
-                if (!base_anime.translation.includes(e.translation.title)) base_anime.translation.push(e.translation.title);
-            }
-
-        });
-    }
-    // console.log(base_anime.translation)
-    localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+    });
+}
+// console.log(base_anime.translation)
+localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
