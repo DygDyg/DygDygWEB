@@ -252,7 +252,7 @@ function httpGet(theUrl) {
 }
 function add_cart(e) {
     const card = document.createElement('div');
-    card.classList.add('card', 'bg-dark', 'text-white');
+    card.classList.add('card_', 'bg-dark', 'text-white');
 
     card.addEventListener("click", (event) => {
 

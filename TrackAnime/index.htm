@@ -65,6 +65,7 @@
 </head>
 
 <link rel="stylesheet" type="text/css" href="styles.css" media="screen" />
+
 <body>
     <div class="input-group mb-3">
         <div class="input-group-append">
@@ -127,7 +128,31 @@
 
     <dialog id="VideoPlayerAnime">
         <div id="DialogVideoInfo">
-            <div id="VideoInfo"></div>
+            <div id="VideoInfo">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <svg class="bd-placeholder-img img-fluid rounded-start" width="100%" height="250"
+                                xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Изображение"
+                                preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%"
+                                    fill="#dee2e6" dy=".3em">Изображение</text>
+                            </svg>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Заголовок карточки</h5>
+                                <p class="card-text">Это более широкая карточка с вспомогательным текстом ниже в
+                                    качестве естественного перехода к дополнительному контенту. Этот контент немного
+                                    длиннее.</p>
+                                <p class="card-text"><small class="text-body-secondary">Последнее обновление 3 мин.
+                                        назад</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <button type="button" id="VideoInfoBtn" class="VideoInfoBtn btn btn-secondary">▼ Вниз ▼<br>▲ Вверх
                 ▲</button>
             <iframe id="VideoPlayer" allowfullscreen="" allow="autoplay *; fullscreen *"></iframe>
