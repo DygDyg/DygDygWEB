@@ -534,6 +534,7 @@
             setTimeout(addCalendar, 0)
         }
     });
+    var tttt
     async function addCalendar() {
         document.getElementById("list_history").classList.add("hide")
         document.getElementById("list_serch").classList.add("hide")
@@ -557,9 +558,9 @@
         }
         data.forEach(e => {
             if ((e.type == 'anime-serial') && e.translation.type == "voice" && e.shikimori_id) {
-
+                tttt = formatDate(e.material_data.next_episode_at).moment
                 if (id.includes(e.shikimori_id)) return
-                console.log(e)
+                // console.log(e)
                 id.push(e.shikimori_id)
                 const e1 = {
                     "title": e.material_data.anime_title,
@@ -567,7 +568,7 @@
                     // "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
                     "date": formatDate(e.material_data.next_episode_at),
                     // "date": formatDate(base_anime.base[e.shikimori_id].next_episode_at),
-                    "voice": formatDate(e.material_data.next_episode_at).dayOfWeek_n,
+                    "voice": formatDate(e.material_data.next_episode_at).moment.format('dddd'),
                     "series": e.episodes_count ? e.episodes_count : "M",
                     "link": e.link,
                     "kp": e.kinopoisk_id,
@@ -576,7 +577,8 @@
                     "status": e.material_data.all_status,
                 }
                 const card = add_cart(e1)
-                d3[formatDate(e.material_data.next_episode_at).dayOfWeek].appendChild(card)
+                console.log(formatDate(e.material_data.next_episode_at).dayOfWeek)
+                formatDate(e.material_data.next_episode_at).dayOfWeek==0?d3[6].appendChild(card):d3[formatDate(e.material_data.next_episode_at).dayOfWeek-1].appendChild(card)
             }
         });
         list_calendar.getElementsByClassName('ned_name')[formatDate().dayOfWeek - 1].scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
