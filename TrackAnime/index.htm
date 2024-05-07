@@ -98,6 +98,11 @@
     </div>
     <div class="anime_list" id="list_history"></div>
     <div class="anime_list hide" id="list_serch"></div>
+    <div class="hide" id="load">
+        <div class="spinner-border text-primary" role="status" style="margin: 38% 50%; scale: 3;">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
 
 
     <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -117,6 +122,15 @@
     </dialog>
 </body>
 <style>
+    #load {
+        width: 100%;
+        height: 100%;
+        background-color: #00000054;
+        position: fixed;
+        z-index: 999999999999999999;
+        backdrop-filter: blur(2px);
+    }
+
     .ned {
         display: flex;
         flex-wrap: wrap;
@@ -223,6 +237,7 @@
 
     dialog::backdrop {
         background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
     }
 
     .DialogVideoInfoScroll {
@@ -523,17 +538,17 @@
     // console.log(base_anime)
     // VoiceSettingsMenu()
 
-    document.addEventListener('keydown', async function (event) {
+    document.addEventListener('keydown', function (event) {
         // console.log(event.code)
         if (event.code == 'F2') {
             // list_calendar.classList.add("")
-            document.getElementById("list_calendar").classList.remove("hide")
-            document.getElementById("list_history").classList.add("hide")
-            document.getElementById("list_serch").classList.add("hide")
+            
+
             HistoryIsActivy = false
             // list_calendar.innerHTML = 
             var tmp1 = list_calendar.getElementsByClassName('ned')
-
+            document.getElementById("load").classList.remove("hide")
+            
             for (let i = 0; i < tmp1.length; i++) {
                 tmp1[i].innerHTML = ""
                 // console.log()    
@@ -542,10 +557,14 @@
             // .forEach(e => {
             //     e.innerHTML = ""
             // });
-            await addCalendar()
+            setTimeout(addCalendar, 0)
         }
     });
     async function addCalendar() {
+        document.getElementById("list_history").classList.add("hide")
+        document.getElementById("list_serch").classList.add("hide")
+        document.getElementById("list_calendar").classList.remove("hide")
+        document.getElementById("load").classList.add("hide")
         var URLCalendarAdd = URLCalendar;
         var data = []
         var d1
