@@ -512,7 +512,7 @@
         VideoPlayerAnime.close();
         VideoPlayer.contentWindow.location.href = "../index.htm";
     });
-    document.getElementById("list_calendar_Button").addEventListener('click', () => {
+    document.getElementById("list_calendar_Button").addEventListener('click', async () => {
         getCalendar()
     });
     VideoPlayerAnime.addEventListener("close", () => {
@@ -550,11 +550,8 @@
         HistoryIsActivy = false
         var tmp1 = list_calendar.getElementsByClassName('ned')
         document.getElementById("load").classList.remove("hide")
-
-        /*             for (let i = 0; i < tmp1.length; i++) {
-                        tmp1[i].innerHTML = ""
-                    } */
         document.getElementById("list_calendar").classList.add("hide")
+
         setTimeout(addCalendar, 0)
     }
 
