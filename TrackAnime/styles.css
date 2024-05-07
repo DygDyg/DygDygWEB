@@ -3,7 +3,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    background-image: url(background.jpg);
+    /* background-image: url(background.jpg); */
     background-repeat: repeat;
     background-size: cover;
     background-attachment: fixed;
