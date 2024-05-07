@@ -122,19 +122,19 @@
     </dialog>
 </body>
 <style>
-#load {
-    width: 100%;
-    height: 100%;
-    background-color: #00000054;
-    position: fixed;
-    z-index: 999999999999999999;
-    backdrop-filter: blur(2px);
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-}
+    #load {
+        width: 100%;
+        height: 100%;
+        background-color: #00000054;
+        position: fixed;
+        z-index: 999999999999999999;
+        backdrop-filter: blur(2px);
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+    }
 
     .ned {
         display: flex;
@@ -521,15 +521,15 @@
 
     document.addEventListener('keydown', function (event) {
         if (event.code == 'F2') {
-            
+
 
             HistoryIsActivy = false
             var tmp1 = list_calendar.getElementsByClassName('ned')
             document.getElementById("load").classList.remove("hide")
-            
-            for (let i = 0; i < tmp1.length; i++) {
+
+/*             for (let i = 0; i < tmp1.length; i++) {
                 tmp1[i].innerHTML = ""
-            }
+            } */
             document.getElementById("list_calendar").classList.add("hide")
             setTimeout(addCalendar, 0)
         }
@@ -543,6 +543,9 @@
         var d1
         var d3 = list_calendar.getElementsByClassName('ned')
 
+        for (let i = 0; i < d3.length; i++) {
+            d3[i].innerHTML = ""
+        }
 
         // return
         while (URLCalendarAdd) {
@@ -554,7 +557,7 @@
         }
         data.forEach(e => {
             if ((e.type == 'anime-serial') && e.translation.type == "voice" && e.shikimori_id) {
-                
+
                 if (id.includes(e.shikimori_id)) return
                 console.log(e)
                 id.push(e.shikimori_id)
@@ -562,9 +565,9 @@
                     "title": e.material_data.anime_title,
                     "cover": `${e.material_data.poster_url}`,
                     // "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
-                    "date": formatDate(e.next_episode_at),
+                    "date": formatDate(e.material_data.next_episode_at),
                     // "date": formatDate(base_anime.base[e.shikimori_id].next_episode_at),
-                    "voice": e.translation.title,
+                    "voice": formatDate(e.material_data.next_episode_at).dayOfWeek_n,
                     "series": e.episodes_count ? e.episodes_count : "M",
                     "link": e.link,
                     "kp": e.kinopoisk_id,
@@ -576,7 +579,7 @@
                 d3[formatDate(e.material_data.next_episode_at).dayOfWeek].appendChild(card)
             }
         });
-        list_calendar.getElementsByClassName('ned_name')[formatDate().dayOfWeek-1].scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
+        list_calendar.getElementsByClassName('ned_name')[formatDate().dayOfWeek - 1].scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
         document.getElementById("load").classList.add("hide")
     }
 
@@ -786,6 +789,8 @@
         days.minutes = String(date.getMinutes()).padStart(2, '0');
         days.seconds = String(date.getSeconds()).padStart(2, '0');
         days.dayOfWeek = Number(String(date.getDay()).padStart(2, '0'));
+        days.dayOfWeek_n = days.name[days.dayOfWeek+1]
+        days.dayOfWeek_ns = days.name_s[days.dayOfWeek+1]
         days.string = `${days.moment.calendar()}`
         days.moment_7 = moment.utc(isoDateString)
         days.moment_7.add(7, 'days')
