@@ -810,7 +810,7 @@
         days.minutes = String(date.getMinutes()).padStart(2, '0');
         days.seconds = String(date.getSeconds()).padStart(2, '0');
         days.dayOfWeek = Number(String(date.getDay()).padStart(2, '0'));
-        days.dayOfWeek_n = days.moment.moment.format('dddd');
+        days.dayOfWeek_n = days.moment.format('dddd');
         days.dayOfWeek_ns = days.name_s[days.dayOfWeek + 1]
         days.string = `${days.moment.calendar()}`
         days.moment_7 = moment.utc(isoDateString)
