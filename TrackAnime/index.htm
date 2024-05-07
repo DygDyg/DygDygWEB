@@ -460,7 +460,6 @@
     setInterval(() => {
         if (!HistoryIsActivy) return
         GetKodi("", true)
-        // console.log("scan")
     }, 30 * 1000);  //Автопроверка 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -473,24 +472,11 @@
         GetKodi(encodeURI(e.target.value))
     })
 
-    // document.body.addEventListener("wheel", (e) => {
-    //     console.log(e.deltaY)
-    //     if (e.deltaY > 0) {
-    //         document.getElementById('DialogVideoInfo').classList.add("DialogVideoInfoScroll")
-    //     }
-    //     if (e.deltaY < 0) {
-    //         document.getElementById('DialogVideoInfo').classList.remove("DialogVideoInfoScroll")
-    //     }
-    // });
+
     document.getElementById("VideoInfoBtn").addEventListener('click', () => {
         let DialogVideoInfo = document.getElementById('DialogVideoInfo')
         DialogVideoInfo.classList.contains('DialogVideoInfoScroll') ? DialogVideoInfo.classList.remove("DialogVideoInfoScroll") : DialogVideoInfo.classList.add("DialogVideoInfoScroll")
-        // if(DialogVideoInfo.classList.contains('DialogVideoInfoScroll'))
-        // {
 
-        // }else{
-
-        // }
     })
 
     function getRandomInt(max) {
@@ -511,8 +497,6 @@
     window.onscroll = function () {
 
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - scrollM && HistoryIsActivy == true) {
-            // console.log("Вы достигли конца страницы!");
-            // GetKodi();
             setTimeout(GetKodi, 0)
         }
     };
@@ -522,41 +506,26 @@
         base_anime = JSON.parse(base_anime)
     } else {
         base_anime = {}
-        // console.log(JSON.stringify({}))
     }
     if (base_anime.base) {
         delete base_anime.base;
         localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
     }
     base_anime.fav = base_anime.fav ? base_anime.fav : []
-    /*     if (!base_anime.base) {
-            localStorage.removeItem('BaseAnime');
-            // localStorage.setItem('BaseAnime', JSON.stringify({ "base": {}, "translation":{}, "translationActive":{}}));
-            localStorage.setItem('BaseAnime', JSON.stringify({ "base": {} }));
-            location.reload();
-        } */
-    // console.log(base_anime)
-    // VoiceSettingsMenu()
+
 
     document.addEventListener('keydown', function (event) {
-        // console.log(event.code)
         if (event.code == 'F2') {
-            // list_calendar.classList.add("")
             
 
             HistoryIsActivy = false
-            // list_calendar.innerHTML = 
             var tmp1 = list_calendar.getElementsByClassName('ned')
             document.getElementById("load").classList.remove("hide")
             
             for (let i = 0; i < tmp1.length; i++) {
                 tmp1[i].innerHTML = ""
-                // console.log()    
             }
 
-            // .forEach(e => {
-            //     e.innerHTML = ""
-            // });
             setTimeout(addCalendar, 0)
         }
     });
@@ -570,7 +539,6 @@
         var d1
         var d3 = list_calendar.getElementsByClassName('ned')
 
-        // console.log(list_calendar.getElementsByClassName('ned'))
 
         // return
         while (URLCalendarAdd) {
@@ -579,12 +547,12 @@
             var id = []
             data = d2.concat(d1.results)
             URLCalendarAdd = d1.next_page
-            // console.log(d1.results)
         }
         data.forEach(e => {
             if ((e.type == 'anime-serial') && e.translation.type == "voice" && e.shikimori_id) {
-                // console.log(e)
+                
                 if (id.includes(e.shikimori_id)) return
+                console.log(e)
                 id.push(e.shikimori_id)
                 const e1 = {
                     "title": e.material_data.anime_title,
@@ -627,10 +595,8 @@
                 icon: e.cover,
             })
         notification.addEventListener("click", () => {
-            console.log(e)
             e.shift = event.shiftKey
             dialog(e)
-            // card.classList.remove("new_cart")
         })
 
     }
@@ -713,17 +679,9 @@
     function add_cart(e) {
         const card = document.createElement('div');
         card.classList.add('card', 'bg-dark', 'text-white');
-        // card.style.width = '22rem';
-        // card.style.height = '22rem';
 
         card.addEventListener("click", (event) => {
-            // console.log(event.shiftKey)
-            // if (event.shiftKey) {
-            //     console.log(e)
-            //     add_push(e)
-            //     return
-            // }
-            // console.log(e.link)
+
             e.shift = event.shiftKey
             dialog(e)
             card.classList.remove("new_cart")
@@ -731,7 +689,6 @@
 
         const imgTop = document.createElement('div');
         imgTop.style.backgroundImage = `url(${e.cover}`;
-        // imgTop.style.height = '22rem';
         imgTop.src = e.cover;
         imgTop.classList.add('card-img-top');
         imgTop.alt = 'cover';
@@ -752,20 +709,16 @@
 
         const cartCal = document.createElement('h5');
         cartCal.classList.add('card-cal');
-        // console.log()
         cartCal.textContent = e.date.moment.fromNow();//
-        // cartCal.textContent = e.date.name[Number(e.date.dayOfWeek)];//
         cartCal.title = e.date.moment.format('MMMM Do YYYY, HH:mm:ss'); //${days.name[Number(days.dayOfWeek)]}
         cartCal.style.color = e.kp ? "#ffcccc" : "#ffffff"
         cartCal.style.color = e.imdb ? "#daedff" : "#ffffff"
-        // cartCal.title = e.date.name[e.date.dayOfWeek]; //${days.name[Number(days.dayOfWeek)]}
         cartTime.appendChild(cartCal);
 
         const cartVoice = document.createElement('h5');
         cartVoice.classList.add('card-voice');
         cartVoice.classList.add(encodeURIComponent(e.voice));
         cartVoice.textContent = e.voice;
-        // cartVoice.title = e.voice;
         cartVoice.title = e.status;
         imgTop.appendChild(cartVoice);
 
@@ -778,7 +731,6 @@
         cartSeries.style.color = e.status == "released" ? "#a9ffb4" : "#ffffff"
         imgTop.appendChild(cartSeries);
 
-        // console.log(1,e)
 
         const cartFavorite = document.createElement('div');
         cartFavorite.classList.add('card-fav');
@@ -793,7 +745,6 @@
 
         cartFavorite.addEventListener("click", (ev) => {
             ev.stopPropagation();
-            // console.log(GetFavorite(e.shikimori))
             if (GetFavorite(e.shikimori)) {
                 cartFavorite.style.color = "#ffffff"
                 console.log(DeleteFavorite(e.shikimori))
@@ -801,11 +752,8 @@
                 cartFavorite.style.color = "#ffdd00"
                 SetFavorite(e.shikimori)
             }
-            // cartFavorite.triggers = cartFavorite.triggers ? (!cartFavorite.triggers) : true
 
 
-            // cartFavorite.style.color = cartFavorite.triggers ? "#ffdd00" : "#ffffff"
-            // console.log(cartFavorite.triggers)
         })
         setTimeout(() => card.classList.add("card_spawn"), 0)
 
@@ -816,13 +764,9 @@
         var days = {}
         var data
 
-        // var moment = moment().locale('ru').utc(isoDateString);
         days.moment = moment.utc(isoDateString)
-        // console.log(moment(isoDateString).calendar().locale('ru'))
         days.name = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
         days.name_s = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
-        // console.log(isoDateString)
-        // data = isoDateString?new Date(isoDateString):new Date()
 
         if (isoDateString) {
             date = new Date(isoDateString)
@@ -837,24 +781,17 @@
         days.minutes = String(date.getMinutes()).padStart(2, '0');
         days.seconds = String(date.getSeconds()).padStart(2, '0');
         days.dayOfWeek = Number(String(date.getDay()).padStart(2, '0'));
-        // days.string = `${days.day}.${days.month}.${days.year} ${days.hours}:${days.minutes}:${days.seconds} ${days.name_s[Number(days.dayOfWeek)]}`;
         days.string = `${days.moment.calendar()}`
         days.moment_7 = moment.utc(isoDateString)
-        // days.moment
         days.moment_7.add(7, 'days')
-        // days.str_days = `${days.moment.fromNow()}`
-        // console.log(days.dayOfWeek, days.name)
         return days;
     }
 
     function dialog(e) {
         document.title = `TA: ${e.title}`
         VideoPlayerAnime.showModal();
-        console.log(e)
         if ((e.imdb || e.kp) && e.shift) {
-            // VideoPlayer.contentWindow.location.href = `//${getRandomInt(999999999999)}.svetacdn.in/Mr1qo9bwHfJQ?imdb_id=${e.imdb}`
             VideoPlayer.contentWindow.location.href = e.kp ? `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&kinopoiskID=${e.kp}` : `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&imdb=${e.imdb}`
-            // VideoPlayer.contentWindow.location.href =  `//api.linktodo.ws/embed/imdb/${e.imdb}`
             return
         }
         VideoPlayer.contentWindow.location.href = e.link
@@ -879,7 +816,7 @@
             document.getElementById('list_history').classList.add("hide")
             targetFrame = document.getElementById('list_serch')
             targetFrame.classList.remove("hide")
-            console.log(dat)
+
             if (revers) {
                 dat = JSON.parse(httpGet(URLListStart).response)
                 endid2 = dat.results[0].id
@@ -887,16 +824,12 @@
                 dat = JSON.parse(httpGet(URLList).response)
                 URLList = dat.next_page
                 endid = endid ? endid : dat.results[0].id
-                // console.log(dat.results[0].id)
+
             }
 
             url_get = new URL(window.location.href)
             url_get.searchParams.delete("seartch")
             window.history.pushState({}, '', url_get);
-            // document.getElementById('list_history')
-
-
-
         } else {
             HistoryIsActivy = false
             ignoreVoice = true
@@ -913,45 +846,27 @@
                     t.shikimori_id === value.shikimori_id
                 ))
             );
-            // dat = Object.assign({}, dat1); 
+
             url_get = new URL(window.location.href)
             url_get.searchParams.set("seartch", `${seartch}`)
             window.history.pushState({}, '', url_get);
-
-            /*             dat.results.sort((a, b) => {
-                            let dateA = new Date(a.updated_at);
-                            let dateB = new Date(b.updated_at);
-                            return dateB - dateA;
-                        }); */
-
-            // console.log(dat.results)
         }
         data = dat.results
         prev_page = dat.prev_page
 
-        // const data = JSON.parse(httpGet("test.json").response).results
-        // console.log(data)
-        // console.log("scan")
-        // console.log(dat.prev_page)
-        // ScanBase(data, 0, revers);
+
         GetKodiScan(data, revers)
         if (window.innerHeight >= document.body.scrollHeight - scrollM && HistoryIsActivy) {
-            // GetKodi()
             setTimeout(GetKodi, 0)
         }
         return seartch
     }
-    // console.log(base_anime.base)
-    // if(url_get.searchParams.get('seartch')){
-    //      GetKodi(url_get.searchParams.get('seartch'))
-    // }else{
-    //     GetKodi()
-    // }
+
     GetKodi(url_get.searchParams.get('seartch'))
 
 
 
-    // GetKodiScan(data)
+
 
     function ScanBase(e, i, revers) {
         document.getElementById("loading-bar").classList.remove("hide");
@@ -968,17 +883,6 @@
         const prog = `${i}%`
         document.getElementById("loading-bar").style.width = prog
         document.getElementById("loading-bar").textContent = prog
-        // console.log(prog)
-        // console.log(e[i].type)
-        /*         if ((e[i].type == 'anime-serial' || e[i].type == "anime") && e[i].translation.type == "voice" && (VoiceTranslate(e[i].translation.title))) {
-                    if (!base_anime.base[e[i].shikimori_id]) {
-                        t = 500
-                        base_anime.base[e[i].shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e[i].shikimori_id}`).response)
-                        // JSON.stringify(base_anime)
-                    }
-                } */
-        // console.log(base_anime.base)
-        // console.log(base_anime.base[e[i].shikimori_id])
 
         setTimeout(() => {
             ScanBase(e, i + 1, revers);
@@ -990,7 +894,7 @@
         data.forEach(e => {
 
             if (revers && endid == e.id || t1) {
-                // console.log(1, e.id)
+
                 t1 = true
                 endid = endid2
                 return
@@ -999,20 +903,8 @@
                 // console.log(endid)
 
                 if (VoiceTranslate(e.translation.title)) {
-                    /* if (!base_anime.base[e.shikimori_id]) {
-                        base_anime.base[e.shikimori_id] = JSON.parse(httpGet(`https://shikimori.one/api/animes/${e.shikimori_id}`).response)
-                        JSON.stringify(base_anime)
-                        localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-                        // console.log(base_anime.base[e.shikimori_id])
-                    } */
-
-
                     const dat = new Date(e.updated_at)
-
-                    // console.log("shikimori", base_anime.base[e.shikimori_id], "kodik", e)
-                    // console.log(1, e.material_data)
                     if (!e.shikimori_id) return
-                    // console.log(e)
                     const e1 = {
                         "title": e.material_data.anime_title,
                         "cover": `${e.material_data.poster_url}`,
