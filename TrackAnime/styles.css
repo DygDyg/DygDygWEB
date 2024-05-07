@@ -318,7 +318,7 @@ p {
     /* opacity: 100%; */
 }
 
-.card:hover {
+.card_:hover {
     border-color: rgb(255, 255, 255);
 
     .card-title,
