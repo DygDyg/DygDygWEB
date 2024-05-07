@@ -80,21 +80,34 @@
             aria-valuemin="0" aria-valuemax="100">0%</div>
     </div>
     <div class="anime_list hide" id="list_calendar">
-
-        <div class="ned_name">Понедельник</div>
-        <div class="ned"></div>
-        <div class="ned_name">Вторник</div>
-        <div class="ned"></div>
-        <div class="ned_name">Среда</div>
-        <div class="ned"></div>
-        <div class="ned_name">Четверг</div>
-        <div class="ned"></div>
-        <div class="ned_name">Пятница</div>
-        <div class="ned"></div>
-        <div class="ned_name">Суббота</div>
-        <div class="ned"></div>
-        <div class="ned_name">Воскресенье</div>
-        <div class="ned"></div>
+        <details class="ned_spoiler">
+            <summary class="ned_name">Понедельник</summary>
+            <div class="ned"></div>
+        </details>
+        <details class="ned_spoiler">
+            <summary class="ned_name">Вторник</summary>
+            <div class="ned"></div>
+        </details>
+        <details class="ned_spoiler">
+            <summary class="ned_name">Среда</summary>
+            <div class="ned"></div>
+        </details>
+        <details class="ned_spoiler">
+            <summary class="ned_name">Четверг</summary>
+            <div class="ned"></div>
+        </details>
+        <details class="ned_spoiler">
+            <summary class="ned_name">Пятница</summary>
+            <div class="ned"></div>
+        </details>
+        <details class="ned_spoiler">
+            <summary class="ned_name">Суббота</summary>
+            <div class="ned"></div>
+        </details>
+        <details class="ned_spoiler">
+            <summary class="ned_name">Воскресенье</summary>
+            <div class="ned"></div>
+        </details>
     </div>
     <div class="anime_list" id="list_history"></div>
     <div class="anime_list hide" id="list_serch"></div>
@@ -182,6 +195,12 @@
 
     button.btn.btn-primary.mt-3 {
         width: 100%;
+    }
+
+    #list_calendar {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
     }
 
     .anime_list {
@@ -527,9 +546,9 @@
             var tmp1 = list_calendar.getElementsByClassName('ned')
             document.getElementById("load").classList.remove("hide")
 
-/*             for (let i = 0; i < tmp1.length; i++) {
-                tmp1[i].innerHTML = ""
-            } */
+            /*             for (let i = 0; i < tmp1.length; i++) {
+                            tmp1[i].innerHTML = ""
+                        } */
             document.getElementById("list_calendar").classList.add("hide")
             setTimeout(addCalendar, 0)
         }
@@ -568,7 +587,7 @@
                     // "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
                     "date": formatDate(e.material_data.next_episode_at),
                     // "date": formatDate(base_anime.base[e.shikimori_id].next_episode_at),
-                    "voice": formatDate(e.material_data.next_episode_at).moment.format('dddd'),
+                    "voice": formatDate(e.material_data.next_episode_at).moment.format('dddd') +" "+ formatDate(e.material_data.next_episode_at).moment.day()+" "+formatDate(e.material_data.next_episode_at).moment.day(),
                     "series": e.episodes_count ? e.episodes_count : "M",
                     "link": e.link,
                     "kp": e.kinopoisk_id,
@@ -577,10 +596,11 @@
                     "status": e.material_data.all_status,
                 }
                 const card = add_cart(e1)
-                formatDate(e.material_data.next_episode_at).dayOfWeek==0?d3[6].appendChild(card):d3[formatDate(e.material_data.next_episode_at).dayOfWeek-1].appendChild(card)
+                formatDate(e.material_data.next_episode_at).moment.day() == 0 ? d3[6].appendChild(card) : d3[formatDate(e.material_data.next_episode_at).moment.day() - 1].appendChild(card)
             }
         });
-        list_calendar.getElementsByClassName('ned_name')[formatDate().dayOfWeek - 1].scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
+        list_calendar.getElementsByClassName('ned_spoiler')[formatDate().moment.day() - 1].open = true
+        list_calendar.getElementsByClassName('ned_name')[formatDate().moment.day() - 1].scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
         document.getElementById("load").classList.add("hide")
     }
 
@@ -790,8 +810,8 @@
         days.minutes = String(date.getMinutes()).padStart(2, '0');
         days.seconds = String(date.getSeconds()).padStart(2, '0');
         days.dayOfWeek = Number(String(date.getDay()).padStart(2, '0'));
-        days.dayOfWeek_n = days.name[days.dayOfWeek+1]
-        days.dayOfWeek_ns = days.name_s[days.dayOfWeek+1]
+        days.dayOfWeek_n = days.name[days.dayOfWeek + 1]
+        days.dayOfWeek_ns = days.name_s[days.dayOfWeek + 1]
         days.string = `${days.moment.calendar()}`
         days.moment_7 = moment.utc(isoDateString)
         days.moment_7.add(7, 'days')
