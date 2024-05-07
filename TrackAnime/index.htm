@@ -99,7 +99,7 @@
     <div class="anime_list" id="list_history"></div>
     <div class="anime_list hide" id="list_serch"></div>
     <div class="hide" id="load">
-        <div class="spinner-border text-primary" role="status" style="margin: 38% 50%; scale: 3;">
+        <div class="spinner-border text-primary" role="status" style="scale: 3;">
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
@@ -122,14 +122,19 @@
     </dialog>
 </body>
 <style>
-    #load {
-        width: 100%;
-        height: 100%;
-        background-color: #00000054;
-        position: fixed;
-        z-index: 999999999999999999;
-        backdrop-filter: blur(2px);
-    }
+#load {
+    width: 100%;
+    height: 100%;
+    background-color: #00000054;
+    position: fixed;
+    z-index: 999999999999999999;
+    backdrop-filter: blur(2px);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
 
     .ned {
         display: flex;
@@ -205,7 +210,7 @@
     }
 
     .hide {
-        display: none;
+        display: none !important;
     }
 
     .new_cart {
@@ -533,7 +538,6 @@
         document.getElementById("list_history").classList.add("hide")
         document.getElementById("list_serch").classList.add("hide")
         document.getElementById("list_calendar").classList.remove("hide")
-        document.getElementById("load").classList.add("hide")
         var URLCalendarAdd = URLCalendar;
         var data = []
         var d1
@@ -573,6 +577,7 @@
             }
         });
         list_calendar.getElementsByClassName('ned_name')[formatDate().dayOfWeek-1].scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
+        document.getElementById("load").classList.add("hide")
     }
 
     function getCookie(name) {
