@@ -17,7 +17,7 @@ body {
 #load {
     width: 100%;
     height: 100%;
-    background-color: #00000054;
+    background-color: #0000008b;
     position: fixed;
     z-index: 999999999999999999;
     /* backdrop-filter: blur(2px); */
