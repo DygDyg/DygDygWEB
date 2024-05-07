@@ -96,7 +96,7 @@ async function getCalendar() {
     document.getElementById("load").classList.remove("hide")
     document.getElementById("list_calendar").classList.add("hide")
 
-    setTimeout(addCalendar, 0)
+    setTimeout(addCalendar, 10)
 }
 
 async function addCalendar() {
