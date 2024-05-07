@@ -1,0 +1,317 @@
+#load {
+    width: 100%;
+    height: 100%;
+    background-color: #00000054;
+    position: fixed;
+    z-index: 999999999999999999;
+    backdrop-filter: blur(2px);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.ned {
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 15px;
+    border-style: solid;
+    border-width: 0.3rem;
+    border-color: #c6c6c6;
+    justify-content: center;
+}
+
+.ned_name {
+    background-color: #c6c6c6;
+    color: #424242;
+    width: 100%;
+    text-align: center;
+    border-radius: 7px;
+    margin: 15px 0px 15px 0px;
+    padding: 5px 0px 5px 0px;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.card-fav {
+    border-style: solid;
+    border-width: 0.3rem 0rem 0.3rem 0.3rem;
+    border-color: #ffffff00;
+    visibility: hidden;
+    position: absolute;
+    right: 0;
+    width: 3rem;
+    /* height: 4rem; */
+    top: 33%;
+    background-color: #353434bd;
+    padding: 0px 17px 0px 17px;
+    border-radius: 25px 0px 0px 25px;
+    font-size: 2.2rem;
+    z-index: 2;
+    cursor: pointer;
+
+}
+
+.card-fav:hover {
+    border-color: #ffffff;
+}
+
+button.btn.btn-primary.mt-3 {
+    width: 100%;
+}
+
+#list_calendar {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.anime_list {
+    width: 100%;
+    height: 100%;
+    /* position: absolute; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 45px;
+    margin-bottom: 20px;
+}
+
+.input-group.mb-3 {
+    width: 100%;
+    z-index: 10000;
+    position: fixed;
+    top: 0px;
+}
+
+.loading {
+    width: 100%;
+    z-index: 10000;
+    position: fixed;
+    bottom: 0px;
+}
+
+.hide {
+    display: none !important;
+}
+
+.new_cart {
+    border-color: #1008b6 !important;
+}
+
+
+#closeDialogButton {
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    width: 45px;
+    height: 45px;
+
+
+}
+
+dialog#VideoPlayerAnime {
+    padding: 0;
+    width: 80%;
+    /* height: 80%; */
+    border-radius: 12px;
+    border-width: thin;
+    border-color: #6d757d;
+    aspect-ratio: 16 / 9;
+    overflow-y: hidden;
+
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.DialogVideoInfoScroll {
+    top: 0% !important;
+}
+
+
+#DialogVideoInfo {
+    position: absolute;
+    width: 100%;
+    height: 200%;
+    top: -100%;
+    transition: top 1s ease;
+}
+
+
+iframe#VideoPlayer {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    border: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    top: 50%;
+
+}
+
+#VideoInfo {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    top: 0%;
+    transition: top 1s ease;
+}
+
+.VideoInfoBtn {
+    top: 50%;
+    left: 40%;
+    margin-top: -30px;
+    position: absolute;
+    z-index: 2;
+    width: 20%;
+}
+
+p {
+    margin: 0;
+}
+
+body {
+    background-color: rgb(66, 66, 66);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+.AniLibria\.TV {
+    color: rgb(250, 145, 145);
+}
+
+.Dream\%20Cast {
+    color: rgb(136, 255, 255)
+}
+
+.AniStar {
+    color: rgb(251, 73, 251);
+}
+
+.AnimeVost {
+    color: rgb(101, 214, 101);
+}
+
+.AniDUB,
+.AniDub\%20Online {
+    color: rgb(214, 161, 101);
+}
+
+.SHIZAProject {
+    color: rgb(118, 101, 214);
+}
+
+.JAM {
+    color: rgb(214, 101, 101);
+}
+
+.SHIZA\%20Project {
+    color: rgb(101, 214, 180);
+}
+
+.\%D0\%94\%D1\%83\%D0\%B1\%D0\%BB\%D0\%B8\%D1\%80\%D0\%BE\%D0\%B2\%D0\%B0\%D0\%BD\%D0\%BD\%D1\%8B\%D0\%B9 {
+    color: rgb(151, 255, 31);
+}
+
+.VF-Studio {
+    color: rgb(243, 73, 73);
+}
+
+
+.card-img-top {
+    background-size: cover;
+    height: 25rem;
+    width: 17rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+}
+
+.card-title {
+    background: linear-gradient(180deg, rgb(69, 69, 69, 0.8) 0%, rgba(69, 69, 69, 0.8) 80%, rgba(191, 191, 191, 0) 100%);
+    /*background-color: #5d5d5dde; */
+    text-align: center;
+    padding: 10px 0px 25px 0px;
+    visibility: hidden;
+    z-index: 2;
+    /* height: 125px; */
+}
+
+.card-voice {
+    position: absolute;
+    height: 100%;
+    writing-mode: vertical-rl;
+    padding: 5px;
+    text-align: center;
+    margin: 0px;
+    z-index: 1;
+    /* background-color: #5d5d5d99; */
+    background: linear-gradient(193deg, rgba(69, 69, 69, 0) 0%, rgba(69, 69, 69, 0.8) 25%, rgba(69, 69, 69, 0.8) 75%, rgba(69, 69, 69, 0) 100%);
+}
+
+.card-time {
+    /* background-color: #5d5d5dde; */
+    background: linear-gradient(0deg, rgb(69, 69, 69, 0.8) 0%, rgba(69, 69, 69, 0.8) 80%, rgba(191, 191, 191, 0) 100%);
+    padding: 25px 0px 10px 0px;
+    text-align: center;
+    margin: 0px;
+    padding: 5px;
+    z-index: 2;
+
+}
+
+.card-series {
+    position: absolute;
+    right: 0px;
+    background-color: #353434bd;
+    padding: 0px 15px 7px 18px;
+    border-radius: 0px 0px 0px 20px;
+    font-size: 2.2rem;
+    z-index: 1;
+}
+
+
+.card {
+    border-color: rgba(0, 0, 0, 0);
+    /* border-color: rgb(255, 255, 255); */
+    overflow: hidden;
+    border-radius: 15px;
+    border-style: solid;
+    border-width: 0.3rem;
+    margin: 5px;
+    /* scale: 0; */
+    opacity: 0%;
+    /* transition: scale 0.5s ease; */
+    transition: opacity 2s ease;
+
+}
+
+.card_spawn {
+    /* scale: 1; */
+    opacity: 100%;
+}
+
+.card:hover {
+    border-color: rgb(255, 255, 255);
+
+    .card-title,
+    .card-fav {
+        visibility: visible;
+    }
+
+}
