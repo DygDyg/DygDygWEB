@@ -79,8 +79,19 @@
         <div class="progress-bar" id="loading-bar" role="progressbar" style="width: 0;" aria-valuenow="0"
             aria-valuemin="0" aria-valuemax="100">0%</div>
     </div>
-    <dib class="anime_list" id="list_history"></dib>
-    <dib class="anime_list hide" id="list_serch"></dib>
+    <div class="anime_list hide" id="list_calendar">
+
+        <div class="ned"></div>
+        <div class="ned"></div>
+        <div class="ned"></div>
+        <div class="ned"></div>
+        <div class="ned"></div>
+        <div class="ned"></div>
+        <div class="ned"></div>
+    </div>
+    <div class="anime_list" id="list_history"></div>
+    <div class="anime_list hide" id="list_serch"></div>
+
 
     <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
     <dialog id="VoiceSettings">
@@ -99,6 +110,14 @@
     </dialog>
 </body>
 <style>
+    .ned {
+        display: flex;
+        flex-wrap: wrap;
+        border-radius: 15px;
+        border-style: solid;
+        border-width: 0.3rem;
+    }
+
     .card-fav {
         border-style: solid;
         border-width: 0.3rem 0rem 0.3rem 0.3rem;
@@ -385,8 +404,10 @@
     const VideoPlayerAnime = document.getElementById('VideoPlayerAnime');
     const VoiceSettings = document.getElementById('VoiceSettings');
     const VideoPlayer = document.getElementById('VideoPlayer');
+    const list_calendar = document.getElementById("list_calendar")
     const URLSearch = "https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&title="
     var URLList = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"
+    var URLCalendar = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8&anime_status=ongoing"
     var URLListStart = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"
     Notification.requestPermission()
     const voice = [
@@ -481,6 +502,73 @@
         } */
     // console.log(base_anime)
     // VoiceSettingsMenu()
+    
+    document.addEventListener('keydown', async function (event) {
+        // console.log(event.code)
+        if (event.code == 'F2') {
+            // list_calendar.classList.add("")
+            document.getElementById("list_calendar").classList.remove("hide")
+            document.getElementById("list_history").classList.add("hide")
+            document.getElementById("list_serch").classList.add("hide")
+            HistoryIsActivy =false
+            // list_calendar.innerHTML = 
+            var tmp1 = list_calendar.getElementsByClassName('ned')
+
+            for (let i = 0; i < tmp1.length; i++) {
+                tmp1[i].innerHTML = ""
+                // console.log()    
+            }
+            
+            // .forEach(e => {
+            //     e.innerHTML = ""
+            // });
+            await addCalendar()
+        }
+    });
+    async function addCalendar() {
+        var URLCalendarAdd = URLCalendar;
+        var data = []
+        var d1
+        var d3 = list_calendar.getElementsByClassName('ned')
+
+        // console.log(list_calendar.getElementsByClassName('ned'))
+
+        // return
+        while (URLCalendarAdd) {
+            d1 = JSON.parse(httpGet(URLCalendarAdd).response)
+            var d2 = data
+            var id = []
+            data = d2.concat(d1.results)
+            URLCalendarAdd = d1.next_page
+            // console.log(d1.results)
+        }
+        data.forEach(e => {
+            if ((e.type == 'anime-serial') && e.translation.type == "voice" && e.shikimori_id) {
+                // console.log(e)
+                if (id.includes(e.shikimori_id)) return
+                id.push(e.shikimori_id)
+                const e1 = {
+                    "title": e.material_data.anime_title,
+                    "cover": `${e.material_data.poster_url}`,
+                    // "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
+                    "date": formatDate(e.next_episode_at),
+                    // "date": formatDate(base_anime.base[e.shikimori_id].next_episode_at),
+                    "voice": e.translation.title,
+                    "series": e.episodes_count ? e.episodes_count : "M",
+                    "link": e.link,
+                    "kp": e.kinopoisk_id,
+                    "imdb": e.imdb_id,
+                    "shikimori": e.shikimori_id,
+                    "status": e.material_data.all_status,
+                }
+                const card = add_cart(e1)
+                d3[formatDate(e.material_data.next_episode_at).dayOfWeek].appendChild(card)
+            }
+        });
+
+
+    }
+
     function getCookie(name) {
         var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
         return matches ? decodeURIComponent(matches[1]) : undefined;
@@ -884,7 +972,7 @@
                     const dat = new Date(e.updated_at)
 
                     // console.log("shikimori", base_anime.base[e.shikimori_id], "kodik", e)
-                    console.log(1, e.material_data)
+                    // console.log(1, e.material_data)
                     if (!e.shikimori_id) return
                     // console.log(e)
                     const e1 = {
