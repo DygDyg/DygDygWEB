@@ -577,7 +577,6 @@
                     "status": e.material_data.all_status,
                 }
                 const card = add_cart(e1)
-                console.log(formatDate(e.material_data.next_episode_at).dayOfWeek)
                 formatDate(e.material_data.next_episode_at).dayOfWeek==0?d3[6].appendChild(card):d3[formatDate(e.material_data.next_episode_at).dayOfWeek-1].appendChild(card)
             }
         });
