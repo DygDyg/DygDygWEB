@@ -4,7 +4,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     /* background-image: url(background.jpg); */
-    background-repeat: repeat;
+    background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
     padding: 0px 15px 0px 15px;
