@@ -161,6 +161,7 @@ async function add_push(e) {
 
     if (perm != "granted") {
         showToast(e);
+        console.log(e)
         return
     }
     notification = new Notification(e.title,
@@ -410,7 +411,7 @@ function showToast(e) {
     toast0.innerHTML = `
     <div class="toast liveToast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
     <div class="toast-header">
-      <img src="${e.cover}" style="height: 75px;" class="rounded me-2" alt="...">
+      <img src="${e.cover}" style="height: 75px;" class="imgs rounded me-2" alt="...">
       <strong class="${encodeURIComponent(e.voice)} me-auto">${e.voice}</strong>
       <small class="text-muted">${e.date.string}</small>
       <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
@@ -420,11 +421,17 @@ function showToast(e) {
     </div>
   </div>
     `;
+
+/*     toast0.querySelector(".imgs").addEventListener("click", (ev) => {
+        // console.log(e)
+        dialog(e)
+    }) */
+
     var toast1 = new bootstrap.Toast(toast0.querySelector(".liveToast"));
 
     toast0.addEventListener('hidden.bs.toast', function (e) {
         toast0.remove()
-        console.log("aaa")
+        // console.log("aaa")
     })
     toast1.show();
     // toast0.show();
@@ -434,8 +441,8 @@ function showToast(e) {
 function dialog(e) {
     document.title = `TA: ${e.title}`
     if (e.shift) {
-    //     showToast(e);
-         add_push(e)
+        //     showToast(e);
+        add_push(e)
         return
     }
     VideoPlayerAnime.showModal();
