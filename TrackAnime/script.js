@@ -155,9 +155,10 @@ function getCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 async function add_push(e) {
+    if (!GetFavorite(e.shikimori) && base_anime.fav.length > 0) return
+    
     const perm = await Notification.requestPermission()
 
-    if (!GetFavorite(e.shikimori) && base_anime.fav.length > 0) return
     return showToast(e);
 
     if (perm != "granted") {
