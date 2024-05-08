@@ -1,10 +1,9 @@
 // ==UserScript==
 // @name         Кинопоиск kodik online
 // @namespace    http://tampermonkey.net/
-// @version      0.8
+// @version      0.9
 // @description  try to take over the world!
 // @author       ДугДуг
-// @run-at       document-end
 // @match        https://www.kinopoisk.ru/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=kinopoisk.ru
 // @require 	 https://dygdyg.github.io/DygDygWEB/user.js/DygDyg.libs.js
@@ -117,7 +116,7 @@ function video_player(n) {
 	let localurl = url;
 	localurl = `${url}&loadserv=` + n
 
-	document.body.querySelector("#player_body")?.remove()
+	document.querySelector("#player_body")?.remove()
 	const elp = document.createElement('div')
 	elp.id = "player_body"
 	// document.body.prepend(elp)

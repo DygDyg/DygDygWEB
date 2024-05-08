@@ -433,11 +433,11 @@ function showToast(e) {
 
 function dialog(e) {
     document.title = `TA: ${e.title}`
-    // if (e.shift) {
+    if (e.shift) {
     //     showToast(e);
-    //     // add_push(e)
-    //     return
-    // }
+         add_push(e)
+        return
+    }
     VideoPlayerAnime.showModal();
 
 
