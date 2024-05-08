@@ -273,6 +273,9 @@ p {
     right: 0;
     
 }
+input#RangeRaiting {
+    background-color: #424242c2;
+}
 
 .progress-bar-vertical {
     width: 20px;
