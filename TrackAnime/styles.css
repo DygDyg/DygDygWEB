@@ -283,6 +283,7 @@ input#RangeRaiting {
     float: left;
     display: flex;
     -webkit-align-items: flex-end;
+    align-items: flex-end;
     background-color: #424242af;
 }
 
