@@ -29,6 +29,9 @@ body {
     top: 0;
     left: 0;
 }
+.cartRaitingProgress {
+    border-radius: 0;
+}
 
 
 .ned {
