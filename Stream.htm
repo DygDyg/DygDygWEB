@@ -1,0 +1,68 @@
++<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.bootcss.com/flv.js/1.5.0/flv.min.js"></script>
+
+    <title>Стрим ДугДуг`а из лисятника</title>
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/MpFxRtY.png">
+
+    <meta name="description"
+        content="Стрим ДугДуг`а из лисятника. Для связи со мной можно писать в мой discord: .dygdyg">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <!-- <meta property="og:url" content="https://dygdyg.github.io/DygDygWEB/TrackAnime/"> -->
+    <meta property="og:title" content="Стрим ДугДуг`а из лисятника">
+    <meta property="og:description"
+        content="Стрим ДугДуг`а из лисятника. Для связи со мной можно писать в мой discord: .dygdyg">
+    <meta property="og:image" content="https://i.imgur.com/MpFxRtY.png">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <!-- <meta property="twitter:url" content="https://dygdyg.github.io/DygDygWEB/TrackAnime/"> -->
+    <meta property="twitter:title" content="Стрим ДугДуг`а из лисятника">
+    <meta property="twitter:description"
+        content="Стрим ДугДуг`а из лисятника. Для связи со мной можно писать в мой discord: .dygdyg">
+    <meta property="twitter:image" content="https://i.imgur.com/MpFxRtY.png">
+</head>
+
+<body>
+    <video controls id="videoElement"></video>
+</body>
+
+</html>
+<style>
+body {
+    background-color: #282828;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    width: 99%;
+    height: 100%;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+    #videoElement {
+        width: 70%;
+    }
+</style>
+
+<script>
+    if (flvjs.isSupported()) {
+        var videoElement = document.getElementById('videoElement');
+        var flvPlayer = flvjs.createPlayer({
+            type: 'flv',
+            url: `http://95.221.37.192:8182:8000/live/DygDyg.flv`
+        });
+        flvPlayer.attachMediaElement(videoElement);
+        flvPlayer.load();
+        document.body.addEventListener('click', () => {
+            flvPlayer.play();
+        })
+    }
+
+</script>
