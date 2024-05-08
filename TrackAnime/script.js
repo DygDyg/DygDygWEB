@@ -406,6 +406,10 @@ document.addEventListener('DOMContentLoaded', function () {
 function showToast(e) {
     // prompt("",JSON.stringify(e))
     // console.log(e)
+    var audio = new Audio();
+    audio.preload = 'auto';
+    audio.src = 'meloboom.mp3';
+    audio.play();
     var toast0 = document.createElement('div');
     document.getElementById('ToastsMain').appendChild(toast0)
     toast0.innerHTML = `
@@ -422,10 +426,10 @@ function showToast(e) {
   </div>
     `;
 
-/*     toast0.querySelector(".imgs").addEventListener("click", (ev) => {
-        // console.log(e)
-        dialog(e)
-    }) */
+    /*     toast0.querySelector(".imgs").addEventListener("click", (ev) => {
+            // console.log(e)
+            dialog(e)
+        }) */
 
     var toast1 = new bootstrap.Toast(toast0.querySelector(".liveToast"));
 
