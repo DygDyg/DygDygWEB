@@ -252,11 +252,11 @@ function httpGet(theUrl) {
 }
 RangeRaitingObj = document.getElementById('RangeRaiting')
 RangeRaitingObj.addEventListener("input", RangeRaiting);
-RangeRaitingObj.title = `Фильтр поминимальному рейтингу: ${RangeRaitingObj.value}`
+RangeRaitingObj.title = `Фильтр по минимальному рейтингу: ${RangeRaitingObj.value}`
 function RangeRaiting(r)
 {
     // console.log(1, r)
-    r.target.title = `Фильтр поминимальному рейтингу: ${r.target.value}`
+    r.target.title = `Фильтр по минимальному рейтингу: ${r.target.value}`
     document.body.querySelectorAll(".cart_").forEach(e => { 
         e.r<r.target.value?e.classList.add('hide'):e.classList.remove('hide')
     })
