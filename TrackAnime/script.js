@@ -408,7 +408,7 @@ function showToast(e) {
     // console.log(e)
     var audio = new Audio();
     audio.preload = 'auto';
-    audio.src = 'meloboom.mp3';
+    audio.src = './meloboom.mp3';
     audio.play();
     var toast0 = document.createElement('div');
     document.getElementById('ToastsMain').appendChild(toast0)
