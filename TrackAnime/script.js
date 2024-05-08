@@ -417,7 +417,7 @@ function showToast(e) {
 
     toast0.innerHTML = `
     <div class="toast liveToast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
-    <div class="toast-header">
+    <div class="toast-header" style="user-select: none;">
       <img src="${e.cover}" style="height: 75px;" class="imgs rounded me-2" alt="...">
       <strong class="${encodeURIComponent(e.voice)} me-auto">${e.voice}</strong>
       <small class="text-muted">${e.date.string}</small>
