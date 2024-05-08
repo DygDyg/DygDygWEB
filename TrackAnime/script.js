@@ -1,6 +1,6 @@
 var data, dat, targetFrame, endid, endid2, prev_page
 const scrollM = 2000;
-document.body.r = 4.5;
+document.body.r = 2;
 var ignoreVoice = false
 moment.locale('ru');
 var HistoryIsActivy = true
