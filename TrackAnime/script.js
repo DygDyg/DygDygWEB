@@ -160,7 +160,7 @@ async function add_push(e) {
     if (!GetFavorite(e.shikimori) && base_anime.fav.length > 0) return
 
     if (perm != "granted") {
-
+        showToast(e);
         return
     }
     notification = new Notification(e.title,
@@ -253,7 +253,7 @@ function httpGet(theUrl) {
 }
 RangeRaitingObj = document.getElementById('RangeRaiting')
 RangeRaitingObj.addEventListener("input", RangeRaiting);
-RangeRaitingObj.addEventListener("change", ()=>{GetKodi()});
+RangeRaitingObj.addEventListener("change", () => { GetKodi() });
 RangeRaitingObj.title = `Фильтр по минимальному рейтингу: ${RangeRaitingObj.value}`
 function RangeRaiting(r) {
     // console.log(1, r)
@@ -268,7 +268,7 @@ function add_cart(e) {
     const cart = document.createElement('div');
     cart.classList.add('cart_', 'bg-dark', 'text-white');
     cart.r = e.raiting
-    document.body.r>cart.r?cart.classList.add('hide'):null;
+    document.body.r > cart.r ? cart.classList.add('hide') : null;
 
     cart.addEventListener("click", (event) => {
 
@@ -399,23 +399,47 @@ function formatDate(isoDateString) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    showToast();
+    // showToast();
 });
 
-function showToast() {
-    console.log("ok")
-    var toast = new bootstrap.Toast(document.getElementById('liveToast'));
-    toast.show();
+function showToast(e) {
+    // prompt("",JSON.stringify(e))
+    // console.log(e)
+    var toast0 = document.createElement('div');
+    document.getElementById('ToastsMain').appendChild(toast0)
+    toast0.innerHTML = `
+    <div class="toast liveToast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+    <div class="toast-header">
+      <img src="${e.cover}" style="height: 75px;" class="rounded me-2" alt="...">
+      <strong class="${encodeURIComponent(e.voice)} me-auto">${e.voice}</strong>
+      <small class="text-muted">${e.date.string}</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+    </div>
+    <div class="toast-body">
+      ${e.title}
+    </div>
+  </div>
+    `;
+    var toast1 = new bootstrap.Toast(toast0.querySelector(".liveToast"));
+
+    toast0.addEventListener('hidden.bs.toast', function (e) {
+        toast0.remove()
+        console.log("aaa")
+    })
+    toast1.show();
+    // toast0.show();
+    // toast.dispose()
 }
 
 function dialog(e) {
     document.title = `TA: ${e.title}`
-    if (e.shift) {
-        add_push(e)
-        return
-    }
+    // if (e.shift) {
+    //     showToast(e);
+    //     // add_push(e)
+    //     return
+    // }
     VideoPlayerAnime.showModal();
-    
+
 
     if ((e.imdb || e.kp) && e.shift) {
         VideoPlayer.contentWindow.location.href = e.kp ? `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&kinopoiskID=${e.kp}` : `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&imdb=${e.imdb}`
@@ -438,58 +462,58 @@ function VoiceTranslate(name) {
 function GetKodi(seartch, revers) {
     // if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - scrollM && HistoryIsActivy == true && document.getElementById('search_input').value ) {
 
-        if (!seartch || seartch == undefined || seartch == "") {
-            HistoryIsActivy = true
-            ignoreVoice = false
-            document.getElementById('list_history').classList.add("hide")
-            targetFrame = document.getElementById('list_serch')
-            targetFrame.classList.remove("hide")
+    if (!seartch || seartch == undefined || seartch == "") {
+        HistoryIsActivy = true
+        ignoreVoice = false
+        document.getElementById('list_history').classList.add("hide")
+        targetFrame = document.getElementById('list_serch')
+        targetFrame.classList.remove("hide")
 
-            if (revers) {
-                dat = JSON.parse(httpGet(URLListStart).response)
-                endid2 = dat.results[0].id
-            } else {
-                dat = JSON.parse(httpGet(URLList).response)
-                URLList = dat.next_page
-                endid = endid ? endid : dat.results[0].id
-
-            }
-
-            url_get = new URL(window.location.href)
-            url_get.searchParams.delete("seartch")
-            window.history.pushState({}, '', url_get);
+        if (revers) {
+            dat = JSON.parse(httpGet(URLListStart).response)
+            endid2 = dat.results[0].id
         } else {
-            HistoryIsActivy = false
-            ignoreVoice = true
-            document.getElementById('search_input').value = decodeURIComponent(seartch)
-            targetFrame = document.getElementById('list_history')
-            targetFrame.classList.remove("hide")
-            targetFrame.innerHTML = ""
-            document.getElementById('list_serch').classList.add("hide")
-            dat1 = JSON.parse(httpGet(`${URLSearch}${seartch}`).response)
-            dat = {}
+            dat = JSON.parse(httpGet(URLList).response)
+            URLList = dat.next_page
+            endid = endid ? endid : dat.results[0].id
 
-            dat.results = dat1.results.filter((value, index, self) =>
-                index === self.findIndex((t) => (
-                    t.shikimori_id === value.shikimori_id
-                ))
-            );
-
-            url_get = new URL(window.location.href)
-            url_get.searchParams.set("seartch", `${seartch}`)
-            window.history.pushState({}, '', url_get);
-            console.log(dat1)
         }
-        data = dat.results
-        prev_page = dat.prev_page
 
+        url_get = new URL(window.location.href)
+        url_get.searchParams.delete("seartch")
+        window.history.pushState({}, '', url_get);
+    } else {
+        HistoryIsActivy = false
+        ignoreVoice = true
+        document.getElementById('search_input').value = decodeURIComponent(seartch)
+        targetFrame = document.getElementById('list_history')
+        targetFrame.classList.remove("hide")
+        targetFrame.innerHTML = ""
+        document.getElementById('list_serch').classList.add("hide")
+        dat1 = JSON.parse(httpGet(`${URLSearch}${seartch}`).response)
+        dat = {}
 
-        GetKodiScan(data, revers)
-        if (window.innerHeight >= document.body.scrollHeight - scrollM && HistoryIsActivy) {
-            setTimeout(GetKodi, 0)
-        }
-        return seartch
+        dat.results = dat1.results.filter((value, index, self) =>
+            index === self.findIndex((t) => (
+                t.shikimori_id === value.shikimori_id
+            ))
+        );
+
+        url_get = new URL(window.location.href)
+        url_get.searchParams.set("seartch", `${seartch}`)
+        window.history.pushState({}, '', url_get);
+        console.log(dat1)
     }
+    data = dat.results
+    prev_page = dat.prev_page
+
+
+    GetKodiScan(data, revers)
+    if (window.innerHeight >= document.body.scrollHeight - scrollM && HistoryIsActivy) {
+        setTimeout(GetKodi, 0)
+    }
+    return seartch
+}
 // }
 
 GetKodi(url_get.searchParams.get('seartch'))
