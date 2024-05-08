@@ -156,7 +156,7 @@ function getCookie(name) {
 }
 async function add_push(e) {
     if (!GetFavorite(e.shikimori) && base_anime.fav.length > 0) return
-    
+
     const perm = await Notification.requestPermission()
 
     return showToast(e);
@@ -414,6 +414,7 @@ function showToast(e) {
     audio.play();
     var toast0 = document.createElement('div');
     document.getElementById('ToastsMain').appendChild(toast0)
+
     toast0.innerHTML = `
     <div class="toast liveToast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
     <div class="toast-header">
@@ -428,10 +429,6 @@ function showToast(e) {
   </div>
     `;
 
-    /*     toast0.querySelector(".imgs").addEventListener("click", (ev) => {
-            // console.log(e)
-            dialog(e)
-        }) */
 
     var toast1 = new bootstrap.Toast(toast0.querySelector(".liveToast"));
 
@@ -440,6 +437,13 @@ function showToast(e) {
         // console.log("aaa")
     })
     toast1.show();
+
+    toast0.querySelector(".toast-header").addEventListener("click", (ev) => {
+        // console.log(e)
+        // dialog(e)
+        toast1.hide();
+    })
+
     // toast0.show();
     // toast.dispose()
 }
