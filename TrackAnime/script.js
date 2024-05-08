@@ -158,6 +158,7 @@ async function add_push(e) {
     const perm = await Notification.requestPermission()
 
     if (!GetFavorite(e.shikimori) && base_anime.fav.length > 0) return
+    return showToast(e);
 
     if (perm != "granted") {
         showToast(e);
