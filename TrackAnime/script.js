@@ -298,7 +298,6 @@ function add_cart(e) {
 
     const cartRaiting = document.createElement('div');
 
-
     cartRaiting.classList.add('card-raiting');
     cartRaiting.innerHTML = `
     <div class="progress progress-bar-vertical">
@@ -307,6 +306,7 @@ function add_cart(e) {
     </div>
   </div>
     `
+    cartRaiting.r = e.raiting
     cartRaiting.title = `Рейтинг шикимори: ${e.raiting}`
     cartRaiting.label = cartRaiting.querySelector(".sr-only")
     cartRaiting.progress = cartRaiting.querySelector(".progress-bar")
