@@ -140,8 +140,8 @@ async function addCalendar() {
                 "status": e.material_data.all_status,
                 "raiting": e.material_data.shikimori_rating,
             }
-            const card = add_cart(e1)
-            formatDate(e.material_data.next_episode_at).moment.day() == 0 ? d3[6].appendChild(card) : d3[formatDate(e.material_data.next_episode_at).moment.day() - 1].appendChild(card)
+            const cart = add_cart(e1)
+            formatDate(e.material_data.next_episode_at).moment.day() == 0 ? d3[6].appendChild(cart) : d3[formatDate(e.material_data.next_episode_at).moment.day() - 1].appendChild(cart)
         }
     });
     list_calendar.getElementsByClassName('ned_spoiler')[formatDate().moment.day() - 1].open = true
@@ -251,38 +251,39 @@ function httpGet(theUrl) {
     return xmlHttp;
 }
 function add_cart(e) {
-    const card = document.createElement('div');
-    card.classList.add('card_', 'bg-dark', 'text-white');
+    const cart = document.createElement('div');
+    cart.classList.add('cart_', 'bg-dark', 'text-white');
+    cart.r = e.raiting
 
-    card.addEventListener("click", (event) => {
+    cart.addEventListener("click", (event) => {
 
         e.shift = event.shiftKey
         dialog(e)
-        card.classList.remove("new_cart")
+        cart.classList.remove("new_cart")
     })
 
     const imgTop = document.createElement('div');
     imgTop.style.backgroundImage = `url(${e.cover}`;
     imgTop.src = e.cover;
-    imgTop.classList.add('card-img-top');
+    imgTop.classList.add('cart-img-top');
     imgTop.alt = 'cover';
-    card.appendChild(imgTop);
+    cart.appendChild(imgTop);
 
-    const cardTitle = document.createElement('h5');
-    cardTitle.classList.add('card-title');
-    cardTitle.textContent = e.title;
-    cardTitle.title = e.title;
-    imgTop.appendChild(cardTitle);
+    const cartTitle = document.createElement('h5');
+    cartTitle.classList.add('cart-title');
+    cartTitle.textContent = e.title;
+    cartTitle.title = e.title;
+    imgTop.appendChild(cartTitle);
 
 
     const cartTime = document.createElement('h5');
-    cartTime.classList.add('card-time');
+    cartTime.classList.add('cart-time');
     cartTime.textContent = e.date.moment.calendar();
     cartTime.title = e.date.moment.calendar();
     imgTop.appendChild(cartTime);
 
     const cartCal = document.createElement('h5');
-    cartCal.classList.add('card-cal');
+    cartCal.classList.add('cart-cal');
     cartCal.textContent = e.date.moment.fromNow();//
     cartCal.title = e.date.moment.format('MMMM Do YYYY, HH:mm:ss'); //${days.name[Number(days.dayOfWeek)]}
     cartCal.style.color = e.kp ? "#ffcccc" : "#ffffff"
@@ -290,7 +291,7 @@ function add_cart(e) {
     cartTime.appendChild(cartCal);
 
     const cartVoice = document.createElement('h5');
-    cartVoice.classList.add('card-voice');
+    cartVoice.classList.add('cart-voice');
     cartVoice.classList.add(encodeURIComponent(e.voice));
     cartVoice.textContent = e.voice;
     cartVoice.title = e.status;
@@ -298,7 +299,7 @@ function add_cart(e) {
 
     const cartRaiting = document.createElement('div');
 
-    cartRaiting.classList.add('card-raiting');
+    cartRaiting.classList.add('cart-raiting');
     cartRaiting.innerHTML = `
     <div class="progress progress-bar-vertical">
     <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="height: 60%;">
@@ -316,7 +317,7 @@ function add_cart(e) {
     imgTop.appendChild(cartRaiting);
 
     const cartSeries = document.createElement('h5');
-    cartSeries.classList.add('card-series');
+    cartSeries.classList.add('cart-series');
     cartSeries.textContent = e.series;
     cartSeries.title = e.status;
     cartSeries.style.color = e.kp ? "#ffa9a9" : "#ffffff"
@@ -326,13 +327,13 @@ function add_cart(e) {
 
 
     const cartFavorite = document.createElement('div');
-    cartFavorite.classList.add('card-fav');
+    cartFavorite.classList.add('cart-fav');
     cartFavorite.textContent = "♥";
     cartFavorite.title = e.series;
     imgTop.appendChild(cartFavorite);
     cartFavorite.style.color = GetFavorite(e.shikimori) ? "#ffdd00" : "#ffffff"
 
-    card.addEventListener("mouseover", (ev) => {
+    cart.addEventListener("mouseover", (ev) => {
         cartFavorite.style.color = GetFavorite(e.shikimori) ? "#ffdd00" : "#ffffff"
     });
 
@@ -348,9 +349,9 @@ function add_cart(e) {
 
 
     })
-    setTimeout(() => card.classList.add("card_spawn"), 0)
+    setTimeout(() => cart.classList.add("cart_spawn"), 0)
 
-    return card
+    return cart
 }
 
 function formatDate(isoDateString) {
@@ -518,13 +519,13 @@ function GetKodiScan(data, revers) {
                     "raiting": e.material_data.shikimori_rating,
 
                 }
-                const card = add_cart(e1)
+                const cart = add_cart(e1)
                 if (revers && prev_page == null) {
-                    targetFrame.prepend(card)
-                    card.classList.add("new_cart")
+                    targetFrame.prepend(cart)
+                    cart.classList.add("new_cart")
                     add_push(e1)
                 } else {
-                    targetFrame.appendChild(card)
+                    targetFrame.appendChild(cart)
 
                 };
 
