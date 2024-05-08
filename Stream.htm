@@ -52,11 +52,14 @@ body {
 </style>
 
 <script>
+    url = `http://95.221.37.192:8000/live/DygDyg.flv`
+
+    
     if (flvjs.isSupported()) {
         var videoElement = document.getElementById('videoElement');
         var flvPlayer = flvjs.createPlayer({
             type: 'flv',
-            url: `http://95.221.37.192:8000/live/DygDyg.flv`
+            url: url
         });
         flvPlayer.attachMediaElement(videoElement);
         flvPlayer.load();
