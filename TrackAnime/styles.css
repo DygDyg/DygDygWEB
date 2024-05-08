@@ -102,13 +102,6 @@ button.btn.btn-primary.mt-3 {
     top: 0px;
 }
 
-.loading {
-    width: 100%;
-    z-index: 10000;
-    position: fixed;
-    bottom: 0px;
-}
-
 .hide {
     display: none !important;
 }
@@ -274,6 +267,35 @@ p {
     background: linear-gradient(193deg, rgba(69, 69, 69, 0) 0%, rgba(69, 69, 69, 0.8) 25%, rgba(69, 69, 69, 0.8) 75%, rgba(69, 69, 69, 0) 100%);
 }
 
+.card-raiting {
+    height: 100%;
+    position: absolute;
+    right: 0;
+    
+}
+
+.progress-bar-vertical {
+    width: 20px;
+    height: 100%;
+    float: left;
+    display: flex;
+    -webkit-align-items: flex-end;
+    background-color: #424242af;
+}
+
+.progress-bar-vertical .progress-bar {
+    width: 100%;
+    height: 0;
+    -webkit-transition: height 0.6s ease;
+    -o-transition: height 0.6s ease;
+    transition: height 0.6s ease;
+    z-index: 2;
+}
+
+span.sr-only {
+    writing-mode: vertical-rl;
+}
+
 .card-time {
     /* background-color: #5d5d5dde; */
     background: linear-gradient(0deg, rgb(69, 69, 69, 0.8) 0%, rgba(69, 69, 69, 0.8) 80%, rgba(191, 191, 191, 0) 100%);
@@ -305,9 +327,9 @@ p {
     border-width: 0.3rem;
     margin: 5px;
 
-    scale: 0; 
-     transition: scale 0.5s ease; 
-    
+    scale: 0;
+    transition: scale 0.5s ease;
+
     /* opacity: 0%;
     transition: opacity 2s ease; */
 

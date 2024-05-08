@@ -122,9 +122,8 @@ async function addCalendar() {
     }
     data.forEach(e => {
         if ((e.type == 'anime-serial') && e.translation.type == "voice" && e.shikimori_id) {
-            tttt = formatDate(e.material_data.next_episode_at).moment
             if (id.includes(e.shikimori_id)) return
-            // console.log(e)
+            console.log(e.material_data.shikimori_rating, e.material_data.anime_title, e)
             id.push(e.shikimori_id)
             const e1 = {
                 "title": e.material_data.anime_title,
@@ -139,6 +138,7 @@ async function addCalendar() {
                 "imdb": e.imdb_id,
                 "shikimori": e.shikimori_id,
                 "status": e.material_data.all_status,
+                "raiting": e.material_data.shikimori_rating,
             }
             const card = add_cart(e1)
             formatDate(e.material_data.next_episode_at).moment.day() == 0 ? d3[6].appendChild(card) : d3[formatDate(e.material_data.next_episode_at).moment.day() - 1].appendChild(card)
@@ -295,6 +295,25 @@ function add_cart(e) {
     cartVoice.textContent = e.voice;
     cartVoice.title = e.status;
     imgTop.appendChild(cartVoice);
+
+    const cartRaiting = document.createElement('div');
+
+
+    cartRaiting.classList.add('card-raiting');
+    cartRaiting.innerHTML = `
+    <div class="progress progress-bar-vertical">
+    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="height: 60%;">
+      <span class="sr-only">60% Complete</span>
+    </div>
+  </div>
+    `
+    cartRaiting.title = `Рейтинг шикимори: ${e.raiting}`
+    cartRaiting.label = cartRaiting.querySelector(".sr-only")
+    cartRaiting.progress = cartRaiting.querySelector(".progress-bar")
+    cartRaiting.progress.style.height = `${e.raiting*10}%`
+    cartRaiting.label.textContent = `Рейтинг шикимори: ${e.raiting}`
+
+    imgTop.appendChild(cartRaiting);
 
     const cartSeries = document.createElement('h5');
     cartSeries.classList.add('card-series');
@@ -482,6 +501,7 @@ function GetKodiScan(data, revers) {
             if (VoiceTranslate(e.translation.title)) {
                 const dat = new Date(e.updated_at)
                 if (!e.shikimori_id) return
+                // console.log(e.material_data.shikimori_rating)
                 const e1 = {
                     "title": e.material_data.anime_title,
                     "cover": `${e.material_data.poster_url}`,
@@ -495,6 +515,8 @@ function GetKodiScan(data, revers) {
                     "imdb": e.imdb_id,
                     "shikimori": e.shikimori_id,
                     "status": e.material_data.all_status,
+                    "raiting": e.material_data.shikimori_rating,
+
                 }
                 const card = add_cart(e1)
                 if (revers && prev_page == null) {
