@@ -1,5 +1,6 @@
 var data, dat, targetFrame, endid, endid2, prev_page
 const scrollM = 2000;
+document.body.r = 5.5;
 var ignoreVoice = false
 moment.locale('ru');
 var HistoryIsActivy = true
@@ -10,8 +11,8 @@ const VoiceSettings = document.getElementById('VoiceSettings');
 const VideoPlayer = document.getElementById('VideoPlayer');
 const list_calendar = document.getElementById("list_calendar")
 const URLSearch = "https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&title="
-var URLList = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"
-var URLCalendar = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8&anime_status=ongoing"
+var URLList = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"//&countries=Япония"
+var URLCalendar = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8&anime_status=ongoing"//&countries=Япония"
 var URLListStart = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"
 Notification.requestPermission()
 const voice = [
@@ -121,9 +122,9 @@ async function addCalendar() {
         URLCalendarAdd = d1.next_page
     }
     data.forEach(e => {
-        if ((e.type == 'anime-serial') && e.translation.type == "voice" && e.shikimori_id && e.material_data.shikimori_rating>0 && e.material_data.countries!="Китай") {
+        if ((e.type == 'anime-serial') && e.translation.type == "voice" && e.shikimori_id && e.material_data.shikimori_rating > 0 && e.material_data.countries != "Китай") {
             if (id.includes(e.shikimori_id)) return
-            console.log(e.material_data.shikimori_rating, e.material_data.countries=="Китай", e.material_data.anime_title, e)
+            console.log(e.material_data.shikimori_rating, e.material_data.countries == "Китай", e.material_data.anime_title, e)
             id.push(e.shikimori_id)
             const e1 = {
                 "title": e.material_data.anime_title,
@@ -252,13 +253,14 @@ function httpGet(theUrl) {
 }
 RangeRaitingObj = document.getElementById('RangeRaiting')
 RangeRaitingObj.addEventListener("input", RangeRaiting);
+RangeRaitingObj.addEventListener("change", ()=>{GetKodi()});
 RangeRaitingObj.title = `Фильтр по минимальному рейтингу: ${RangeRaitingObj.value}`
-function RangeRaiting(r)
-{
+function RangeRaiting(r) {
     // console.log(1, r)
+    document.body.r = r.target.value;
     r.target.title = `Фильтр по минимальному рейтингу: ${r.target.value}`
-    document.body.querySelectorAll(".cart_").forEach(e => { 
-        e.r<r.target.value?e.classList.add('hide'):e.classList.remove('hide')
+    document.body.querySelectorAll(".cart_").forEach(e => {
+        e.r < r.target.value ? e.classList.add('hide') : e.classList.remove('hide')
     })
 }
 
@@ -266,6 +268,7 @@ function add_cart(e) {
     const cart = document.createElement('div');
     cart.classList.add('cart_', 'bg-dark', 'text-white');
     cart.r = e.raiting
+    document.body.r>cart.r?cart.classList.add('hide'):null;
 
     cart.addEventListener("click", (event) => {
 
@@ -323,7 +326,7 @@ function add_cart(e) {
     cartRaiting.title = `Рейтинг шикимори: ${e.raiting}`
     cartRaiting.label = cartRaiting.querySelector(".sr-only")
     cartRaiting.progress = cartRaiting.querySelector(".progress-bar")
-    cartRaiting.progress.style.height = `${e.raiting*10}%`
+    cartRaiting.progress.style.height = `${e.raiting * 10}%`
     cartRaiting.label.textContent = `Рейтинг шикимори: ${e.raiting}`
 
     imgTop.appendChild(cartRaiting);
@@ -417,58 +420,60 @@ function VoiceTranslate(name) {
 
 }
 function GetKodi(seartch, revers) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - scrollM && HistoryIsActivy == true) {
 
-    if (!seartch || seartch == undefined || seartch == "") {
-        HistoryIsActivy = true
-        ignoreVoice = false
-        document.getElementById('list_history').classList.add("hide")
-        targetFrame = document.getElementById('list_serch')
-        targetFrame.classList.remove("hide")
+        if (!seartch || seartch == undefined || seartch == "") {
+            HistoryIsActivy = true
+            ignoreVoice = false
+            document.getElementById('list_history').classList.add("hide")
+            targetFrame = document.getElementById('list_serch')
+            targetFrame.classList.remove("hide")
 
-        if (revers) {
-            dat = JSON.parse(httpGet(URLListStart).response)
-            endid2 = dat.results[0].id
+            if (revers) {
+                dat = JSON.parse(httpGet(URLListStart).response)
+                endid2 = dat.results[0].id
+            } else {
+                dat = JSON.parse(httpGet(URLList).response)
+                URLList = dat.next_page
+                endid = endid ? endid : dat.results[0].id
+
+            }
+
+            url_get = new URL(window.location.href)
+            url_get.searchParams.delete("seartch")
+            window.history.pushState({}, '', url_get);
         } else {
-            dat = JSON.parse(httpGet(URLList).response)
-            URLList = dat.next_page
-            endid = endid ? endid : dat.results[0].id
+            HistoryIsActivy = false
+            ignoreVoice = true
+            document.getElementById('search_input').value = decodeURIComponent(seartch)
+            targetFrame = document.getElementById('list_history')
+            targetFrame.classList.remove("hide")
+            targetFrame.innerHTML = ""
+            document.getElementById('list_serch').classList.add("hide")
+            dat1 = JSON.parse(httpGet(`${URLSearch}${seartch}`).response)
+            dat = {}
 
+            dat.results = dat1.results.filter((value, index, self) =>
+                index === self.findIndex((t) => (
+                    t.shikimori_id === value.shikimori_id
+                ))
+            );
+
+            url_get = new URL(window.location.href)
+            url_get.searchParams.set("seartch", `${seartch}`)
+            window.history.pushState({}, '', url_get);
+            console.log(dat1)
         }
+        data = dat.results
+        prev_page = dat.prev_page
 
-        url_get = new URL(window.location.href)
-        url_get.searchParams.delete("seartch")
-        window.history.pushState({}, '', url_get);
-    } else {
-        HistoryIsActivy = false
-        ignoreVoice = true
-        document.getElementById('search_input').value = decodeURIComponent(seartch)
-        targetFrame = document.getElementById('list_history')
-        targetFrame.classList.remove("hide")
-        targetFrame.innerHTML = ""
-        document.getElementById('list_serch').classList.add("hide")
-        dat1 = JSON.parse(httpGet(`${URLSearch}${seartch}`).response)
-        dat = {}
 
-        dat.results = dat1.results.filter((value, index, self) =>
-            index === self.findIndex((t) => (
-                t.shikimori_id === value.shikimori_id
-            ))
-        );
-
-        url_get = new URL(window.location.href)
-        url_get.searchParams.set("seartch", `${seartch}`)
-        window.history.pushState({}, '', url_get);
-        console.log(dat1)
+        GetKodiScan(data, revers)
+        if (window.innerHeight >= document.body.scrollHeight - scrollM && HistoryIsActivy) {
+            setTimeout(GetKodi, 0)
+        }
+        return seartch
     }
-    data = dat.results
-    prev_page = dat.prev_page
-
-
-    GetKodiScan(data, revers)
-    if (window.innerHeight >= document.body.scrollHeight - scrollM && HistoryIsActivy) {
-        setTimeout(GetKodi, 0)
-    }
-    return seartch
 }
 
 GetKodi(url_get.searchParams.get('seartch'))
@@ -508,7 +513,7 @@ function GetKodiScan(data, revers) {
             endid = endid2
             return
         }
-        if ((e.type == 'anime-serial' || e.type == "anime") && e.translation.type == "voice" && e.shikimori_id && e.material_data.shikimori_rating>0 && e.material_data.countries!="Китай") {
+        if ((e.type == 'anime-serial' || e.type == "anime") && e.translation.type == "voice" && e.shikimori_id && e.material_data.shikimori_rating > 0 && e.material_data.countries != "Китай") {
             // console.log(endid)
 
             if (VoiceTranslate(e.translation.title)) {
