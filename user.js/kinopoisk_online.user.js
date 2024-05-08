@@ -2,7 +2,7 @@
 // @name         Кинопоиск kodik online
 // @namespace    http://tampermonkey.net/
 // @version      0.9
-// @description  try to take over the world!
+// @description  Плагин добавляет плеер для просмотра фильмов на кинопоиск
 // @author       ДугДуг
 // @match        https://www.kinopoisk.ru/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=kinopoisk.ru
