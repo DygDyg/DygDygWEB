@@ -340,6 +340,8 @@ span.sr-only {
     scale: 0;
     transition: scale 0.5s ease;
 
+    user-select: none;
+
     /* opacity: 0%;
     transition: opacity 2s ease; */
 
