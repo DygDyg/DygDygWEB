@@ -38,7 +38,7 @@ document.getElementById('VoiceButtonMenu').addEventListener('click', () => {
 })
 
 document.getElementById('search_input').addEventListener('change', (e) => {
-    // console.log(e.target.value)
+    console.log(e.target.value)
     GetKodi(encodeURI(e.target.value))
 })
 
@@ -420,7 +420,7 @@ function VoiceTranslate(name) {
 
 }
 function GetKodi(seartch, revers) {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - scrollM && HistoryIsActivy == true) {
+    // if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - scrollM && HistoryIsActivy == true && document.getElementById('search_input').value ) {
 
         if (!seartch || seartch == undefined || seartch == "") {
             HistoryIsActivy = true
@@ -474,7 +474,7 @@ function GetKodi(seartch, revers) {
         }
         return seartch
     }
-}
+// }
 
 GetKodi(url_get.searchParams.get('seartch'))
 
