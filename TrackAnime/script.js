@@ -398,9 +398,25 @@ function formatDate(isoDateString) {
     return days;
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    showToast();
+});
+
+function showToast() {
+    console.log("ok")
+    var toast = new bootstrap.Toast(document.getElementById('liveToast'));
+    toast.show();
+}
+
 function dialog(e) {
     document.title = `TA: ${e.title}`
+    if (e.shift) {
+        add_push(e)
+        return
+    }
     VideoPlayerAnime.showModal();
+    
+
     if ((e.imdb || e.kp) && e.shift) {
         VideoPlayer.contentWindow.location.href = e.kp ? `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&kinopoiskID=${e.kp}` : `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&imdb=${e.imdb}`
         return
