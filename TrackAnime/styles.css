@@ -15,8 +15,6 @@ body {
 }
 
 #load {
-    width: 100%;
-    height: 100%;
     background-color: #0000008b;
     position: fixed;
     z-index: 999999999999999999;
@@ -28,6 +26,8 @@ body {
     align-items: center;
     top: 0;
     left: 0;
+    bottom: 0;
+    right: 0;
 }
 
 .cartRaitingProgress {
@@ -117,11 +117,11 @@ body {
 }
 
 .container_ {
-    width: 100%;
-    height: 94%;
+    width: 100vw;
+    height: calc(100vh - 60px);
     overflow: auto;
     bottom: 0;
-    position: absolute;
+    position: fixed;
 }
 
 .hide {
