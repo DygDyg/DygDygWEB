@@ -4,6 +4,7 @@ document.body.r = 2;
 var ignoreVoice = false
 moment.locale('ru');
 var HistoryIsActivy = true
+var TypePage = 0
 var url_get = new URL(window.location.href)
 const KeyTab = Math.floor(Math.random() * 10000000000)
 const VideoPlayerAnime = document.getElementById('VideoPlayerAnime');
@@ -129,8 +130,19 @@ if (url_get.searchParams.get('id')) {
 // url_get.searchParams.delete("seartch")
 
 async function getCalendar() {
+    console.log(TypePage)
+    if(TypePage==1){
+        HistoryIsActivy = true
+        TypePage = 0
+        document.getElementById("list_calendar").classList.add("hide")
+        document.getElementById("list_serch").classList.remove("hide")
+        // GetKodi()
+        return
+    }
+
     HistoryIsActivy = false
-    var tmp1 = list_calendar.getElementsByClassName('ned')
+    TypePage = 1
+    // var tmp1 = list_calendar.getElementsByClassName('ned')
     document.getElementById("load").classList.remove("hide")
     document.getElementById("list_calendar").classList.add("hide")
 
