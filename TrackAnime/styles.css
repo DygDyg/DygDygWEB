@@ -90,6 +90,8 @@ button.btn.btn-primary.mt-3 {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
 }
 
 .anime_list {
