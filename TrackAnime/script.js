@@ -9,7 +9,8 @@ const KeyTab = Math.floor(Math.random() * 10000000000)
 const VideoPlayerAnime = document.getElementById('VideoPlayerAnime');
 const VoiceSettings = document.getElementById('VoiceSettings');
 const VideoPlayer = document.getElementById('VideoPlayer');
-const list_calendar = document.getElementById("list_calendar")
+const list_calendar = document.getElementById("list_calendar");
+const container_  = document.body.querySelector('.container_');
 const URLSearch = "https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&title="
 var URLList = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"//&countries=Япония"
 var URLCalendar = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8&anime_status=ongoing"//&anime_kind=tv"//&countries=Япония"
@@ -65,12 +66,13 @@ VideoPlayerAnime.addEventListener("close", () => {
 });
 
 
-window.onscroll = function () {
-
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - scrollM && HistoryIsActivy == true) {
+// window.onscroll = function () {
+container_.addEventListener('scroll', function (e) {
+    // console.log(e.target.scrollTop)
+    if ((e.target.scrollTop + window.scrollY) >= e.target.scrollHeight - scrollM && HistoryIsActivy == true) {
         setTimeout(GetKodi, 0)
     }
-};
+});
 
 var base_anime = localStorage.getItem('BaseAnime')
 if (base_anime) {
@@ -367,7 +369,7 @@ function add_cart(e) {
 
 
     })
-    setTimeout(() => cart.classList.add("cart_spawn"), 0)
+    // setTimeout(() => cart.classList.add("cart_spawn"), 0)
 
     return cart
 }
@@ -476,60 +478,63 @@ function VoiceTranslate(name) {
 
 
 }
-function GetKodi(seartch, revers) {
+async function GetKodi(seartch, revers) {
     // if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - scrollM && HistoryIsActivy == true && document.getElementById('search_input').value ) {
+    if ((window.innerHeight + window.scrollY) >= container_.offsetHeight - scrollM) {
+        // console.log(123)
+        if (!seartch || seartch == undefined || seartch == "") {
+            HistoryIsActivy = true
+            ignoreVoice = false
+            document.getElementById('list_history').classList.add("hide")
+            targetFrame = document.getElementById('list_serch')
+            targetFrame.classList.remove("hide")
 
-    if (!seartch || seartch == undefined || seartch == "") {
-        HistoryIsActivy = true
-        ignoreVoice = false
-        document.getElementById('list_history').classList.add("hide")
-        targetFrame = document.getElementById('list_serch')
-        targetFrame.classList.remove("hide")
+            if (revers) {
+                dat = JSON.parse(httpGet(URLListStart).response)
+                endid2 = dat.results[0].id
+            } else {
+                dat = JSON.parse(httpGet(URLList).response)
+                URLList = dat.next_page
+                endid = endid ? endid : dat.results[0].id
 
-        if (revers) {
-            dat = JSON.parse(httpGet(URLListStart).response)
-            endid2 = dat.results[0].id
+            }
+
+            url_get = new URL(window.location.href)
+            url_get.searchParams.delete("seartch")
+            window.history.pushState({}, '', url_get);
         } else {
-            dat = JSON.parse(httpGet(URLList).response)
-            URLList = dat.next_page
-            endid = endid ? endid : dat.results[0].id
+            HistoryIsActivy = false
+            ignoreVoice = true
+            document.getElementById('search_input').value = decodeURIComponent(seartch)
+            targetFrame = document.getElementById('list_history')
+            targetFrame.classList.remove("hide")
+            targetFrame.innerHTML = ""
+            document.getElementById('list_serch').classList.add("hide")
+            dat1 = JSON.parse(httpGet(`${URLSearch}${seartch}`).response)
+            dat = {}
 
+            dat.results = dat1.results.filter((value, index, self) =>
+                index === self.findIndex((t) => (
+                    t.shikimori_id === value.shikimori_id
+                ))
+            );
+
+            url_get = new URL(window.location.href)
+            url_get.searchParams.set("seartch", `${seartch}`)
+            window.history.pushState({}, '', url_get);
+            console.log(dat1)
         }
+        data = dat.results
+        prev_page = dat.prev_page
 
-        url_get = new URL(window.location.href)
-        url_get.searchParams.delete("seartch")
-        window.history.pushState({}, '', url_get);
-    } else {
-        HistoryIsActivy = false
-        ignoreVoice = true
-        document.getElementById('search_input').value = decodeURIComponent(seartch)
-        targetFrame = document.getElementById('list_history')
-        targetFrame.classList.remove("hide")
-        targetFrame.innerHTML = ""
-        document.getElementById('list_serch').classList.add("hide")
-        dat1 = JSON.parse(httpGet(`${URLSearch}${seartch}`).response)
-        dat = {}
 
-        dat.results = dat1.results.filter((value, index, self) =>
-            index === self.findIndex((t) => (
-                t.shikimori_id === value.shikimori_id
-            ))
-        );
-
-        url_get = new URL(window.location.href)
-        url_get.searchParams.set("seartch", `${seartch}`)
-        window.history.pushState({}, '', url_get);
-        console.log(dat1)
+        GetKodiScan(data, revers)
+        // container_.scrollHeight
+        if (window.innerHeight >= container_.scrollHeight - scrollM && HistoryIsActivy) {
+            setTimeout(GetKodi, 0)
+        }
+        return seartch
     }
-    data = dat.results
-    prev_page = dat.prev_page
-
-
-    GetKodiScan(data, revers)
-    if (window.innerHeight >= document.body.scrollHeight - scrollM && HistoryIsActivy) {
-        setTimeout(GetKodi, 0)
-    }
-    return seartch
 }
 // }
 
@@ -546,7 +551,8 @@ function ScanBase(e, i, revers) {
         GetKodiScan(data, revers)
         document.getElementById("loading-bar").classList.add("hide");
         // localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-        if (window.innerHeight >= document.body.scrollHeight - scrollM && HistoryIsActivy) {
+        //container_.offsetHeight
+        if (window.innerHeight >= container_.scrollHeight - scrollM && HistoryIsActivy) {
             GetKodi()
         }
         return;
