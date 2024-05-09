@@ -162,13 +162,14 @@ async function add_push(e) {
 
     const perm = await Notification.requestPermission()
 
-    return showToast(e);
+    // return showToast(e);
 
     if (perm != "granted") {
         showToast(e);
-        console.log(e)
+        // console.log(e)
         return
     }
+    
     notification = new Notification(e.title,
         {
             body: `Серия ${e.series} в озвучке ${e.voice}`,
