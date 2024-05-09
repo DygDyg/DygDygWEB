@@ -169,15 +169,17 @@ async function add_push(e) {
         // console.log(e)
         return
     }
-    
+
     notification = new Notification(e.title,
         {
             body: `Серия ${e.series} в озвучке ${e.voice}`,
             // tag: e.date.string,
             icon: e.cover,
         })
-    notification.addEventListener("click", () => {
+
+    notification.addEventListener("click", (event) => {
         e.shift = event.shiftKey
+
         dialog(e)
     })
 
