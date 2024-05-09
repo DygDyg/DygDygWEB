@@ -131,7 +131,7 @@ if (url_get.searchParams.get('id')) {
 
 async function getCalendar() {
     console.log(TypePage)
-    if(TypePage==1){
+    if (TypePage == 1) {
         HistoryIsActivy = true
         TypePage = 0
         document.getElementById("list_calendar").classList.add("hide")
