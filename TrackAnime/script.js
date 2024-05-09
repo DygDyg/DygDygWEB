@@ -57,6 +57,8 @@ function getRandomInt(max) {
 closeDialogButton.addEventListener('click', () => {
     VideoPlayerAnime.close();
     VideoPlayer.contentWindow.location.href = "../index.htm";
+    url_get.searchParams.delete("id")
+    window.history.pushState({}, '', url_get);
 });
 document.getElementById("list_calendar_Button").addEventListener('click', async () => {
     getCalendar()
@@ -93,6 +95,38 @@ base_anime.fav = base_anime.fav ? base_anime.fav : []
 
     }
 }); */
+
+
+// url_get.searchParams.delete("shikimori")
+// url_get.searchParams.set("shikimori", `${shikimori}`)
+// window.history.pushState({}, '', url_get);
+
+///////////////////// GET параметры 
+if (url_get.searchParams.get('id')) {
+    console.log(url_get.searchParams.get('id'))
+    e = JSON.parse(httpGet(`https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&id=${url_get.searchParams.get('id')}`).response).results[0]
+    console.log(e)
+    const ed = {
+        "title": e.material_data.anime_title,
+        "cover": `${e.material_data.poster_url}`,
+        // "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
+        "date": formatDate(e.material_data.next_episode_at),
+        // "date": formatDate(base_anime.base[e.shikimori_id].next_episode_at),
+        "voice": formatDate(e.material_data.next_episode_at).moment.format('dddd'),
+        "series": e.episodes_count ? e.episodes_count : "M",
+        "link": e.link,
+        "kp": e.kinopoisk_id,
+        "imdb": e.imdb_id,
+        "shikimori": e.shikimori_id,
+        "status": e.material_data.all_status,
+        "raiting": e.material_data.shikimori_rating,
+        "material_data": e.material_data,
+        "id": e.id,
+    }
+    dialog(ed)
+}
+
+// url_get.searchParams.delete("seartch")
 
 async function getCalendar() {
     HistoryIsActivy = false
@@ -143,6 +177,8 @@ async function addCalendar() {
                 "shikimori": e.shikimori_id,
                 "status": e.material_data.all_status,
                 "raiting": e.material_data.shikimori_rating,
+                "material_data": e.material_data,
+                "id": e.id,
             }
             const cart = add_cart(e1)
             formatDate(e.material_data.next_episode_at).moment.day() == 0 ? d3[6].appendChild(cart) : d3[formatDate(e.material_data.next_episode_at).moment.day() - 1].appendChild(cart)
@@ -179,7 +215,6 @@ async function add_push(e) {
 
     notification.addEventListener("click", (event) => {
         e.shift = event.shiftKey
-
         dialog(e)
     })
 
@@ -284,6 +319,7 @@ function add_cart(e) {
     cart.addEventListener("click", (event) => {
 
         e.shift = event.shiftKey
+        console.log(e)
         dialog(e)
         cart.classList.remove("new_cart")
     })
@@ -448,7 +484,6 @@ function showToast(e) {
 
     toast0.querySelector(".toast-header").addEventListener("click", (ev) => {
         // console.log(e)
-        // dialog(e)
         toast1.hide();
     })
 
@@ -457,6 +492,8 @@ function showToast(e) {
 }
 
 function dialog(e) {
+    url_get.searchParams.set("id", `${e.id}`)
+    window.history.pushState({}, '', url_get);
     document.title = `TA: ${e.title}`
     if (e.shift) {
         //     showToast(e);
@@ -603,6 +640,8 @@ function GetKodiScan(data, revers) {
                     "shikimori": e.shikimori_id,
                     "status": e.material_data.all_status,
                     "raiting": e.material_data.shikimori_rating,
+                    "material_data": e.material_data,
+                    "id": e.id,
 
                 }
                 const cart = add_cart(e1)

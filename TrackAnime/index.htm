@@ -1,39 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru" data-bs-theme="dark">
 
+
 <head>
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
-        (function (m, e, t, r, i, k, a) {
-            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
-            m[i].l = 1 * new Date();
-            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
-            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
-        })
-            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-        ym(97169372, "init", {
-            clickmap: true,
-            trackLinks: true,
-            accurateTrackBounce: true,
-            webvisor: true
-        });
-    </script>
-    <noscript>
-        <div><img src="https://mc.yandex.ru/watch/97169372" style="position:absolute; left:-9999px;" alt="" /></div>
-    </noscript>
-    <!-- /Yandex.Metrika counter -->
-
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../scripts/bootstrap.min.js"></script>
-    <link href="../scripts/bootstrap.min.css" rel="stylesheet">
-    </link>
+    <link href="../scripts/bootstrap.min.css" rel="stylesheet"/>
+
     <!-- <script src="../scripts/jquery.min.js"></script> -->
 
-    <script src="../scripts/moment.js"></script>
-    <script src="../scripts/moment-with-locales.js"></script>
 
     <!-- Primary Meta Tags -->
     <link rel="icon" type="image/x-icon" href="./favicon.png">
@@ -56,6 +31,14 @@
     <meta property="twitter:description"
         content="Сервис для просмотра аниме и отслеживания выхода новых серий в реальном времени. Для связи со мной можно писать в мой discord: .dygdyg">
     <meta property="twitter:image" content="https://dygdyg.github.io/DygDygWEB/TrackAnime/favicon.png">
+
+    <script defer src="../scripts/bootstrap.min.js"></script>
+    <script defer src="../scripts/moment.js"></script>
+    <script defer src="../scripts/moment-with-locales.js"></script>
+
+    <script defer src="script.js"></script>
+
+
 </head>
 
 <link rel="stylesheet" type="text/css" href="styles.css" media="screen" />
@@ -171,8 +154,29 @@
         <button type="button" class="btn btn-secondary" id="closeDialogButton">X</button>
 
     </dialog>
-</body>
 
-<script src="script.js"></script>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date();
+            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })
+            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym(97169372, "init", {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true
+        });
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/97169372" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+</body>
 
 </html>
