@@ -67,10 +67,11 @@ VideoPlayerAnime.addEventListener("close", () => {
 
 
 // window.onscroll = function () {
-container_.addEventListener('scroll', function (e) {
+container_.addEventListener('scroll', async function (e) {
     // console.log(e.target.scrollTop)
     if ((e.target.scrollTop + window.scrollY) >= e.target.scrollHeight - scrollM && HistoryIsActivy == true) {
-        setTimeout(GetKodi, 0)
+        GetKodi()
+        // setTimeout(GetKodi, 0)
     }
 });
 
@@ -255,6 +256,8 @@ function httpGet(theUrl) {
     xmlHttp.open("GET", theUrl, false); // false for synchronous request
     xmlHttp.send(null);
     return xmlHttp;
+
+    
 }
 RangeRaitingObj = document.getElementById('RangeRaiting')
 RangeRaitingObj.addEventListener("input", RangeRaiting);
