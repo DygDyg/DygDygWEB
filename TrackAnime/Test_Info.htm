@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="../scripts/bootstrap.min.css" rel="stylesheet" />
+    <script defer src="../scripts/bootstrap.min.js"></script>
+</head>
+<style>
+    body {
+        background-color: rgb(72, 72, 72);
+        color: aliceblue;
+    }
+</style>
+
+<body>
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img id="info_cover" src="https://st.kp.yandex.net/images/film_big/5401195.jpg"
+                    class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 id="info_title" class="card-title">Провожающая в последний путь Фрирен</h5>
+                    <p id="info_description" class="card-text">Обычный служащий финансовой компании Сатору Миками
+                        погибает, защищая коллегу от грабителя с ножом. После смерти Сатору попадает в фэнтезийный мир,
+                        в котором он предстаёт в виде комка слизи средних размеров по имени Римуру, наделённой немалым
+                        разумом. Отныне Римуру будет жить в мире, полном разных рас, в надежде построить однажды страну,
+                        где к каждой расе будут относиться одинаково.</p>
+                    <p class="card-text"><small id="info_updated_at" class="text-body-secondary">Последнее обновление 3
+                            мин.
+                            назад</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+    info = {
+        "info_cover": document.getElementById("info_cover"),
+        "info_title": document.getElementById("info_title"),
+        "info_description": document.getElementById("info_description"),
+        "info_updated_at": document.getElementById("info_updated_at"),
+
+    }
+</script>
+
+</html>
