@@ -17,7 +17,6 @@ body {
 
 #load {
     background-color: #0000008b;
-    position: fixed;
     z-index: 999999999999999999;
     /* backdrop-filter: blur(2px); */
     display: flex;
@@ -29,6 +28,7 @@ body {
     left: 0;
     bottom: 0;
     right: 0;
+    position: fixed;
 }
 
 .cartRaitingProgress {
@@ -82,9 +82,9 @@ body {
     border-color: #ffffff;
 }
 
-button.btn.btn-primary.mt-3 {
+/* button.btn.btn-primary.mt-3 {
     width: 100%;
-}
+} */
 
 #list_calendar {
     display: flex;
@@ -95,9 +95,10 @@ button.btn.btn-primary.mt-3 {
 }
 
 .anime_list {
-    width: 100%;
-    height: 100%;
-
+    top:0;
+    bottom:0;
+    left:0;
+    right: 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -108,7 +109,11 @@ html,
 body {
     margin: 0;
     padding: 0;
-    height: 100%;
+    top:0;
+    bottom:0;
+    left:0;
+    right: 0;
+    position: fixed;
 }
 
 .container_ {
@@ -231,7 +236,9 @@ p {
 
 .cart-voice {
     position: absolute;
-    height: 100%;
+    top: 0;
+    bottom: 0;
+    position: fixed;
     writing-mode: vertical-rl;
     padding: 5px;
     text-align: center;
@@ -242,10 +249,10 @@ p {
 }
 
 .cart-raiting {
-    height: 100%;
+    top: 0;
+    bottom: 0;
     position: absolute;
     right: 0;
-
 }
 
 input#RangeRaiting {
