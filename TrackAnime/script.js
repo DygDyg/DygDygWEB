@@ -56,6 +56,7 @@ function getRandomInt(max) {
 }
 
 closeDialogButton.addEventListener('click', () => {
+    DialogVideoInfo.classList.remove("DialogVideoInfoScroll")
     VideoPlayerAnime.close();
     VideoPlayer.contentWindow.location.href = "../index.htm";
     url_get.searchParams.delete("id")
@@ -124,7 +125,7 @@ if (url_get.searchParams.get('id')) {
         "material_data": e.material_data,
         "id": e.id,
     }
-    dialog(ed)
+    dialog(ed, true)
 }
 
 // url_get.searchParams.delete("seartch")
@@ -227,7 +228,7 @@ async function add_push(e) {
 
     notification.addEventListener("click", (event) => {
         e.shift = event.shiftKey
-        dialog(e)
+        dialog(e, !event.shiftKey)
     })
 
 }
@@ -332,7 +333,7 @@ function add_cart(e) {
 
         e.shift = event.shiftKey
         console.log(e)
-        dialog(e)
+        dialog(e, !event.shiftKey)
         cart.classList.remove("new_cart")
     })
 
@@ -503,16 +504,20 @@ function showToast(e) {
     // toast.dispose()
 }
 
-function dialog(e) {
+function dialog(e, info) {
     url_get.searchParams.set("id", `${e.id}`)
     window.history.pushState({}, '', url_get);
     document.title = `TA: ${e.title}`
+
     if (e.shift) {
         //     showToast(e);
-        add_push(e)
-        return
+        // add_push(e)
+        // return
     }
+    
     VideoPlayerAnime.showModal();
+
+
 
 
     if ((e.imdb || e.kp) && e.shift) {
@@ -520,6 +525,14 @@ function dialog(e) {
         return
     }
     VideoPlayer.contentWindow.location.href = e.link
+/* 
+    if (DialogVideoInfo.classList.contains('DialogVideoInfoScroll')) {
+        DialogVideoInfo.classList.remove("DialogVideoInfoScroll")
+        DialogVideoInfo.classList.add("DialogVideoInfoScroll")
+    } */
+
+
+    info ? DialogVideoInfo.classList.add("DialogVideoInfoScroll") : DialogVideoInfo.classList.remove("DialogVideoInfoScroll")
 }
 function VoiceTranslate(name) {
 
