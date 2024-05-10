@@ -10,7 +10,7 @@
 </head>
 <style>
     body {
-        background-color: rgb(72, 72, 72);
+        background-color: rgb(67, 66, 66);
         color: aliceblue;
     }
 </style>
@@ -24,9 +24,10 @@
             </div>
             <div class="col-md-10">
                 <div class="row">
+                    <h5 id="info_title" class="card-title">Провожающая в последний путь Фрирен</h5>
                     <div class="col col-md-5">
                         <div class="card-body">
-                            <h5 id="info_title" class="card-title">Провожающая в последний путь Фрирен</h5>
+                            
                             <p id="info_description" class="card-text">Обычный служащий финансовой компании Сатору
                                 Миками
                                 погибает, защищая коллегу от грабителя с ножом. После смерти Сатору попадает в
@@ -46,15 +47,24 @@
                     </div>
                     <div class="col col-md-5">
                         <div class="card-body">
-                            <h5 id="info_title" class="card-title">Провожающая в последний путь Фрирен</h5>
-                            <p id="info_genres" class="card-text">Год выхода: 
-                                <a href="#" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">2023</a>
+                            <!-- <h5 id="info_title" class="card-title">Провожающая в последний путь Фрирен</h5> -->
+                            <p class="card-text">Страна: 
+                                <a id="info_countries"href="" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Япония</a>
+                            </p>
+                            <p class="card-text">Год выхода: 
+                                <a id="info_genres"href="" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">2023</a>
+                            </p>
+                            <p  class="card-text">Студия: 
+                                <a id="info_studios"href="" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Madhouse</a>
+                            </p>
+                            <p  class="card-text">Год выхода: 
+                                <a id="info_studios" href="" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Madhouse</a>
                             </p>
                             <p id="info_genres" class="card-text">Жанры: 
-                                <a href="#" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Драма</a>,
-                                <a href="#" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Приключения</a>,
-                                <a href="#" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Сёнен</a>,
-                                <a href="#" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Фэнтези</a>
+                                <a href="" class="info_genre link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Драма</a>,
+                                <a href="" class="info_genre link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Приключения</a>,
+                                <a href="" class="info_genre link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Сёнен</a>,
+                                <a href="" class="info_genre link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Фэнтези</a>
                             </p>
         
                         </div>
@@ -94,12 +104,18 @@
 <script>
 
     info = {
-        "info_cover": document.getElementById("info_cover"),
-        "info_title": document.getElementById("info_title"),
-        "info_description": document.getElementById("info_description"),
-        "info_updated_at": document.getElementById("info_updated_at"),
+        "cover": document.body.querySelector("#info_cover"),
+        "title": document.body.querySelector("#info_title"),
+        "description": document.body.querySelector("#info_description"),
+
+        "countries": document.body.querySelector("#info_countries"),
+        "genres": document.body.querySelectorAll(".info_genre"),
+        "studios": document.body.querySelector("#info_studios"),
+        "updated_at": document.body.querySelector("#info_updated_at"),
+        "screenshots": document.body.querySelector("#info_screenshots"),
 
     }
+    console.log(info)
 </script>
 
 </html>
