@@ -208,49 +208,6 @@ p {
     margin: 0;
 }
 
-
-.AniLibria\.TV {
-    color: rgb(250, 145, 145);
-}
-
-.Dream\%20Cast {
-    color: rgb(136, 255, 255)
-}
-
-.AniStar {
-    color: rgb(251, 73, 251);
-}
-
-.AnimeVost {
-    color: rgb(101, 214, 101);
-}
-
-.AniDUB,
-.AniDub\%20Online {
-    color: rgb(214, 161, 101);
-}
-
-.SHIZAProject {
-    color: rgb(118, 101, 214);
-}
-
-.JAM {
-    color: rgb(214, 101, 101);
-}
-
-.SHIZA\%20Project {
-    color: rgb(101, 214, 180);
-}
-
-.\%D0\%94\%D1\%83\%D0\%B1\%D0\%BB\%D0\%B8\%D1\%80\%D0\%BE\%D0\%B2\%D0\%B0\%D0\%BD\%D0\%BD\%D1\%8B\%D0\%B9 {
-    color: rgb(151, 255, 31);
-}
-
-.VF-Studio {
-    color: rgb(243, 73, 73);
-}
-
-
 .cart-img-top {
     background-size: cover;
     height: 25rem;
@@ -375,4 +332,51 @@ span.sr-only {
         visibility: visible;
     }
 
+}
+
+
+
+
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+
+.AniLibria\.TV {
+    color: rgb(250, 145, 145);
+}
+
+.Dream\%20Cast {
+    color: rgb(136, 255, 255)
+}
+
+.AniStar {
+    color: rgb(251, 73, 251);
+}
+
+.AnimeVost {
+    color: rgb(101, 214, 101);
+}
+
+.AniDUB,
+.AniDub\%20Online {
+    color: rgb(214, 161, 101);
+}
+
+.SHIZAProject {
+    color: rgb(118, 101, 214);
+}
+
+.JAM {
+    color: rgb(214, 101, 101);
+}
+
+.SHIZA\%20Project {
+    color: rgb(101, 214, 180);
+}
+
+.\%D0\%94\%D1\%83\%D0\%B1\%D0\%BB\%D0\%B8\%D1\%80\%D0\%BE\%D0\%B2\%D0\%B0\%D0\%BD\%D0\%BD\%D1\%8B\%D0\%B9 {
+    color: rgb(151, 255, 31);
+}
+
+.VF-Studio {
+    color: rgb(243, 73, 73);
 }
