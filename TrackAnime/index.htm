@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../scripts/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../scripts/bootstrap.min.css" rel="stylesheet" />
 
     <!-- <script src="../scripts/jquery.min.js"></script> -->
 
@@ -149,7 +149,10 @@
             </div>
             <button type="button" id="VideoInfoBtn" class="VideoInfoBtn btn btn-secondary">▼ Вниз ▼<br>▲ Вверх
                 ▲</button>
-            <iframe id="VideoPlayer" allowfullscreen="" allow="autoplay *; fullscreen *"></iframe>
+            <div id="VideoPlayerFrame">
+                <iframe id="VideoPlayer" allowfullscreen="" allow="autoplay *; fullscreen *">
+                </iframe>
+            </div>
         </div>
         <button type="button" class="btn btn-secondary" id="closeDialogButton">X</button>
 
