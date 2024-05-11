@@ -76,7 +76,7 @@ URLListStart = URLList
 // console.log(URLListStart)
 function setVideoInfo(e) {
     var html
-    console.log(e.material_data, VideoInfo.info)
+    console.log(e, VideoInfo.info)
     const tv = e.material_data.anime_kind ? ` [${e.material_data.anime_kind.toUpperCase()}]` : ""
     VideoInfo.info.cover.src = e.material_data.poster_url;
     VideoInfo.info.title.textContent = e.material_data.anime_title ? `${tv} ${e.material_data.anime_title}` : "?";
