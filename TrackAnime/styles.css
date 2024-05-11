@@ -190,11 +190,13 @@ iframe#VideoPlayer {
 #VideoInfo {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 50%;
     border: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
+    padding: 34px;
+    background-color: #212529;
     aspect-ratio: 16 / 9;
     top: 0%;
     transition: top 1s ease;
