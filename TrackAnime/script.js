@@ -78,9 +78,6 @@ function setVideoInfo(e) {
     VideoInfo.info.imdb_rating.textContent = e.material_data.imdb_rating ? `${e.material_data.imdb_rating}/10` : "?";
     VideoInfo.info.imdb_votes.textContent = e.material_data.imdb_votes ? `${e.material_data.imdb_votes} проголосовавших` : "?";
 
-
-
-
     html = ""
     e.material_data.screenshots.forEach(el => {
         html = html + `
@@ -95,7 +92,7 @@ function setVideoInfo(e) {
     html = "Жанры: "
     e.material_data.anime_genres.forEach(el => {
         html = html + `
-        <a href="${null}"class="info_genre link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">${el}</a>
+        <a href="${window.location.orihin+window.location.pathname}?anime_genres=$${el}"class="info_genre link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">${el}</a>
         `
     })
     VideoInfo.info.genres.innerHTML = html;
