@@ -44,6 +44,8 @@ VideoInfo.info = {
     "rating_mpaa": VideoInfo.querySelector("#info_rating_mpaa"),
     "shikimori_rating": VideoInfo.querySelector("#info_shikimori_rating"),
     "shikimori_votes": VideoInfo.querySelector("#info_shikimori_votes"),
+    "imdb_rating": VideoInfo.querySelector("#info_imdb_rating"),
+    "imdb_votes": VideoInfo.querySelector("#info_imdb_votes"),
 
 
 }
@@ -67,7 +69,17 @@ function setVideoInfo(e) {
     VideoInfo.info.studios.textContent = e.material_data.anime_studios ? e.material_data.anime_studios : "?";
     VideoInfo.info.year.textContent = e.material_data.year ? e.material_data.year : "?";
     VideoInfo.info.rating_mpaa.textContent = e.material_data.rating_mpaa ? e.material_data.rating_mpaa : "?";
-    
+
+    VideoInfo.info.shikimori_rating.style.width = e.material_data.shikimori_rating ? `${e.material_data.shikimori_rating*10}%` : "?";
+    VideoInfo.info.shikimori_rating.textContent = e.material_data.shikimori_rating ? `${e.material_data.shikimori_rating}/10` : "?";
+    VideoInfo.info.shikimori_votes.textContent = e.material_data.shikimori_votes ? `${e.material_data.shikimori_votes} проголосовавших` : "?";
+
+    VideoInfo.info.imdb_rating.style.width = e.material_data.imdb_rating ? `${e.material_data.imdb_rating*10}%` : "?";
+    VideoInfo.info.imdb_rating.textContent = e.material_data.imdb_rating ? `${e.material_data.imdb_rating}/10` : "?";
+    VideoInfo.info.imdb_votes.textContent = e.material_data.imdb_votes ? `${e.material_data.imdb_votes} проголосовавших` : "?";
+
+
+
 
     html = ""
     e.material_data.screenshots.forEach(el => {
