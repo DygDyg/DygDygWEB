@@ -48,6 +48,7 @@ VideoInfo.info = {
     "imdb_rating": VideoInfo.querySelector("#info_imdb_rating"),
     "imdb_votes": VideoInfo.querySelector("#info_imdb_votes"),
     "updated_at": VideoInfo.querySelector("#info_updated_at"),
+    "updated_at_text": VideoInfo.querySelector("#info_updated_at_text"),
 
 
 }
@@ -81,21 +82,30 @@ function setVideoInfo(e) {
     VideoInfo.info.title.textContent = e.material_data.anime_title ? `${tv} ${e.material_data.anime_title}` : "?";
 
     VideoInfo.info.countries.textContent = e.material_data.countries ? e.material_data.countries : "?";
-    VideoInfo.info.countries.href = `${window.location.origin + window.location.pathname}?countries=${e.material_data.countries?e.material_data.countries:""}`;
+    VideoInfo.info.countries.href = `${window.location.origin + window.location.pathname}?countries=${e.material_data.countries ? e.material_data.countries : ""}`;
 
     VideoInfo.info.description.textContent = e.material_data.description ? e.material_data.description : "?";
 
     VideoInfo.info.info_status.textContent = e.material_data.anime_status ? e.material_data.anime_status : "?";
-    VideoInfo.info.info_status.href = `${window.location.origin + window.location.pathname}?anime_status=${e.material_data.anime_status?e.material_data.anime_status:""}`;
-    
+    VideoInfo.info.info_status.href = `${window.location.origin + window.location.pathname}?anime_status=${e.material_data.anime_status ? e.material_data.anime_status : ""}`;
+
     VideoInfo.info.studios.textContent = e.material_data.anime_studios ? e.material_data.anime_studios : "?";
-    VideoInfo.info.studios.href = `${window.location.origin + window.location.pathname}?anime_studios=${e.material_data.anime_studios?e.material_data.anime_studios:""}`;
-    
+    VideoInfo.info.studios.href = `${window.location.origin + window.location.pathname}?anime_studios=${e.material_data.anime_studios ? e.material_data.anime_studios : ""}`;
+
     VideoInfo.info.year.textContent = e.material_data.year ? e.material_data.year : "?";
-    VideoInfo.info.year.href = `${window.location.origin + window.location.pathname}?year=${e.material_data.year?e.material_data.year:""}`;
-    
+    VideoInfo.info.year.href = `${window.location.origin + window.location.pathname}?year=${e.material_data.year ? e.material_data.year : ""}`;
+
     VideoInfo.info.rating_mpaa.textContent = e.material_data.rating_mpaa ? e.material_data.rating_mpaa : "?";
-    VideoInfo.info.rating_mpaa.href = `${window.location.origin + window.location.pathname}?rating_mpaa=${e.material_data.rating_mpaa?e.material_data.rating_mpaa:""}`;
+    VideoInfo.info.rating_mpaa.href = `${window.location.origin + window.location.pathname}?rating_mpaa=${e.material_data.rating_mpaa ? e.material_data.rating_mpaa : ""}`;
+
+    if (e.material_data.anime_status == "ongoing") {
+        // VideoInfo.info.updated_at_text.textContent = e.material_data.anime_status == "ongoing" ? "Следующая серия выйдет " : "Последняя серия вышла ";
+        VideoInfo.info.updated_at.textContent = `Следующая серия выйдет ${formatDate(e.material_data.next_episode_at).moment.calendar().toLowerCase()}` //? formatDate(e.material_data.next_episode_at).moment.calendar() : "?";
+    }else{
+        VideoInfo.info.updated_at.textContent = `Вышла ${formatDate(e.material_data.released_at).moment.calendar().toLowerCase()}` //? formatDate(e.material_data.next_episode_at).moment.calendar() : "?";
+        
+    }
+
 
     VideoInfo.info.shikimori_rating.style.width = e.material_data.shikimori_rating ? `${e.material_data.shikimori_rating * 10}%` : "?";
     VideoInfo.info.shikimori_rating.textContent = e.material_data.shikimori_rating ? `${e.material_data.shikimori_rating}/10` : "?";
@@ -106,13 +116,14 @@ function setVideoInfo(e) {
     VideoInfo.info.imdb_votes.textContent = e.material_data.imdb_votes ? `${e.material_data.imdb_votes} проголосовавших` : "?";
 
     html = ""
-    e.material_data.screenshots.forEach(el => {
+    e.material_data.screenshots?.forEach(el => {
         html = html + `
         <div class="carousel-item">
         <img src="${el}"
             class="d-block w-100" alt="...">
     </div>
     ` });
+    e.material_data.screenshots?VideoInfo.info.screenshots.parentNode.classList.remove("hide"):VideoInfo.info.screenshots.parentNode.classList.add("hide")
     VideoInfo.info.screenshots.innerHTML = html;
     VideoInfo.info.screenshots.querySelectorAll(".carousel-item")[0]?.classList.add("active");
 
