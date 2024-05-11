@@ -71,19 +71,30 @@ URLList = url_get.searchParams.get('anime_studios') ? `${URLList}&anime_studios=
 URLList = url_get.searchParams.get('anime_status') ? `${URLList}&anime_status=${encodeURIComponent(url_get.searchParams.get('anime_status'))}` : URLList
 
 
-console.log(URLListStart)
+// console.log(URLListStart)
 function setVideoInfo(e) {
     var html
     console.log(e.material_data, VideoInfo.info)
     const tv = e.material_data.anime_kind ? ` [${e.material_data.anime_kind.toUpperCase()}]` : ""
     VideoInfo.info.cover.src = e.material_data.poster_url;
     VideoInfo.info.title.textContent = e.material_data.anime_title ? `${tv} ${e.material_data.anime_title}` : "?";
+
     VideoInfo.info.countries.textContent = e.material_data.countries ? e.material_data.countries : "?";
+    VideoInfo.info.countries.href = `${window.location.origin + window.location.pathname}?countries=${e.material_data.countries?e.material_data.countries:""}`;
+
     VideoInfo.info.description.textContent = e.material_data.description ? e.material_data.description : "?";
+
     VideoInfo.info.info_status.textContent = e.material_data.anime_status ? e.material_data.anime_status : "?";
+    VideoInfo.info.info_status.href = `${window.location.origin + window.location.pathname}?anime_status=${e.material_data.anime_status?e.material_data.anime_status:""}`;
+    
     VideoInfo.info.studios.textContent = e.material_data.anime_studios ? e.material_data.anime_studios : "?";
+    VideoInfo.info.studios.href = `${window.location.origin + window.location.pathname}?anime_studios=${e.material_data.anime_studios?e.material_data.anime_studios:""}`;
+    
     VideoInfo.info.year.textContent = e.material_data.year ? e.material_data.year : "?";
+    VideoInfo.info.year.href = `${window.location.origin + window.location.pathname}?year=${e.material_data.year?e.material_data.year:""}`;
+    
     VideoInfo.info.rating_mpaa.textContent = e.material_data.rating_mpaa ? e.material_data.rating_mpaa : "?";
+    VideoInfo.info.rating_mpaa.href = `${window.location.origin + window.location.pathname}?rating_mpaa=${e.material_data.rating_mpaa?e.material_data.rating_mpaa:""}`;
 
     VideoInfo.info.shikimori_rating.style.width = e.material_data.shikimori_rating ? `${e.material_data.shikimori_rating * 10}%` : "?";
     VideoInfo.info.shikimori_rating.textContent = e.material_data.shikimori_rating ? `${e.material_data.shikimori_rating}/10` : "?";
