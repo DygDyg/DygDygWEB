@@ -47,6 +47,7 @@ VideoInfo.info = {
     "shikimori_votes": VideoInfo.querySelector("#info_shikimori_votes"),
     "imdb_rating": VideoInfo.querySelector("#info_imdb_rating"),
     "imdb_votes": VideoInfo.querySelector("#info_imdb_votes"),
+    "updated_at": VideoInfo.querySelector("#info_updated_at"),
 
 
 }
