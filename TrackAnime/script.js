@@ -40,6 +40,9 @@ VideoInfo.info = {
     "updated_at": VideoInfo.querySelector("#info_updated_at"),
     "screenshots": VideoInfo.querySelector("#info_screenshots"),
     "info_status": VideoInfo.querySelector("#info_status"),
+    "year": VideoInfo.querySelector("#info_year"),
+    "rating_mpaa": VideoInfo.querySelector("#info_rating_mpaa"),
+    
 
 }
 
@@ -50,6 +53,20 @@ setInterval(() => {
 }, 30 * 1000);  //Автопроверка 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+function setVideoInfo(e)
+{
+   console.log(e.material_data, VideoInfo.info)
+   const tv = e.material_data.anime_kind?` [${e.material_data.anime_kind.toUpperCase()}]`:""
+    VideoInfo.info.cover.src = e.material_data.poster_url;
+    VideoInfo.info.title.textContent = e.material_data.anime_title?`${tv} ${e.material_data.anime_title}`:"?";
+    VideoInfo.info.countries.textContent = e.material_data.countries?e.material_data.countries:"?";
+    VideoInfo.info.description.textContent = e.material_data.description?e.material_data.description:"?";
+    VideoInfo.info.info_status.textContent = e.material_data.anime_status?e.material_data.anime_status:"?";
+    VideoInfo.info.studios.textContent = e.material_data.anime_studios?e.material_data.anime_studios:"?";
+    VideoInfo.info.year.textContent = e.material_data.year
+    VideoInfo.info.rating_mpaa.textContent = e.material_data.rating_mpaa
+
+}
 document.getElementById('VoiceButtonMenu').addEventListener('click', () => {
     VoiceSettingsMenu()
 })
@@ -520,6 +537,7 @@ function showToast(e) {
 }
 
 function dialog(e, info) {
+    setVideoInfo(e)
     url_get.searchParams.set("id", `${e.id}`)
     window.history.pushState({}, '', url_get);
     document.title = `TA: ${e.title}`
