@@ -42,7 +42,7 @@ VideoInfo.info = {
     "info_status": VideoInfo.querySelector("#info_status"),
     "year": VideoInfo.querySelector("#info_year"),
     "rating_mpaa": VideoInfo.querySelector("#info_rating_mpaa"),
-    
+
 
 }
 
@@ -53,18 +53,28 @@ setInterval(() => {
 }, 30 * 1000);  //Автопроверка 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function setVideoInfo(e)
-{
-   console.log(e.material_data, VideoInfo.info)
-   const tv = e.material_data.anime_kind?` [${e.material_data.anime_kind.toUpperCase()}]`:""
+function setVideoInfo(e) {
+    console.log(e.material_data, VideoInfo.info)
+    const tv = e.material_data.anime_kind ? ` [${e.material_data.anime_kind.toUpperCase()}]` : ""
     VideoInfo.info.cover.src = e.material_data.poster_url;
-    VideoInfo.info.title.textContent = e.material_data.anime_title?`${tv} ${e.material_data.anime_title}`:"?";
-    VideoInfo.info.countries.textContent = e.material_data.countries?e.material_data.countries:"?";
-    VideoInfo.info.description.textContent = e.material_data.description?e.material_data.description:"?";
-    VideoInfo.info.info_status.textContent = e.material_data.anime_status?e.material_data.anime_status:"?";
-    VideoInfo.info.studios.textContent = e.material_data.anime_studios?e.material_data.anime_studios:"?";
-    VideoInfo.info.year.textContent = e.material_data.year
-    VideoInfo.info.rating_mpaa.textContent = e.material_data.rating_mpaa
+    VideoInfo.info.title.textContent = e.material_data.anime_title ? `${tv} ${e.material_data.anime_title}` : "?";
+    VideoInfo.info.countries.textContent = e.material_data.countries ? e.material_data.countries : "?";
+    VideoInfo.info.description.textContent = e.material_data.description ? e.material_data.description : "?";
+    VideoInfo.info.info_status.textContent = e.material_data.anime_status ? e.material_data.anime_status : "?";
+    VideoInfo.info.studios.textContent = e.material_data.anime_studios ? e.material_data.anime_studios : "?";
+    VideoInfo.info.year.textContent = e.material_data.year ? e.material_data.year : "?";
+    VideoInfo.info.rating_mpaa.textContent = e.material_data.rating_mpaa ? e.material_data.rating_mpaa : "?";
+
+    var scr = ""
+    e.material_data.screenshots.forEach(el => {
+        scr = scr + `
+        <div class="carousel-item">
+        <img src="${el}"
+            class="d-block w-100" alt="...">
+    </div>
+    ` });
+    VideoInfo.info.screenshots.innerHTML = scr;
+    VideoInfo.info.screenshots.querySelectorAll(".carousel-item")[0]?.classList.add("active")
 
 }
 document.getElementById('VoiceButtonMenu').addEventListener('click', () => {
@@ -547,7 +557,7 @@ function dialog(e, info) {
         // add_push(e)
         // return
     }
-    
+
     VideoPlayerAnime.showModal();
 
 
@@ -558,11 +568,11 @@ function dialog(e, info) {
         return
     }
     VideoPlayer.contentWindow.location.href = e.link
-/* 
-    if (DialogVideoInfo.classList.contains('DialogVideoInfoScroll')) {
-        DialogVideoInfo.classList.remove("DialogVideoInfoScroll")
-        DialogVideoInfo.classList.add("DialogVideoInfoScroll")
-    } */
+    /* 
+        if (DialogVideoInfo.classList.contains('DialogVideoInfoScroll')) {
+            DialogVideoInfo.classList.remove("DialogVideoInfoScroll")
+            DialogVideoInfo.classList.add("DialogVideoInfoScroll")
+        } */
 
 
     info ? DialogVideoInfo.classList.add("DialogVideoInfoScroll") : DialogVideoInfo.classList.remove("DialogVideoInfoScroll")
