@@ -13,6 +13,7 @@ const VoiceSettings = document.getElementById('VoiceSettings');
 const VideoPlayer = document.getElementById('VideoPlayer');
 const list_calendar = document.getElementById("list_calendar");
 const container_ = document.body.querySelector('.container_');
+
 const URLSearch = "https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&title="
 var URLList = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"//&countries=Япония"
 var URLCalendar = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8&anime_status=ongoing"//&anime_kind=tv"//&countries=Япония"
@@ -56,7 +57,21 @@ setInterval(() => {
     GetKodi("", true)
 }, 30 * 1000);  //Автопроверка 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+console.log(URLListStart)
+// URLListStart = url_get.searchParams.get('anime_genres')?`${URLListStart}&anime_genres=${encodeURIComponent(url_get.searchParams.get('anime_genres'))}`:URLListStart
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////Проверка гет фильтров поиска///////////////////////////////////////////////////////////
+URLList = url_get.searchParams.get('anime_genres') ? `${URLList}&anime_genres=${encodeURIComponent(url_get.searchParams.get('anime_genres'))}` : URLList
+URLList = url_get.searchParams.get('rating_mpaa') ? `${URLList}&rating_mpaa=${encodeURIComponent(url_get.searchParams.get('rating_mpaa'))}` : URLList
+URLList = url_get.searchParams.get('year') ? `${URLList}&year=${encodeURIComponent(url_get.searchParams.get('year'))}` : URLList
+URLList = url_get.searchParams.get('countries') ? `${URLList}&countries=${encodeURIComponent(url_get.searchParams.get('countries'))}` : URLList
+URLList = url_get.searchParams.get('anime_studios') ? `${URLList}&anime_studios=${encodeURIComponent(url_get.searchParams.get('anime_studios'))}` : URLList
+URLList = url_get.searchParams.get('anime_status') ? `${URLList}&anime_status=${encodeURIComponent(url_get.searchParams.get('anime_status'))}` : URLList
+
+
+console.log(URLListStart)
 function setVideoInfo(e) {
     var html
     console.log(e.material_data, VideoInfo.info)
@@ -70,11 +85,11 @@ function setVideoInfo(e) {
     VideoInfo.info.year.textContent = e.material_data.year ? e.material_data.year : "?";
     VideoInfo.info.rating_mpaa.textContent = e.material_data.rating_mpaa ? e.material_data.rating_mpaa : "?";
 
-    VideoInfo.info.shikimori_rating.style.width = e.material_data.shikimori_rating ? `${e.material_data.shikimori_rating*10}%` : "?";
+    VideoInfo.info.shikimori_rating.style.width = e.material_data.shikimori_rating ? `${e.material_data.shikimori_rating * 10}%` : "?";
     VideoInfo.info.shikimori_rating.textContent = e.material_data.shikimori_rating ? `${e.material_data.shikimori_rating}/10` : "?";
     VideoInfo.info.shikimori_votes.textContent = e.material_data.shikimori_votes ? `${e.material_data.shikimori_votes} проголосовавших` : "?";
 
-    VideoInfo.info.imdb_rating.style.width = e.material_data.imdb_rating ? `${e.material_data.imdb_rating*10}%` : "?";
+    VideoInfo.info.imdb_rating.style.width = e.material_data.imdb_rating ? `${e.material_data.imdb_rating * 10}%` : "?";
     VideoInfo.info.imdb_rating.textContent = e.material_data.imdb_rating ? `${e.material_data.imdb_rating}/10` : "?";
     VideoInfo.info.imdb_votes.textContent = e.material_data.imdb_votes ? `${e.material_data.imdb_votes} проголосовавших` : "?";
 
@@ -92,7 +107,7 @@ function setVideoInfo(e) {
     html = "Жанры: "
     e.material_data.anime_genres.forEach(el => {
         html = html + `
-        <a href="${window.location.origin+window.location.pathname}?anime_genres=${el}"class="info_genre link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">${el}</a>
+        <a href="${window.location.origin + window.location.pathname}?anime_genres=${el}"class="info_genre link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">${el}</a>
         `
     })
     VideoInfo.info.genres.innerHTML = html;
