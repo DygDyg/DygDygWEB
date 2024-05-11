@@ -71,7 +71,7 @@ URLList = url_get.searchParams.get('year') ? `${URLList}&year=${encodeURICompone
 URLList = url_get.searchParams.get('countries') ? `${URLList}&countries=${encodeURIComponent(url_get.searchParams.get('countries'))}` : URLList
 URLList = url_get.searchParams.get('anime_studios') ? `${URLList}&anime_studios=${encodeURIComponent(url_get.searchParams.get('anime_studios'))}` : URLList
 URLList = url_get.searchParams.get('anime_status') ? `${URLList}&anime_status=${encodeURIComponent(url_get.searchParams.get('anime_status'))}` : URLList
-
+URLListStart = URLList
 
 // console.log(URLListStart)
 function setVideoInfo(e) {
