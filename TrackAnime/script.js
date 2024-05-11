@@ -8,6 +8,7 @@ var TypePage = 0
 var url_get = new URL(window.location.href)
 const KeyTab = Math.floor(Math.random() * 10000000000)
 const VideoPlayerAnime = document.getElementById('VideoPlayerAnime');
+const VideoInfo = document.getElementById('VideoInfo');
 const VoiceSettings = document.getElementById('VoiceSettings');
 const VideoPlayer = document.getElementById('VideoPlayer');
 const list_calendar = document.getElementById("list_calendar");
@@ -27,6 +28,20 @@ const voice = [
     "AniLibria.TV",
     "SHIZA Project",
 ]
+
+VideoInfo.info = {
+    "cover": VideoInfo.querySelector("#info_cover"),
+    "title": VideoInfo.querySelector("#info_title"),
+    "description": VideoInfo.querySelector("#info_description"),
+
+    "countries": VideoInfo.querySelector("#info_countries"),
+    "genres": VideoInfo.querySelectorAll(".info_genre"),
+    "studios": VideoInfo.querySelector("#info_studios"),
+    "updated_at": VideoInfo.querySelector("#info_updated_at"),
+    "screenshots": VideoInfo.querySelector("#info_screenshots"),
+    "info_status": VideoInfo.querySelector("#info_status"),
+
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 setInterval(() => {
