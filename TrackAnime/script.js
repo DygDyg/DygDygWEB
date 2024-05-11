@@ -35,13 +35,15 @@ VideoInfo.info = {
     "description": VideoInfo.querySelector("#info_description"),
 
     "countries": VideoInfo.querySelector("#info_countries"),
-    "genres": VideoInfo.querySelectorAll(".info_genre"),
+    "genres": VideoInfo.querySelector("#info_genres"),
     "studios": VideoInfo.querySelector("#info_studios"),
     "updated_at": VideoInfo.querySelector("#info_updated_at"),
     "screenshots": VideoInfo.querySelector("#info_screenshots"),
     "info_status": VideoInfo.querySelector("#info_status"),
     "year": VideoInfo.querySelector("#info_year"),
     "rating_mpaa": VideoInfo.querySelector("#info_rating_mpaa"),
+    "shikimori_rating": VideoInfo.querySelector("#info_shikimori_rating"),
+    "shikimori_votes": VideoInfo.querySelector("#info_shikimori_votes"),
 
 
 }
@@ -54,6 +56,7 @@ setInterval(() => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function setVideoInfo(e) {
+    var html
     console.log(e.material_data, VideoInfo.info)
     const tv = e.material_data.anime_kind ? ` [${e.material_data.anime_kind.toUpperCase()}]` : ""
     VideoInfo.info.cover.src = e.material_data.poster_url;
@@ -65,16 +68,26 @@ function setVideoInfo(e) {
     VideoInfo.info.year.textContent = e.material_data.year ? e.material_data.year : "?";
     VideoInfo.info.rating_mpaa.textContent = e.material_data.rating_mpaa ? e.material_data.rating_mpaa : "?";
 
-    var scr = ""
+    html = ""
     e.material_data.screenshots.forEach(el => {
-        scr = scr + `
+        html = html + `
         <div class="carousel-item">
         <img src="${el}"
             class="d-block w-100" alt="...">
     </div>
     ` });
-    VideoInfo.info.screenshots.innerHTML = scr;
-    VideoInfo.info.screenshots.querySelectorAll(".carousel-item")[0]?.classList.add("active")
+    VideoInfo.info.screenshots.innerHTML = html;
+    VideoInfo.info.screenshots.querySelectorAll(".carousel-item")[0]?.classList.add("active");
+
+    html = "Жанры: "
+    e.material_data.anime_genres.forEach(el => {
+        html = html + `
+        <a href="${null}"class="info_genre link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">${el}</a>
+        `
+    })
+    VideoInfo.info.genres.innerHTML = html;
+
+
 
 }
 document.getElementById('VoiceButtonMenu').addEventListener('click', () => {
