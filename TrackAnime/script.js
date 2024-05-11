@@ -67,6 +67,7 @@ function setVideoInfo(e) {
     VideoInfo.info.studios.textContent = e.material_data.anime_studios ? e.material_data.anime_studios : "?";
     VideoInfo.info.year.textContent = e.material_data.year ? e.material_data.year : "?";
     VideoInfo.info.rating_mpaa.textContent = e.material_data.rating_mpaa ? e.material_data.rating_mpaa : "?";
+    
 
     html = ""
     e.material_data.screenshots.forEach(el => {
