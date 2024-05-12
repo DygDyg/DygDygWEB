@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="../scripts/jsoneditor.min.css" rel="stylesheet" type="text/css">
+    <script src="../scripts/jsoneditor.min.js"></script>
+</head>
+
+<body>
+
+    <div id="json-editor"></div>
+</body>
+<style>
+    body {
+        background-color: rgb(61, 61, 61);
+    }
+</style>
+<script>
+    const json_data = '{"key1": "value1", "key2": {"key21": "value21", "key22": "value22"}}'; // Ваша строка JSON
+
+    try {
+        const jsonObject = JSON.parse(json_data);
+        const container = document.getElementById('json-editor');
+        const jsonEditor = new JSONEditor(container, {
+            mode: 'view',
+            schema: {},
+            startval: jsonObject,
+        });
+    } catch (error) {
+        console.error('Ошибка при парсинге JSON:', error);
+    }
+</script>
+
+</html>

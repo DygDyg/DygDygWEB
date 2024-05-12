@@ -304,8 +304,10 @@ async function addCalendar() {
             formatDate(e.material_data.next_episode_at).moment.day() == 0 ? d3[6].appendChild(cart) : d3[formatDate(e.material_data.next_episode_at).moment.day() - 1].appendChild(cart)
         }
     });
-    list_calendar.getElementsByClassName('ned_spoiler')[formatDate().moment.day() - 1].open = true
-    list_calendar.getElementsByClassName('ned_name')[formatDate().moment.day() - 1].scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
+    console.log(formatDate().moment.day() - 1)
+    var ned_num = formatDate().moment.day()>0?formatDate().moment.day() - 1:6
+    list_calendar.getElementsByClassName('ned_spoiler')[ned_num].open = true
+    list_calendar.getElementsByClassName('ned_name')[ned_num].scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
     document.getElementById("load").classList.add("hide")
 }
 
