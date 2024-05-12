@@ -134,8 +134,8 @@ function setVideoInfo(e) {
             class="d-block w-100" alt="...">
     </div>
     ` });
-    console.log(e.screenshots)
-    e.material_data.screenshots?VideoInfo.info.screenshots.parentNode.classList.remove("hide"):VideoInfo.info.screenshots.parentNode.classList.add("hide")
+    // console.log(e.screenshots)
+    e.material_data.screenshots||e.screenshots?VideoInfo.info.screenshots.parentNode.classList.remove("hide"):VideoInfo.info.screenshots.parentNode.classList.add("hide")
     VideoInfo.info.screenshots.innerHTML = html;
     VideoInfo.info.screenshots.querySelectorAll(".carousel-item")[0]?.classList.add("active");
 
