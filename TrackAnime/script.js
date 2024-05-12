@@ -127,6 +127,14 @@ function setVideoInfo(e) {
             class="d-block w-100" alt="...">
     </div>
     ` });
+    e.screenshots?.forEach(el => {
+        html = html + `
+        <div class="carousel-item">
+        <img src="${el}"
+            class="d-block w-100" alt="...">
+    </div>
+    ` });
+    console.log(e.screenshots)
     e.material_data.screenshots?VideoInfo.info.screenshots.parentNode.classList.remove("hide"):VideoInfo.info.screenshots.parentNode.classList.add("hide")
     VideoInfo.info.screenshots.innerHTML = html;
     VideoInfo.info.screenshots.querySelectorAll(".carousel-item")[0]?.classList.add("active");
@@ -231,6 +239,8 @@ if (url_get.searchParams.get('id')) {
         "raiting": e.material_data.shikimori_rating,
         "material_data": e.material_data,
         "id": e.id,
+        "screenshots":e.screenshots,
+
     }
     dialog(ed, true)
 }
@@ -299,6 +309,7 @@ async function addCalendar() {
                 "raiting": e.material_data.shikimori_rating,
                 "material_data": e.material_data,
                 "id": e.id,
+                "screenshots":e.screenshots,
             }
             const cart = add_cart(e1)
             formatDate(e.material_data.next_episode_at).moment.day() == 0 ? d3[6].appendChild(cart) : d3[formatDate(e.material_data.next_episode_at).moment.day() - 1].appendChild(cart)
@@ -777,6 +788,7 @@ function GetKodiScan(data, revers) {
                     "raiting": e.material_data.shikimori_rating,
                     "material_data": e.material_data,
                     "id": e.id,
+                    "screenshots":e.screenshots,
 
                 }
                 const cart = add_cart(e1)
