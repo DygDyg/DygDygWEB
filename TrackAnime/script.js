@@ -94,6 +94,13 @@ function setVideoInfo(e) {
     VideoInfo.info.studios.textContent = e.material_data.anime_studios ? e.material_data.anime_studios : "?";
     VideoInfo.info.studios.href = `${window.location.origin + window.location.pathname}?anime_studios=${e.material_data.anime_studios ? e.material_data.anime_studios : ""}`;
 
+/*     html = "Жанры: "
+    e.material_data.anime_genres?.forEach(el => {
+        html = html + `
+        <a href="${window.location.origin + window.location.pathname}?anime_genres=${el}"class="info_genre link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">${el}</a>
+        `
+    }) */
+
     VideoInfo.info.year.textContent = e.material_data.year ? e.material_data.year : "?";
     VideoInfo.info.year.href = `${window.location.origin + window.location.pathname}?year=${e.material_data.year ? e.material_data.year : ""}`;
 
