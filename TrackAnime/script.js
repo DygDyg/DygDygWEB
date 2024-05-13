@@ -446,6 +446,7 @@ function RangeRaiting(r) {
 }
 
 function add_cart(e) {
+    // console.log(1, e)
     const cart = document.createElement('div');
     cart.classList.add('cart_', 'bg-dark', 'text-white');
     cart.r = e.raiting
@@ -493,6 +494,18 @@ function add_cart(e) {
     cartVoice.textContent = e.voice;
     cartVoice.title = e.status;
     imgTop.appendChild(cartVoice);
+
+    cartVoice.addEventListener("mouseover", (e1) => {
+        if(AnimeScanID[e.shikimori])
+            var tmp123=' | ';
+        // console.log(AnimeScanID, e.shikimori)
+            AnimeScanID[e.shikimori]?.forEach(e2 => {
+                
+                tmp123 = tmp123 + e2 + " | "
+            });
+            // console.log(e.target)
+            e1.target.title = tmp123
+    });
 
     const cartRaiting = document.createElement('div');
 
