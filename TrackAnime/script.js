@@ -815,14 +815,16 @@ function GetKodiScan(data, revers) {
                     cart.classList.add("new_cart")
                     add_push(e1)
                 } else {
+
                     if (!AnimeScanID[e.shikimori_id]) {
                         AnimeScanID[e.shikimori_id] = new Array()
                         AnimeScanID[e.shikimori_id].push(e.translation.title)
+                        targetFrame.appendChild(cart)
                     } else {
                         AnimeScanID[e.shikimori_id].push(e.translation.title)
-                        return
                     }
-                    targetFrame.appendChild(cart)
+
+                    
 
                 };
 
