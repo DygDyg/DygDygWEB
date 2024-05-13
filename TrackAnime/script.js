@@ -785,13 +785,7 @@ function GetKodiScan(data, revers) {
 
             if (VoiceTranslate(e.translation.title)) {
 
-                if (!AnimeScanID[e.shikimori_id]) {
-                    AnimeScanID[e.shikimori_id] = new Array()
-                    AnimeScanID[e.shikimori_id].push(e.translation.title)
-                } else {
-                    AnimeScanID[e.shikimori_id].push(e.translation.title)
-                    return
-                }
+                
                 // const dat = new Date(e.updated_at)
                 if (!e.shikimori_id) return
                 // console.log(e.material_data.shikimori_rating)
@@ -821,6 +815,13 @@ function GetKodiScan(data, revers) {
                     cart.classList.add("new_cart")
                     add_push(e1)
                 } else {
+                    if (!AnimeScanID[e.shikimori_id]) {
+                        AnimeScanID[e.shikimori_id] = new Array()
+                        AnimeScanID[e.shikimori_id].push(e.translation.title)
+                    } else {
+                        AnimeScanID[e.shikimori_id].push(e.translation.title)
+                        return
+                    }
                     targetFrame.appendChild(cart)
 
                 };
