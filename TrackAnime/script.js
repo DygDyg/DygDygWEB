@@ -78,7 +78,7 @@ URLList = url_get.searchParams.get('anime_status') ? `${URLList}&anime_status=${
 URLListStart = URLList
 
 function setVideoInfo(e) {
-    console.log(e)
+    // console.log(e)
     var html
     const tv = e.material_data.anime_kind ? ` [${e.material_data.anime_kind.toUpperCase()}]` : ""
     VideoInfo.info.cover.src = e.material_data.poster_url;
@@ -108,7 +108,7 @@ function setVideoInfo(e) {
     VideoInfo.info.rating_mpaa.href = `${window.location.origin + window.location.pathname}?rating_mpaa=${e.material_data.rating_mpaa ? e.material_data.rating_mpaa : ""}`;
 
     console.log()
-    if (e.material_data.anime_status == "ongoing" && formatDate(e.material_data.next_episode_at).moment.diff(moment.now(), "minute")>0) {
+    if (e.material_data.anime_status == "ongoing" && formatDate(e.material_data.next_episode_at).moment.diff(moment.now(), "minute") > 0) {
         // VideoInfo.info.updated_at_text.textContent = e.material_data.anime_status == "ongoing" ? "Следующая серия выйдет " : "Последняя серия вышла ";
         VideoInfo.info.updated_at.textContent = `Следующая серия выйдет ${formatDate(e.material_data.next_episode_at).moment.fromNow().toLowerCase()}. ${formatDate(e.material_data.next_episode_at).moment.calendar()}`
     } else {
@@ -180,7 +180,9 @@ closeDialogButton.addEventListener('click', () => {
     DialogVideoInfo.classList.remove("DialogVideoInfoScroll")
     VideoPlayerAnime.close();
     VideoPlayer.contentWindow.location.href = "../index.htm";
+    url_get.searchParams.delete("shikimori_id")
     url_get.searchParams.delete("id")
+    
     window.history.pushState({}, '', url_get);
 });
 document.getElementById("list_calendar_Button").addEventListener('click', async () => {
@@ -214,9 +216,12 @@ base_anime.fav = base_anime.fav ? base_anime.fav : []
 
 ///////////////////// GET параметры 
 if (url_get.searchParams.get('id') || url_get.searchParams.get('shikimori_id')) {
-    e = JSON.parse(httpGet(url_get.searchParams.get('id') ?
-        `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&id=${url_get.searchParams.get('id')}` :
-        `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&shikimori_id=${url_get.searchParams.get('shikimori_id')}`).response).results[0]
+
+    e = JSON.parse(httpGet(url_get.searchParams.get('shikimori_id') ?
+        `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&shikimori_id=${url_get.searchParams.get('shikimori_id')}` :
+        `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&id=${url_get.searchParams.get('id')}`
+    ).response).results[0]
+
     const ed = {
         "title": e.material_data.anime_title,
         "cover": `${e.material_data.poster_url}`,
@@ -432,8 +437,9 @@ function RangeRaiting(r) {
 
 function add_cart(e) {
     const cart = document.createElement('div');
+    cart.data = e;
     cart.classList.add('cart_', 'bg-dark', 'text-white');
-    cart.r = e.raiting
+    // cart.r = e.raiting
     document.body.r > cart.r ? cart.classList.add('hide') : null;
 
     cart.addEventListener("click", (event) => {
@@ -618,7 +624,7 @@ function showToast(e) {
 
 function dialog(e, info) {
     setVideoInfo(e)
-    url_get.searchParams.set("id", `${e.id}`)
+    url_get.searchParams.set("shikimori_id", `${e.id}`)
     window.history.pushState({}, '', url_get);
     document.title = `TA: ${e.title}`
 
