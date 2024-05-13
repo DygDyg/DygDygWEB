@@ -779,7 +779,7 @@ function GetKodiScan(data, revers) {
                     AnimeScanID[e.shikimori_id].push(e.translation.title)
                     return
                 }
-                const dat = new Date(e.updated_at)
+                // const dat = new Date(e.updated_at)
                 if (!e.shikimori_id) return
                 // console.log(e.material_data.shikimori_rating)
                 const e1 = {
@@ -801,7 +801,7 @@ function GetKodiScan(data, revers) {
                     "screenshots": e.screenshots,
 
                 }
-                
+
                 const cart = add_cart(e1)
                 if (revers && prev_page == null) {
                     targetFrame.prepend(cart)
