@@ -39,6 +39,7 @@ VideoInfo.info = {
 
     "countries": VideoInfo.querySelector("#info_countries"),
     "genres": VideoInfo.querySelector("#info_genres"),
+    "series": VideoInfo.querySelector("#info_series"),
     "studios": VideoInfo.querySelector("#info_studios"),
     "updated_at": VideoInfo.querySelector("#info_updated_at"),
     "screenshots": VideoInfo.querySelector("#info_screenshots"),
@@ -77,6 +78,7 @@ URLList = url_get.searchParams.get('anime_status') ? `${URLList}&anime_status=${
 URLListStart = URLList
 
 function setVideoInfo(e) {
+    console.log(e)
     var html
     const tv = e.material_data.anime_kind ? ` [${e.material_data.anime_kind.toUpperCase()}]` : ""
     VideoInfo.info.cover.src = e.material_data.poster_url;
@@ -84,6 +86,12 @@ function setVideoInfo(e) {
 
     VideoInfo.info.countries.textContent = e.material_data.countries ? e.material_data.countries : "?";
     VideoInfo.info.countries.href = `${window.location.origin + window.location.pathname}?countries=${e.material_data.countries ? e.material_data.countries : ""}`;
+
+    var tmp346 = e.material_data.episodes_aired ? e.material_data.episodes_aired : "?";
+    tmp346 = tmp346 + `/${e.material_data.episodes_total ? e.material_data.episodes_total : "?"}`;
+
+    VideoInfo.info.series.textContent = tmp346;
+    // VideoInfo.info.countries.href = `${window.location.origin + window.location.pathname}?countries=${e.material_data.countries ? e.material_data.countries : ""}`;
 
     VideoInfo.info.description.textContent = e.material_data.description ? e.material_data.description : "?";
 
@@ -99,14 +107,15 @@ function setVideoInfo(e) {
     VideoInfo.info.rating_mpaa.textContent = e.material_data.rating_mpaa ? e.material_data.rating_mpaa : "?";
     VideoInfo.info.rating_mpaa.href = `${window.location.origin + window.location.pathname}?rating_mpaa=${e.material_data.rating_mpaa ? e.material_data.rating_mpaa : ""}`;
 
-    if (e.material_data.anime_status == "ongoing") {
+    console.log()
+    if (e.material_data.anime_status == "ongoing" && formatDate(e.material_data.next_episode_at).moment.diff(moment.now(), "minute")>0) {
         // VideoInfo.info.updated_at_text.textContent = e.material_data.anime_status == "ongoing" ? "Следующая серия выйдет " : "Последняя серия вышла ";
-        VideoInfo.info.updated_at.textContent = `Следующая серия выйдет ${formatDate(e.material_data.next_episode_at).moment.calendar().toLowerCase()}` //? formatDate(e.material_data.next_episode_at).moment.calendar() : "?";
+        VideoInfo.info.updated_at.textContent = `Следующая серия выйдет ${formatDate(e.material_data.next_episode_at).moment.fromNow().toLowerCase()}. ${formatDate(e.material_data.next_episode_at).moment.calendar()}`
     } else {
-        VideoInfo.info.updated_at.textContent = `Вышла ${formatDate(e.material_data.released_at).moment.calendar().toLowerCase()}` //? formatDate(e.material_data.next_episode_at).moment.calendar() : "?";
+        VideoInfo.info.updated_at.textContent = `Вышла ${formatDate(e.material_data.next_episode_at).moment.fromNow().toLowerCase()}. ${formatDate(e.material_data.released_at).moment.calendar()}`
 
     }
-
+    VideoInfo.info.title.textContent = `${VideoInfo.info.title.textContent} | ${VideoInfo.info.updated_at.textContent}`
 
     VideoInfo.info.shikimori_rating.style.width = e.material_data.shikimori_rating ? `${e.material_data.shikimori_rating * 10}%` : "?";
     VideoInfo.info.shikimori_rating.textContent = e.material_data.shikimori_rating ? `${e.material_data.shikimori_rating}/10` : "?";
@@ -204,10 +213,10 @@ base_anime.fav = base_anime.fav ? base_anime.fav : []
 
 
 ///////////////////// GET параметры 
-if (url_get.searchParams.get('id')||url_get.searchParams.get('shikimori_id')) {
-    e = JSON.parse(httpGet(url_get.searchParams.get('id')?
-    `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&id=${url_get.searchParams.get('id')}`:
-    `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&shikimori_id=${url_get.searchParams.get('shikimori_id')}`).response).results[0]
+if (url_get.searchParams.get('id') || url_get.searchParams.get('shikimori_id')) {
+    e = JSON.parse(httpGet(url_get.searchParams.get('id') ?
+        `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&id=${url_get.searchParams.get('id')}` :
+        `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&shikimori_id=${url_get.searchParams.get('shikimori_id')}`).response).results[0]
     const ed = {
         "title": e.material_data.anime_title,
         "cover": `${e.material_data.poster_url}`,
@@ -621,23 +630,15 @@ function dialog(e, info) {
 
     VideoPlayerAnime.showModal();
 
-
-
-
     if ((e.imdb || e.kp) && e.shift) {
         VideoPlayer.contentWindow.location.href = e.kp ? `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&kinopoiskID=${e.kp}` : `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&imdb=${e.imdb}`
         return
     }
     VideoPlayer.contentWindow.location.href = e.link
-    /* 
-        if (DialogVideoInfo.classList.contains('DialogVideoInfoScroll')) {
-            DialogVideoInfo.classList.remove("DialogVideoInfoScroll")
-            DialogVideoInfo.classList.add("DialogVideoInfoScroll")
-        } */
-
 
     info ? DialogVideoInfo.classList.add("DialogVideoInfoScroll") : DialogVideoInfo.classList.remove("DialogVideoInfoScroll")
 }
+
 function VoiceTranslate(name) {
 
     if (ignoreVoice || base_anime.translationActive < 1) return true
@@ -647,7 +648,6 @@ function VoiceTranslate(name) {
         base_anime.translationActive = voice;
         return voice.includes(name)
     }
-
 
 }
 async function GetKodi(seartch, revers) {
