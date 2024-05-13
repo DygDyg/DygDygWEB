@@ -63,7 +63,6 @@ setInterval(() => {
     GetKodi("", true)
 }, 30 * 1000);  //Автопроверка 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-console.log(URLListStart)
 // URLListStart = url_get.searchParams.get('anime_genres')?`${URLListStart}&anime_genres=${encodeURIComponent(url_get.searchParams.get('anime_genres'))}`:URLListStart
 
 
@@ -77,10 +76,8 @@ URLList = url_get.searchParams.get('anime_studios') ? `${URLList}&anime_studios=
 URLList = url_get.searchParams.get('anime_status') ? `${URLList}&anime_status=${encodeURIComponent(url_get.searchParams.get('anime_status'))}` : URLList
 URLListStart = URLList
 
-// console.log(URLListStart)
 function setVideoInfo(e) {
     var html
-    console.log(e, VideoInfo.info)
     const tv = e.material_data.anime_kind ? ` [${e.material_data.anime_kind.toUpperCase()}]` : ""
     VideoInfo.info.cover.src = e.material_data.poster_url;
     VideoInfo.info.title.textContent = e.material_data.anime_title ? `${tv} ${e.material_data.anime_title}` : "?";
@@ -136,7 +133,6 @@ function setVideoInfo(e) {
             class="d-block w-100" alt="...">
     </div>
     ` });
-    // console.log(e.screenshots)
     e.material_data.screenshots || e.screenshots ? VideoInfo.info.screenshots.parentNode.classList.remove("hide") : VideoInfo.info.screenshots.parentNode.classList.add("hide")
     VideoInfo.info.screenshots.innerHTML = html;
     VideoInfo.info.screenshots.querySelectorAll(".carousel-item")[0]?.classList.add("active");
@@ -157,7 +153,6 @@ document.getElementById('VoiceButtonMenu').addEventListener('click', () => {
 })
 
 document.getElementById('search_input').addEventListener('change', (e) => {
-    console.log(e.target.value)
     GetKodi(encodeURI(e.target.value))
 })
 
@@ -189,7 +184,6 @@ VideoPlayerAnime.addEventListener("close", () => {
 
 // window.onscroll = function () {
 container_.addEventListener('scroll', async function (e) {
-    // console.log(e.target.scrollTop)
     if ((e.target.scrollTop + window.scrollY) >= e.target.scrollHeight - scrollM && HistoryIsActivy == true) {
         GetKodi()
         // setTimeout(GetKodi, 0)
@@ -222,9 +216,7 @@ base_anime.fav = base_anime.fav ? base_anime.fav : []
 
 ///////////////////// GET параметры 
 if (url_get.searchParams.get('id')) {
-    console.log(url_get.searchParams.get('id'))
     e = JSON.parse(httpGet(`https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&id=${url_get.searchParams.get('id')}`).response).results[0]
-    console.log(e)
     const ed = {
         "title": e.material_data.anime_title,
         "cover": `${e.material_data.poster_url}`,
@@ -250,7 +242,6 @@ if (url_get.searchParams.get('id')) {
 // url_get.searchParams.delete("seartch")
 
 async function getCalendar() {
-    console.log(TypePage)
     if (TypePage == 1) {
         HistoryIsActivy = true
         TypePage = 0
@@ -293,7 +284,6 @@ async function addCalendar() {
     data.forEach(e => {
         if ((e.type == 'anime-serial') && e.translation.type == "voice" && e.shikimori_id && e.material_data.shikimori_rating > 0 && e.material_data.countries != "Китай") {
             if (id.includes(e.shikimori_id)) return
-            console.log(e.material_data.shikimori_rating, e.material_data.countries == "Китай", e.material_data.anime_title, e)
             id.push(e.shikimori_id)
             const e1 = {
                 "title": e.material_data.anime_title,
@@ -317,7 +307,6 @@ async function addCalendar() {
             formatDate(e.material_data.next_episode_at).moment.day() == 0 ? d3[6].appendChild(cart) : d3[formatDate(e.material_data.next_episode_at).moment.day() - 1].appendChild(cart)
         }
     });
-    console.log(formatDate().moment.day() - 1)
     var ned_num = formatDate().moment.day() > 0 ? formatDate().moment.day() - 1 : 6
     list_calendar.getElementsByClassName('ned_spoiler')[ned_num].open = true
     list_calendar.getElementsByClassName('ned_name')[ned_num].scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
@@ -337,7 +326,6 @@ async function add_push(e) {
 
     if (perm != "granted") {
         showToast(e);
-        // console.log(e)
         return
     }
 
@@ -389,7 +377,6 @@ function VoiceSettingsMenu() {
         checkboxLabel.htmlFor = `voice-${index}`;
         checkboxLabel.className = 'form-check-label';
         checkboxLabel.textContent = voice;
-        console.log(voice, encodeURIComponent(voice))
         checkboxLabel.classList.add(encodeURIComponent(voice));
 
         const checkboxDiv = document.createElement('div');
@@ -415,7 +402,6 @@ function VoiceSettingsMenu() {
             }
         });
         if (base_anime.translationActive.length > 0) localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-        console.log('base_anime.translationActive:', base_anime.translationActive);
         VoiceSettings.innerHTML = ""
         VoiceSettings.close()
         location.reload();
@@ -437,7 +423,6 @@ RangeRaitingObj.addEventListener("input", RangeRaiting);
 RangeRaitingObj.addEventListener("change", () => { GetKodi() });
 RangeRaitingObj.title = `Фильтр по минимальному рейтингу: ${RangeRaitingObj.value}`
 function RangeRaiting(r) {
-    // console.log(1, r)
     document.body.r = r.target.value;
     r.target.title = `Фильтр по минимальному рейтингу: ${r.target.value}`
     document.body.querySelectorAll(".cart_").forEach(e => {
@@ -446,7 +431,6 @@ function RangeRaiting(r) {
 }
 
 function add_cart(e) {
-    // console.log(1, e)
     const cart = document.createElement('div');
     cart.classList.add('cart_', 'bg-dark', 'text-white');
     cart.r = e.raiting
@@ -455,7 +439,6 @@ function add_cart(e) {
     cart.addEventListener("click", (event) => {
 
         e.shift = event.shiftKey
-        console.log(e)
         dialog(e, !event.shiftKey)
         cart.classList.remove("new_cart")
     })
@@ -498,12 +481,10 @@ function add_cart(e) {
     cartVoice.addEventListener("mouseover", (e1) => {
         if(AnimeScanID[e.shikimori])
             var tmp123=' | ';
-        // console.log(AnimeScanID, e.shikimori)
             AnimeScanID[e.shikimori]?.forEach(e2 => {
                 
                 tmp123 = tmp123 + e2 + " | "
             });
-            // console.log(e.target)
             e1.target.title = tmp123
     });
 
@@ -551,7 +532,6 @@ function add_cart(e) {
         ev.stopPropagation();
         if (GetFavorite(e.shikimori)) {
             cartFavorite.style.color = "#ffffff"
-            console.log(DeleteFavorite(e.shikimori))
         } else {
             cartFavorite.style.color = "#ffdd00"
             SetFavorite(e.shikimori)
@@ -599,7 +579,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function showToast(e) {
     // prompt("",JSON.stringify(e))
-    // console.log(e)
     var audio = new Audio();
     audio.preload = 'auto';
     audio.src = './meloboom.mp3';
@@ -626,12 +605,10 @@ function showToast(e) {
 
     toast0.addEventListener('hidden.bs.toast', function (e) {
         toast0.remove()
-        // console.log("aaa")
     })
     toast1.show();
 
     toast0.querySelector(".toast-header").addEventListener("click", (ev) => {
-        // console.log(e)
         toast1.hide();
     })
 
@@ -685,7 +662,6 @@ function VoiceTranslate(name) {
 async function GetKodi(seartch, revers) {
     // if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - scrollM && HistoryIsActivy == true && document.getElementById('search_input').value ) {
     if ((window.innerHeight + window.scrollY) >= container_.offsetHeight - scrollM) {
-        // console.log(123)
         if (!seartch || seartch == undefined || seartch == "") {
             HistoryIsActivy = true
             ignoreVoice = false
@@ -726,7 +702,6 @@ async function GetKodi(seartch, revers) {
             url_get = new URL(window.location.href)
             url_get.searchParams.set("seartch", `${seartch}`)
             window.history.pushState({}, '', url_get);
-            console.log(dat1)
         }
         data = dat.results
         prev_page = dat.prev_page
@@ -781,14 +756,11 @@ function GetKodiScan(data, revers) {
             return
         }
         if ((e.type == 'anime-serial' || e.type == "anime") && e.translation.type == "voice" && e.shikimori_id && e.material_data.shikimori_rating > 0 && e.material_data.countries != "Китай") {
-            // console.log(endid)
 
             if (VoiceTranslate(e.translation.title)) {
 
                 
-                // const dat = new Date(e.updated_at)
                 if (!e.shikimori_id) return
-                // console.log(e.material_data.shikimori_rating)
                 const e1 = {
                     "title": e.material_data.anime_title,
                     "cover": `${e.material_data.poster_url}`,
@@ -837,5 +809,4 @@ function GetKodiScan(data, revers) {
 
     });
 }
-// console.log(base_anime.translation)
 localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
