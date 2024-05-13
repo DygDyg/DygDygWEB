@@ -485,7 +485,7 @@ function add_cart(e) {
                 
                 tmp123 = tmp123 + e2 + " | "
             });
-            e1.target.title = tmp123
+            e1.target.title = tmp123?tmp123:""
     });
 
     const cartRaiting = document.createElement('div');
