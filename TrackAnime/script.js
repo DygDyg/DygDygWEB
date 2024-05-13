@@ -203,20 +203,11 @@ if (base_anime.base) {
 base_anime.fav = base_anime.fav ? base_anime.fav : []
 
 
-/* document.addEventListener('keydown', function (event) {
-    if (event.code == 'F2') {
-
-    }
-}); */
-
-
-// url_get.searchParams.delete("shikimori")
-// url_get.searchParams.set("shikimori", `${shikimori}`)
-// window.history.pushState({}, '', url_get);
-
 ///////////////////// GET параметры 
-if (url_get.searchParams.get('id')) {
-    e = JSON.parse(httpGet(`https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&id=${url_get.searchParams.get('id')}`).response).results[0]
+if (url_get.searchParams.get('id')||url_get.searchParams.get('shikimori_id')) {
+    e = JSON.parse(httpGet(url_get.searchParams.get('id')?
+    `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&id=${url_get.searchParams.get('id')}`:
+    `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&shikimori_id=${url_get.searchParams.get('shikimori_id')}`).response).results[0]
     const ed = {
         "title": e.material_data.anime_title,
         "cover": `${e.material_data.poster_url}`,
@@ -479,13 +470,13 @@ function add_cart(e) {
     imgTop.appendChild(cartVoice);
 
     cartVoice.addEventListener("mouseover", (e1) => {
-        if(AnimeScanID[e.shikimori])
-            var tmp123=' | ';
-            AnimeScanID[e.shikimori]?.forEach(e2 => {
-                
-                tmp123 = tmp123 + e2 + " | "
-            });
-            e1.target.title = tmp123?tmp123:""
+        if (AnimeScanID[e.shikimori])
+            var tmp123 = ' | ';
+        AnimeScanID[e.shikimori]?.forEach(e2 => {
+
+            tmp123 = tmp123 + e2 + " | "
+        });
+        e1.target.title = tmp123 ? tmp123 : ""
     });
 
     const cartRaiting = document.createElement('div');
@@ -759,7 +750,7 @@ function GetKodiScan(data, revers) {
 
             if (VoiceTranslate(e.translation.title)) {
 
-                
+
                 if (!e.shikimori_id) return
                 const e1 = {
                     "title": e.material_data.anime_title,
@@ -796,7 +787,7 @@ function GetKodiScan(data, revers) {
                         AnimeScanID[e.shikimori_id].push(e.translation.title)
                     }
 
-                    
+
 
                 };
 
