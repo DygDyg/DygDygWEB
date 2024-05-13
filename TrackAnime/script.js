@@ -196,8 +196,8 @@ VideoPlayerAnime.addEventListener("close", () => {
 // window.onscroll = function () {
 container_.addEventListener('scroll', async function (e) {
     if ((e.target.scrollTop + window.scrollY) >= e.target.scrollHeight - scrollM && HistoryIsActivy == true) {
-        GetKodi()
-        // setTimeout(GetKodi, 0)
+        // GetKodi()
+        setTimeout(GetKodi, 0)
     }
 });
 
@@ -708,6 +708,7 @@ async function GetKodi(seartch, revers) {
         GetKodiScan(data, revers)
         // container_.scrollHeight
         if (window.innerHeight >= container_.scrollHeight - scrollM && HistoryIsActivy) {
+            console.log(1)
             setTimeout(GetKodi, 0)
         }
         return seartch
