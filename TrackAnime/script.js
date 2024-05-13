@@ -623,8 +623,9 @@ function showToast(e) {
 }
 
 function dialog(e, info) {
+    console.log(e)
     setVideoInfo(e)
-    url_get.searchParams.set("shikimori_id", `${e.id}`)
+    url_get.searchParams.set("shikimori_id", `${e.shikimori}`)
     window.history.pushState({}, '', url_get);
     document.title = `TA: ${e.title}`
 
