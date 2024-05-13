@@ -1,4 +1,5 @@
 var data, dat, targetFrame, endid, endid2, prev_page
+var AnimeScanID = {}
 const scrollM = 2000;
 document.body.r = 2;
 var ignoreVoice = false
@@ -13,6 +14,7 @@ const VoiceSettings = document.getElementById('VoiceSettings');
 const VideoPlayer = document.getElementById('VideoPlayer');
 const list_calendar = document.getElementById("list_calendar");
 const container_ = document.body.querySelector('.container_');
+
 
 const URLSearch = "https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&title="
 var URLList = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"//&countries=Япония"
@@ -94,13 +96,6 @@ function setVideoInfo(e) {
     VideoInfo.info.studios.textContent = e.material_data.anime_studios ? e.material_data.anime_studios : "?";
     VideoInfo.info.studios.href = `${window.location.origin + window.location.pathname}?anime_studios=${e.material_data.anime_studios ? e.material_data.anime_studios : ""}`;
 
-/*     html = "Жанры: "
-    e.material_data.anime_genres?.forEach(el => {
-        html = html + `
-        <a href="${window.location.origin + window.location.pathname}?anime_genres=${el}"class="info_genre link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">${el}</a>
-        `
-    }) */
-
     VideoInfo.info.year.textContent = e.material_data.year ? e.material_data.year : "?";
     VideoInfo.info.year.href = `${window.location.origin + window.location.pathname}?year=${e.material_data.year ? e.material_data.year : ""}`;
 
@@ -110,9 +105,9 @@ function setVideoInfo(e) {
     if (e.material_data.anime_status == "ongoing") {
         // VideoInfo.info.updated_at_text.textContent = e.material_data.anime_status == "ongoing" ? "Следующая серия выйдет " : "Последняя серия вышла ";
         VideoInfo.info.updated_at.textContent = `Следующая серия выйдет ${formatDate(e.material_data.next_episode_at).moment.calendar().toLowerCase()}` //? formatDate(e.material_data.next_episode_at).moment.calendar() : "?";
-    }else{
+    } else {
         VideoInfo.info.updated_at.textContent = `Вышла ${formatDate(e.material_data.released_at).moment.calendar().toLowerCase()}` //? formatDate(e.material_data.next_episode_at).moment.calendar() : "?";
-        
+
     }
 
 
@@ -120,7 +115,7 @@ function setVideoInfo(e) {
     VideoInfo.info.shikimori_rating.textContent = e.material_data.shikimori_rating ? `${e.material_data.shikimori_rating}/10` : "?";
     VideoInfo.info.shikimori_votes.textContent = e.material_data.shikimori_votes ? `${e.material_data.shikimori_votes} проголосовавших` : "?";
     VideoInfo.info.shikimori_link.href = `https://shikimori.one/animes/${e.shikimori ? e.shikimori : ""}`;
-    
+
     VideoInfo.info.imdb_rating.style.width = e.material_data.imdb_rating ? `${e.material_data.imdb_rating * 10}%` : "?";
     VideoInfo.info.imdb_rating.textContent = e.material_data.imdb_rating ? `${e.material_data.imdb_rating}/10` : "?";
     VideoInfo.info.imdb_votes.textContent = e.material_data.imdb_votes ? `${e.material_data.imdb_votes} проголосовавших` : "?";
@@ -142,7 +137,7 @@ function setVideoInfo(e) {
     </div>
     ` });
     // console.log(e.screenshots)
-    e.material_data.screenshots||e.screenshots?VideoInfo.info.screenshots.parentNode.classList.remove("hide"):VideoInfo.info.screenshots.parentNode.classList.add("hide")
+    e.material_data.screenshots || e.screenshots ? VideoInfo.info.screenshots.parentNode.classList.remove("hide") : VideoInfo.info.screenshots.parentNode.classList.add("hide")
     VideoInfo.info.screenshots.innerHTML = html;
     VideoInfo.info.screenshots.querySelectorAll(".carousel-item")[0]?.classList.add("active");
 
@@ -246,7 +241,7 @@ if (url_get.searchParams.get('id')) {
         "raiting": e.material_data.shikimori_rating,
         "material_data": e.material_data,
         "id": e.id,
-        "screenshots":e.screenshots,
+        "screenshots": e.screenshots,
 
     }
     dialog(ed, true)
@@ -316,14 +311,14 @@ async function addCalendar() {
                 "raiting": e.material_data.shikimori_rating,
                 "material_data": e.material_data,
                 "id": e.id,
-                "screenshots":e.screenshots,
+                "screenshots": e.screenshots,
             }
             const cart = add_cart(e1)
             formatDate(e.material_data.next_episode_at).moment.day() == 0 ? d3[6].appendChild(cart) : d3[formatDate(e.material_data.next_episode_at).moment.day() - 1].appendChild(cart)
         }
     });
     console.log(formatDate().moment.day() - 1)
-    var ned_num = formatDate().moment.day()>0?formatDate().moment.day() - 1:6
+    var ned_num = formatDate().moment.day() > 0 ? formatDate().moment.day() - 1 : 6
     list_calendar.getElementsByClassName('ned_spoiler')[ned_num].open = true
     list_calendar.getElementsByClassName('ned_name')[ned_num].scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
     document.getElementById("load").classList.add("hide")
@@ -776,6 +771,14 @@ function GetKodiScan(data, revers) {
             // console.log(endid)
 
             if (VoiceTranslate(e.translation.title)) {
+
+                if (!AnimeScanID[e.shikimori_id]) {
+                    AnimeScanID[e.shikimori_id] = new Array()
+                    AnimeScanID[e.shikimori_id].push(e.translation.title)
+                } else {
+                    AnimeScanID[e.shikimori_id].push(e.translation.title)
+                    return
+                }
                 const dat = new Date(e.updated_at)
                 if (!e.shikimori_id) return
                 // console.log(e.material_data.shikimori_rating)
@@ -795,9 +798,10 @@ function GetKodiScan(data, revers) {
                     "raiting": e.material_data.shikimori_rating,
                     "material_data": e.material_data,
                     "id": e.id,
-                    "screenshots":e.screenshots,
+                    "screenshots": e.screenshots,
 
                 }
+                
                 const cart = add_cart(e1)
                 if (revers && prev_page == null) {
                     targetFrame.prepend(cart)
