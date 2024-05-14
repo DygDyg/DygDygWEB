@@ -18,11 +18,13 @@
 </body>
 <img id="avatar"></img>
 <h1 id="nickname"></h1>
+<h1 id="anime_list"></h1>
 </html>
 
 <script>
     const nickname = document.getElementById("nickname")
     const avatar = document.getElementById("avatar")
+    const anime_list = document.getElementById("anime_list")
     const url_get = new URL(window.location.href)
     var UserData, Favorits
 
@@ -142,9 +144,20 @@
             .then(data => {
                 console.log("anime_rates", data);
                 Favorits = data
+                get_list_anime(Favorits)
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);
             });
+    }
+    function get_list_anime(data_anime)
+    {
+        var a = ""
+        data_anime.forEach(e => {
+            console.log(e.anime.russian, e.status)
+            a = `${a}<br>  ${e.status} || ${e.anime.russian}` 
+            // console.log(e.status)
+        });
+        anime_list.innerHTML = a
     }
 </script>
