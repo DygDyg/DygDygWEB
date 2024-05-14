@@ -19,6 +19,7 @@
 <img id="avatar"></img>
 <h1 id="nickname"></h1>
 <h1 id="anime_list"></h1>
+
 </html>
 
 <script>
@@ -99,7 +100,6 @@
                 document.cookie = `sh_access_token=${data.access_token}; path=/; max-age=${data.expires_in}`
                 document.cookie = `sh_refresh_token=${data.refresh_token}; path=/;`
                 if (data.error == "invalid_grant") window.open(`https://shikimori.one/oauth/authorize?client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&redirect_uri=${window.location.href}&response_type=code`, "_self");
-                // Вы можете использовать data.access_token для последующих запросов к API Shikimori
             })
             .catch(error => console.error(error));
     }
@@ -131,8 +131,7 @@
         // document.cookie = getCookie("KeyTab") ? `` : `KeyTab=${KeyTab}; path=/; max-age=10`
     }
 
-    function get_favorit()
-    {
+    function get_favorit() {
         fetch(`https://shikimori.one/api/users/${UserData.id}/anime_rates?limit=5000&access_token=${getCookie("sh_access_token")}`)
             .then(response => {
                 if (response.ok) {
@@ -150,12 +149,11 @@
                 console.error('There was a problem with the fetch operation:', error);
             });
     }
-    function get_list_anime(data_anime)
-    {
+    function get_list_anime(data_anime) {
         var a = ""
         data_anime.forEach(e => {
             console.log(e.anime.russian, e.status)
-            a = `${a}<br>  ${e.status} || ${e.anime.russian}` 
+            a = `${a}<br>  ${e.status} || ${e.anime.russian}`
             // console.log(e.status)
         });
         anime_list.innerHTML = a
