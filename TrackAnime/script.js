@@ -734,9 +734,6 @@ async function GetKodi(seartch, revers) {
 GetKodi(url_get.searchParams.get('seartch'))
 
 
-
-
-
 function ScanBase(e, i, revers) {
     document.getElementById("loading-bar").classList.remove("hide");
     var t = 0
@@ -801,21 +798,16 @@ function GetKodiScan(data, revers) {
                     cart.classList.add("new_cart")
                     add_push(e1)
                 } else {
-                    // targetFrame.appendChild(cart)
+                    targetFrame.appendChild(cart)
 
-                    if (!AnimeScanID[e.shikimori_id]) {
+/*                     if (!AnimeScanID[e.shikimori_id]) {
                         AnimeScanID[e.shikimori_id] = new Array()
                         AnimeScanID[e.shikimori_id].push(e.translation.title)
                         targetFrame.appendChild(cart)
                     } else {
                         AnimeScanID[e.shikimori_id].push(e.translation.title)
-                    }
-
-
-
+                    } */
                 };
-
-
             }
             if (!base_anime.translation) base_anime.translation = [];
             if (!base_anime.translationActive) base_anime.translationActive = voice;
