@@ -182,7 +182,7 @@ closeDialogButton.addEventListener('click', () => {
     VideoPlayer.contentWindow.location.href = "../index.htm";
     url_get.searchParams.delete("shikimori_id")
     url_get.searchParams.delete("id")
-    
+
     window.history.pushState({}, '', url_get);
 });
 document.getElementById("list_calendar_Button").addEventListener('click', async () => {
@@ -215,12 +215,14 @@ base_anime.fav = base_anime.fav ? base_anime.fav : []
 
 
 ///////////////////// GET параметры 
+get_settings()
+async function get_settings(){
 if (url_get.searchParams.get('id') || url_get.searchParams.get('shikimori_id')) {
 
-    e = JSON.parse(httpGet(url_get.searchParams.get('shikimori_id') ?
+    e = httpGet(url_get.searchParams.get('shikimori_id') ?
         `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&shikimori_id=${url_get.searchParams.get('shikimori_id')}` :
         `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&id=${url_get.searchParams.get('id')}`
-    ).response).results[0]
+    ).results[0]
 
     const ed = {
         "title": e.material_data.anime_title,
@@ -243,7 +245,7 @@ if (url_get.searchParams.get('id') || url_get.searchParams.get('shikimori_id')) 
     }
     dialog(ed, true)
 }
-
+}
 // url_get.searchParams.delete("seartch")
 
 async function getCalendar() {
@@ -280,7 +282,7 @@ async function addCalendar() {
 
     // return
     while (URLCalendarAdd) {
-        d1 = JSON.parse(httpGet(URLCalendarAdd).response)
+        d1 = await httpGet(URLCalendarAdd)
         var d2 = data
         var id = []
         data = d2.concat(d1.results)
@@ -415,14 +417,19 @@ function VoiceSettingsMenu() {
     VoiceSettings.showModal()
 
 }
-function httpGet(theUrl) {
+async function httpGet(theUrl) {
+    var response = await fetch(theUrl);
+    const data = await response.json();
+    return data
+}
+/* function httpGet(theUrl) {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", theUrl, false); // false for synchronous request
     xmlHttp.send(null);
     return xmlHttp;
+} */
 
 
-}
 RangeRaitingObj = document.getElementById('RangeRaiting')
 RangeRaitingObj.addEventListener("input", RangeRaiting);
 RangeRaitingObj.addEventListener("change", () => { GetKodi() });
@@ -626,11 +633,10 @@ function dialog(e, info) {
     if (e.shift) {
         // console.log(e)
         // return
-        if(confirm(`Добавить аниме "${e.title}" в список "смотрю" на shikimori?`))
-            {
-                console.log(e.shikimori)
-                AddUserRates(e.shikimori)
-            };
+        if (confirm(`Добавить аниме "${e.title}" в список "смотрю" на shikimori?`)) {
+            console.log(e.shikimori)
+            AddUserRates(e.shikimori)
+        };
 
         //     showToast(e);
         // add_push(e)
@@ -677,10 +683,10 @@ async function GetKodi(seartch, revers) {
             targetFrame.classList.remove("hide")
 
             if (revers) {
-                dat = JSON.parse(httpGet(URLListStart).response)
+                dat = await httpGet(URLListStart)
                 endid2 = dat.results[0].id
             } else {
-                dat = JSON.parse(httpGet(URLList).response)
+                dat = await httpGet(URLList)
                 URLList = dat.next_page
                 endid = endid ? endid : dat.results[0].id
 
@@ -697,7 +703,7 @@ async function GetKodi(seartch, revers) {
             targetFrame.classList.remove("hide")
             targetFrame.innerHTML = ""
             document.getElementById('list_serch').classList.add("hide")
-            dat1 = JSON.parse(httpGet(`${URLSearch}${seartch}`).response)
+            dat1 = await httpGet(`${URLSearch}${seartch}`)
             dat = {}
 
             dat.results = dat1.results.filter((value, index, self) =>
@@ -716,8 +722,8 @@ async function GetKodi(seartch, revers) {
 
         GetKodiScan(data, revers)
         // container_.scrollHeight
-        if (window.innerHeight >= container_.scrollHeight - scrollM && HistoryIsActivy) {
-            console.log(1)
+        console.log(container_.clientHeight+container_.scrollTop>=container_.scrollHeight-scrollM)
+        if (container_.clientHeight+container_.scrollTop>=container_.scrollHeight-scrollM && HistoryIsActivy) {
             setTimeout(GetKodi, 0)
         }
         return seartch
@@ -795,6 +801,7 @@ function GetKodiScan(data, revers) {
                     cart.classList.add("new_cart")
                     add_push(e1)
                 } else {
+                    // targetFrame.appendChild(cart)
 
                     if (!AnimeScanID[e.shikimori_id]) {
                         AnimeScanID[e.shikimori_id] = new Array()
