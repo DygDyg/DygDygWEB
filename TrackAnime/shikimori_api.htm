@@ -67,8 +67,9 @@
                 document.cookie = `sh_refresh_token=${data.refresh_token}; path=/;`
 
                 url_get.searchParams.delete("code")
-                // window.history.pushState({}, '', url_get);
-                // if(data.error=="invalid_grant") window.open(`https://shikimori.one/oauth/authorize?client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&redirect_uri=${window.location.href}&response_type=code`, "_self");
+                window.history.pushState({}, '', url_get);
+
+                if(data.error=="invalid_grant") window.open(`https://shikimori.one/oauth/authorize?client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&redirect_uri=${window.location.href}&response_type=code`, "_self");
             })
             .catch(error => console.error(error));
     }
