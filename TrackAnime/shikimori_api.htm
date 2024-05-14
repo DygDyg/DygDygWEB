@@ -119,19 +119,20 @@
     }
     function AddUserRates(d) {
 
-        var url = `https://shikimori.one/api/user_rates/`
-
+        var url = `https://shikimori.one/api/user_rates?access_token=${getCookie("sh_access_token")}`
 
         fetch(url, {
             method: 'POST',
+            // credentials: 'include',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'User-Agent': 'Track Anime By DygDyg'
+                'User-Agent': 'Track Anime By DygDyg',
+                // 'Cookie': `${getCookie("_kawai_session")}`
             },
-            body: `user_rate[user_id]=${UserData.id}`
-            + `user_rate[target_id]=${d}`
-            + `user_rate[target_type]: Anime`
-            + `user_rate[status]: completed`
+            body: `user_rate%5Buser_id%5D=${UserData.id}&`
+            + `user_rate%5Btarget_id%5D=${d}&`
+            + `user_rate%5Btarget_type%5D=Anime&`
+            + `user_rate%5Bstatus%5D=completed&`
         })
             .then(response => response.json())
             .then(data => {
