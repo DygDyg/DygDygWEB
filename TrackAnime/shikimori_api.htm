@@ -10,10 +10,13 @@
 <body>
 
 </body>
-
+<div id="nickname"></div>
+<img id="avatar"></img>
 </html>
 
 <script>
+    const nickname = document.getElementById("nickname")
+    const avatar = document.getElementById("avatar")
     const url_get = new URL(window.location.href)
     function getCookie(name) {
         var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
@@ -24,9 +27,29 @@
     if (code) {
         document.cookie = `sh_code=${code}; path=/;`
     }
-    if (!getCookie("sh_code")&&!code) {
-        window.open("https://shikimori.one/oauth/authorize?client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&redirect_uri=https://dygdyg.github.io/DygDygWEB/TrackAnime/shikimori_api.htm&response_type=code&scope=", "_self");
+
+    if (!getCookie("sh_code") && !code) {
+        // window.open("https://shikimori.one/oauth/authorize?client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&redirect_uri=https://dygdyg.github.io/DygDygWEB/TrackAnime/shikimori_api.htm&response_type=code&scope=", "_self");
+        window.open("https://shikimori.one/oauth/authorize?client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&redirect_uri=http://127.0.0.1:5500/TrackAnime/shikimori_api.htm&response_type=code&scope=", "_self");
     }
     console.log(getCookie("sh_code"))
+
+    fetch(`https://shikimori.one/api/users/DygDyg/anime_rates`)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Network response was not ok.');
+            }
+        })
+        .then(data => {
+            console.log(data[0].user
+);
+            nickname.textContent = data[0].user.nickname
+            avatar.src = data[0].user.image.x160
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
     // document.cookie = getCookie("KeyTab") ? `` : `KeyTab=${KeyTab}; path=/; max-age=10`
 </script>
