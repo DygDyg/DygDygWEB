@@ -84,7 +84,7 @@
                 window.history.pushState({}, '', url_get);
 
                 if (data.error == "invalid_grant") window.open(`https://shikimori.one/oauth/authorize?client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&redirect_uri=${window.location.href}&response_type=code`, "_self");
-                // location.reload()
+                location.reload()
             })
             .catch(error => console.error(error));
     }
@@ -113,7 +113,7 @@
                 document.cookie = `sh_access_token=${data.access_token}; path=/; max-age=${data.expires_in}`
                 document.cookie = `sh_refresh_token=${data.refresh_token}; path=/;`
                 if (data.error == "invalid_grant") window.open(`https://shikimori.one/oauth/authorize?client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&redirect_uri=${window.location.href}&response_type=code`, "_self");
-                // location.reload()
+                location.reload()
             })
             .catch(error => console.error(error));
     }
@@ -121,7 +121,7 @@
     // window.history.pushState({}, '', url_get);
     setTimeout(() => {
         get_user()
-    }, 2000); 
+    }, 1000); 
 
     function get_user() {
         var url = `https://shikimori.one/api/users/${url_get.searchParams.get('user') ? url_get.searchParams.get('user') : "whoami"}?access_token=${getCookie("sh_access_token")}`
