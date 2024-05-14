@@ -120,6 +120,14 @@
     function AddUserRates(d) {
 
         var url = `https://shikimori.one/api/user_rates?access_token=${getCookie("sh_access_token")}`
+        const status_lable = [
+            "watching",
+            "completed",
+            "dropped",
+            "on_hold",
+            "planned",
+            "rewatching",
+        ]
 
         fetch(url, {
             method: 'POST',
