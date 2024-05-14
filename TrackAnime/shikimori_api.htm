@@ -46,7 +46,9 @@
     add_token()
     function add_token() {
 
-        if (getCookie("sh_access_token")) return getCookie("sh_access_token")
+        if (getCookie("sh_access_token")) {
+            return getCookie("sh_access_token")
+        }
 
 
         if (!code && !getCookie("sh_refresh_token")) {
