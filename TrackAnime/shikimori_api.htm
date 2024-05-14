@@ -111,7 +111,8 @@
     // window.history.pushState({}, '', url_get);
     get_user()
     function get_user() {
-        fetch(`https://shikimori.one/api/users/whoami?access_token=${getCookie("sh_access_token")}`)
+        var url = `https://shikimori.one/api/users/${url_get.searchParams.get('user')?url_get.searchParams.get('user'):"whoami"}?access_token=${getCookie("sh_access_token")}`
+        fetch(url)
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -137,7 +138,7 @@
     }
 
     function get_favorit() {
-        fetch(`https://shikimori.one/api/users/${UserData.id}/anime_rates?limit=5000&access_token=${getCookie("sh_access_token")}`)
+        fetch(`https://shikimori.one/api/users/${url_get.searchParams.get('user')?url_get.searchParams.get('user'):UserData.id}/anime_rates?limit=5000&access_token=${getCookie("sh_access_token")}`)
             .then(response => {
                 if (response.ok) {
                     return response.json();
