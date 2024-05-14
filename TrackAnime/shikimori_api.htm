@@ -11,14 +11,14 @@
     <link rel="icon" href="favicon.png" id="favicon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>loading.....</title>
 </head>
 
 <body>
 
 </body>
 <img id="avatar"></img>
-<h1 id="nickname"></h1>
+<h1 id="nickname">loading.....</h1>
 <h1 id="anime_list"></h1>
 
 </html>
@@ -30,6 +30,8 @@
     const anime_list = document.getElementById("anime_list")
     const url_get = new URL(window.location.href)
     var UserData, Favorits
+    document.cookie = getCookie("sh_access_token")=='undefined'?`sh_access_token=""; path=/; max-age=1;`:""
+    document.cookie = getCookie("sh_refresh_token")=='undefined'?`sh_refresh_token=""; path=/; max-age=1;`:""
 
     function getCookie(name) {
         var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
@@ -56,7 +58,12 @@
             return
         }
 
-        if (!getCookie("sh_access_token") && getCookie("sh_refresh_token")) refresh_token()
+        if (!getCookie("sh_access_token") && getCookie("sh_refresh_token")) {
+            console.log("reload_token")
+            refresh_token()
+
+            return
+        }
 
         console.log(1, code)
         fetch('https://shikimori.one/oauth/token', {
@@ -71,16 +78,17 @@
             .then(data => {
                 console.log("get", data);
                 document.cookie = `sh_access_token=${data.access_token}; path=/; max-age=${data.expires_in}`
-                document.cookie = `sh_refresh_token=${data.refresh_token}; path=/;`
+                document.cookie = `sh_refresh_token=${data.refresh_token}; path=/; max-age=9999999999999999999;`
 
                 url_get.searchParams.delete("code")
                 window.history.pushState({}, '', url_get);
 
                 if (data.error == "invalid_grant") window.open(`https://shikimori.one/oauth/authorize?client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&redirect_uri=${window.location.href}&response_type=code`, "_self");
-                location.reload()
+                // location.reload()
             })
             .catch(error => console.error(error));
     }
+    
     function refresh_token() {
 
         if (getCookie("sh_access_token")) {
@@ -97,7 +105,7 @@
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'User-Agent': 'Track Anime By DygDyg'
             },
-            body: `grant_type=refresh_token&client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&client_secret=4lyibuneC2Z34-EBoyX0tgs2ytagD4hda-SiFfpSUAo&code=${code}&redirect_uri=${window.location.href}`
+            body: `grant_type=refresh_token&client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&client_secret=4lyibuneC2Z34-EBoyX0tgs2ytagD4hda-SiFfpSUAo&refresh_token=${getCookie("sh_refresh_token")}`
         })
             .then(response => response.json())
             .then(data => {
@@ -105,15 +113,18 @@
                 document.cookie = `sh_access_token=${data.access_token}; path=/; max-age=${data.expires_in}`
                 document.cookie = `sh_refresh_token=${data.refresh_token}; path=/;`
                 if (data.error == "invalid_grant") window.open(`https://shikimori.one/oauth/authorize?client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&redirect_uri=${window.location.href}&response_type=code`, "_self");
-                location.reload()
+                // location.reload()
             })
             .catch(error => console.error(error));
     }
 
     // window.history.pushState({}, '', url_get);
-    get_user()
+    setTimeout(() => {
+        get_user()
+    }, 3000); 
+
     function get_user() {
-        var url = `https://shikimori.one/api/users/${url_get.searchParams.get('user')?url_get.searchParams.get('user'):"whoami"}?access_token=${getCookie("sh_access_token")}`
+        var url = `https://shikimori.one/api/users/${url_get.searchParams.get('user') ? url_get.searchParams.get('user') : "whoami"}?access_token=${getCookie("sh_access_token")}`
         fetch(url)
             .then(response => {
                 if (response.ok) {
@@ -140,7 +151,7 @@
     }
 
     function get_favorit() {
-        fetch(`https://shikimori.one/api/users/${url_get.searchParams.get('user')?url_get.searchParams.get('user'):UserData.id}/anime_rates?limit=5000&access_token=${getCookie("sh_access_token")}`)
+        fetch(`https://shikimori.one/api/users/${url_get.searchParams.get('user') ? url_get.searchParams.get('user') : UserData.id}/anime_rates?limit=5000&access_token=${getCookie("sh_access_token")}`)
             .then(response => {
                 if (response.ok) {
                     return response.json();
