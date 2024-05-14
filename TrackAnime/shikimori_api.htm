@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    body {
+        background-color: rgb(83, 83, 83);
+        color: aliceblue;
+    }
+</style>
 
 <head>
     <meta charset="UTF-8">
@@ -10,8 +16,9 @@
 <body>
 
 </body>
-<div id="nickname"></div>
+<h1 id="nickname"></h1>
 <img id="avatar"></img>
+
 </html>
 
 <script>
@@ -44,7 +51,7 @@
         })
         .then(data => {
             console.log(data[0].user
-);
+            );
             nickname.textContent = data[0].user.nickname
             avatar.src = data[0].user.image.x160
         })
