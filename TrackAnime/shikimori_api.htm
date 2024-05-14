@@ -121,7 +121,7 @@
     // window.history.pushState({}, '', url_get);
     setTimeout(() => {
         get_user()
-    }, 3000); 
+    }, 2000); 
 
     function get_user() {
         var url = `https://shikimori.one/api/users/${url_get.searchParams.get('user') ? url_get.searchParams.get('user') : "whoami"}?access_token=${getCookie("sh_access_token")}`
