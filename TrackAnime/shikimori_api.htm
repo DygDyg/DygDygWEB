@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+
+<script>
+    const url_get = new URL(window.location.href)
+    function getCookie(name) {
+        var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+
+    code = url_get.searchParams.get('code')
+    if (code) {
+        document.cookie = `sh_code=${code}; path=/;`
+    }
+    if (!getCookie("sh_code")&&!code) {
+        window.open("https://shikimori.one/oauth/authorize?client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&redirect_uri=https://dygdyg.github.io/DygDygWEB/TrackAnime/shikimori_api.htm&response_type=code&scope=", "_self");
+    }
+    console.log(getCookie("sh_code"))
+    // document.cookie = getCookie("KeyTab") ? `` : `KeyTab=${KeyTab}; path=/; max-age=10`
+</script>
