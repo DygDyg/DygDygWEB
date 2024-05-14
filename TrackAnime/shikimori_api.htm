@@ -41,13 +41,15 @@
     add_token()
     function add_token() {
 
-        if (getCookie("sh_access_token")) {
-            return getCookie("sh_access_token")
-        }
-        if (!code) {
+        if (getCookie("sh_access_token")) return getCookie("sh_access_token")
+        
+        
+        if (!code && !getCookie("sh_refresh_token")) {
             window.open(`https://shikimori.one/oauth/authorize?client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&redirect_uri=${window.location.href}&response_type=code`, "_self");
             return
         }
+
+        if(!getCookie("sh_access_token") && getCookie("sh_refresh_token")) refresh_token() 
 
         console.log(1, code)
         fetch('https://shikimori.one/oauth/token', {
@@ -71,7 +73,7 @@
             .catch(error => console.error(error));
     }
     function refresh_token() {
-        
+
         if (getCookie("sh_access_token")) {
             return getCookie("sh_access_token")
         }
