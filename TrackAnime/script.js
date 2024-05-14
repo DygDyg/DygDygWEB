@@ -1,4 +1,4 @@
-var data, dat, targetFrame, endid, endid2, prev_page
+var data, dat, targetFrame, endid, endid2, prev_page, SH_UserData
 var AnimeScanID = {}
 const scrollM = 2000;
 document.body.r = 2;
@@ -623,17 +623,26 @@ function showToast(e) {
 }
 
 function dialog(e, info) {
-    console.log(e)
+    if (e.shift) {
+        // console.log(e)
+        // return
+        if(confirm(`Добавить аниме "${e.title}" в список "смотрю" на shikimori?`))
+            {
+                console.log(e.shikimori)
+                AddUserRates(e.shikimori)
+            };
+
+        //     showToast(e);
+        // add_push(e)
+        return
+    }
+    // console.log(e)
     setVideoInfo(e)
     url_get.searchParams.set("shikimori_id", `${e.shikimori}`)
     window.history.pushState({}, '', url_get);
     document.title = `TA: ${e.title}`
 
-    if (e.shift) {
-        //     showToast(e);
-        // add_push(e)
-        // return
-    }
+
 
     VideoPlayerAnime.showModal();
 
@@ -809,3 +818,66 @@ function GetKodiScan(data, revers) {
     });
 }
 localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+
+
+
+
+/////////////////////////////////////////////////////////////////
+//////////////Shikimori API ////////////////////////////////////
+
+
+
+function AddUserRates(d) {
+
+    var url = `https://shikimori.one/api/user_rates?access_token=${getCookie("sh_access_token")}`
+    const status_lable = [
+        "watching",
+        "completed",
+        "dropped",
+        "on_hold",
+        "planned",
+        "rewatching",
+    ]
+
+    fetch(url, {
+        method: 'POST',
+        // credentials: 'include',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'User-Agent': 'Track Anime By DygDyg',
+            // 'Cookie': `${getCookie("_kawai_session")}`
+        },
+        body: `user_rate%5Buser_id%5D=${SH_UserData.id}&`
+            + `user_rate%5Btarget_id%5D=${d}&`
+            + `user_rate%5Btarget_type%5D=Anime&`
+            + `user_rate%5Bstatus%5D=${status_lable[0]}&`
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log("user_rates", data);
+
+        })
+        .catch(error => console.error(error));
+}
+
+get_user()
+function get_user() {
+    var url = `https://shikimori.one/api/users/${url_get.searchParams.get('user') ? url_get.searchParams.get('user') : "whoami"}?access_token=${getCookie("sh_access_token")}`
+    fetch(url)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Network response was not ok.');
+            }
+        })
+        .then(data => {
+            SH_UserData = data
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+
+
+    // document.cookie = getCookie("KeyTab") ? `` : `KeyTab=${KeyTab}; path=/; max-age=10`
+}
