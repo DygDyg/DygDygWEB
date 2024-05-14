@@ -140,7 +140,7 @@
             body: `user_rate%5Buser_id%5D=${UserData.id}&`
             + `user_rate%5Btarget_id%5D=${d}&`
             + `user_rate%5Btarget_type%5D=Anime&`
-            + `user_rate%5Bstatus%5D=completed&`
+            + `user_rate%5Bstatus%5D=${status_lable[0]}&`
         })
             .then(response => response.json())
             .then(data => {
