@@ -131,7 +131,7 @@
 
     function get_favorit()
     {
-        fetch(`https://shikimori.one/api/users/${UserData.id}/anime_rates?access_token=${getCookie("sh_access_token")}`)
+        fetch(`https://shikimori.one/api/users/${UserData.id}/anime_rates?limit=5000&access_token=${getCookie("sh_access_token")}`)
             .then(response => {
                 if (response.ok) {
                     return response.json();
