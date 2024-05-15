@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Кинопоиск kodik online
-// @namespace    http://tampermonkey.net/
-// @version      0.9
+// @namespace    Кинопоиск kodik online
+// @version      1.0
 // @description  Плагин добавляет плеер для просмотра фильмов на кинопоиск
 // @author       ДугДуг
 // @match        https://www.kinopoisk.ru/*
@@ -104,7 +104,7 @@ if (!window.onurlchange) {
 	window.addEventListener('urlchange', function (e) {
 		debug.log("url ", old_url, e.url)
 		if (old_url != e.url) {
-			setTimeout(video_player("svetacdn"), 500);
+			setTimeout(video_player("kinobox"), 0);
 			debug.log(e.url)
 			old_url = e.url
 		}
@@ -114,7 +114,8 @@ if (!window.onurlchange) {
 function video_player(n) {
 	if (document.querySelector('[data-test-id="encyclopedic-table"]') == null) return
 	let link = location.pathname.split('/').filter(Boolean)
-	let url = `//dygdyg.github.io/DygDygWEB/svetacdn.htm?kinopoiskID=${link[1]}&TitleTab=${document.title}`
+	let url = `//dygdyg.github.io/DygDygWEB/svetacdn.htm?menu_default=menu_button&menu_open=true&kinopoiskID=${link[1]}&TitleTab=${document.title}`
+	// `//dygdyg.github.io/DygDygWEB/svetacdn.htm?menu_default=menu_button`
 	let localurl = url;
 	localurl = `${url}&loadserv=` + n
 
@@ -197,6 +198,9 @@ function video_player(n) {
 			break;
 		case "linktodo":
 			linktodo_btn.classList.add("active_btn");
+			break;
+		case "kinobox":
+			kinobox_btn.classList.add("active_btn");
 			break;
 
 		default:
