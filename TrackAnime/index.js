@@ -136,7 +136,8 @@ function setVideoInfo(e) {
     VideoInfo.info.AlohaPlayer.addEventListener('click', () => {
         let DialogVideoInfo = document.getElementById('DialogVideoInfo');
         DialogVideoInfo.classList.remove("DialogVideoInfoScroll");
-        VideoPlayer.contentWindow.location.href=e.imdb?`https://dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&imdb=${e.imdb}`:`https://dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&title=${e.title}`
+        e.imdb?console.log(1,e.imdb):console.log(1,e.title)
+        VideoPlayer.contentWindow.location.href=e.imdb?`https://dygdyg.github.io/DygDygWEB/svetacdn.htm?menu_default=menu_button&imdb=${e.imdb}`:`https://dygdyg.github.io/DygDygWEB/svetacdn.htm?menu_default=menu_button&title=${e.title}`
     })
 
     VideoInfo.info.KodikPlayer.addEventListener('click', () => {
