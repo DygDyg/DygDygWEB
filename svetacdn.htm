@@ -86,7 +86,7 @@
                 mobile: getUrlParameter("menu_default")?getUrlParameter("menu_default"):'menu_button', // Вид меню для мобильных устройств menu_button
                 format: '{N} {S} :: {T} ({Q})', // Формат пункта меню
                 limit: null, // Максимальное количество элементов в меню
-                open: false, // Открывать меню по умолчанию
+                open: getUrlParameter("menu_open")?getUrlParameter("menu_open"):false, // Открывать меню по умолчанию
             },
             players: { // Настройки источников
                 alloha: { // Название
