@@ -133,11 +133,13 @@ function setVideoInfo(e) {
 
     e.imdb ? document.getElementById("imdb_info").classList.remove('hide') : document.getElementById("imdb_info").classList.add('hide')
     // e.imdb||e.kp ? VideoInfo.info.AlohaPlayer.classList.remove('hide') : VideoInfo.info.AlohaPlayer.classList.add('hide')
+    VideoInfo.info.AlohaPlayer.textContent = e.imdb?"Смотреть Alloha Player":"Alloha!! Мне повезёт!!"
     VideoInfo.info.AlohaPlayer.addEventListener('click', () => {
         let DialogVideoInfo = document.getElementById('DialogVideoInfo');
         DialogVideoInfo.classList.remove("DialogVideoInfoScroll");
-        e.imdb?console.log(1,e.imdb):console.log(1,e.title)
-        VideoPlayer.contentWindow.location.href=e.imdb?`https://dygdyg.github.io/DygDygWEB/svetacdn.htm?menu_default=menu_button&imdb=${e.imdb}`:`https://dygdyg.github.io/DygDygWEB/svetacdn.htm?menu_default=menu_button&title=${e.title}`
+        e.imdb?console.log(1,e.imdb):console.log(1,e.material_data.title_en)
+        VideoPlayer.contentWindow.location.href=e.imdb?`https://dygdyg.github.io/DygDygWEB/svetacdn.htm?menu_default=menu_button&imdb=${e.imdb}`:`https://dygdyg.github.io/DygDygWEB/svetacdn.htm?menu_default=menu_button&title=${e.material_data.anime_title
+    }`
     })
 
     VideoInfo.info.KodikPlayer.addEventListener('click', () => {
@@ -800,6 +802,7 @@ function GetKodiScan(data, revers) {
 
 
                 if (!e.shikimori_id) return
+                console.log(e)
                 const e1 = {
                     "title": e.material_data.anime_title,
                     "cover": `${e.material_data.poster_url}`,
