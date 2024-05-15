@@ -195,9 +195,10 @@ VideoPlayerAnime.addEventListener("close", () => {
 
 // window.onscroll = function () {
 container_.addEventListener('scroll', async function (e) {
-    if ((e.target.scrollTop + window.scrollY) >= e.target.scrollHeight - scrollM && HistoryIsActivy == true) {
-        // GetKodi()
-        setTimeout(GetKodi, 0)
+    if (container_.clientHeight+container_.scrollTop>container_.scrollHeight-scrollM && HistoryIsActivy) {
+        // console.log(123)
+        GetKodi()   
+        // setTimeout(GetKodi, 0)
     }
 });
 
@@ -219,11 +220,12 @@ get_settings()
 async function get_settings(){
 if (url_get.searchParams.get('id') || url_get.searchParams.get('shikimori_id')) {
 
-    e = httpGet(url_get.searchParams.get('shikimori_id') ?
+    e = await httpGet(url_get.searchParams.get('shikimori_id') ?
         `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&shikimori_id=${url_get.searchParams.get('shikimori_id')}` :
         `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&id=${url_get.searchParams.get('id')}`
-    ).results[0]
-
+    )
+    e = e.results[0]
+    console.log(e)
     const ed = {
         "title": e.material_data.anime_title,
         "cover": `${e.material_data.poster_url}`,
@@ -254,7 +256,6 @@ async function getCalendar() {
         TypePage = 0
         document.getElementById("list_calendar").classList.add("hide")
         document.getElementById("list_serch").classList.remove("hide")
-        // GetKodi()
         return
     }
 
@@ -722,9 +723,11 @@ async function GetKodi(seartch, revers) {
 
         GetKodiScan(data, revers)
         // container_.scrollHeight
-        console.log(container_.clientHeight+container_.scrollTop>=container_.scrollHeight-scrollM)
-        if (container_.clientHeight+container_.scrollTop>=container_.scrollHeight-scrollM && HistoryIsActivy) {
-            setTimeout(GetKodi, 0)
+        console.log(container_.clientHeight+container_.scrollTop>container_.scrollHeight-scrollM)
+        if (container_.clientHeight+container_.scrollTop>container_.scrollHeight-scrollM && HistoryIsActivy) {
+                    console.log(123)
+            // setTimeout(GetKodi, 0)
+            GetKodi()
         }
         return seartch
     }
@@ -739,10 +742,9 @@ function ScanBase(e, i, revers) {
     var t = 0
     if (i >= e.length) {
         GetKodiScan(data, revers)
+
         document.getElementById("loading-bar").classList.add("hide");
-        // localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-        //container_.offsetHeight
-        if (window.innerHeight >= container_.scrollHeight - scrollM && HistoryIsActivy) {
+        if (container_.clientHeight+container_.scrollTop>container_.scrollHeight-scrollM && HistoryIsActivy) {
             GetKodi()
         }
         return;
