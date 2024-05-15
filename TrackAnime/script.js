@@ -54,6 +54,7 @@ VideoInfo.info = {
     "updated_at_text": VideoInfo.querySelector("#info_updated_at_text"),
     "shikimori_link": VideoInfo.querySelector("#info_shikimori_link"),
     "IMDB_link": VideoInfo.querySelector("#info_IMDB_link"),
+    "AlohaPlayer": VideoInfo.querySelector("#info_AlohaPlayer"),
 
 
 }
@@ -127,6 +128,13 @@ function setVideoInfo(e) {
     VideoInfo.info.imdb_votes.textContent = e.material_data.imdb_votes ? `${e.material_data.imdb_votes} проголосовавших` : "?";
     VideoInfo.info.IMDB_link.href = `https://www.imdb.com/title/${e.imdb ? e.imdb : ""}`;
 
+    VideoInfo.info.AlohaPlayer.addEventListener('click', () => {
+        let DialogVideoInfo = document.getElementById('DialogVideoInfo');
+        DialogVideoInfo.classList.contains('DialogVideoInfoScroll') ? DialogVideoInfo.classList.remove("DialogVideoInfoScroll") : DialogVideoInfo.classList.add("DialogVideoInfoScroll");
+
+        VideoPlayer.contentWindow.location.href = `https://dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&imdb=${e.imdb}`
+    })
+
     html = ""
     e.material_data.screenshots?.forEach(el => {
         html = html + `
@@ -135,6 +143,7 @@ function setVideoInfo(e) {
             class="d-block w-100" alt="...">
     </div>
     ` });
+
     e.screenshots?.forEach(el => {
         html = html + `
         <div class="carousel-item">
@@ -142,6 +151,7 @@ function setVideoInfo(e) {
             class="d-block w-100" alt="...">
     </div>
     ` });
+
     e.material_data.screenshots || e.screenshots ? VideoInfo.info.screenshots.parentNode.classList.remove("hide") : VideoInfo.info.screenshots.parentNode.classList.add("hide")
     VideoInfo.info.screenshots.innerHTML = html;
     VideoInfo.info.screenshots.querySelectorAll(".carousel-item")[0]?.classList.add("active");
@@ -153,10 +163,8 @@ function setVideoInfo(e) {
         `
     })
     VideoInfo.info.genres.innerHTML = html;
-
-
-
 }
+
 document.getElementById('VoiceButtonMenu').addEventListener('click', () => {
     VoiceSettingsMenu()
 })
@@ -171,6 +179,8 @@ document.getElementById("VideoInfoBtn").addEventListener('click', () => {
     DialogVideoInfo.classList.contains('DialogVideoInfoScroll') ? DialogVideoInfo.classList.remove("DialogVideoInfoScroll") : DialogVideoInfo.classList.add("DialogVideoInfoScroll")
 
 })
+
+
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -195,9 +205,9 @@ VideoPlayerAnime.addEventListener("close", () => {
 
 // window.onscroll = function () {
 container_.addEventListener('scroll', async function (e) {
-    if (container_.clientHeight+container_.scrollTop>container_.scrollHeight-scrollM && HistoryIsActivy) {
+    if (container_.clientHeight + container_.scrollTop > container_.scrollHeight - scrollM && HistoryIsActivy) {
         // console.log(123)
-        GetKodi()   
+        GetKodi()
         // setTimeout(GetKodi, 0)
     }
 });
@@ -217,35 +227,35 @@ base_anime.fav = base_anime.fav ? base_anime.fav : []
 
 ///////////////////// GET параметры 
 get_settings()
-async function get_settings(){
-if (url_get.searchParams.get('id') || url_get.searchParams.get('shikimori_id')) {
+async function get_settings() {
+    if (url_get.searchParams.get('id') || url_get.searchParams.get('shikimori_id')) {
 
-    e = await httpGet(url_get.searchParams.get('shikimori_id') ?
-        `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&shikimori_id=${url_get.searchParams.get('shikimori_id')}` :
-        `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&id=${url_get.searchParams.get('id')}`
-    )
-    e = e.results[0]
-    const ed = {
-        "title": e.material_data.anime_title,
-        "cover": `${e.material_data.poster_url}`,
-        // "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
-        "date": formatDate(e.material_data.next_episode_at),
-        // "date": formatDate(base_anime.base[e.shikimori_id].next_episode_at),
-        "voice": formatDate(e.material_data.next_episode_at).moment.format('dddd'),
-        "series": e.episodes_count ? e.episodes_count : "M",
-        "link": e.link,
-        "kp": e.kinopoisk_id,
-        "imdb": e.imdb_id,
-        "shikimori": e.shikimori_id,
-        "status": e.material_data.all_status,
-        "raiting": e.material_data.shikimori_rating,
-        "material_data": e.material_data,
-        "id": e.id,
-        "screenshots": e.screenshots,
+        e = await httpGet(url_get.searchParams.get('shikimori_id') ?
+            `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&shikimori_id=${url_get.searchParams.get('shikimori_id')}` :
+            `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&id=${url_get.searchParams.get('id')}`
+        )
+        e = e.results[0]
+        const ed = {
+            "title": e.material_data.anime_title,
+            "cover": `${e.material_data.poster_url}`,
+            // "cover": `https://shikimori.one${base_anime.base[e.shikimori_id].image.original}`,
+            "date": formatDate(e.material_data.next_episode_at),
+            // "date": formatDate(base_anime.base[e.shikimori_id].next_episode_at),
+            "voice": formatDate(e.material_data.next_episode_at).moment.format('dddd'),
+            "series": e.episodes_count ? e.episodes_count : "M",
+            "link": e.link,
+            "kp": e.kinopoisk_id,
+            "imdb": e.imdb_id,
+            "shikimori": e.shikimori_id,
+            "status": e.material_data.all_status,
+            "raiting": e.material_data.shikimori_rating,
+            "material_data": e.material_data,
+            "id": e.id,
+            "screenshots": e.screenshots,
 
+        }
+        dialog(ed, true)
     }
-    dialog(ed, true)
-}
 }
 // url_get.searchParams.delete("seartch")
 
@@ -722,8 +732,8 @@ async function GetKodi(seartch, revers) {
 
         GetKodiScan(data, revers)
         // container_.scrollHeight
-        console.log(container_.clientHeight+container_.scrollTop>container_.scrollHeight-scrollM)
-        if (container_.clientHeight+container_.scrollTop>container_.scrollHeight-scrollM && HistoryIsActivy) {
+        console.log(container_.clientHeight + container_.scrollTop > container_.scrollHeight - scrollM)
+        if (container_.clientHeight + container_.scrollTop > container_.scrollHeight - scrollM && HistoryIsActivy) {
             // setTimeout(GetKodi, 0)
             GetKodi()
         }
@@ -742,7 +752,7 @@ function ScanBase(e, i, revers) {
         GetKodiScan(data, revers)
 
         document.getElementById("loading-bar").classList.add("hide");
-        if (container_.clientHeight+container_.scrollTop>container_.scrollHeight-scrollM && HistoryIsActivy) {
+        if (container_.clientHeight + container_.scrollTop > container_.scrollHeight - scrollM && HistoryIsActivy) {
             GetKodi()
         }
         return;
@@ -800,13 +810,13 @@ function GetKodiScan(data, revers) {
                 } else {
                     targetFrame.appendChild(cart)
 
-/*                     if (!AnimeScanID[e.shikimori_id]) {
-                        AnimeScanID[e.shikimori_id] = new Array()
-                        AnimeScanID[e.shikimori_id].push(e.translation.title)
-                        targetFrame.appendChild(cart)
-                    } else {
-                        AnimeScanID[e.shikimori_id].push(e.translation.title)
-                    } */
+                    /*                     if (!AnimeScanID[e.shikimori_id]) {
+                                            AnimeScanID[e.shikimori_id] = new Array()
+                                            AnimeScanID[e.shikimori_id].push(e.translation.title)
+                                            targetFrame.appendChild(cart)
+                                        } else {
+                                            AnimeScanID[e.shikimori_id].push(e.translation.title)
+                                        } */
                 };
             }
             if (!base_anime.translation) base_anime.translation = [];
