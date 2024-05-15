@@ -225,7 +225,6 @@ if (url_get.searchParams.get('id') || url_get.searchParams.get('shikimori_id')) 
         `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&id=${url_get.searchParams.get('id')}`
     )
     e = e.results[0]
-    console.log(e)
     const ed = {
         "title": e.material_data.anime_title,
         "cover": `${e.material_data.poster_url}`,
@@ -725,7 +724,6 @@ async function GetKodi(seartch, revers) {
         // container_.scrollHeight
         console.log(container_.clientHeight+container_.scrollTop>container_.scrollHeight-scrollM)
         if (container_.clientHeight+container_.scrollTop>container_.scrollHeight-scrollM && HistoryIsActivy) {
-                    console.log(123)
             // setTimeout(GetKodi, 0)
             GetKodi()
         }
