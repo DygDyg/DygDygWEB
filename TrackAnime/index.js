@@ -120,7 +120,7 @@ function setVideoInfo(e) {
         VideoInfo.info.updated_at.textContent = `Вышла ${formatDate(dat).moment.fromNow().toLowerCase()}. ${formatDate(dat).moment.calendar()}`
     }
 
-    VideoInfo.info.title.textContent = `${VideoInfo.info.title.textContent} | ${VideoInfo.info.updated_at.textContent}`
+    VideoInfo.info.title.innerHTML = `•${VideoInfo.info.title.textContent} <br>• [${VideoInfo.info.updated_at.textContent}]`
 
     VideoInfo.info.shikimori_rating.style.width = e.material_data.shikimori_rating ? `${e.material_data.shikimori_rating * 10}%` : "0%";
     VideoInfo.info.shikimori_rating.textContent = e.material_data.shikimori_rating ? `${e.material_data.shikimori_rating}/10` : "?";

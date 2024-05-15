@@ -308,6 +308,14 @@ span.sr-only {
     font-size: 2.2rem;
     z-index: 1;
 }
+/* #info_title::before {
+    content: '';
+    width: .5em;
+    height: .5em;
+    border-radius: 1em;
+    background-color: #20ff87;
+    margin-right: .5em;
+  } */
 
 
 
