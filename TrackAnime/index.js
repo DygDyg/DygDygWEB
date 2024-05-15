@@ -80,6 +80,7 @@ URLList = url_get.searchParams.get('anime_status') ? `${URLList}&anime_status=${
 URLListStart = URLList
 
 function setVideoInfo(e) {
+    console.log(e)
     var html
     const tv = e.material_data.anime_kind ? ` [${e.material_data.anime_kind.toUpperCase()}]` : ""
     VideoInfo.info.cover.src = e.material_data.poster_url;
@@ -108,12 +109,15 @@ function setVideoInfo(e) {
     VideoInfo.info.rating_mpaa.textContent = e.material_data.rating_mpaa ? e.material_data.rating_mpaa : "?";
     VideoInfo.info.rating_mpaa.href = `${window.location.origin + window.location.pathname}?rating_mpaa=${e.material_data.rating_mpaa ? e.material_data.rating_mpaa : ""}`;
 
+    const dat = e.material_data.next_episode_at?e.material_data.next_episode_at:e.e.created_at
+    console.log(dat)
 
-    if (e.material_data.anime_status == "ongoing" && formatDate(e.material_data.next_episode_at).moment.diff(moment.now(), "minute") > 0) {
+    if (e.material_data.anime_status == "ongoing" && formatDate(dat).moment.diff(moment.now(), "minute") > 0) {
+
         // VideoInfo.info.updated_at_text.textContent = e.material_data.anime_status == "ongoing" ? "Следующая серия выйдет " : "Последняя серия вышла ";
-        VideoInfo.info.updated_at.textContent = `Следующая серия выйдет ${formatDate(e.material_data.next_episode_at).moment.fromNow().toLowerCase()}. ${formatDate(e.material_data.next_episode_at).moment.calendar()}`
+        VideoInfo.info.updated_at.textContent = `Следующая серия выйдет ${formatDate(dat).moment.fromNow().toLowerCase()}. ${formatDate(dat).moment.calendar()}`
     } else {
-        VideoInfo.info.updated_at.textContent = `Вышла ${formatDate(e.material_data.next_episode_at).moment.fromNow().toLowerCase()}. ${formatDate(e.material_data.released_at).moment.calendar()}`
+        VideoInfo.info.updated_at.textContent = `Вышла ${formatDate(dat).moment.fromNow().toLowerCase()}. ${formatDate(dat).moment.calendar()}`
     }
 
     VideoInfo.info.title.textContent = `${VideoInfo.info.title.textContent} | ${VideoInfo.info.updated_at.textContent}`
@@ -261,6 +265,7 @@ async function get_settings() {
             "material_data": e.material_data,
             "id": e.id,
             "screenshots": e.screenshots,
+            "e": e,
 
         }
         dialog(ed, true)
@@ -328,6 +333,7 @@ async function addCalendar() {
                 "material_data": e.material_data,
                 "id": e.id,
                 "screenshots": e.screenshots,
+                "e": e,
             }
             const cart = add_cart(e1)
             formatDate(e.material_data.next_episode_at).moment.day() == 0 ? d3[6].appendChild(cart) : d3[formatDate(e.material_data.next_episode_at).moment.day() - 1].appendChild(cart)
@@ -810,6 +816,7 @@ function GetKodiScan(data, revers) {
                     "material_data": e.material_data,
                     "id": e.id,
                     "screenshots": e.screenshots,
+                    "e": e,
 
                 }
 
