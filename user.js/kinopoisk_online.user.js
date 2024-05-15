@@ -114,7 +114,7 @@ if (!window.onurlchange) {
 function video_player(n) {
 	if (document.querySelector('[data-test-id="encyclopedic-table"]') == null) return
 	let link = location.pathname.split('/').filter(Boolean)
-	let url = `//dygdyg.github.io/DygDygWEB/svetacdn.htm?menu_default=menu_button&menu_open=true&kinopoiskID=${link[1]}&TitleTab=${document.title}`
+	let url = `//dygdyg.github.io/DygDygWEB/svetacdn.htm?menu_default=menu_button&kinopoiskID=${link[1]}&TitleTab=${document.title}`
 	// `//dygdyg.github.io/DygDygWEB/svetacdn.htm?menu_default=menu_button`
 	let localurl = url;
 	localurl = `${url}&loadserv=` + n
