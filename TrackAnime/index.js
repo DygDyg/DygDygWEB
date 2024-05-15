@@ -121,12 +121,12 @@ function setVideoInfo(e) {
 
     VideoInfo.info.title.textContent = `${VideoInfo.info.title.textContent} | ${VideoInfo.info.updated_at.textContent}`
 
-    VideoInfo.info.shikimori_rating.style.width = e.material_data.shikimori_rating ? `${e.material_data.shikimori_rating * 10}%` : "?";
+    VideoInfo.info.shikimori_rating.style.width = e.material_data.shikimori_rating ? `${e.material_data.shikimori_rating * 10}%` : "0%";
     VideoInfo.info.shikimori_rating.textContent = e.material_data.shikimori_rating ? `${e.material_data.shikimori_rating}/10` : "?";
     VideoInfo.info.shikimori_votes.textContent = e.material_data.shikimori_votes ? `${e.material_data.shikimori_votes} проголосовавших` : "?";
     VideoInfo.info.shikimori_link.href = `https://shikimori.one/animes/${e.shikimori ? e.shikimori : ""}`;
 
-    VideoInfo.info.imdb_rating.style.width = e.material_data.imdb_rating ? `${e.material_data.imdb_rating * 10}%` : "?";
+    VideoInfo.info.imdb_rating.style.width = e.material_data.imdb_rating ? `${e.material_data.imdb_rating * 10}%` : "0%";
     VideoInfo.info.imdb_rating.textContent = e.material_data.imdb_rating ? `${e.material_data.imdb_rating}/10` : "?";
     VideoInfo.info.imdb_votes.textContent = e.material_data.imdb_votes ? `${e.material_data.imdb_votes} проголосовавших` : "?";
     VideoInfo.info.IMDB_link.href = `https://www.imdb.com/title/${e.imdb ? e.imdb : ""}`;
