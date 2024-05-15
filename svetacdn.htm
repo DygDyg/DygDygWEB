@@ -82,11 +82,11 @@
             },
             menu: { // Настройки меню
                 enable: true, // Показывать меню
-                default: getUrlParameter("menu_default")?getUrlParameter("menu_default"):'menu_list', // Вид меню для стандартных устройств menu_list
-                mobile: getUrlParameter("menu_default")?getUrlParameter("menu_default"):'menu_button', // Вид меню для мобильных устройств menu_button
-                format: '{N} {S} :: {T} ({Q})', // Формат пункта меню
+                default: getUrlParameter("menu_default") ? getUrlParameter("menu_default") : 'menu_list', // Вид меню для стандартных устройств menu_list
+                mobile: getUrlParameter("menu_default") ? getUrlParameter("menu_default") : 'menu_button', // Вид меню для мобильных устройств menu_button
+                format: '[{N}] {S} :: {T} ({Q})', // Формат пункта меню
                 limit: null, // Максимальное количество элементов в меню
-                open: getUrlParameter("menu_open")?getUrlParameter("menu_open"):false, // Открывать меню по умолчанию
+                open: getUrlParameter("menu_open") ? getUrlParameter("menu_open") : false, // Открывать меню по умолчанию
             },
             players: { // Настройки источников
                 alloha: { // Название
@@ -100,12 +100,13 @@
                 cdnmovies: {
                     enable: true,
                     position: 3,
-                    // domain: 'https://cdnmovies-stream.online',
+                    domain: 'https://cdnmovies-stream.online',
                 },
                 videocdn: {
                     enable: true,
                     position: 4,
-                    domain: 'https://12537.svetacdn.in/gzIOdW6ZBYvH'
+                    domain: `https://${getRandomInt(999999999999)}.svetacdn.in/gzIOdW6ZBYvH`
+                    // ${getRandomInt(999999999999)}.svetacdn.in/Mr1qo9bwHfJQ?kp_id=${getUrlParameter("kinopoiskID")}`
                 },
                 Ashdi: {
                     enable: true,
@@ -123,13 +124,13 @@
                     enable: true,
                     position: 5,
                 },
-                Ashdi: {
+                linktodo: {
                     enable: true,
-                    position: 5,
+                    position: 6,
                 },
-                Ashdi: {
+                svetacdn: {
                     enable: true,
-                    position: 5,
+                    position: 7,
                 },
 
             },
