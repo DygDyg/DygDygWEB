@@ -137,7 +137,6 @@ function setVideoInfo(e) {
     VideoInfo.info.AlohaPlayer.textContent = e.imdb ? "Смотреть Alloha Player" : "Alloha!! Мне повезёт!!"
     VideoInfo.info.AlohaPlayer.title = "Зажать shift для поиска по названию"
     VideoInfo.info.AlohaPlayer.addEventListener('click', (ev) => {
-        // console.log(1, ev.shiftKey)
 
         let DialogVideoInfo = document.getElementById('DialogVideoInfo');
         DialogVideoInfo.classList.remove("DialogVideoInfoScroll");
