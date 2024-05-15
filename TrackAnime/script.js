@@ -129,6 +129,7 @@ function setVideoInfo(e) {
     VideoInfo.info.imdb_votes.textContent = e.material_data.imdb_votes ? `${e.material_data.imdb_votes} проголосовавших` : "?";
     VideoInfo.info.IMDB_link.href = `https://www.imdb.com/title/${e.imdb ? e.imdb : ""}`;
 
+    e.material_data.imdb_rating ? VideoInfo.info.AlohaPlayer.classList.remove('hide') : VideoInfo.info.AlohaPlayer.classList.add('hide') 
     VideoInfo.info.AlohaPlayer.addEventListener('click', () => {
         let DialogVideoInfo = document.getElementById('DialogVideoInfo');
         DialogVideoInfo.classList.remove("DialogVideoInfoScroll");
