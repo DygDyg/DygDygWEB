@@ -1,5 +1,5 @@
 var data, dat, targetFrame, endid, endid2, prev_page, SH_UserData, SH_Favorite
-var ld = false
+var ld = false, SH_isAvtorize = false;
 var AnimeScanID = {}
 const scrollM = 2000;
 document.body.r = 2;
@@ -898,8 +898,10 @@ function get_user() {
             SH_UserData = data
             console.log("SH_UserData", SH_UserData)
             get_favorit(data)
+            SH_isAvtorize = true
         })
         .catch(error => {
+            SH_isAvtorize = false
             console.error('There was a problem with the fetch operation:', error);
         });
 
