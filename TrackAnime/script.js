@@ -1,4 +1,5 @@
 var data, dat, targetFrame, endid, endid2, prev_page, SH_UserData
+var ld = false
 var AnimeScanID = {}
 const scrollM = 2000;
 document.body.r = 2;
@@ -15,6 +16,7 @@ const VideoPlayer = document.getElementById('VideoPlayer');
 const list_calendar = document.getElementById("list_calendar");
 const container_ = document.body.querySelector('.container_');
 
+var ttts
 
 const URLSearch = "https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&title="
 var URLList = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"//&countries=Япония"
@@ -80,7 +82,7 @@ URLList = url_get.searchParams.get('anime_status') ? `${URLList}&anime_status=${
 URLListStart = URLList
 
 function setVideoInfo(e) {
-    // console.log(e)
+    console.log(e)
     var html
     const tv = e.material_data.anime_kind ? ` [${e.material_data.anime_kind.toUpperCase()}]` : ""
     VideoInfo.info.cover.src = e.material_data.poster_url;
@@ -129,7 +131,7 @@ function setVideoInfo(e) {
     VideoInfo.info.imdb_votes.textContent = e.material_data.imdb_votes ? `${e.material_data.imdb_votes} проголосовавших` : "?";
     VideoInfo.info.IMDB_link.href = `https://www.imdb.com/title/${e.imdb ? e.imdb : ""}`;
 
-    e.material_data.imdb_rating ? VideoInfo.info.AlohaPlayer.classList.remove('hide') : VideoInfo.info.AlohaPlayer.classList.add('hide') 
+    e.material_data.imdb_rating ? VideoInfo.info.AlohaPlayer.classList.remove('hide') : VideoInfo.info.AlohaPlayer.classList.add('hide')
     VideoInfo.info.AlohaPlayer.addEventListener('click', () => {
         let DialogVideoInfo = document.getElementById('DialogVideoInfo');
         DialogVideoInfo.classList.remove("DialogVideoInfoScroll");
@@ -215,8 +217,7 @@ VideoPlayerAnime.addEventListener("close", () => {
 
 // window.onscroll = function () {
 container_.addEventListener('scroll', async function (e) {
-    if (container_.clientHeight + container_.scrollTop > container_.scrollHeight - scrollM && HistoryIsActivy) {
-        // console.log(123)
+    if (container_.clientHeight + container_.scrollTop > container_.scrollHeight - scrollM && HistoryIsActivy && !ld) {
         GetKodi()
         // setTimeout(GetKodi, 0)
     }
@@ -694,6 +695,7 @@ function VoiceTranslate(name) {
 
 }
 async function GetKodi(seartch, revers) {
+    ld = true
     // if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - scrollM && HistoryIsActivy == true && document.getElementById('search_input').value ) {
     if ((window.innerHeight + window.scrollY) >= container_.offsetHeight - scrollM) {
         if (!seartch || seartch == undefined || seartch == "") {
@@ -746,8 +748,10 @@ async function GetKodi(seartch, revers) {
         console.log(container_.clientHeight + container_.scrollTop > container_.scrollHeight - scrollM)
         if (container_.clientHeight + container_.scrollTop > container_.scrollHeight - scrollM && HistoryIsActivy) {
             // setTimeout(GetKodi, 0)
+
             GetKodi()
         }
+        ld = false
         return seartch
     }
 }
@@ -764,6 +768,7 @@ function ScanBase(e, i, revers) {
 
         document.getElementById("loading-bar").classList.add("hide");
         if (container_.clientHeight + container_.scrollTop > container_.scrollHeight - scrollM && HistoryIsActivy) {
+
             GetKodi()
         }
         return;
@@ -778,6 +783,7 @@ function ScanBase(e, i, revers) {
 }
 
 function GetKodiScan(data, revers) {
+
     var t1 = false
     data.forEach(e => {
 
