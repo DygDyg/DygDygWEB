@@ -55,6 +55,7 @@ VideoInfo.info = {
     "shikimori_link": VideoInfo.querySelector("#info_shikimori_link"),
     "IMDB_link": VideoInfo.querySelector("#info_IMDB_link"),
     "AlohaPlayer": VideoInfo.querySelector("#info_AlohaPlayer"),
+    "KodikPlayer": VideoInfo.querySelector("#info_KodikPlayer"),
 
 
 }
@@ -108,14 +109,14 @@ function setVideoInfo(e) {
     VideoInfo.info.rating_mpaa.textContent = e.material_data.rating_mpaa ? e.material_data.rating_mpaa : "?";
     VideoInfo.info.rating_mpaa.href = `${window.location.origin + window.location.pathname}?rating_mpaa=${e.material_data.rating_mpaa ? e.material_data.rating_mpaa : ""}`;
 
-    console.log()
+
     if (e.material_data.anime_status == "ongoing" && formatDate(e.material_data.next_episode_at).moment.diff(moment.now(), "minute") > 0) {
         // VideoInfo.info.updated_at_text.textContent = e.material_data.anime_status == "ongoing" ? "Следующая серия выйдет " : "Последняя серия вышла ";
         VideoInfo.info.updated_at.textContent = `Следующая серия выйдет ${formatDate(e.material_data.next_episode_at).moment.fromNow().toLowerCase()}. ${formatDate(e.material_data.next_episode_at).moment.calendar()}`
     } else {
         VideoInfo.info.updated_at.textContent = `Вышла ${formatDate(e.material_data.next_episode_at).moment.fromNow().toLowerCase()}. ${formatDate(e.material_data.released_at).moment.calendar()}`
-
     }
+
     VideoInfo.info.title.textContent = `${VideoInfo.info.title.textContent} | ${VideoInfo.info.updated_at.textContent}`
 
     VideoInfo.info.shikimori_rating.style.width = e.material_data.shikimori_rating ? `${e.material_data.shikimori_rating * 10}%` : "?";
@@ -130,9 +131,17 @@ function setVideoInfo(e) {
 
     VideoInfo.info.AlohaPlayer.addEventListener('click', () => {
         let DialogVideoInfo = document.getElementById('DialogVideoInfo');
-        DialogVideoInfo.classList.contains('DialogVideoInfoScroll') ? DialogVideoInfo.classList.remove("DialogVideoInfoScroll") : DialogVideoInfo.classList.add("DialogVideoInfoScroll");
+        DialogVideoInfo.classList.remove("DialogVideoInfoScroll");
 
         VideoPlayer.contentWindow.location.href = `https://dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&imdb=${e.imdb}`
+    })
+
+    VideoInfo.info.KodikPlayer.addEventListener('click', () => {
+        let DialogVideoInfo = document.getElementById('DialogVideoInfo');
+        DialogVideoInfo.classList.remove("DialogVideoInfoScroll");
+
+        VideoPlayer.contentWindow.location.href = e.link;
+        // VideoPlayer.contentWindow.location.href = `https://dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&imdb=${e.imdb}`
     })
 
     html = ""
@@ -662,10 +671,11 @@ function dialog(e, info) {
 
     VideoPlayerAnime.showModal();
 
-    if ((e.imdb || e.kp) && e.shift) {
-        VideoPlayer.contentWindow.location.href = e.kp ? `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&kinopoiskID=${e.kp}` : `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&imdb=${e.imdb}`
-        return
-    }
+    // if ((e.imdb || e.kp) && e.shift) {
+    //     VideoPlayer.contentWindow.location.href = e.kp ? `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&kinopoiskID=${e.kp}` : `//dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&imdb=${e.imdb}`
+    //     return
+    // }
+
     VideoPlayer.contentWindow.location.href = e.link
 
     info ? DialogVideoInfo.classList.add("DialogVideoInfoScroll") : DialogVideoInfo.classList.remove("DialogVideoInfoScroll")
