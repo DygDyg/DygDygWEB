@@ -157,13 +157,13 @@ function setVideoInfo(e) {
     </div>
     ` });
 
-    e.screenshots?.forEach(el => {
+ /*    e.screenshots?.forEach(el => {
         html = html + `
         <div class="carousel-item">
         <img src="${el}"
             class="d-block w-100" alt="...">
     </div>
-    ` });
+    ` }); */
 
     e.material_data.screenshots || e.screenshots ? VideoInfo.info.screenshots.parentNode.classList.remove("hide") : VideoInfo.info.screenshots.parentNode.classList.add("hide")
     VideoInfo.info.screenshots.innerHTML = html;
@@ -845,6 +845,8 @@ function GetKodiScan(data, revers) {
     });
 }
 localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+
+
 
 
 
