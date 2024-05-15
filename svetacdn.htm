@@ -82,8 +82,8 @@
             },
             menu: { // Настройки меню
                 enable: true, // Показывать меню
-                default: getUrlParameter("default_menu")?getUrlParameter("default_menu"):'menu_list', // Вид меню для стандартных устройств menu_list
-                mobile: getUrlParameter("default_menu")?getUrlParameter("default_menu"):'menu_button', // Вид меню для мобильных устройств menu_button
+                default: getUrlParameter("menu_default")?getUrlParameter("menu_default"):'menu_list', // Вид меню для стандартных устройств menu_list
+                mobile: getUrlParameter("menu_default")?getUrlParameter("menu_default"):'menu_button', // Вид меню для мобильных устройств menu_button
                 format: '{N} {S} :: {T} ({Q})', // Формат пункта меню
                 limit: null, // Максимальное количество элементов в меню
                 open: false, // Открывать меню по умолчанию
