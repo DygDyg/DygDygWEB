@@ -1,4 +1,4 @@
-var data, dat, targetFrame, endid, endid2, prev_page, SH_UserData
+var data, dat, targetFrame, endid, endid2, prev_page, SH_UserData, SH_Favorite
 var ld = false
 var AnimeScanID = {}
 const scrollM = 2000;
@@ -15,8 +15,6 @@ const VoiceSettings = document.getElementById('VoiceSettings');
 const VideoPlayer = document.getElementById('VideoPlayer');
 const list_calendar = document.getElementById("list_calendar");
 const container_ = document.body.querySelector('.container_');
-
-var ttts
 
 const URLSearch = "https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&title="
 var URLList = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"//&countries=Япония"
@@ -82,7 +80,6 @@ URLList = url_get.searchParams.get('anime_status') ? `${URLList}&anime_status=${
 URLListStart = URLList
 
 function setVideoInfo(e) {
-    console.log(e)
     var html
     const tv = e.material_data.anime_kind ? ` [${e.material_data.anime_kind.toUpperCase()}]` : ""
     VideoInfo.info.cover.src = e.material_data.poster_url;
@@ -133,12 +130,11 @@ function setVideoInfo(e) {
 
     e.imdb ? document.getElementById("imdb_info").classList.remove('hide') : document.getElementById("imdb_info").classList.add('hide')
     // e.imdb||e.kp ? VideoInfo.info.AlohaPlayer.classList.remove('hide') : VideoInfo.info.AlohaPlayer.classList.add('hide')
-    VideoInfo.info.AlohaPlayer.textContent = e.imdb?"Смотреть Alloha Player":"Alloha!! Мне повезёт!!"
+    VideoInfo.info.AlohaPlayer.textContent = e.imdb ? "Смотреть Alloha Player" : "Alloha!! Мне повезёт!!"
     VideoInfo.info.AlohaPlayer.addEventListener('click', () => {
         let DialogVideoInfo = document.getElementById('DialogVideoInfo');
         DialogVideoInfo.classList.remove("DialogVideoInfoScroll");
-        e.imdb?console.log(1,e.imdb):console.log(1,e.material_data.anime_title)
-        VideoPlayer.contentWindow.location.href=e.imdb?`https://dygdyg.github.io/DygDygWEB/svetacdn.htm?menu_default=menu_button&imdb=${e.imdb}`:`https://dygdyg.github.io/DygDygWEB/svetacdn.htm?menu_default=menu_button&title=${e.material_data.anime_title}`
+        VideoPlayer.contentWindow.location.href = e.imdb ? `https://dygdyg.github.io/DygDygWEB/svetacdn.htm?menu_default=menu_button&imdb=${e.imdb}` : `https://dygdyg.github.io/DygDygWEB/svetacdn.htm?menu_default=menu_button&title=${e.material_data.anime_title}`
     })
 
     VideoInfo.info.KodikPlayer.addEventListener('click', () => {
@@ -158,13 +154,13 @@ function setVideoInfo(e) {
     </div>
     ` });
 
- /*    e.screenshots?.forEach(el => {
-        html = html + `
-        <div class="carousel-item">
-        <img src="${el}"
-            class="d-block w-100" alt="...">
-    </div>
-    ` }); */
+    /*    e.screenshots?.forEach(el => {
+           html = html + `
+           <div class="carousel-item">
+           <img src="${el}"
+               class="d-block w-100" alt="...">
+       </div>
+       ` }); */
 
     e.material_data.screenshots || e.screenshots ? VideoInfo.info.screenshots.parentNode.classList.remove("hide") : VideoInfo.info.screenshots.parentNode.classList.add("hide")
     VideoInfo.info.screenshots.innerHTML = html;
@@ -654,18 +650,15 @@ function showToast(e) {
 
 function dialog(e, info) {
     if (e.shift) {
-        // console.log(e)
         // return
         if (confirm(`Добавить аниме "${e.title}" в список "смотрю" на shikimori?`)) {
-            console.log(e.shikimori)
             AddUserRates(e.shikimori)
         };
 
-        //     showToast(e);
+        //showToast(e);
         // add_push(e)
         return
     }
-    // console.log(e)
     setVideoInfo(e)
     url_get.searchParams.set("shikimori_id", `${e.shikimori}`)
     window.history.pushState({}, '', url_get);
@@ -747,7 +740,6 @@ async function GetKodi(seartch, revers) {
 
         GetKodiScan(data, revers)
         // container_.scrollHeight
-        console.log(container_.clientHeight + container_.scrollTop > container_.scrollHeight - scrollM)
         if (container_.clientHeight + container_.scrollTop > container_.scrollHeight - scrollM && HistoryIsActivy) {
             // setTimeout(GetKodi, 0)
 
@@ -801,7 +793,6 @@ function GetKodiScan(data, revers) {
 
 
                 if (!e.shikimori_id) return
-                console.log(e)
                 const e1 = {
                     "title": e.material_data.anime_title,
                     "cover": `${e.material_data.poster_url}`,
@@ -892,8 +883,9 @@ function AddUserRates(d) {
 }
 
 get_user()
+
 function get_user() {
-    var url = `https://shikimori.one/api/users/${url_get.searchParams.get('user') ? url_get.searchParams.get('user') : "whoami"}?access_token=${getCookie("sh_access_token")}`
+    var url = `https://shikimori.one/api/users/whoami?access_token=${getCookie("sh_access_token")}`
     fetch(url)
         .then(response => {
             if (response.ok) {
@@ -904,6 +896,8 @@ function get_user() {
         })
         .then(data => {
             SH_UserData = data
+            console.log("SH_UserData", SH_UserData)
+            get_favorit(data)
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
@@ -911,4 +905,21 @@ function get_user() {
 
 
     // document.cookie = getCookie("KeyTab") ? `` : `KeyTab=${KeyTab}; path=/; max-age=10`
+}
+function get_favorit(data) {
+    fetch(`https://shikimori.one/api/users/${data.id}/anime_rates?limit=5000&access_token=${getCookie("sh_access_token")}`)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Network response was not ok.');
+            }
+        })
+        .then(data => {
+            console.log("SH_Favorite", data);
+            SH_Favorite = data
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
 }
