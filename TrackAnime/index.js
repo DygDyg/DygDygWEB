@@ -109,7 +109,7 @@ function setVideoInfo(e) {
     VideoInfo.info.rating_mpaa.textContent = e.material_data.rating_mpaa ? e.material_data.rating_mpaa : "?";
     VideoInfo.info.rating_mpaa.href = `${window.location.origin + window.location.pathname}?rating_mpaa=${e.material_data.rating_mpaa ? e.material_data.rating_mpaa : ""}`;
 
-    const dat = e.material_data.next_episode_at?e.material_data.next_episode_at:e.e.created_at
+    const dat = e.material_data.next_episode_at ? e.material_data.next_episode_at : e.e.created_at
     console.log(dat)
 
     if (e.material_data.anime_status == "ongoing" && formatDate(dat).moment.diff(moment.now(), "minute") > 0) {
@@ -135,10 +135,16 @@ function setVideoInfo(e) {
     e.imdb ? document.getElementById("imdb_info").classList.remove('hide') : document.getElementById("imdb_info").classList.add('hide')
     // e.imdb||e.kp ? VideoInfo.info.AlohaPlayer.classList.remove('hide') : VideoInfo.info.AlohaPlayer.classList.add('hide')
     VideoInfo.info.AlohaPlayer.textContent = e.imdb ? "Смотреть Alloha Player" : "Alloha!! Мне повезёт!!"
-    VideoInfo.info.AlohaPlayer.addEventListener('click', () => {
+    VideoInfo.info.AlohaPlayer.title = "Зажать shift для поиска по названию"
+    VideoInfo.info.AlohaPlayer.addEventListener('click', (ev) => {
+        // console.log(1, ev.shiftKey)
+
         let DialogVideoInfo = document.getElementById('DialogVideoInfo');
         DialogVideoInfo.classList.remove("DialogVideoInfoScroll");
         VideoPlayer.contentWindow.location.href = e.imdb ? `https://dygdyg.github.io/DygDygWEB/svetacdn.htm?menu_default=menu_button&imdb=${e.imdb}` : `https://dygdyg.github.io/DygDygWEB/svetacdn.htm?menu_default=menu_button&title=${e.material_data.anime_title}`
+        if (ev.shiftKey) {
+            VideoPlayer.contentWindow.location.href = `https://dygdyg.github.io/DygDygWEB/svetacdn.htm?menu_default=menu_button&title=${e.material_data.anime_title}`
+        }
     })
 
     VideoInfo.info.KodikPlayer.addEventListener('click', () => {
