@@ -38,17 +38,14 @@
                 kodik.innerHTML = `<iframe id="kodik" src="${link3}" frameborder="0"  AllowFullScreen allow="autoplay *; fullscreen *"></iframe>`
                 break;
 
-            case "kinobox":
-                document.body.innerHTML = '<div class="kinobox_player">'
-                if(getUrlParameter("imdb")) {
-                    new Kinobox('.kinobox_player', { search: { imdb: getUrlParameter("imdb") } }).init();
-                break
-                }
-                new Kinobox('.kinobox_player', { search: { kinopoisk: getUrlParameter("kinopoiskID") } }).init();
-                console.log("asdasdasd")
+            case "svetacdn":
+                kodik.innerHTML = `<iframe id="kodik" src="${link2}" frameborder="0"  AllowFullScreen allow="autoplay *; fullscreen *"></iframe>`
+
                 break;
             default:
-                kodik.innerHTML = `<iframe id="kodik" src="${link2}" frameborder="0"  AllowFullScreen allow="autoplay *; fullscreen *"></iframe>`
+                document.body.innerHTML = '<div class="kinobox_player">'
+                Startkinobox(getUrlParameter("kinopoiskID"), getUrlParameter("imdb"), getUrlParameter("tmdb"), getUrlParameter("title"))
+
                 break;
         }
 
@@ -74,6 +71,82 @@
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
     }
+
+    function Startkinobox(kinopoisk, imdb, tmdb, title) {
+        kbox('.kinobox_player', {
+            search: { // Настройки поиска
+                kinopoisk: kinopoisk, // Поиск фильма по ID Кинопоиска
+                imdb: imdb, // Поиск фильма по IMDb Id
+                tmdb: tmdb, // Поиск фильма по TMDB Id
+                title: title // Поиск фильма по названию
+            },
+            menu: { // Настройки меню
+                enable: true, // Показывать меню
+                default: 'menu_button', // Вид меню для стандартных устройств menu_list
+                mobile: 'menu_button', // Вид меню для мобильных устройств
+                format: '{N} {S} :: {T} ({Q})', // Формат пункта меню
+                limit: null, // Максимальное количество элементов в меню
+                open: false, // Открывать меню по умолчанию
+            },
+            players: { // Настройки источников
+                alloha: { // Название
+                    enable: true, // Включить
+                    position: 1 // Позиция в меню
+                },
+                kodik: {
+                    enable: false,
+                    position: 2
+                },
+                cdnmovies: {
+                    enable: true,
+                    position: 3,
+                    // domain: 'https://cdnmovies-stream.online',
+                },
+                videocdn: {
+                    enable: true,
+                    position: 4,
+                    domain: 'https://12537.svetacdn.in/gzIOdW6ZBYvH'
+                },
+                Ashdi: {
+                    enable: true,
+                    position: 5,
+                },
+                Collaps: {
+                    enable: true,
+                    position: 6,
+                },
+                Hdvb: {
+                    enable: true,
+                    position: 7,
+                },
+                Voidboost: {
+                    enable: true,
+                    position: 5,
+                },
+                Ashdi: {
+                    enable: true,
+                    position: 5,
+                },
+                Ashdi: {
+                    enable: true,
+                    position: 5,
+                },
+
+            },
+            params: { // Добавление дополнительных параметров в ссылку iframe
+                all: { // Добавление для всех источников
+                    poster: 'https://example.org/poster.jpg', // Название параметра и его значение
+                },
+                alloha: { // Добавление для указанного источника
+                    autoplay: 1 // Название параметра и его значение
+                },
+                kodik: {
+                    hide_selectors: true
+                },
+                // ...
+            }
+        });
+    }
 </script>
 <style>
     iframe#kodik {
@@ -93,7 +166,8 @@
         position: absolute;
         overflow: hidden;
     }
-    :root{
+
+    :root {
         overflow: hidden;
     }
 </style>
