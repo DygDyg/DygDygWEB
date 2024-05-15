@@ -132,11 +132,11 @@ function setVideoInfo(e) {
     VideoInfo.info.IMDB_link.href = `https://www.imdb.com/title/${e.imdb ? e.imdb : ""}`;
 
     e.imdb ? document.getElementById("imdb_info").classList.remove('hide') : document.getElementById("imdb_info").classList.add('hide')
-    e.imdb||e.kp ? VideoInfo.info.AlohaPlayer.classList.remove('hide') : VideoInfo.info.AlohaPlayer.classList.add('hide')
+    // e.imdb||e.kp ? VideoInfo.info.AlohaPlayer.classList.remove('hide') : VideoInfo.info.AlohaPlayer.classList.add('hide')
     VideoInfo.info.AlohaPlayer.addEventListener('click', () => {
         let DialogVideoInfo = document.getElementById('DialogVideoInfo');
         DialogVideoInfo.classList.remove("DialogVideoInfoScroll");
-        VideoPlayer.contentWindow.location.href=e.imdb?`https://dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&imdb=${e.imdb}`:`https://dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&kinopoiskID=${e.kp}`
+        VideoPlayer.contentWindow.location.href=e.imdb?`https://dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&imdb=${e.imdb}`:`https://dygdyg.github.io/DygDygWEB/svetacdn.htm?loadserv=kinobox&title=${e.title}`
     })
 
     VideoInfo.info.KodikPlayer.addEventListener('click', () => {
