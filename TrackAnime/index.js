@@ -1,4 +1,4 @@
-var data, dat, targetFrame, endid, endid2, prev_page, SH_UserData, SH_Favorite
+var data, dat, targetFrame, endid, endid2, prev_page, SH_UserData, SH_Favorite, cart_data
 var ld = false, SH_isAvtorize = false;
 var AnimeScanID = {}
 const scrollM = 2000;
@@ -586,6 +586,23 @@ function add_cart(e) {
 
     return cart
 }
+function add_card_ned(e) {
+    console.log(e)
+    const cart = document.createElement('div');
+    // cart.classList.add = "cart_ bg-dark text-white"
+    // ${e.cart_data_old.n == "сб" || e.cart_data_old.n == "вс" ? "#ff00002e" : "#1900ff2e"}
+    cart.innerHTML = `
+    <div class="cart_n cart_">
+        <div align="center" style="font-size: 3em;wight=50%;width: 50%;height: 100%;background-color:#5151518f;border-color: #212529;border-style: solid;border-width: 0.3rem;border-radius: 15px 0px 0px 15px;">
+            <div align="center" style=";height: 25%;background-color: ${e.cart_data_old.nn>0? `hwb(${190/7*e.cart_data_old.nn+190}deg 0% 0% / 18.04%);` : "hwb(0deg 0% 0% / 18.04%)"}">${e.cart_data_old.n}</div>
+        ${e.cart_data_old.dat}<br>◄</div>
+        <div align="center" style="font-size: 3em;wight=50%;width: 50%;height: 100%;background-color:#5151518f;border-color: #212529;border-style: solid;border-width: 0.3rem;border-radius: 0px 15px 15px 0px;">
+            <div align="center" style=";height: 25%;background-color: ${e.cart_data_new.nn>0? `hwb(${190/7*e.cart_data_new.nn+190}deg 0% 0% / 18.04%);` : "hwb(0deg 0% 0% / 18.04%)"}">${e.cart_data_new.n}</div>
+        ${e.cart_data_new.dat}<br>►</div>
+    </div>
+    `
+    return cart
+}
 
 function formatDate(isoDateString) {
     var days = {}
@@ -826,11 +843,39 @@ function GetKodiScan(data, revers) {
                 }
 
                 const cart = add_cart(e1)
+
                 if (revers && prev_page == null) {
                     targetFrame.prepend(cart)
                     cart.classList.add("new_cart")
                     add_push(e1)
                 } else {
+                    if (cart_data) {
+                        if (cart_data.dat != e1.date.moment.format("DD")) {
+                            console.log(e1.date.moment.format("dd"), e1.date.moment.format("d"))
+                            const e2 = Object.assign(e1, {
+                                "cart_data_old": cart_data,
+                                "cart_data_new": {
+                                    "dat": e1.date.moment.format("DD"),
+                                    "n": e1.date.moment.format("dd"),
+                                    "nn": e1.date.moment.format("d"),
+                                }
+                            })
+                            targetFrame.appendChild(add_card_ned(e2))
+                            cart_data = {
+                                "dat": e1.date.moment.format("DD"),
+                                "n": e1.date.moment.format("dd"),
+                                "nn": e1.date.moment.format("d"),
+                            }
+                        }
+                        // console.log(111)
+                    } else {
+                        cart_data = {
+                            "dat": e1.date.moment.format("DD"),
+                            "n": e1.date.moment.format("dd"),
+                            "nn": e1.date.moment.format("d"),
+                        }
+                        // console.log(e1.date.moment.format("dd"))
+                    }
                     targetFrame.appendChild(cart)
 
                     /*                     if (!AnimeScanID[e.shikimori_id]) {
@@ -894,7 +939,7 @@ function AddUserRates(d) {
         .catch(error => console.error(error));
 }
 
-get_user()
+// get_user()
 
 function get_user() {
     var url = `https://shikimori.one/api/users/whoami?access_token=${getCookie("sh_access_token")}`

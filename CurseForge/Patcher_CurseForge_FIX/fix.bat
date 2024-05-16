@@ -24,6 +24,6 @@ del  "%patch1%app.asar"
 
 echo  .original-image, aside.curseforge-ad, button.btn-single-icon.run-game{display: none !important;} >  "%patch1%%patch2%style.css"
 echo on
-@REM start "%patch1%..\CurseForge.exe"
+"%userprofile%\AppData\Local\Programs\CurseForge Windows\CurseForge.exe"
 
-pause
+@REM pause

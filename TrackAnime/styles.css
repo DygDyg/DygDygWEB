@@ -308,6 +308,7 @@ span.sr-only {
     font-size: 2.2rem;
     z-index: 1;
 }
+
 /* #info_title::before {
     content: '';
     width: .5em;
@@ -338,6 +339,20 @@ span.sr-only {
     /* opacity: 0%;
     transition: opacity 2s ease; */
 
+}
+
+.cart_n {
+    height: 25rem;
+    width: 17rem;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    
+}
+.cart_n:hover{
+    border-color: rgba(0, 0, 0, 0) !important;
 }
 
 .cart_spawn {
