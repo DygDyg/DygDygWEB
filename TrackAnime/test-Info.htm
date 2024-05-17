@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <!-- data-bs-theme="dark" -->
+<!-- data-bs-theme="dark" -->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,13 +10,54 @@
     <script defer src="../scripts/bootstrap.min.js"></script>
 </head>
 <style>
-/*     body {
+    /*     body {
         background-color: rgb(67, 66, 66);
         color: aliceblue;
     } */
 </style>
 
 <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Навбар</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Переключатель навигации">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Ссылка</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Выпадающий список
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Действие</a></li>
+                            <li><a class="dropdown-item" href="#">Другое действие</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Отключенная</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
+                    <button class="btn btn-outline-success" type="submit">Поиск</button>
+                </form>
+            </div>
+        </div>
+    </nav>
     <div class="card mb-3">
         <div class="row g-0">
             <h5 id="info_title" class="card-title">Провожающая в последний путь Фрирен</h5>
@@ -24,17 +66,18 @@
                 <img id="info_cover" src="https://st.kp.yandex.net/images/film_big/5401195.jpg"
                     class="img-fluid rounded-start rounded" alt="...">
                 <p class="card-text mb-2 mt-2">Рейтинг shikimori:</p>
-                <div class="progress" role="progressbar" aria-label="" aria-valuenow="10"
-                    aria-valuemin="0" aria-valuemax="100">
+                <div class="progress" role="progressbar" aria-label="" aria-valuenow="10" aria-valuemin="0"
+                    aria-valuemax="100">
                     <div class="progress-bar progress-bar-striped" style="width: 93.7%">9.37/10</div>
                 </div>
                 <p class="card-text mb-2 mt-2">30229 голосов</p>
                 </p>
                 <hr>
                 <p class="card-text mb-2 mt-2">Рейтинг imdb:</p>
-                <div class="progress" role="progressbar" aria-label="" aria-valuenow="10"
-                    aria-valuemin="0" aria-valuemax="100">
-                    <div class="progress-bar progress-bar-striped bg-warning text-bg-warning" style="width: 89.0%">8.9/10</div>
+                <div class="progress" role="progressbar" aria-label="" aria-valuenow="10" aria-valuemin="0"
+                    aria-valuemax="100">
+                    <div class="progress-bar progress-bar-striped bg-warning text-bg-warning" style="width: 89.0%">
+                        8.9/10</div>
                 </div>
                 <p class="card-text mb-2 mt-2">16350 голосов</p>
 
@@ -73,17 +116,19 @@
                                 <a href=""
                                     class="info_genre link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Фэнтези</a>
                             </p>
-                            <p  class="card-text">Статус:
-                                <a id="info_status" href="" class="info_genre link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Релиз</a>
+                            <p class="card-text">Статус:
+                                <a id="info_status" href=""
+                                    class="info_genre link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Релиз</a>
                             </p>
-                            <p  class="card-text">Возростной рейтинг:
-                                <a id="info_rating_mpaa" href="" class="info_genre link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">PG-13</a>
+                            <p class="card-text">Возростной рейтинг:
+                                <a id="info_rating_mpaa" href=""
+                                    class="info_genre link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">PG-13</a>
                             </p>
                             <hr class="d-md-none">
                         </div>
-                        
+
                     </div>
-                    
+
                     <div class="col col-12 col-md-5">
                         <div class="card-body">
                             <p id="info_description" class="card-text">Обычный служащий финансовой компании Сатору
@@ -97,7 +142,7 @@
                                 страну,
                                 где к каждой расе будут относиться одинаково.</p>
                             <p class="card-text text-body-secondary">Последнее
-                                    обновление<small id="info_updated_at" class="text-body-secondary"> 3
+                                обновление<small id="info_updated_at" class="text-body-secondary"> 3
                                     мин.
                                     назад</small>
                             </p>
@@ -136,7 +181,7 @@
 
 </body>
 <script>
-    document.querySelector("html").getAttribute('data-bs-theme')?document.querySelector("html").setAttribute('data-bs-theme',""):document.querySelector("html").setAttribute('data-bs-theme',"dark")
+    document.querySelector("html").getAttribute('data-bs-theme') ? document.querySelector("html").setAttribute('data-bs-theme', "") : document.querySelector("html").setAttribute('data-bs-theme', "dark")
     const VideoInfo = document.body;
     info = {
         "cover": VideoInfo.querySelector("#info_cover"),
