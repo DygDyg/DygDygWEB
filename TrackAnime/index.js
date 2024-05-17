@@ -316,7 +316,7 @@ async function getHome(iss) {
     document.getElementById("list_calendar").classList.add("hide")
     document.getElementById("list_history").classList.add("hide")
     document.getElementById("list_serch").classList.remove("hide")
-    
+
     nav_panel_buttons.querySelectorAll('button').forEach((e) => {
         e.classList.remove("active")
     })
@@ -327,7 +327,7 @@ async function getHome(iss) {
         window.history.pushState({}, '', url_get);
         GetKodi()
     }
-    
+
 }
 
 async function getCalendar() {
@@ -776,6 +776,7 @@ function VoiceTranslate(name) {
 async function GetKodi(seartch, revers) {
     ld = true
     // if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - scrollM && HistoryIsActivy == true && document.getElementById('search_input').value ) {
+    // if(container_.clientHeight + container_.scrollTop > container_.scrollHeight - scrollM){
     if ((window.innerHeight + window.scrollY) >= container_.offsetHeight - scrollM) {
         if (!seartch || seartch == undefined || seartch == "") {
             HistoryIsActivy = true
