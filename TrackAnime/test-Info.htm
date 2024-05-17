@@ -8,6 +8,7 @@
     <title>Document</title>
     <link href="../scripts/bootstrap.min.css" rel="stylesheet" />
     <script defer src="../scripts/bootstrap.min.js"></script>
+    <script defer src="../scripts/bootstrap.bundle.min.js"></script>
 </head>
 <style>
     /*     body {
@@ -17,7 +18,7 @@
 </style>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Навбар</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -58,6 +59,16 @@
             </div>
         </div>
     </nav>
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Кнопка выпадающего списка
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Действие</a></li>
+          <li><a class="dropdown-item" href="#">Другое действие</a></li>
+          <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li>
+        </ul>
+      </div>
     <div class="card mb-3">
         <div class="row g-0">
             <h5 id="info_title" class="card-title">Провожающая в последний путь Фрирен</h5>
@@ -131,16 +142,16 @@
 
                     <div class="col col-12 col-md-5">
                         <div class="card-body">
-                            <p id="info_description" class="card-text">Обычный служащий финансовой компании Сатору
-                                Миками
-                                погибает, защищая коллегу от грабителя с ножом. После смерти Сатору попадает в
-                                фэнтезийный
-                                мир,
-                                в котором он предстаёт в виде комка слизи средних размеров по имени Римуру, наделённой
-                                немалым
-                                разумом. Отныне Римуру будет жить в мире, полном разных рас, в надежде построить однажды
-                                страну,
-                                где к каждой расе будут относиться одинаково.</p>
+                            <p id="info_description" class="card-text">Одержав победу над Королём демонов, отряд героя
+                                Химмеля вернулся домой. Приключение, растянувшееся на десятилетие, подошло к завершению.
+                                Волшебница-эльф Фрирен и её отважные товарищи принесли людям мир и разошлись в разные
+                                стороны, чтобы спокойно прожить остаток жизни. Однако не всех членов отряда ждёт
+                                одинаковая участь. Для эльфов время течёт иначе, поэтому Фрирен вынужденно становится
+                                свидетелем того, как её спутники один за другим постепенно уходят из жизни. Девушка
+                                осознала, что годы, проведённые в отряде героя, пронеслись в один миг, как падающая
+                                звезда в бескрайнем космосе её жизни, и столкнулась с сожалениями об упущенных
+                                возможностях. Сможет ли она смириться со смертью друзей и понять, что значит жизнь для
+                                окружающих её людей? Фрирен начинает новое путешествие, чтобы найти ответ.</p>
                             <p class="card-text text-body-secondary">Последнее
                                 обновление<small id="info_updated_at" class="text-body-secondary"> 3
                                     мин.

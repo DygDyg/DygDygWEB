@@ -32,7 +32,8 @@
         content="Сервис для просмотра аниме и отслеживания выхода новых серий в реальном времени. Для связи со мной можно писать в мой discord: .dygdyg">
     <meta property="twitter:image" content="https://dygdyg.github.io/DygDygWEB/TrackAnime/favicon.png">
 
-    <script defer src="../scripts/bootstrap.min.js"></script>
+    <!-- <script defer src="../scripts/bootstrap.min.js"></script> -->
+    <script defer src="../scripts/bootstrap.bundle.min.js"></script>
     <script defer src="../scripts/moment.js"></script>
     <script defer src="../scripts/moment-with-locales.js"></script>
 
@@ -48,6 +49,58 @@
 
 
 <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="">Track Anime By ДугДуг</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Переключатель навигации">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <button class="nav-link active" aria-current="page">Главная</button>
+                    </li>
+                    <li class="nav-item">
+                        <button id="list_calendar_Button" aria-current="page"
+                            class="btn-link nav-link">Календарь</button>
+                    </li>
+                    <li class="nav-item">
+                        <button id="VoiceButtonMenu" aria-current="page" class="btn-link nav-link">Озвучки</button>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Настройки
+                        </a>
+                        <ul class="dropdown-menu ">
+                            <!-- <li class="nav-item"><a class="nav-link disabled">Отключенная</a></li> -->
+                            <!-- <li><a class="dropdown-item disabled" href="">Сортировка по рейтингу</a></li> -->
+                            <li><h class="dropdown-header" id="RangeRaitingTitle">Фильтр по рейтингу:</h></li>
+                            <li><input type="range" class="form-range px-2" min="0.1" max="10" step="0.1" value="2"
+                                    id="RangeRaiting"></input></li>
+                    </li>
+                    <!-- <li><a class="dropdown-item" href="">Другое действие</a></li> -->
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <!-- <li><a class="dropdown-item disabled" href="">Действие</a></li> -->
+
+                    <!-- <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li> -->
+                </ul>
+                </li>
+                </ul>
+                <form class="d-flex" role="search" id="search_form">
+                    <input id="search_input" name="search_input" class="form-control me-2" type="search"
+                        placeholder="Поиск" aria-describedby="search anume" aria-label="Поиск">
+                    <button class="btn btn-outline-success" type="submit">Поиск</button>
+                </form>
+                <button id="list_calendar_Button" aria-current="page" class="btn btn-outline-primary mx-2">Вход</button>
+            </div>
+        </div>
+    </nav>
+
     <div class="hide" id="load">
         <div class="spinner-border text-primary" role="status" style="scale: 3;">
             <span class="visually-hidden">Loading...</span>
@@ -59,14 +112,14 @@
         </div>
     </div>
 
-    <div aria-live="polite" aria-atomic="true" class="position-relative">
+    <!--     <div aria-live="polite" aria-atomic="true" class="position-relative">
 
         <div class="input-group mb-3">
             <div class="input-group-append">
                 <button type="button" class="btn btn-secondary" title="Календарь выхода серий"
                     id="list_calendar_Button">K</button>
             </div>
-            <input id="search_input" class="form-control" aria-describedby="emailHelp"
+                        <input id="search_input" class="form-control" aria-describedby="emailHelp"
                 placeholder="Поиск аниме"></input>
             <div class="input-group-append">
                 <button type="button" class="btn btn-secondary" id="VoiceButtonMenu">Озвучки</button>
@@ -75,7 +128,7 @@
 
 
         </div>
-    </div>
+    </div> -->
     <div class="container_">
         <div class="anime_list hide" id="list_calendar">
             <details class="ned_spoiler">

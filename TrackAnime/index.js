@@ -2,11 +2,11 @@ var data, dat, targetFrame, endid, endid2, prev_page, SH_UserData, SH_Favorite, 
 var ld = false, SH_isAvtorize = false;
 var AnimeScanID = {}
 const scrollM = 2000;
-document.body.r = 2;
 var ignoreVoice = false
-moment.locale('ru');
+window.moment.locale('ru')
 var HistoryIsActivy = true
 var TypePage = 0
+document.body.r = 2
 var url_get = new URL(window.location.href)
 const KeyTab = Math.floor(Math.random() * 10000000000)
 const VideoPlayerAnime = document.getElementById('VideoPlayerAnime');
@@ -20,7 +20,8 @@ const URLSearch = "https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634
 var URLList = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"//&countries=Япония"
 var URLCalendar = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8&anime_status=ongoing"//&anime_kind=tv"//&countries=Япония"
 var URLListStart = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"
-Notification.requestPermission()
+
+window?.Notification?.requestPermission()
 const voice = [
     "AniStar",
     "Dream Cast",
@@ -188,8 +189,17 @@ document.getElementById('VoiceButtonMenu').addEventListener('click', () => {
     VoiceSettingsMenu()
 })
 
-document.getElementById('search_input').addEventListener('change', (e) => {
-    GetKodi(encodeURI(e.target.value))
+document.getElementById('search_form').addEventListener('submit', function (e) {
+    e.preventDefault()
+    const formdata = new FormData(this)
+    // console.log(formdata)
+    formdata.forEach((val, key) => {
+        // console.log(val, key)
+        GetKodi(encodeURI(val))
+    });
+    // console.log(e.target[0].value, formdata)
+
+    // GetKodi(encodeURI(e.target.value))
 })
 
 
@@ -199,7 +209,26 @@ document.getElementById("VideoInfoBtn").addEventListener('click', () => {
 
 })
 
+document.addEventListener('DOMContentLoaded', function () {
+    const navLinks = document.querySelectorAll('.nav-link');
 
+    navLinks.forEach(link => {
+        link.addEventListener('click', function () {
+            navLinks.forEach(nav => nav.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    // Для отображения активной ссылки при загрузке страницы в зависимости от якоря URL
+    const currentHash = window.location.hash;
+    if (currentHash) {
+        const activeLink = document.querySelector(`.nav-link[href="${currentHash}"]`);
+        if (activeLink) {
+            navLinks.forEach(nav => nav.classList.remove('active'));
+            activeLink.classList.add('active');
+        }
+    }
+});
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -357,16 +386,16 @@ function getCookie(name) {
 async function add_push(e) {
     if (!GetFavorite(e.shikimori) && base_anime.fav.length > 0) return
 
-    const perm = await Notification.requestPermission()
+    const perm = await window?.Notification?.requestPermission()
 
     // return showToast(e);
 
-    if (perm != "granted") {
+    if (perm != "granted" || perm == undefined) {
         showToast(e);
         return
     }
 
-    notification = new Notification(e.title,
+    const notification = new Notification(e.title,
         {
             body: `Серия ${e.series} в озвучке ${e.voice}`,
             // tag: e.date.string,
@@ -464,11 +493,15 @@ RangeRaitingObj = document.getElementById('RangeRaiting')
 RangeRaitingObj.addEventListener("input", RangeRaiting);
 RangeRaitingObj.addEventListener("change", () => { GetKodi() });
 RangeRaitingObj.title = `Фильтр по минимальному рейтингу: ${RangeRaitingObj.value}`
+document.getElementById('RangeRaitingTitle').textContent = `Фильтр по рейтингу: ${RangeRaitingObj.value}`
 function RangeRaiting(r) {
     document.body.r = r.target.value;
     r.target.title = `Фильтр по минимальному рейтингу: ${r.target.value}`
+    document.getElementById('RangeRaitingTitle').textContent = `Фильтр по рейтингу: ${r.target.value}`
     document.body.querySelectorAll(".cart_").forEach(e => {
+        console.log(e.r)
         e.r < r.target.value ? e.classList.add('hide') : e.classList.remove('hide')
+
     })
 }
 
@@ -476,7 +509,7 @@ function add_cart(e) {
     const cart = document.createElement('div');
     cart.data = e;
     cart.classList.add('cart_', 'bg-dark', 'text-white');
-    // cart.r = e.raiting
+    cart.r = e.raiting
     document.body.r > cart.r ? cart.classList.add('hide') : null;
 
     cart.addEventListener("click", (event) => {
@@ -596,10 +629,10 @@ function add_card_ned(e) {
     cart.innerHTML = `
     <div class="cart_n">
         <div align="center" style=" font-size: 3em;wight=50%;width: 50%;height: 100%;background-color:#5151518f;border-color: #dee2e6;border-style: solid;border-width: 0.3rem;border-radius: 15px 0px 0px 15px;">
-            <div align="center" style=";height: 25%;background-color: ${e.cart_data_old.nn>0? `hwb(${190/7*e.cart_data_old.nn+190}deg 0% 0% / 18.04%);` : "hwb(0deg 0% 0% / 18.04%)"}">${e.cart_data_old.n}</div>
+            <div align="center" style=";height: 25%;background-color: ${e.cart_data_old.nn > 0 ? `hwb(${190 / 7 * e.cart_data_old.nn + 190}deg 0% 0% / 18.04%);` : "hwb(0deg 0% 0% / 18.04%)"}">${e.cart_data_old.n}</div>
         ${e.cart_data_old.dat}<br>◄</div>
         <div align="center" style="font-size: 3em;wight=50%;width: 50%;height: 100%;background-color:#5151518f;border-color: #dee2e6;border-style: solid;border-width: 0.3rem;border-radius: 0px 15px 15px 0px;">
-            <div align="center" style=";height: 25%;background-color: ${e.cart_data_new.nn>0? `hwb(${190/7*e.cart_data_new.nn+190}deg 0% 0% / 18.04%);` : "hwb(0deg 0% 0% / 18.04%)"}">${e.cart_data_new.n}</div>
+            <div align="center" style=";height: 25%;background-color: ${e.cart_data_new.nn > 0 ? `hwb(${190 / 7 * e.cart_data_new.nn + 190}deg 0% 0% / 18.04%);` : "hwb(0deg 0% 0% / 18.04%)"}">${e.cart_data_new.n}</div>
         ${e.cart_data_new.dat}<br>►</div>
     </div>
     `
@@ -852,7 +885,7 @@ function GetKodiScan(data, revers) {
                     add_push(e1)
                 } else {
                     const seartch = document.getElementById("search_input").value
-                    if (cart_data &&(!seartch || seartch == undefined || seartch == "")) {
+                    if (cart_data && (!seartch || seartch == undefined || seartch == "")) {
                         if (cart_data.dat != e1.date.moment.format("DD")) {
                             console.log(e1.date.moment.format("dd"), e1.date.moment.format("d"))
                             const e2 = Object.assign(e1, {
