@@ -850,7 +850,8 @@ function GetKodiScan(data, revers) {
                     cart.classList.add("new_cart")
                     add_push(e1)
                 } else {
-                    if (cart_data) {
+                    const seartch = document.getElementById("search_input").value
+                    if (cart_data &&(!seartch || seartch == undefined || seartch == "")) {
                         if (cart_data.dat != e1.date.moment.format("DD")) {
                             console.log(e1.date.moment.format("dd"), e1.date.moment.format("d"))
                             const e2 = Object.assign(e1, {
