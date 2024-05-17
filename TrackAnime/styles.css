@@ -349,7 +349,6 @@ span.sr-only {
     flex-direction: row;
     justify-content: space-between;
     align-items: stretch;
-    
 }
 .cart_n:hover{
     border-color: rgba(0, 0, 0, 0) !important;
