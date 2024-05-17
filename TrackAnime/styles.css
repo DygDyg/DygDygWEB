@@ -353,6 +353,13 @@ span.sr-only {
 .cart_n:hover{
     border-color: rgba(0, 0, 0, 0) !important;
 }
+.cart_n_bg {
+    --bs-bg-opacity: 1;
+    border-color: #212529;
+    border-style: solid;
+    border-width: 0.3rem;
+    border-radius: 15px;
+}
 
 .cart_spawn {
     scale: 1;
