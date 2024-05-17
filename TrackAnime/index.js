@@ -590,8 +590,8 @@ function add_card_ned(e) {
     console.log(e)
     const cart = document.createElement('div');
     cart.classList.add("cart_")
-    cart.classList.add("bg-dark")
-    // cart.classList.add("cart_n_bg")
+    // cart.classList.add("bg-dark")
+    cart.classList.add("cart_n_bg")
     // ${e.cart_data_old.n == "сб" || e.cart_data_old.n == "вс" ? "#ff00002e" : "#1900ff2e"}
     cart.innerHTML = `
     <div class="cart_n">
