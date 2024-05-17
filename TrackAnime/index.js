@@ -493,11 +493,11 @@ RangeRaitingObj = document.getElementById('RangeRaiting')
 RangeRaitingObj.addEventListener("input", RangeRaiting);
 RangeRaitingObj.addEventListener("change", () => { GetKodi() });
 RangeRaitingObj.title = `Фильтр по минимальному рейтингу: ${RangeRaitingObj.value}`
-document.getElementById('RangeRaitingTitle').textContent = `Фильтр по рейтингу: ${RangeRaitingObj.value}`
+document.getElementById('RangeRaitingTitle').textContent = `Рейтинг: ${RangeRaitingObj.value}`
 function RangeRaiting(r) {
     document.body.r = r.target.value;
     r.target.title = `Фильтр по минимальному рейтингу: ${r.target.value}`
-    document.getElementById('RangeRaitingTitle').textContent = `Фильтр по рейтингу: ${r.target.value}`
+    document.getElementById('RangeRaitingTitle').textContent = `Рейтинг: ${r.target.value}`
     document.body.querySelectorAll(".cart_").forEach(e => {
         console.log(e.r)
         e.r < r.target.value ? e.classList.add('hide') : e.classList.remove('hide')
