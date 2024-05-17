@@ -15,6 +15,9 @@ const VoiceSettings = document.getElementById('VoiceSettings');
 const VideoPlayer = document.getElementById('VideoPlayer');
 const list_calendar = document.getElementById("list_calendar");
 const container_ = document.body.querySelector('.container_');
+const nav_panel_buttons = document.querySelector('nav.navbar.navbar-expand-lg.bg-body-tertiary.sticky-top')
+
+
 
 const URLSearch = "https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&title="
 var URLList = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"//&countries=Япония"
@@ -209,7 +212,7 @@ document.getElementById("VideoInfoBtn").addEventListener('click', () => {
 
 })
 
-document.addEventListener('DOMContentLoaded', function () {
+/* document.addEventListener('DOMContentLoaded', function () {
     const navLinks = document.querySelectorAll('.nav-link');
 
     navLinks.forEach(link => {
@@ -228,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function () {
             activeLink.classList.add('active');
         }
     }
-});
+}); */
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -246,6 +249,10 @@ closeDialogButton.addEventListener('click', () => {
 document.getElementById("list_calendar_Button").addEventListener('click', async () => {
     getCalendar()
 });
+document.getElementById("list_home_Button").addEventListener('click', async () => {
+    getHome()
+});
+
 VideoPlayerAnime.addEventListener("close", () => {
     document.title = "Track Anime By ДугДуг"
 });
@@ -307,18 +314,28 @@ async function get_settings() {
 }
 // url_get.searchParams.delete("seartch")
 
+async function getHome() {
+
+    HistoryIsActivy = true
+    TypePage = 0
+    document.getElementById("list_calendar").classList.add("hide")
+    document.getElementById("list_serch").classList.remove("hide")
+    nav_panel_buttons.querySelectorAll('button').forEach((e)=>{
+        e.classList.remove("active")
+    })
+    nav_panel_buttons.querySelector("#list_home_Button").classList.add("active")
+}
 async function getCalendar() {
-    if (TypePage == 1) {
-        HistoryIsActivy = true
-        TypePage = 0
-        document.getElementById("list_calendar").classList.add("hide")
-        document.getElementById("list_serch").classList.remove("hide")
-        return
-    }
+
+    nav_panel_buttons.querySelectorAll('button').forEach((e)=>{
+        e.classList.remove("active")
+    })
+    nav_panel_buttons.querySelector("#list_calendar_Button").classList.add("active")
 
     HistoryIsActivy = false
     TypePage = 1
     // var tmp1 = list_calendar.getElementsByClassName('ned')
+    // .classList.remove('active')
     document.getElementById("load").classList.remove("hide")
     document.getElementById("list_calendar").classList.add("hide")
 
@@ -326,6 +343,7 @@ async function getCalendar() {
 }
 
 async function addCalendar() {
+    document.getElementById('search_input').value = ""
     document.getElementById("list_history").classList.add("hide")
     document.getElementById("list_serch").classList.add("hide")
     document.getElementById("list_calendar").classList.remove("hide")
@@ -777,6 +795,7 @@ async function GetKodi(seartch, revers) {
             url_get.searchParams.delete("seartch")
             window.history.pushState({}, '', url_get);
         } else {
+            getHome()
             HistoryIsActivy = false
             ignoreVoice = true
             document.getElementById('search_input').value = decodeURIComponent(seartch)
