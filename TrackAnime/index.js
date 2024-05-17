@@ -84,7 +84,6 @@ URLList = url_get.searchParams.get('anime_status') ? `${URLList}&anime_status=${
 URLListStart = URLList
 
 function setVideoInfo(e) {
-    console.log(e)
     var html
     const tv = e.material_data.anime_kind ? ` [${e.material_data.anime_kind.toUpperCase()}]` : ""
     VideoInfo.info.cover.src = e.material_data.poster_url;
@@ -114,7 +113,6 @@ function setVideoInfo(e) {
     VideoInfo.info.rating_mpaa.href = `${window.location.origin + window.location.pathname}?rating_mpaa=${e.material_data.rating_mpaa ? e.material_data.rating_mpaa : ""}`;
 
     const dat = e.material_data.next_episode_at ? e.material_data.next_episode_at : e.e.created_at
-    console.log(dat)
 
     if (e.material_data.anime_status == "ongoing" && formatDate(dat).moment.diff(moment.now(), "minute") > 0) {
 
@@ -195,12 +193,9 @@ document.getElementById('VoiceButtonMenu').addEventListener('click', () => {
 document.getElementById('search_form').addEventListener('submit', function (e) {
     e.preventDefault()
     const formdata = new FormData(this)
-    // console.log(formdata)
     formdata.forEach((val, key) => {
-        // console.log(val, key)
         GetKodi(encodeURI(val))
     });
-    // console.log(e.target[0].value, formdata)
 
     // GetKodi(encodeURI(e.target.value))
 })
@@ -314,20 +309,30 @@ async function get_settings() {
 }
 // url_get.searchParams.delete("seartch")
 
-async function getHome() {
-
+async function getHome(iss) {
+    // location.reload()
     HistoryIsActivy = true
     TypePage = 0
     document.getElementById("list_calendar").classList.add("hide")
+    document.getElementById("list_history").classList.add("hide")
     document.getElementById("list_serch").classList.remove("hide")
-    nav_panel_buttons.querySelectorAll('button').forEach((e)=>{
+    
+    nav_panel_buttons.querySelectorAll('button').forEach((e) => {
         e.classList.remove("active")
     })
     nav_panel_buttons.querySelector("#list_home_Button").classList.add("active")
+    if (!iss) {
+        document.getElementById('search_input').value = "";
+        url_get.searchParams.delete("seartch");
+        window.history.pushState({}, '', url_get);
+        GetKodi()
+    }
+    
 }
+
 async function getCalendar() {
 
-    nav_panel_buttons.querySelectorAll('button').forEach((e)=>{
+    nav_panel_buttons.querySelectorAll('button').forEach((e) => {
         e.classList.remove("active")
     })
     nav_panel_buttons.querySelector("#list_calendar_Button").classList.add("active")
@@ -517,7 +522,6 @@ function RangeRaiting(r) {
     r.target.title = `Фильтр по минимальному рейтингу: ${r.target.value}`
     document.getElementById('RangeRaitingTitle').textContent = `Рейтинг: ${r.target.value}`
     document.body.querySelectorAll(".cart_").forEach(e => {
-        console.log(e.r)
         e.r < r.target.value ? e.classList.add('hide') : e.classList.remove('hide')
 
     })
@@ -638,7 +642,6 @@ function add_cart(e) {
     return cart
 }
 function add_card_ned(e) {
-    console.log(e)
     const cart = document.createElement('div');
     cart.classList.add("cart_")
     // cart.classList.add("bg-dark")
@@ -795,7 +798,7 @@ async function GetKodi(seartch, revers) {
             url_get.searchParams.delete("seartch")
             window.history.pushState({}, '', url_get);
         } else {
-            getHome()
+            getHome(true)
             HistoryIsActivy = false
             ignoreVoice = true
             document.getElementById('search_input').value = decodeURIComponent(seartch)
@@ -906,7 +909,6 @@ function GetKodiScan(data, revers) {
                     const seartch = document.getElementById("search_input").value
                     if (cart_data && (!seartch || seartch == undefined || seartch == "")) {
                         if (cart_data.dat != e1.date.moment.format("DD")) {
-                            console.log(e1.date.moment.format("dd"), e1.date.moment.format("d"))
                             const e2 = Object.assign(e1, {
                                 "cart_data_old": cart_data,
                                 "cart_data_new": {
@@ -922,14 +924,12 @@ function GetKodiScan(data, revers) {
                                 "nn": e1.date.moment.format("d"),
                             }
                         }
-                        // console.log(111)
                     } else {
                         cart_data = {
                             "dat": e1.date.moment.format("DD"),
                             "n": e1.date.moment.format("dd"),
                             "nn": e1.date.moment.format("d"),
                         }
-                        // console.log(e1.date.moment.format("dd"))
                     }
                     targetFrame.appendChild(cart)
 
@@ -988,7 +988,6 @@ function AddUserRates(d) {
     })
         .then(response => response.json())
         .then(data => {
-            console.log("user_rates", data);
 
         })
         .catch(error => console.error(error));
@@ -1008,7 +1007,6 @@ function get_user() {
         })
         .then(data => {
             SH_UserData = data
-            console.log("SH_UserData", SH_UserData)
             get_favorit(data)
             SH_isAvtorize = true
         })
@@ -1030,7 +1028,6 @@ function get_favorit(data) {
             }
         })
         .then(data => {
-            console.log("SH_Favorite", data);
             SH_Favorite = data
         })
         .catch(error => {
