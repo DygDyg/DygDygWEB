@@ -196,67 +196,15 @@ sh_api.AddUserRates = (id, sl) => {
         })
         .catch(error => console.error(error));
 }
-/* sh_api.DelUserRates = (id) => {
-    // https://shikimori.one/api/v2/user_rates/173190119
-    /*     var url = `https://shikimori.one/api/user_rates/${id}`
-    
-        fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${sh_api.getCookie("sh_access_token")}`,
-                'Content-Type': 'application/json',
-                'User-Agent': 'Track Anime By DygDyg',
-            },
-    
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log("DelUserRates", data)
-            })
-            .catch(error => console.error(error)); 
-
-
-
-    const accessToken = sh_api.getCookie("sh_access_token"); // Замените на ваш токен
-    const userId = id; // Замените на идентификатор пользовательской оценки, которую нужно удалить
-    const url = `https://shikimori.one/api/user_rates/${userId}?access_token=${sh_api.getCookie("sh_access_token")}`;
-
-    fetch(url, {
-        method: 'DELETE',
-        headers: {
-            // 'Authorization': `Bearer ${accessToken}`,
-            'User-Agent': 'Track Anime By DygDyg',
-        },
-        body: `user_rate%5Buser_id%5D=${sh_api.UserData.id}&`
-            + `user_rate%5Btarget_id%5D=${id}&`
-            + `user_rate%5Btarget_type%5D=Anime&`
-            + `user_rate%5Bstatus%5D=${sh_api.status_lable[sl ? sl : 0]}&`,
-    })
-        .then(response => {
-
-            if (response.ok) {
-                console.log('User rate deleted successfully');
-            } else {
-                // console.error('Failed to delete user rate');
-                console.log(response.status, response)
-            }
-        })
-        .catch(error => console.error(error));
-} */
 
 sh_api.DelUserRates = (id, sl) => {
-    var url = `https://shikimori.one/api/user_rates/${id}?access_token=${sh_api.getCookie("sh_access_token")}`
-    // var url = `https://shikimori.one/api/user_rates?access_token=${sh_api.getCookie("sh_access_token")}`
+    var url = `https://shikimori.one/api/v2/user_rates/${id}?access_token=${sh_api.getCookie("sh_access_token")}`
     fetch(url, {
         method: 'DELETE',
-        // credentials: 'include',
 
         headers: {
-            // 'Authorization': `Bearer ${sh_api.getCookie("sh_access_token")}`,
-            "Authorization": `Bearer {${sh_api.getCookie("sh_access_token")}}`,
-            'Content-Type': 'application/x-www-form-urlencoded',
+            "Authorization": `Bearer ${sh_api.getCookie("sh_access_token")}`,
             'User-Agent': 'Track Anime By DygDyg',
-            // 'Cookie': `${getCookie("_kawai_session")}`
         },
         body: ``
     })
