@@ -270,7 +270,7 @@ document.getElementById("User_cloud_sinc_button").addEventListener('click', asyn
             if (!sh_api.Favorits.ids.includes(base_anime.fav)) {
                 setTimeout(() => {
                     sh_api.AddUserRates(e.toString(), 0);
-                    console.log("Выгружено ", 500 * i, e);
+                    console.log("Выгружено ", e, 500 * i);
                 }, 500 * i)
             };
         });
