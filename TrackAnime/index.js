@@ -1,4 +1,4 @@
-var data, dat, targetFrame, endid, endid2, prev_page, SH_UserData, SH_Favorite, cart_data
+var data, dat, targetFrame, endid, endid2, prev_page, SH_UserData, SH_Favorite, cart_data, backgrounds
 var ld = false, SH_isAvtorize = false;
 var AnimeScanID = {}
 const scrollM = 2000;
@@ -240,7 +240,27 @@ document.addEventListener("authorize", function (e) { // (1)
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
+getBackground()
+function getBackground() {
+    background = []
+    fetch('DataList.json')
+        .then(response => response.json())
+        .then(jsonData => {
+            jsonData.children.forEach(e1 => {
+                if (e1.name == "bg") {
+                    e1.children.forEach(e2 => {
+                        background.push(e2.name)
+                    });
+                }
+            });
+            setInterval(() => {
+                document.body.style.backgroundImage = `url(bg/${background[getRandomInt(background.length)]}) `
+            }, 30 * 60 * 1000);
+            document.body.style.backgroundImage = `url(bg/${background[getRandomInt(background.length)]}) `
+        });
 
+    // document.body.style.backgroundImage = `url(bg/7f623ee3f773bc93bc8422d3f1af9cd0aa441be0.jpg)`
+}
 
 closeDialogButton.addEventListener('click', () => {
     DialogVideoInfo.classList.remove("DialogVideoInfoScroll")
