@@ -19,6 +19,78 @@ body {
     position: absolute; */
 }
 
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #286090;
+    /* Темно-синий цвет */
+    border-color: #204d74;
+    /* Темно-синий цвет */
+}
+
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active,
+.btn-success.active,
+.open>.dropdown-toggle.btn-success {
+    color: #fff;
+    background-color: #3b8a3f;
+    /* Темно-зеленый цвет */
+    border-color: #2d6a2e;
+    /* Темно-зеленый цвет */
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger.active,
+.open>.dropdown-toggle.btn-danger {
+    color: #fff;
+    background-color: #9a3838;
+    /* Темно-красный цвет */
+    border-color: #792525;
+    /* Темно-красный цвет */
+}
+
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning:active,
+.btn-warning.active,
+.open>.dropdown-toggle.btn-warning {
+    color: #fff;
+    background-color: #ab7a2f;
+    /* Темно-оранжевый цвет */
+    border-color: #865b24;
+    /* Темно-оранжевый цвет */
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active,
+.btn-secondary.active,
+.open>.dropdown-toggle.btn-secondary {
+    color: #fff;
+    background-color: #5f5f5f;
+    /* Темно-серый цвет */
+    border-color: #464646;
+    /* Темно-серый цвет */
+}
+
+.btn-info:hover,
+.btn-info:focus,
+.btn-info:active,
+.btn-info.active,
+.open>.dropdown-toggle.btn-info {
+    color: #fff;
+    background-color: #386ab2;
+    /* Темно-голубой цвет */
+    border-color: #25518a;
+    /* Темно-голубой цвет */
+}
+
 #load {
     background-color: #0000008b;
     z-index: 999999999999999999;
@@ -350,9 +422,11 @@ span.sr-only {
     justify-content: space-between;
     align-items: stretch;
 }
-.cart_n:hover{
+
+.cart_n:hover {
     border-color: rgba(0, 0, 0, 0) !important;
 }
+
 .cart_n_bg {
     --bs-bg-opacity: 1;
     border-color: #212529;

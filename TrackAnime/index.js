@@ -191,6 +191,59 @@ function setVideoInfo(e) {
         `
     })
     VideoInfo.info.genres.innerHTML = html;
+
+    var btn_sh_save = document.getElementById('btn_sh_save')
+    btn_sh_save.ids = e.shikimori ? e.shikimori : null;
+    if (sh_api.authorize) {
+        sh_api.get_favorit()
+    } else {
+        btn_sh_save.classList.add("hide")
+        return
+    }
+    // btn_sh_save.sh_fv = 
+    btn_sh_save.sh_fv = sh_api.Favorits.data.find(item => item.anime.id == e.shikimori)
+    console.log(1, btn_sh_save.sh_fv)
+
+    btn_sh_save.classList.remove("hide")
+    btn_sh_save.classList.remove("btn-outline-light")
+    btn_sh_save.classList.remove("btn-primary")
+    btn_sh_save.classList.remove("btn-success")
+    btn_sh_save.classList.remove("btn-danger")
+    btn_sh_save.classList.remove("btn-warning")
+    btn_sh_save.classList.remove("btn-secondary")
+    btn_sh_save.classList.remove("btn-info")
+
+    switch (btn_sh_save?.sh_fv?.status) {
+        case "watching":
+            btn_sh_save.textContent = "смотрю"
+            btn_sh_save.classList.add("btn-primary")
+            break;
+        case "completed":
+            btn_sh_save.textContent = "просмотренно"
+            btn_sh_save.classList.add("btn-success")
+
+            break;
+        case "dropped":
+            btn_sh_save.textContent = "брошено"
+            btn_sh_save.classList.add("btn-danger")
+            break;
+        case "on_hold":
+            btn_sh_save.textContent = "отложено"
+            btn_sh_save.classList.add("btn-warning")
+            break;
+        case "planned":
+            btn_sh_save.textContent = "запланировано"
+            btn_sh_save.classList.add("btn-secondary")
+            break;
+        case "rewatching":
+            btn_sh_save.textContent = "пересматриваю"
+            btn_sh_save.classList.add("btn-info")
+            break;
+        default:
+            btn_sh_save.textContent = "Добавить"
+            btn_sh_save.classList.add("btn-outline-light")
+            break;
+    }
 }
 
 document.getElementById('VoiceButtonMenu').addEventListener('click', () => {
@@ -475,21 +528,89 @@ async function add_push(e) {
 
 }
 
+function AddFavorite(t) {
+    console.log(t)
+
+    var e1 = document.getElementById('btn_sh_save')
+
+    e1.classList.remove("btn-outline-light")
+    e1.classList.remove("btn-primary")
+    e1.classList.remove("btn-success")
+    e1.classList.remove("btn-danger")
+    e1.classList.remove("btn-warning")
+    e1.classList.remove("btn-secondary")
+    e1.classList.remove("btn-info")
+
+    switch (t) {
+        case 0:
+            e1.textContent = "смотрю"
+            e1.classList.add("btn-primary")
+            SetFavorite(e1.ids)
+            break;
+        case 1:
+            DeleteFavorite(e1.ids)
+            e1.textContent = "просмотренно"
+            e1.classList.add("btn-success")
+
+            break;
+        case 2:
+            e1.textContent = "брошено"
+            e1.classList.add("btn-danger")
+            DeleteFavorite(e1.ids)
+            setTimeout(() => {
+                sh_api.AddUserRates(Number(e1.ids), t)
+            }, 500);
+            break;
+        case 3:
+            e1.textContent = "отложено"
+            e1.classList.add("btn-warning")
+            DeleteFavorite(e1.ids)
+            setTimeout(() => {
+                sh_api.AddUserRates(Number(e1.ids), t)
+            }, 500);
+            break;
+        case 4:
+            e1.textContent = "запланировано"
+            e1.classList.add("btn-secondary")
+            DeleteFavorite(e1.ids)
+            setTimeout(() => {
+                sh_api.AddUserRates(Number(e1.ids), t)
+            }, 500);
+            break;
+        case 5:
+            e1.textContent = "пересматриваю"
+            e1.classList.add("btn-info")
+            DeleteFavorite(e1.ids)
+            setTimeout(() => {
+                sh_api.AddUserRates(Number(e1.ids), t)
+            }, 500);
+            break;
+        default:
+            e1.textContent = "Добавить"
+            e1.classList.add("btn-outline-light")
+            DeleteFavorite(e1.ids)
+            setTimeout(() => {
+                sh_api.AddUserRates(Number(e1.ids), t)
+            }, 500);
+            break;
+    }
+}
+
 function SetFavorite(e) {
     base_anime.fav.push(e)
     localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-    console.log(1, e)
+    // console.log(1, e)
     sh_api.AddUserRates(Number(e), 0)
-    console.log(2, e)
+    // console.log(2, e)
     return base_anime.fav
 }
 
 function DeleteFavorite(e) {
     base_anime.fav = base_anime.fav.filter(item => !item.includes(e));
     localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
-    console.log(3, e)
+    // console.log(3, e)
     sh_api.AddUserRates(Number(e), 1)
-    console.log(4, e)
+    // console.log(4, e)
     return base_anime.fav
 }
 
