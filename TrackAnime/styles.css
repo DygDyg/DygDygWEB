@@ -13,7 +13,7 @@ body {
     background-attachment: fixed;
     overflow: hidden;
     /* padding: 0px 15px 0px 15px; */
-    /* backdrop-filter: blur(3px); */
+    backdrop-filter: blur(4px) brightness(30%);
     /* width: 100%;
     height: 95%;
     position: absolute; */
