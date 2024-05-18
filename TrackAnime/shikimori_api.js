@@ -59,7 +59,7 @@ sh_api.add_token = () => {
         .then(response => response.json())
         .then(data => {
             console.log("get", data);
-            document.cookie = `sh_access_token=${data.access_token}; path=/; max-age=${data.expires_in}`
+            document.cookie = `sh_access_token=${data.access_token}; path=/; max-age=${data.expires_in};`
             document.cookie = `sh_refresh_token=${data.refresh_token}; path=/; max-age=9999999999999999999;`
 
             sh_api.url_get.searchParams.delete("code")
@@ -71,6 +71,12 @@ sh_api.add_token = () => {
             sh_api.get_user()
         })
         .catch(error => console.error(error));
+}
+sh_api.logout = () => {
+    document.cookie = `sh_access_token=""; path=/; max-age=-1;`
+    document.cookie = `sh_refresh_token=""; path=/; max-age=-1;`
+    document.cookie = `_kawai_session=""; path=/; max-age=-1;`
+    location.reload()
 }
 
 sh_api.refresh_token = () => {
@@ -158,4 +164,4 @@ sh_api.get_favorit = (sh_user) => {
             console.error('Возникла проблема с операцией выборки get_favorit:', error);
         });
 }
-if(sh_api.code) sh_api.add_token()
+if (sh_api.code) sh_api.add_token()

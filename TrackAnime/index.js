@@ -24,7 +24,11 @@ var URLList = "https://kodikapi.com/list?limit=100&with_material_data=true&camri
 var URLCalendar = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8&anime_status=ongoing"//&anime_kind=tv"//&countries=Япония"
 var URLListStart = "https://kodikapi.com/list?limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"
 
+
+
 window?.Notification?.requestPermission()
+sh_api.get_user()
+
 const voice = [
     "AniStar",
     "Dream Cast",
@@ -218,7 +222,6 @@ document.addEventListener("authorize", function (e) { // (1)
 
 });
 
-sh_api.get_user()
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -241,9 +244,10 @@ document.getElementById("list_home_Button").addEventListener('click', async () =
     getHome()
 });
 document.getElementById("list_login_Button").addEventListener('click', async () => {
-
     sh_api.get_key()
-    // console.log(sh_api.get_user())
+});
+document.getElementById("User_Logaut_button").addEventListener('click', async () => {
+    sh_api.logout()
 });
 
 VideoPlayerAnime.addEventListener("close", () => {
