@@ -2,7 +2,7 @@ var sh_api = {}
 
 sh_api.url_get = new URL(window.location.href)
 sh_api.UserData = {}
-sh_api.FavoritsLis = {}
+sh_api.Favorits = {}
 sh_api.authorize = false
 sh_api.authorize_ev = new Event("authorize", { bubbles: true })
 sh_api.code = sh_api.url_get.searchParams.get('code')
@@ -13,6 +13,14 @@ sh_api.status_lable = [
     "on_hold",
     "planned",
     "rewatching",
+]
+sh_api.status_lable_ru = [
+    "смотрю",
+    "просмотренно",
+    "брошено",
+    "отложено",
+    "запланировано",
+    "пересматриваю",
 ]
 
 /* document.addEventListener("authorize", function (e) { // (1)
@@ -53,8 +61,6 @@ sh_api.add_token = () => {
 
         return
     }
-
-    console.log(1, code)
 
     fetch('https://shikimori.one/oauth/token', {
         method: 'POST',
@@ -139,8 +145,7 @@ sh_api.get_user = (user) => {
             sh_api.authorize = true
             console.log("user_data", data);
             sh_api.UserData = data
-            document.dispatchEvent(sh_api.authorize_ev)
-            sh_api.get_favorit(data.id)
+            sh_api.get_favorit(user)
         })
         .catch(error => {
             console.error('Возникла проблема с операцией выборки get_user:', error);
@@ -164,9 +169,19 @@ sh_api.get_favorit = (sh_user) => {
             }
         })
         .then(data => {
-            console.log("anime_rates", data);
-            sh_api.Favorits = data
             sh_api.authorize = true
+            console.log("anime_rates", data);
+            if (sh_user) {
+                sh_api.Favorits[sh_user] = data
+            } else {
+                sh_api.Favorits.data = data
+                sh_api.Favorits.ids = []
+                sh_api.Favorits.data.forEach(e => {
+                    if (e.status == "watching") sh_api.Favorits.ids.push(e.anime.id)
+                });
+                document.dispatchEvent(sh_api.authorize_ev);
+            }
+
         })
         .catch(error => {
             console.error('Возникла проблема с операцией выборки get_favorit:', error);

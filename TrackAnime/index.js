@@ -214,12 +214,26 @@ document.getElementById("VideoInfoBtn").addEventListener('click', () => {
 document.addEventListener("authorize", function (e) { // (1)
     document.getElementById("list_login_Button").classList.add('hide')
     document.getElementById("User_Menu_Button").classList.remove('hide')
-    console.log(1, sh_api.UserData)
+    // console.log(1, sh_api.UserData)
     document.getElementById("User_Menu_Button").querySelector('img').src = sh_api.UserData.avatar
     document.getElementById("User_Menu_Button").querySelector('span').textContent = sh_api.UserData.nickname
+
     // console.log("authorize", e)
+    sh_api.Favorits.data.forEach(e => {
+        // console.log(e)
+        if (e.status == "watching" && !base_anime.fav.includes(e.anime.id.toString())) {
+            base_anime.fav.push(e.anime.id.toString())
 
+            // var a = []
+            // base_anime.fav.forEach(e => {
+            // console.log(e)
+            // a.push(e.toString())
+            // });
+            // base_anime.fav = a
 
+            localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+        }  //sh_api.Favorits.ids.push(e.anime.id)
+    });
 });
 
 
@@ -248,6 +262,17 @@ document.getElementById("list_login_Button").addEventListener('click', async () 
 });
 document.getElementById("User_Logaut_button").addEventListener('click', async () => {
     sh_api.logout()
+});
+document.getElementById("User_cloud_sinc_button").addEventListener('click', async () => {
+    if (confirm(`Выгрузить все ваши лайки в "смотрю"?`)) {
+        base_anime.fav.forEach(e => {
+
+            if (!sh_api.Favorits.ids.includes(base_anime.fav)) sh_api.AddUserRates(e.toString(), 0)
+        });
+
+        alert("База выгружена!!!")
+
+    }
 });
 
 VideoPlayerAnime.addEventListener("close", () => {
@@ -434,12 +459,18 @@ async function add_push(e) {
 function SetFavorite(e) {
     base_anime.fav.push(e)
     localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+    console.log(1, e)
+    sh_api.AddUserRates(Number(e), 0)
+    console.log(2, e)
     return base_anime.fav
 }
 
 function DeleteFavorite(e) {
     base_anime.fav = base_anime.fav.filter(item => !item.includes(e));
     localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
+    console.log(3, e)
+    sh_api.AddUserRates(Number(e), 1)
+    console.log(4, e)
     return base_anime.fav
 }
 
@@ -629,6 +660,7 @@ function add_cart(e) {
         ev.stopPropagation();
         if (GetFavorite(e.shikimori)) {
             cartFavorite.style.color = "#ffffff"
+            DeleteFavorite(e.shikimori)
         } else {
             cartFavorite.style.color = "#ffdd00"
             SetFavorite(e.shikimori)
