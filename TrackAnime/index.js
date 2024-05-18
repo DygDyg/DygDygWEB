@@ -762,6 +762,8 @@ function dialog(e, info) {
     info ? DialogVideoInfo.classList.add("DialogVideoInfoScroll") : DialogVideoInfo.classList.remove("DialogVideoInfoScroll")
 }
 
+
+
 function VoiceTranslate(name) {
 
     if (ignoreVoice || base_anime.translationActive < 1) return true
