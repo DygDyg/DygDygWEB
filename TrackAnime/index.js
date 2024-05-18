@@ -735,7 +735,7 @@ function dialog(e, info) {
     if (e.shift) {
         // return
         if (confirm(`Добавить аниме "${e.title}" в список "смотрю" на shikimori?`)) {
-            AddUserRates(e.shikimori)
+            // AddUserRates(e.shikimori)
         };
 
         //showToast(e);
