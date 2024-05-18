@@ -15,7 +15,10 @@ const VoiceSettings = document.getElementById('VoiceSettings');
 const VideoPlayer = document.getElementById('VideoPlayer');
 const list_calendar = document.getElementById("list_calendar");
 const container_ = document.body.querySelector('.container_');
+const load = document.getElementById("load");
 const nav_panel_buttons = document.querySelector('nav.navbar.navbar-expand-lg.bg-body-tertiary.sticky-top')
+const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 
 
 
@@ -284,19 +287,18 @@ document.getElementById("User_Logaut_button").addEventListener('click', async ()
     sh_api.logout()
 });
 document.getElementById("User_cloud_sinc_button").addEventListener('click', async () => {
+    load.classList.remove("hide")
     if (confirm(`Выгрузить все ваши лайки в "смотрю"?`)) {
         base_anime.fav.forEach((e, i) => {
-
+            console.log(i, base_anime.fav.length)
             if (!sh_api.Favorits.ids.includes(base_anime.fav)) {
                 setTimeout(() => {
                     sh_api.AddUserRates(e.toString(), 0);
                     console.log("Выгружено ", e, 500 * i);
                 }, 500 * i)
             };
+            if (base_anime.fav.length == i + 1) setTimeout(() => load.classList.add("hide"), (500 * i) + 100)
         });
-
-        // alert("База выгружена!!!")
-
     }
 });
 
