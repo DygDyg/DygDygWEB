@@ -255,7 +255,7 @@ function getBackground() {
             });
             setInterval(() => {
                 document.body.style.backgroundImage = `url(bg/${background[getRandomInt(background.length)]}) `
-            }, 30 * 60 * 1000);
+            }, 10 * 60 * 1000);
             document.body.style.backgroundImage = `url(bg/${background[getRandomInt(background.length)]}) `
         });
 
