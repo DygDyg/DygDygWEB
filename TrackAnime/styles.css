@@ -1,3 +1,7 @@
+*{
+    /* outline: 1px solid rgb(0, 128, 0) !important; */
+}
+
 body {
     background-color: rgb(66, 66, 66);
     /* display: flex; */
