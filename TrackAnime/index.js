@@ -422,7 +422,7 @@ async function addCalendar() {
         URLCalendarAdd = d1.next_page
     }
     data.forEach(e => {
-        if ((e.type == 'anime-serial') && e.translation.type == "voice" && e.shikimori_id && e.material_data.shikimori_rating > 0 && e.material_data.countries != "Китай") {
+        if ((e.type == 'anime-serial') && e.translation.type == "voice" && e.shikimori_id && e.material_data.shikimori_rating > 0 && e.material_data.countries != "Китай") {  //&& (e.material_data.countries != "Китай"||CheckChinaTrash)  && (e.material_data.countries != "Китай"||document.getElementById("CheckChinaTrash"))
             if (id.includes(e.shikimori_id)) return
             id.push(e.shikimori_id)
             const e1 = {
@@ -931,7 +931,7 @@ function GetKodiScan(data, revers) {
             endid = endid2
             return
         }
-        if ((e.type == 'anime-serial' || e.type == "anime") && e.translation.type == "voice" && e.shikimori_id && e.material_data.shikimori_rating > 0 && e.material_data.countries != "Китай") {
+        if ((e.type == 'anime-serial' || e.type == "anime") && e.translation.type == "voice" && e.shikimori_id && e.material_data.shikimori_rating > 0 && e.material_data.countries != "Китай") {  //&& e.material_data.countries != "Китай"
 
             if (VoiceTranslate(e.translation.title)) {
 
