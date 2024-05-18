@@ -252,7 +252,8 @@ sh_api.DelUserRates = (id, sl) => {
         // credentials: 'include',
 
         headers: {
-            'Authorization': `Bearer ${sh_api.getCookie("sh_access_token")}`,
+            // 'Authorization': `Bearer ${sh_api.getCookie("sh_access_token")}`,
+            "Authorization": `Bearer {${sh_api.getCookie("sh_access_token")}}`,
             'Content-Type': 'application/x-www-form-urlencoded',
             'User-Agent': 'Track Anime By DygDyg',
             // 'Cookie': `${getCookie("_kawai_session")}`
