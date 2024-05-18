@@ -207,30 +207,23 @@ document.getElementById("VideoInfoBtn").addEventListener('click', () => {
 
 })
 
-/* document.addEventListener('DOMContentLoaded', function () {
-    const navLinks = document.querySelectorAll('.nav-link');
+document.addEventListener("authorize", function (e) { // (1)
+    document.getElementById("list_login_Button").classList.add('hide')
+    document.getElementById("User_Menu_Button").classList.remove('hide')
+    console.log(1, sh_api.UserData)
+    document.getElementById("User_Menu_Button").querySelector('img').src = sh_api.UserData.avatar
+    document.getElementById("User_Menu_Button").querySelector('span').textContent = sh_api.UserData.nickname
+    // console.log("authorize", e)
 
-    navLinks.forEach(link => {
-        link.addEventListener('click', function () {
-            navLinks.forEach(nav => nav.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
 
-    // Для отображения активной ссылки при загрузке страницы в зависимости от якоря URL
-    const currentHash = window.location.hash;
-    if (currentHash) {
-        const activeLink = document.querySelector(`.nav-link[href="${currentHash}"]`);
-        if (activeLink) {
-            navLinks.forEach(nav => nav.classList.remove('active'));
-            activeLink.classList.add('active');
-        }
-    }
-}); */
+});
+
+sh_api.get_user()
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
+
 
 closeDialogButton.addEventListener('click', () => {
     DialogVideoInfo.classList.remove("DialogVideoInfoScroll")
@@ -246,6 +239,11 @@ document.getElementById("list_calendar_Button").addEventListener('click', async 
 });
 document.getElementById("list_home_Button").addEventListener('click', async () => {
     getHome()
+});
+document.getElementById("list_login_Button").addEventListener('click', async () => {
+
+    sh_api.get_key()
+    // console.log(sh_api.get_user())
 });
 
 VideoPlayerAnime.addEventListener("close", () => {

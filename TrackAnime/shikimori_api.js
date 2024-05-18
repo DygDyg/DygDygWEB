@@ -1,24 +1,40 @@
-
-
 var sh_api = {}
 
 sh_api.url_get = new URL(window.location.href)
 sh_api.UserData = {}
 sh_api.FavoritsLis = {}
+sh_api.authorize = false
+sh_api.authorize_ev = new Event("authorize", { bubbles: true })
+sh_api.code = sh_api.url_get.searchParams.get('code')
 
-sh_api.getCookie = async (name) => {
+/* document.addEventListener("authorize", function (e) { // (1)
+    console.log("authorize", e)
+
+}); */
+
+
+sh_api.getCookie = (name) => {
     var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-sh_api.add_token = async () => {
+sh_api.get_key = () => {
+    window.open(`https://shikimori.one/oauth/authorize?client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&redirect_uri=${window.location.origin}${window.location.pathname}&response_type=code`, "_self");
+    return
+    code = sh_api.url_get.searchParams.get('code')
+    if (!code && !sh_api.getCookie("sh_refresh_token")) {
+    }
+}
+
+sh_api.add_token = () => {
 
     if (sh_api.getCookie("sh_access_token")) {
         return sh_api.getCookie("sh_access_token")
     }
 
-
+    code = sh_api.url_get.searchParams.get('code')
     if (!code && !sh_api.getCookie("sh_refresh_token")) {
+        return "no_key"
         window.open(`https://shikimori.one/oauth/authorize?client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&redirect_uri=${window.location.origin}${window.location.pathname}&response_type=code`, "_self");
         return
     }
@@ -31,7 +47,8 @@ sh_api.add_token = async () => {
     }
 
     console.log(1, code)
-    await fetch('https://shikimori.one/oauth/token', {
+
+    fetch('https://shikimori.one/oauth/token', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -46,25 +63,29 @@ sh_api.add_token = async () => {
             document.cookie = `sh_refresh_token=${data.refresh_token}; path=/; max-age=9999999999999999999;`
 
             sh_api.url_get.searchParams.delete("code")
-            window.history.pushState({}, '', url_get);
+            window.history.pushState({}, '', sh_api.url_get);
 
-            if (data.error == "invalid_grant") window.open(`https://shikimori.one/oauth/authorize?client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&redirect_uri=${window.location.origin}${window.location.pathname}&response_type=code`, "_self");
+            // if (data.error == "invalid_grant") window.open(`https://shikimori.one/oauth/authorize?client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&redirect_uri=${window.location.origin}${window.location.pathname}&response_type=code`, "_self");
             // location.reload()
+            sh_api.authorize = true
+            sh_api.get_user()
         })
         .catch(error => console.error(error));
 }
 
-sh_api.refresh_token = async () => {
+sh_api.refresh_token = () => {
 
     if (sh_api.getCookie("sh_access_token")) {
         return sh_api.getCookie("sh_access_token")
     }
 
     if (!sh_api.getCookie("sh_refresh_token")) {
+        sh_api.authorize = false
+        return "No_Authorize"
         window.open(`https://shikimori.one/oauth/authorize?client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&redirect_uri=${window.location.origin}${window.location.pathname}&response_type=code`, "_self");
     }
 
-    await fetch('https://shikimori.one/oauth/token', {
+    fetch('https://shikimori.one/oauth/token', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -78,48 +99,63 @@ sh_api.refresh_token = async () => {
             document.cookie = `sh_access_token=${data.access_token}; path=/; max-age=${data.expires_in}`
             document.cookie = `sh_refresh_token=${data.refresh_token}; path=/;`
             if (data.error == "invalid_grant") window.open(`https://shikimori.one/oauth/authorize?client_id=aBohwwIpPXeCgSlo1xorfHKPaRBsdpW0_MMF8S-7SWA&redirect_uri=${window.location.origin}${window.location.pathname}&response_type=code`, "_self");
-            location.reload()
+            sh_api.authorize = true
+            sh_api.get_user()
+            // location.reload()
         })
         .catch(error => console.error(error));
+
 }
 
-sh_api.get_user = async () => {
-    var url = `https://shikimori.one/api/users/${url_get.searchParams.get('user') ? url_get.searchParams.get('user') : "whoami"}?access_token=${getCookie("sh_access_token")}`
-    await fetch(url)
+sh_api.get_user = (user) => {
+    if (!sh_api.getCookie("sh_access_token")) {
+        const ot = sh_api.refresh_token()
+        if (ot == "No_Authorize") return ot
+    }
+    const url = `https://shikimori.one/api/users/${user ? user : "whoami"}?access_token=${sh_api.getCookie("sh_access_token")}`
+    fetch(url)
         .then(response => {
             if (response.ok) {
                 return response.json();
             } else {
-                throw new Error('Network response was not ok.');
+                throw new Error('Ответ сети был не в порядке. get_user');
             }
         })
         .then(data => {
+            sh_api.authorize = true
             console.log("user_data", data);
             sh_api.UserData = data
-            sh_api.get_favorit()
+            document.dispatchEvent(sh_api.authorize_ev)
+            sh_api.get_favorit(data.id)
         })
         .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
+            console.error('Возникла проблема с операцией выборки get_user:', error);
         });
 
 
     // document.cookie = getCookie("KeyTab") ? `` : `KeyTab=${KeyTab}; path=/; max-age=10`
 }
 
-sh_api.get_favorit = async () => {
-    await fetch(`https://shikimori.one/api/users/${sh_api.url_get.searchParams.get('user') ? sh_api.url_get.searchParams.get('user') : sh_api.UserData.id}/anime_rates?limit=5000&access_token=${getCookie("sh_access_token")}`)
+sh_api.get_favorit = (sh_user) => {
+    if (!sh_api.getCookie("sh_access_token")) {
+        const ot = sh_api.refresh_token()
+        if (ot == "No_Authorize") return ot
+    }
+    fetch(`https://shikimori.one/api/users/${sh_user ? sh_user : sh_api.UserData.id}/anime_rates?limit=5000&access_token=${sh_api.getCookie("sh_access_token")}`)
         .then(response => {
             if (response.ok) {
                 return response.json();
             } else {
-                throw new Error('Network response was not ok.');
+                throw new Error('Ответ сети был не в порядке. get_favorit');
             }
         })
         .then(data => {
             console.log("anime_rates", data);
             sh_api.Favorits = data
+            sh_api.authorize = true
         })
         .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
+            console.error('Возникла проблема с операцией выборки get_favorit:', error);
         });
 }
+if(sh_api.code) sh_api.add_token()
