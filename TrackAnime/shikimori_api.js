@@ -196,7 +196,7 @@ sh_api.AddUserRates = (id, sl) => {
         })
         .catch(error => console.error(error));
 }
-sh_api.DelUserRates = (id) => {
+/* sh_api.DelUserRates = (id) => {
     // https://shikimori.one/api/v2/user_rates/173190119
     /*     var url = `https://shikimori.one/api/user_rates/${id}`
     
@@ -213,7 +213,7 @@ sh_api.DelUserRates = (id) => {
             .then(data => {
                 console.log("DelUserRates", data)
             })
-            .catch(error => console.error(error)); */
+            .catch(error => console.error(error)); 
 
 
 
@@ -227,6 +227,10 @@ sh_api.DelUserRates = (id) => {
             // 'Authorization': `Bearer ${accessToken}`,
             'User-Agent': 'Track Anime By DygDyg',
         },
+        body: `user_rate%5Buser_id%5D=${sh_api.UserData.id}&`
+            + `user_rate%5Btarget_id%5D=${id}&`
+            + `user_rate%5Btarget_type%5D=Anime&`
+            + `user_rate%5Bstatus%5D=${sh_api.status_lable[sl ? sl : 0]}&`,
     })
         .then(response => {
 
@@ -238,8 +242,29 @@ sh_api.DelUserRates = (id) => {
             }
         })
         .catch(error => console.error(error));
-}
+} */
 
+sh_api.DelUserRates = (id, sl) => {
+    var url = `https://shikimori.one/api/user_rates/${id}?access_token=${sh_api.getCookie("sh_access_token")}`
+    // var url = `https://shikimori.one/api/user_rates?access_token=${sh_api.getCookie("sh_access_token")}`
+    fetch(url, {
+        method: 'DELETE',
+        // credentials: 'include',
+
+        headers: {
+            'Authorization': `Bearer ${sh_api.getCookie("sh_access_token")}`,
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'User-Agent': 'Track Anime By DygDyg',
+            // 'Cookie': `${getCookie("_kawai_session")}`
+        },
+        body: ``
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log("DelUserRates", data)
+        })
+        .catch(error => console.error(error));
+}
 
 
 
