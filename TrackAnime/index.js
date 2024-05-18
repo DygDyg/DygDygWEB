@@ -226,14 +226,6 @@ document.addEventListener("authorize", function (e) { // (1)
         // console.log(e)
         if (e.status == "watching" && !base_anime.fav.includes(e.anime.id.toString())) {
             base_anime.fav.push(e.anime.id.toString())
-
-            // var a = []
-            // base_anime.fav.forEach(e => {
-            // console.log(e)
-            // a.push(e.toString())
-            // });
-            // base_anime.fav = a
-
             localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
         }  //sh_api.Favorits.ids.push(e.anime.id)
     });
