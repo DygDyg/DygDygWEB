@@ -265,12 +265,17 @@ document.getElementById("User_Logaut_button").addEventListener('click', async ()
 });
 document.getElementById("User_cloud_sinc_button").addEventListener('click', async () => {
     if (confirm(`Выгрузить все ваши лайки в "смотрю"?`)) {
-        base_anime.fav.forEach(e => {
+        base_anime.fav.forEach((e, i) => {
 
-            if (!sh_api.Favorits.ids.includes(base_anime.fav)) sh_api.AddUserRates(e.toString(), 0)
+            if (!sh_api.Favorits.ids.includes(base_anime.fav)) {
+                setTimeout(() => {
+                    sh_api.AddUserRates(e.toString(), 0);
+                    console.log("Выгружено ", 1000 * i, e);
+                }, 1000 * i)
+            };
         });
 
-        alert("База выгружена!!!")
+        // alert("База выгружена!!!")
 
     }
 });
