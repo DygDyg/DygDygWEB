@@ -6,6 +6,14 @@ sh_api.FavoritsLis = {}
 sh_api.authorize = false
 sh_api.authorize_ev = new Event("authorize", { bubbles: true })
 sh_api.code = sh_api.url_get.searchParams.get('code')
+sh_api.status_lable = [
+    "watching",
+    "completed",
+    "dropped",
+    "on_hold",
+    "planned",
+    "rewatching",
+]
 
 /* document.addEventListener("authorize", function (e) { // (1)
     console.log("authorize", e)
@@ -164,4 +172,78 @@ sh_api.get_favorit = (sh_user) => {
             console.error('Возникла проблема с операцией выборки get_favorit:', error);
         });
 }
+
+sh_api.AddUserRates = (id, sl) => {
+
+    var url = `https://shikimori.one/api/user_rates?access_token=${sh_api.getCookie("sh_access_token")}`
+    fetch(url, {
+        method: 'POST',
+        // credentials: 'include',
+
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'User-Agent': 'Track Anime By DygDyg',
+            // 'Cookie': `${getCookie("_kawai_session")}`
+        },
+        body: `user_rate%5Buser_id%5D=${sh_api.UserData.id}&`
+            + `user_rate%5Btarget_id%5D=${id}&`
+            + `user_rate%5Btarget_type%5D=Anime&`
+            + `user_rate%5Bstatus%5D=${sh_api.status_lable[sl ? sl : 0]}&`
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log("AddUserRates", data)
+        })
+        .catch(error => console.error(error));
+}
+sh_api.DelUserRates = (id) => {
+    // https://shikimori.one/api/v2/user_rates/173190119
+    /*     var url = `https://shikimori.one/api/user_rates/${id}`
+    
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${sh_api.getCookie("sh_access_token")}`,
+                'Content-Type': 'application/json',
+                'User-Agent': 'Track Anime By DygDyg',
+            },
+    
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("DelUserRates", data)
+            })
+            .catch(error => console.error(error)); */
+
+
+
+    const accessToken = sh_api.getCookie("sh_access_token"); // Замените на ваш токен
+    const userId = id; // Замените на идентификатор пользовательской оценки, которую нужно удалить
+    const url = `https://shikimori.one/api/user_rates/${userId}?access_token=${sh_api.getCookie("sh_access_token")}`;
+
+    fetch(url, {
+        method: 'DELETE',
+        headers: {
+            // 'Authorization': `Bearer ${accessToken}`,
+            'User-Agent': 'Track Anime By DygDyg',
+        },
+    })
+        .then(response => {
+
+            if (response.ok) {
+                console.log('User rate deleted successfully');
+            } else {
+                // console.error('Failed to delete user rate');
+                console.log(response.status, response)
+            }
+        })
+        .catch(error => console.error(error));
+}
+
+
+
+
+
+
+
 if (sh_api.code) sh_api.add_token()

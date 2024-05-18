@@ -404,10 +404,7 @@ async function addCalendar() {
     document.getElementById("load").classList.add("hide")
 }
 
-function getCookie(name) {
-    var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-}
+
 async function add_push(e) {
     if (!GetFavorite(e.shikimori) && base_anime.fav.length > 0) return
 
@@ -959,83 +956,3 @@ localStorage.setItem('BaseAnime', JSON.stringify(base_anime));
 
 
 
-
-
-/////////////////////////////////////////////////////////////////
-//////////////Shikimori API ////////////////////////////////////
-
-
-
-function AddUserRates(d) {
-
-    var url = `https://shikimori.one/api/user_rates?access_token=${getCookie("sh_access_token")}`
-    const status_lable = [
-        "watching",
-        "completed",
-        "dropped",
-        "on_hold",
-        "planned",
-        "rewatching",
-    ]
-
-    fetch(url, {
-        method: 'POST',
-        // credentials: 'include',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'User-Agent': 'Track Anime By DygDyg',
-            // 'Cookie': `${getCookie("_kawai_session")}`
-        },
-        body: `user_rate%5Buser_id%5D=${SH_UserData.id}&`
-            + `user_rate%5Btarget_id%5D=${d}&`
-            + `user_rate%5Btarget_type%5D=Anime&`
-            + `user_rate%5Bstatus%5D=${status_lable[0]}&`
-    })
-        .then(response => response.json())
-        .then(data => {
-
-        })
-        .catch(error => console.error(error));
-}
-
-// get_user()
-
-function get_user() {
-    var url = `https://shikimori.one/api/users/whoami?access_token=${getCookie("sh_access_token")}`
-    fetch(url)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Network response was not ok.');
-            }
-        })
-        .then(data => {
-            SH_UserData = data
-            get_favorit(data)
-            SH_isAvtorize = true
-        })
-        .catch(error => {
-            SH_isAvtorize = false
-            console.error('There was a problem with the fetch operation:', error);
-        });
-
-
-    // document.cookie = getCookie("KeyTab") ? `` : `KeyTab=${KeyTab}; path=/; max-age=10`
-}
-function get_favorit(data) {
-    fetch(`https://shikimori.one/api/users/${data.id}/anime_rates?limit=5000&access_token=${getCookie("sh_access_token")}`)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Network response was not ok.');
-            }
-        })
-        .then(data => {
-            SH_Favorite = data
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
-}
