@@ -17,7 +17,7 @@ const list_calendar = document.getElementById("list_calendar");
 const container_ = document.body.querySelector('.container_');
 const load = document.getElementById("load");
 
-// const nav_panel_buttons = document.querySelector('nav.navbar.navbar-expand-lg.bg-body-tertiary.sticky-top')
+const nav_panel_buttons = document.querySelector('nav.navbar.navbar-expand-lg.bg-body-tertiary.sticky-top')
 // const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
 // const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 
@@ -429,7 +429,6 @@ async function getHome(iss) {
 }
 
 async function getCalendar() {
-
     nav_panel_buttons.querySelectorAll('button').forEach((e) => {
         e.classList.remove("active")
     })
