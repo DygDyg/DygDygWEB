@@ -702,8 +702,14 @@ function add_cart(e) {
     cart.r = e.raiting
     document.body.r > cart.r ? cart.classList.add('hide') : null;
 
-    cart.addEventListener("click", (event) => {
-
+    cart.addEventListener("mousedown", (event) => {
+        console.log(event.which, event.button);
+        var a = new URL(window.location.href)
+        a.searchParams.set("shikimori_id", `${e.shikimori}`)
+        // console.log(a.href);
+        // console.log(e.shikimori);
+        // return
+        if(event.button==1)  return window.open(a.href, '_blank')
         e.shift = event.shiftKey
         dialog(e, !event.shiftKey)
         cart.classList.remove("new_cart")
