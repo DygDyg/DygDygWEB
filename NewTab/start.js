@@ -35,5 +35,7 @@ background = localStorage.getItem('background')
 urls = localStorage.getItem('urls').split(',')
 names = localStorage.getItem('names').split(',')
 images = localStorage.getItem('images').split(',')
+
 ShowCard = stringToBool(localStorage.getItem('ShowCard'))
 
+console.log(urls, names, images, background)
