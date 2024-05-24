@@ -688,20 +688,20 @@ if (getUrlParameter("options") == "true") {
 }
 function json_save() {
 	let load = {
-		background: localStorage.getItem("background").split(','),
+		background: localStorage.getItem("background"),
 		names: localStorage.getItem("names").split(','),
 		urls: localStorage.getItem("urls").split(','),
 		images: localStorage.getItem("images").split(','),
-		volume: localStorage.getItem("volume").split(','),
+		volume: localStorage.getItem("volume"),
 	}
 	let load1 = JSON.parse(prompt("Скопируй текущие данные и сохрани их. Или вставь сюда новые.", JSON.stringify(load)))
 	if (!load1) return
 
-	localStorage.setItem("background", load1.background)
-	localStorage.setItem("names", load1.names)
-	localStorage.setItem("urls", load1.urls)
-	localStorage.setItem("images", load1.images)
-	localStorage.setItem("volume", load1.volume)
+	load1?.background?localStorage.setItem("background", load1.background):null
+	load1?.names?localStorage.setItem("names", load1.names):null
+	load1?.urls?localStorage.setItem("urls", load1.urls):null
+	load1?.images?localStorage.setItem("images", load1.images):null
+	load1?.volume?localStorage.setItem("volume", load1.volume):null
 	location.reload()
 }
 function cloud_load(fs) {
