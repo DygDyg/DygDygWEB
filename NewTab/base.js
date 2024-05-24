@@ -6,7 +6,7 @@ var SiteURL = document.location.href.replace(/\/+$/, '');
 var Calc = false;
 var volume = localStorage.getItem("volume") || 100
 var dygdyg_test;
-var scrollP = [0,0];
+var scrollP = [0, 0];
 // var timezones = ["", "Asia/Vladivostok"]
 var timezones = [
 	TZSearch("moscow"),
@@ -611,7 +611,7 @@ function time_rotator(m, z) {
 
 // console.log(getUrlParameter('ShowCardF'))
 
-$(window).on('load', function() {
+$(window).on('load', function () {
 	switch (getUrlParameter('ShowCardF')) {
 		case "true":
 			console.log('ShowCardF', "true")
@@ -686,8 +686,26 @@ if (window.location.href.match(/.*\#.*/)) {
 if (getUrlParameter("options") == "true") {
 	settings(new Object().shiftKey = false)
 }
+function json_save() {
+	let load = {
+		background: localStorage.getItem("background"),
+		names: localStorage.getItem("names"),
+		urls: localStorage.getItem("urls"),
+		images: localStorage.getItem("images"),
+	}
+	let load1 = JSON.parse(prompt("Скопируй текущие данные и сохрани их. Или вставь сюда новые.", JSON.stringify(load)))
+	if (!load1) return
 
+	localStorage.setItem("background", load1.background)
+	localStorage.setItem("names", load1.names)
+	localStorage.setItem("urls", load1.urls)
+	localStorage.setItem("images", load1.images)
+	location.reload()
+}
 function cloud_load(fs) {
+	json_save()
+
+	return
 	if (confirm("Загрузить из облака? Это перезапишет текущие настройки")) {
 
 		loading = true
@@ -731,6 +749,8 @@ function cloud_load(fs) {
 }
 
 function cloud_save() {
+	json_save()
+	return
 	if (confirm("Сохранить в облако? Это перезапишет текущие настройки")) {
 		let a123 = []
 		for (let i = 0; i < localStorage.length; i++) {
