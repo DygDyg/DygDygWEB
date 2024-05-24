@@ -378,7 +378,7 @@ function settings(th) {
 		$('#button_top').append('<div id="vk_ls"></div>')
 		$('#vk_ls').append('<div class="vk_ls" id="vk_load"></div>')
 		// $('#vk_ls').append('<div class="vk_ls" id="vk_button"></div>')
-		// $('#vk_ls').append('<div class="vk_ls" id="vk_saved"></div>')
+		$('#vk_ls').append('<div class="vk_ls" id="vk_saved"></div>')
 		$('#button_top').append('<div id="exit" style="cursor: pointer; background-color: #ff4444eb; color: white; width: 21px; height: 21px; display: flex; align-items: center; justify-content: center;" title="Закрыть настройки"><div style=" font-size: 40px; font-weight: 900; -webkit-user-select: none; transform: rotate(45deg);">+</div></div>')
 
 		$('#vk_button').click(function () {
@@ -692,7 +692,7 @@ if (getUrlParameter("options") == "true") {
 $("#json_save_form").on("change", function () {
 	var load = this.value
 	load = JSON.parse(load)
-	if (confirm(load)) {
+	if (confirm("Загрузить введённые данные? Это заменит текущие настройки.")) {
 		load?.background ? localStorage.setItem("background", load.background) : null
 		load?.names ? localStorage.setItem("names", load.names) : null
 		load?.urls ? localStorage.setItem("urls", load.urls) : null
@@ -702,7 +702,7 @@ $("#json_save_form").on("change", function () {
 	}
 })
 function json_save() {
-	let load = {
+	const load = {
 		urls: localStorage.getItem("urls").split(','),
 		names: localStorage.getItem("names").split(','),
 		images: localStorage.getItem("images").split(','),
@@ -724,8 +724,32 @@ function json_save() {
 	load1?.volume ? localStorage.setItem("volume", load1.volume) : null
 	location.reload()
 }
+const jsonDataSave = document.createElement("input");
+jsonDataSave.type = "file";
+jsonDataSave.addEventListener("change", function () {
+	const file = jsonDataSave.files[0];
+
+	const reader = new FileReader();
+
+	reader.addEventListener("load", function () {
+		// Получаем содержимое файла в виде строки
+		const jsonData = JSON.parse(reader.result);
+
+		jsonData?.background ? localStorage.setItem("background", jsonData.background) : null
+		jsonData?.names ? localStorage.setItem("names", jsonData.names) : null
+		jsonData?.urls ? localStorage.setItem("urls", jsonData.urls) : null
+		jsonData?.images ? localStorage.setItem("images", jsonData.images) : null
+		jsonData?.volume ? localStorage.setItem("volume", jsonData.volume) : null
+		location.reload()
+	});
+
+	reader.readAsText(file);
+});
+
 function cloud_load(fs) {
-	json_save()
+	jsonDataSave.click();
+
+	// json_save()
 
 	return
 	if (confirm("Загрузить из облака? Это перезапишет текущие настройки")) {
@@ -771,7 +795,18 @@ function cloud_load(fs) {
 }
 
 function cloud_save() {
-	json_save()
+	let load = {
+		urls: localStorage.getItem("urls").split(','),
+		names: localStorage.getItem("names").split(','),
+		images: localStorage.getItem("images").split(','),
+		volume: localStorage.getItem("volume"),
+		background: localStorage.getItem("background"),
+	}
+	const downloadLink = document.createElement("a");
+	downloadLink.href = `data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(load))}`;
+	downloadLink.download = "base.json";
+	downloadLink.click();
+	// json_save()
 	return
 	if (confirm("Сохранить в облако? Это перезапишет текущие настройки")) {
 		let a123 = []
