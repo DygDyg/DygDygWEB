@@ -62,7 +62,7 @@ function resize_info() {
 }
 
 num = 1
-$('body').append('<dialog id="dialog" style="top: 50%;width: 70%;z-index: 1000;background-color: #242424;" ><input name="json_save_form" type="text" id="json_save_form" style="width: 100%; height: 40px;"/></dialog>')
+$('body').append('<dialog id="dialog" style=" top: 50%;width: 70%;z-index: 1000;background-color: #242424;color: #ffe4e4;" ><h2/>Скопируй и сохрани этот код для бекапа.<br>Чтобы восстановить бекап, вставь свой код заместо этого<input name="json_save_form" type="text" id="json_save_form" style="width: 100%; height: 40px;"/></dialog>')
 $('body').append('<div id="searchs"></div>')
 $('#searchs').append('<input id="search" type="text" placeholder="Искать в яндекс, Shift - перевести, Ctrl - youtube, Alt - animego.org">')
 $('#search').on("input", function () {
