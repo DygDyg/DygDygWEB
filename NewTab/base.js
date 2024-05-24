@@ -62,6 +62,7 @@ function resize_info() {
 }
 
 num = 1
+$('body').append('<input name="json_save_form" type="text" id="json_save_form" style="width: 90%; height: 60px; display: none;"/>')
 $('body').append('<div id="searchs"></div>')
 $('#searchs').append('<input id="search" type="text" placeholder="Искать в яндекс, Shift - перевести, Ctrl - youtube, Alt - animego.org">')
 $('#search').on("input", function () {
@@ -69,6 +70,8 @@ $('#search').on("input", function () {
 })
 $('#searchs').append('<div id="calc_result"></div>')
 if (getUrlParameter('search') == "false") $('#search').css('display', "none")
+
+
 
 $(document).ready(function () {
 	$('#search').keydown(function (e) {
@@ -686,6 +689,18 @@ if (window.location.href.match(/.*\#.*/)) {
 if (getUrlParameter("options") == "true") {
 	settings(new Object().shiftKey = false)
 }
+$("#json_save_form").on("change", function () {
+	var load = this.value
+	load = JSON.parse(load)
+	if (confirm(load)) {
+		load?.background ? localStorage.setItem("background", load.background) : null
+		load?.names ? localStorage.setItem("names", load.names) : null
+		load?.urls ? localStorage.setItem("urls", load.urls) : null
+		load?.images ? localStorage.setItem("images", load.images) : null
+		load?.volume ? localStorage.setItem("volume", load.volume) : null
+		location.reload()
+	}
+})
 function json_save() {
 	let load = {
 		urls: localStorage.getItem("urls").split(','),
@@ -694,14 +709,19 @@ function json_save() {
 		volume: localStorage.getItem("volume"),
 		background: localStorage.getItem("background"),
 	}
-	let load1 = JSON.parse(prompt("Скопируй текущие данные и сохрани их. Или вставь сюда новые.", JSON.stringify(load)))
+
+	$("#json_save_form").css("display", "flex")
+	$("#json_save_form").val(JSON.stringify(load)).select()
+	$('#body_menu').remove()
+	// let load1 = JSON.parse(prompt("Скопируй текущие данные и сохрани их. Или вставь сюда новые.", JSON.stringify(load)))
+	return
 	if (!load1) return
 
-	load1?.background?localStorage.setItem("background", load1.background):null
-	load1?.names?localStorage.setItem("names", load1.names):null
-	load1?.urls?localStorage.setItem("urls", load1.urls):null
-	load1?.images?localStorage.setItem("images", load1.images):null
-	load1?.volume?localStorage.setItem("volume", load1.volume):null
+	load1?.background ? localStorage.setItem("background", load1.background) : null
+	load1?.names ? localStorage.setItem("names", load1.names) : null
+	load1?.urls ? localStorage.setItem("urls", load1.urls) : null
+	load1?.images ? localStorage.setItem("images", load1.images) : null
+	load1?.volume ? localStorage.setItem("volume", load1.volume) : null
 	location.reload()
 }
 function cloud_load(fs) {
