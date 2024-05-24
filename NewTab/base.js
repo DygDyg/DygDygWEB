@@ -400,9 +400,9 @@ function settings(th) {
 
 		})
 
-/* 		if (!localStorage.getItem("access_token")) {
-			$('.vk_ls').addClass("vk_offline")
-		} */
+		/* 		if (!localStorage.getItem("access_token")) {
+					$('.vk_ls').addClass("vk_offline")
+				} */
 
 		for (let i = 0; i < urls.length; i++) {
 			$('#settings').append('<div style="margin: 5px 0px 5px 0px; display: flex; flex-wrap: nowrap;" id="line_' + i + '">')
