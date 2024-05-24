@@ -733,7 +733,7 @@ jsonDataSave.addEventListener("change", function () {
 
 	reader.addEventListener("load", function () {
 		// Получаем содержимое файла в виде строки
-		const jsonData = JSON.parse(reader.result);
+		const jsonData = JSON.parse(reader?.result);
 
 		jsonData?.background ? localStorage.setItem("background", jsonData.background) : null
 		jsonData?.names ? localStorage.setItem("names", jsonData.names) : null
