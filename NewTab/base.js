@@ -378,7 +378,7 @@ function settings(th) {
 		$('#button_top').append('<div id="vk_ls"></div>')
 		$('#vk_ls').append('<div class="vk_ls" id="vk_load"></div>')
 		// $('#vk_ls').append('<div class="vk_ls" id="vk_button"></div>')
-		$('#vk_ls').append('<div class="vk_ls" id="vk_saved"></div>')
+		// $('#vk_ls').append('<div class="vk_ls" id="vk_saved"></div>')
 		$('#button_top').append('<div id="exit" style="cursor: pointer; background-color: #ff4444eb; color: white; width: 21px; height: 21px; display: flex; align-items: center; justify-content: center;" title="Закрыть настройки"><div style=" font-size: 40px; font-weight: 900; -webkit-user-select: none; transform: rotate(45deg);">+</div></div>')
 
 		$('#vk_button').click(function () {
