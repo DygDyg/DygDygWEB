@@ -374,7 +374,7 @@ function settings(th) {
 		$('#button_top').append('<div id="add_button" style="cursor: pointer; background-color: #ffffffeb; width: 21px; height: 21px; display: flex; align-items: center; justify-content: center;" title="Добавить вкладку"><div style=" font-size: 33px; font-weight: 900; -webkit-user-select: none;">+</div></div>')
 		$('#button_top').append('<div id="vk_ls"></div>')
 		$('#vk_ls').append('<div class="vk_ls" id="vk_load"></div>')
-		$('#vk_ls').append('<div class="vk_ls" id="vk_button"></div>')
+		// $('#vk_ls').append('<div class="vk_ls" id="vk_button"></div>')
 		$('#vk_ls').append('<div class="vk_ls" id="vk_saved"></div>')
 		$('#button_top').append('<div id="exit" style="cursor: pointer; background-color: #ff4444eb; color: white; width: 21px; height: 21px; display: flex; align-items: center; justify-content: center;" title="Закрыть настройки"><div style=" font-size: 40px; font-weight: 900; -webkit-user-select: none; transform: rotate(45deg);">+</div></div>')
 
@@ -400,9 +400,9 @@ function settings(th) {
 
 		})
 
-		if (!localStorage.getItem("access_token")) {
+/* 		if (!localStorage.getItem("access_token")) {
 			$('.vk_ls').addClass("vk_offline")
-		}
+		} */
 
 		for (let i = 0; i < urls.length; i++) {
 			$('#settings').append('<div style="margin: 5px 0px 5px 0px; display: flex; flex-wrap: nowrap;" id="line_' + i + '">')
@@ -692,6 +692,8 @@ function json_save() {
 		names: localStorage.getItem("names"),
 		urls: localStorage.getItem("urls"),
 		images: localStorage.getItem("images"),
+		volume: localStorage.getItem("volume"),
+		ShowCard: localStorage.getItem("ShowCard"),
 	}
 	let load1 = JSON.parse(prompt("Скопируй текущие данные и сохрани их. Или вставь сюда новые.", JSON.stringify(load)))
 	if (!load1) return
@@ -700,6 +702,8 @@ function json_save() {
 	localStorage.setItem("names", load1.names)
 	localStorage.setItem("urls", load1.urls)
 	localStorage.setItem("images", load1.images)
+	localStorage.setItem("volume", load1.volume)
+	localStorage.setItem("ShowCard", load1.ShowCard)
 	location.reload()
 }
 function cloud_load(fs) {
