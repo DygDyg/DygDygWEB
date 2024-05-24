@@ -5,30 +5,30 @@ function stringToBool(val) {
 if (!localStorage.getItem('urls')) {
 	urls = ['https://yandex.ru/', 'https://vk.com', 'https://youtube.com/feed/subscriptions']
 	localStorage.setItem('urls', urls)
-	alert('URL База загружена')
+	console.log('URL База загружена')
 }
 if (!localStorage.getItem('names')) {
 	names = []
 	localStorage.setItem('names', names)
-	alert('Name База загружена')
+	console.log('Name База загружена')
 }
 
 if (!localStorage.getItem('images')) {
 	images = []
 	localStorage.setItem('images', images)
-	alert('images База загружена')
+	console.log('images База загружена')
 }
 
 if (!localStorage.getItem('background')) {
 
     background = "https://sun9-17.userapi.com/c857628/v857628352/16b73d/w-YSbE4d4mc.jpg"
 	localStorage.setItem('background', background)
-    alert('background База загружена')
+    console.log('background База загружена')
 }
 
 if (!localStorage.getItem('ShowCard')) {
 	localStorage.setItem('ShowCard', true)
-	alert('ShowCard База загружена')
+	console.log('ShowCard База загружена')
 }
 
 background = localStorage.getItem('background')

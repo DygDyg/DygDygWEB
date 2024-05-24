@@ -688,11 +688,11 @@ if (getUrlParameter("options") == "true") {
 }
 function json_save() {
 	let load = {
-		background:  localStorage.getItem("background").split(','),
-		names:  localStorage.getItem("names").split(','),
-		urls:  localStorage.getItem("urls").split(','),
-		images:  localStorage.getItem("images").split(','),
-		volume:  localStorage.getItem("volume").split(','),
+		background: localStorage.getItem("background").split(','),
+		names: localStorage.getItem("names").split(','),
+		urls: localStorage.getItem("urls").split(','),
+		images: localStorage.getItem("images").split(','),
+		volume: localStorage.getItem("volume").split(','),
 	}
 	let load1 = JSON.parse(prompt("Скопируй текущие данные и сохрани их. Или вставь сюда новые.", JSON.stringify(load)))
 	if (!load1) return
