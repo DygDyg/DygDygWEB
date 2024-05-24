@@ -693,7 +693,6 @@ function json_save() {
 		urls: localStorage.getItem("urls"),
 		images: localStorage.getItem("images"),
 		volume: localStorage.getItem("volume"),
-		ShowCard: localStorage.getItem("ShowCard"),
 	}
 	let load1 = JSON.parse(prompt("Скопируй текущие данные и сохрани их. Или вставь сюда новые.", JSON.stringify(load)))
 	if (!load1) return
@@ -703,7 +702,6 @@ function json_save() {
 	localStorage.setItem("urls", load1.urls)
 	localStorage.setItem("images", load1.images)
 	localStorage.setItem("volume", load1.volume)
-	localStorage.setItem("ShowCard", load1.ShowCard)
 	location.reload()
 }
 function cloud_load(fs) {
