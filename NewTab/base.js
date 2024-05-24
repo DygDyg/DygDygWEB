@@ -803,8 +803,9 @@ function cloud_save() {
 		background: localStorage.getItem("background"),
 	}
 	const downloadLink = document.createElement("a");
+	let now = new Date()
 	downloadLink.href = `data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(load))}`;
-	downloadLink.download = "base.json";
+	downloadLink.download = `NewTab_${moment().format('L')}_${moment().format('LTS')}.json`;
 	downloadLink.click();
 	// json_save()
 	return
