@@ -62,7 +62,7 @@ function resize_info() {
 }
 
 num = 1
-$('body').append('<input name="json_save_form" type="text" id="json_save_form" style="width: 100%; height: 40px; display: none;"/>')
+$('body').append('<dialog id="dialog" style="top: 50%;width: 70%;z-index: 1000;background-color: #242424;" ><input name="json_save_form" type="text" id="json_save_form" style="width: 100%; height: 40px;"/></dialog>')
 $('body').append('<div id="searchs"></div>')
 $('#searchs').append('<input id="search" type="text" placeholder="Искать в яндекс, Shift - перевести, Ctrl - youtube, Alt - animego.org">')
 $('#search').on("input", function () {
@@ -710,7 +710,7 @@ function json_save() {
 		background: localStorage.getItem("background"),
 	}
 
-	$("#json_save_form").css("display", "flex")
+	$("#dialog").show()
 	$("#json_save_form").val(JSON.stringify(load)).select()
 	$('#body_menu').remove()
 	// let load1 = JSON.parse(prompt("Скопируй текущие данные и сохрани их. Или вставь сюда новые.", JSON.stringify(load)))
