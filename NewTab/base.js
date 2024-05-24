@@ -62,7 +62,7 @@ function resize_info() {
 }
 
 num = 1
-$('body').append('<input name="json_save_form" type="text" id="json_save_form" style="width: 90%; height: 60px; display: none;"/>')
+$('body').append('<input name="json_save_form" type="text" id="json_save_form" style="width: 100%; height: 40px; display: none;"/>')
 $('body').append('<div id="searchs"></div>')
 $('#searchs').append('<input id="search" type="text" placeholder="Искать в яндекс, Shift - перевести, Ctrl - youtube, Alt - animego.org">')
 $('#search').on("input", function () {
