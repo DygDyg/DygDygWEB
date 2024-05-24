@@ -1,10 +1,19 @@
+
 body {
+    margin:0;
+    position: fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right: 0;
     background-color: #353535;
+    background-size: 100%, 100%;
+    background-repeat: no-repeat;
     /* background-image: url(https://sun9-17.userapi.com/c857628/v857628352/16b73d/w-YSbE4d4mc.jpg); */
-    background-size: cover;
 
     /* cursor: url(https://yastatic.net/s3/web4static/_/v2/static/media/xmas-mitten_28.c8f51feb.svg) 4 2, pointer; */
 }
+
 ::-webkit-scrollbar {
     width: 0px;
 }

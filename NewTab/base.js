@@ -62,7 +62,6 @@ function resize_info() {
 }
 
 num = 1
-$('body').append('<dialog id="dialog" style=" top: 50%;width: 70%;z-index: 1000;background-color: #242424;color: #ffe4e4;" ><h2/>Скопируй и сохрани этот код для бекапа.<br>Чтобы восстановить бекап, вставь свой код заместо этого<input name="json_save_form" type="text" id="json_save_form" style="width: 100%; height: 40px;"/></dialog>')
 $('body').append('<div id="searchs"></div>')
 $('#searchs').append('<input id="search" type="text" placeholder="Искать в яндекс, Shift - перевести, Ctrl - youtube, Alt - animego.org">')
 $('#search').on("input", function () {
@@ -689,41 +688,8 @@ if (window.location.href.match(/.*\#.*/)) {
 if (getUrlParameter("options") == "true") {
 	settings(new Object().shiftKey = false)
 }
-$("#json_save_form").on("change", function () {
-	var load = this.value
-	load = JSON.parse(load)
-	if (confirm("Загрузить введённые данные? Это заменит текущие настройки.")) {
-		load?.background ? localStorage.setItem("background", load.background) : null
-		load?.names ? localStorage.setItem("names", load.names) : null
-		load?.urls ? localStorage.setItem("urls", load.urls) : null
-		load?.images ? localStorage.setItem("images", load.images) : null
-		load?.volume ? localStorage.setItem("volume", load.volume) : null
-		location.reload()
-	}
-})
-function json_save() {
-	const load = {
-		urls: localStorage.getItem("urls").split(','),
-		names: localStorage.getItem("names").split(','),
-		images: localStorage.getItem("images").split(','),
-		volume: localStorage.getItem("volume"),
-		background: localStorage.getItem("background"),
-	}
 
-	$("#dialog").show()
-	$("#json_save_form").val(JSON.stringify(load)).select()
-	$('#body_menu').remove()
-	// let load1 = JSON.parse(prompt("Скопируй текущие данные и сохрани их. Или вставь сюда новые.", JSON.stringify(load)))
-	return
-	if (!load1) return
 
-	load1?.background ? localStorage.setItem("background", load1.background) : null
-	load1?.names ? localStorage.setItem("names", load1.names) : null
-	load1?.urls ? localStorage.setItem("urls", load1.urls) : null
-	load1?.images ? localStorage.setItem("images", load1.images) : null
-	load1?.volume ? localStorage.setItem("volume", load1.volume) : null
-	location.reload()
-}
 const jsonDataSave = document.createElement("input");
 jsonDataSave.type = "file";
 jsonDataSave.addEventListener("change", function () {
