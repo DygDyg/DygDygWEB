@@ -1,5 +1,5 @@
 function stringToBool(val) {
-    return (val + '').toLowerCase() === 'true';
+	return (val + '').toLowerCase() === 'true';
 }
 
 if (!localStorage.getItem('urls')) {
@@ -21,9 +21,9 @@ if (!localStorage.getItem('images')) {
 
 if (!localStorage.getItem('background')) {
 
-    background = "https://sun9-17.userapi.com/c857628/v857628352/16b73d/w-YSbE4d4mc.jpg"
+	background = "https://sun9-17.userapi.com/c857628/v857628352/16b73d/w-YSbE4d4mc.jpg"
 	localStorage.setItem('background', background)
-    console.log('background База загружена')
+	console.log('background База загружена')
 }
 
 if (!localStorage.getItem('ShowCard')) {
