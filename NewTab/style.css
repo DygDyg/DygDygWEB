@@ -234,7 +234,6 @@ body {
     padding: 3px 6px 3px 6px;
     border-radius: 20px;
     background-color: #343434e0;
-    -webkit-user-select: none;
     cursor: pointer;
 }
 
@@ -279,7 +278,6 @@ input#volume1 {
     align-items: center;
     font-size: 200px;
     justify-content: center;
-    -webkit-user-select: none;
     flex-direction: column;
 }
 
