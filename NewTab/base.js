@@ -410,7 +410,7 @@ function settings(th) {
 			$('#line_body').append('<div style="margin: 5px 0px 5px 0px; display: flex; flex-wrap: nowrap;" id="line_' + i + '">')
 			$('#line_' + i).append('<input class="NameSite" value="' + names[i] + '" placeholder="Название сайта" maxlength="13" id=NameSite_' + i + '>')
 			$('#line_' + i).append('<input style="margin: 0px 2px 0px 2px;" class="URLSite" id=URLSite_' + i + ' value="' + urls[i] + '" placeholder="URL адрес сайта">')
-			$('#line_' + i).append('<input style="margin: 0px 2px 0px 2px;" class="URLimage" id=URLimage_' + i + ' value="' + images[i + 1] + '" placeholder="URL ссылка на миниатюру">')
+			$('#line_' + i).append(`<input style="margin: 0px 2px 0px 2px;" class="URLimage" id=URLimage_${i} value="${images[i + 1]?images[i + 1]:''}" placeholder="URL ссылка на миниатюру">`)
 			$('#line_' + i).append('<div id="delete_' + i + '" style="cursor: pointer; margin: 0px 2px 0px 2px; background-color: #ff4444eb; color: white; width: 36px; height: 21px; display: flex; align-items: center; justify-content: center;" title="удалить элемент"><div style=" font-size: 19px; font-weight: 900; -webkit-user-select: none; ">del</div></div>')
 
 			$('#delete_' + i).click(function () {
@@ -485,16 +485,20 @@ function exit_settings() {
 
 function add_card(url) {
 	let image = localStorage.getItem('images').split(',')[num]
-	if (!image || image == undefined) {
+	let images_tmp = []
+	images_tmp[num] = images[num]?images[num]:`https://api.screenshotmachine.com/?key=e51b85&dimension=1024x768&url=${url}`
+	// images_tmp[num] = images[num]?images[num]:`https://mini.s-shot.ru/1680x1050/JPEG/320/Z100/?${url}`
+
+/* 	if (!image || image == undefined) {
 		images[num] = `http://api.s-shot.ru/1680x1050/JPEG/320/?${url}`
 		// images[num] = 'https://api.screenshotmachine.com/?key=e51b85&dimension=1024x768&url=' + url
 		localStorage.setItem('images', images)
 		console.log('Установлено', images[num], num, images.length)
-	}
+	} */
 	// $('#cards').append('<a class="card" id="card_' + num + '" style="background-image: url(http://mini.s-shot.ru/?' + url + ')" href="' + url + '">')
 	// console.log(image, 2)
 
-	$('#cards').append('<a class="card" id="card_' + num + '" style="background-image: url(' + images[num] + ')" href="' + url + '"></a>')
+	$('#cards').append('<a class="card" id="card_' + num + '" style="background-image: url(' + images_tmp[num] + ')" href="' + url + '"></a>')
 
 	//<div style="width: 50%;height: 50%;"></div><div style="width: 50%;height: 50%;"></div><div style="width: 50%;height: 50%;"></div><div style="width: 50%;height: 50%;"></div>
 
