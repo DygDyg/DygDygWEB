@@ -135,13 +135,14 @@ body {
 #settings {
     background-color: #3a3a3ad9;
     /*width: 30%;*/
-    /*height: 30%;*/
+    height: 85%;
     justify-content: center;
     position: absolute;
     top: 10%;
     /*left: 35%;*/
     border-radius: 7px;
     padding: 10px;
+    overflow: auto;
 }
 
 .NameSite {
