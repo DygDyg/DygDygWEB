@@ -142,7 +142,12 @@ body {
     /*left: 35%;*/
     border-radius: 7px;
     padding: 10px;
+    overflow: hidden;
+}
+#line_body{
     overflow: auto;
+    width: 100%;
+    height: 92%;
 }
 
 .NameSite {
