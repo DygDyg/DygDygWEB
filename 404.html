@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<link rel="icon" type="image/x-icon" href="/favicon.png">
+<title>TA: 404</title>
+
+<head>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            /* cursor: s-resize; */
+            animation: 0.4s ease-in-out 0s normal none infinite running cursor-droch;
+
+        }
+
+        #myVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: fixed;
+            filter: blur(20px);
+            z-index: -1;
+
+        }
+
+        #myVideo2 {
+            height: 100%;
+            object-fit: cover;
+            mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
+            /* radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%); */
+        }
+
+        .text-overlay {
+            font-size: 1000%;
+            font-weight: bold;
+            color: #d4e1e4;
+            -webkit-text-stroke: 3px #0000007e;
+            animation: 0.9s ease-in-out 0s normal none infinite running tilt-n-move-shaking;
+
+        }
+
+        #E404_1 {
+            text-shadow: -50px 50px 5px #000000bd;
+            cursor: no-drop;
+
+        }
+
+        #E404_2 {
+            text-shadow: 50px 50px 5px #000000bd;
+            cursor: not-allowed;
+
+        }
+
+        @keyframes cursor-droch {
+            0% {
+                cursor: w-resize;
+            }
+
+            25% {
+                cursor: ne-resize;
+            }
+
+            50% {
+                cursor: n-resize;
+            }
+
+            75% {
+                cursor: nw-resize;
+            }
+
+            100% {
+                cursor: nw-resize;
+            }
+        }
+
+        @keyframes tilt-n-move-shaking {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                color: #b3ceb580;
+            }
+
+            25% {
+                transform: translate(5px, 5px) rotate(5deg);
+                color: #d4e1e480;
+            }
+
+            50% {
+                transform: translate(0, 0) rotate(0eg);
+                color: #e3d7bd80;
+            }
+
+            75% {
+                transform: translate(-5px, 5px) rotate(-5deg);
+                color: #a5b1b380;
+            }
+
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+                color: #b7e4ef80;
+            }
+        }
+
+        #v2 {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            height: 100%;
+            width: 100%;
+            align-items: center;
+            justify-content: space-around;
+            position: absolute;
+            box-shadow: 0 0 200px 100px black inset;
+        }
+    </style>
+</head>
+
+<body>
+    <video id="myVideo" autoplay loop loop loop muted controlsList="noplayback">
+        <source src="404.webm" type="video/webm">
+    </video>
+    <div id="v2">
+        <div id="E404_1" class="text-overlay">
+            404
+        </div>
+        <video id="myVideo2" autoplay loop loop loop muted controlsList="noplayback">
+            <source src="404.webm" type="video/webm">
+        </video>
+        <div id="E404_2" class="text-overlay">
+            404
+        </div>
+    </div>
+    <!--     <div id="404">
+        <div class="text-overlay">
+            404
+        </div>
+        <div class="text-overlay">
+            404
+        </div>
+    </div> -->
+
+    <script>
+        var video = document.getElementById("myVideo");
+
+        video.volume = 0.15;
+        document.body.addEventListener("mouseover", function () {
+            video.muted = false;
+            video.play();
+        });
+        document.body.addEventListener("click", function () {
+            window.history.back();
+        });
+        document.body.addEventListener('scroll', function () {
+            video.muted = false;
+            video.play();
+        });
+
+        /*         video.addEventListener("mouseout", function () {
+                    // video.muted = true;
+                }); */
+    </script>
+</body>
+
+</html>
