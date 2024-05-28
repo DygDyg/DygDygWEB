@@ -493,6 +493,7 @@ function add_card(url) {
 	// scr_url = getUrlParameter('dyg-screen')?`http://95.221.37.192:3300/screenshot?url=${url}`:scr_url
 	// let scr_url = `http://localhost:3000/screenshot?url=${url}`
 	// images_tmp[num] = images[num]?images[num]:`https://api.screenshotmachine.com/?key=e51b85&dimension=1024x768&url=${url}`
+	
 	images[num] = images[num].includes(".s-shot.ru/?")?"":images[num] //Удаляет ссылку на s-shot.ru
 	images_tmp[num] = images[num]?images[num]:scr_url
 
