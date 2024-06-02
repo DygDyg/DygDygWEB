@@ -45,13 +45,14 @@ GM_addStyle(`
     flex-wrap: nowrap;
     justify-content: center;
     flex-direction: row;
+    margin-right: 7px;
 }
 
 .panel_ff {
     display: flex;
     flex-wrap: nowrap;
     // justify-content: space-between;
-    justify-content: center;
+    // justify-content: center;
     flex-direction: row;
     margin: 6px;
 }
@@ -73,10 +74,12 @@ window.addEventListener('loadeddata', loadedData, { capture: true, once: false, 
 function loadedData({ target }) {
     // alert("test")
     if (!(target instanceof window.HTMLMediaElement) && !location.href.startsWith("https://www.youtube.com/watch")) return
-    const panel = document.createElement('div')
-    panel.classList.add("panel_ff")
-    document.getElementById("primary-inner").prepend(panel)
-    panel.innerHTML = `
+    if (!document.querySelector(".panel_ff")) {
+        const panel = document.createElement('div')
+        panel.classList.add("panel_ff")
+        document.getElementById("primary-inner").prepend(panel)
+
+        panel.innerHTML = `
     
     <div class="p_ff">
         <div class="btn_ff" id="btn_ff_start">Начало</div>
@@ -90,6 +93,7 @@ function loadedData({ target }) {
     </div>
     <div class="btn_ff" id="btn_ff_load" >Обрезать</div>
     `
+    }
     const ff_start = {
         btn: document.getElementById("btn_ff_start"),
         in: document.getElementById("in_ff_start"),
@@ -111,7 +115,10 @@ function loadedData({ target }) {
         ff_stop.time = target.currentTime
     })
     document.getElementById("btn_ff_load").addEventListener("click", () => {
-        document.location.href = `yt-dlp:\\v=${getVideoID()}&ff_start=${ff_start.time}&ff_stop=${ff_stop.time}`
+        const url = `yt-dlp2:\\?v=${getVideoID()}&ff_start=${ff_start.time}&ff_stop=${ff_stop.time}&`
+        console.log(url)
+        document.location.href = url
+
     })
 
     // console.log("ff:", ff_start, ff_stop)
@@ -139,7 +146,7 @@ function secondsToTime(secs) {
 }
 
 function getVideoID() {
-	const link = new URL(location.href)
-	// prettier-ignore
-	return (link.searchParams.get('v') || location.search.replace('?', '').split('&').reduce((s, c) => ((s[c.split('=')[0]] = c.split('=')[1]), s), {}).v)
+    const link = new URL(location.href)
+    // prettier-ignore
+    return (link.searchParams.get('v') || location.search.replace('?', '').split('&').reduce((s, c) => ((s[c.split('=')[0]] = c.split('=')[1]), s), {}).v)
 }
