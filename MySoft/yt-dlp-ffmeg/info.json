@@ -1,6 +1,7 @@
 {
   "version": 1.0,
   "file": "yf-dlp-ffmeg.exe",
+  "libs":["ffmpeg.zip"],
   "title": "yt-dlp ffmeg", 
   "text": "",
   "icon": "fav.ico"
