@@ -88,7 +88,7 @@ GM_addStyle(`
 `)
 
 window.addEventListener('loadeddata', loadedData, { capture: true, once: false, passive: false })
-
+loadedData()
 
 function loadedData({ target }) {
     // console.log("test")
