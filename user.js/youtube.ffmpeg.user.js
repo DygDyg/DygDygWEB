@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         youtube ffmpeg
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  Позволяет скачивать и обрезать видео с ютуба
 // @author       ДугДуг
 // @match        https://www.youtube.com/*
@@ -95,6 +95,8 @@ function loadedData({ target }) {
     if (!(target instanceof window.HTMLMediaElement) && !location.href.startsWith("https://www.youtube.com/watch")) return
     // console.log("test2")
     document.querySelector(".panel_ff")?.remove()
+    document.getElementById("tt_stsrt_marker")?.remove()
+    document.getElementById("tt_stop_marker")?.remove()
 
 
 
