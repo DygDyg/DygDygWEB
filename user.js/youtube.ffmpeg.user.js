@@ -88,12 +88,23 @@ GM_addStyle(`
 `)
 
 window.addEventListener('loadeddata', loadedData, { capture: true, once: false, passive: false })
-loadedData()
+
+
+
 
 function loadedData({ target }) {
-    // console.log("test")
-    if ((!(target instanceof window.HTMLMediaElement)||!target) && !location.href.startsWith("https://www.youtube.com/watch")) return
+    console.log(target)
+    if (!(target instanceof window.HTMLMediaElement) && !location.href.startsWith("https://www.youtube.com/watch")) return
     // console.log("test2")
+	// console.log(document.getElementById("primary-inner"))
+
+	if(document.getElementById("primary-inner")==null)
+	{
+		console.log("yt-dl crop: restart..")
+		setTimeout(()=>{loadedData({ target })}, 1000);
+		return
+	}
+
     document.querySelector(".panel_ff")?.remove()
     document.getElementById("tt_stsrt_marker")?.remove()
     document.getElementById("tt_stop_marker")?.remove()
