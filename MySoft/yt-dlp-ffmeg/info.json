@@ -1,5 +1,5 @@
 {
-  "version": 1.2,
+  "version": 1.1,
   "file": "yt-dlp-ffmeg.exe",
   "libs":["ffmpeg.zip"],
   "title": "yt-dlp ffmeg", 
