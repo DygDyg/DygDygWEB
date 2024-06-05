@@ -92,7 +92,7 @@ window.addEventListener('loadeddata', loadedData, { capture: true, once: false, 
 
 function loadedData({ target }) {
     // console.log("test")
-    if (!(target instanceof window.HTMLMediaElement) && !location.href.startsWith("https://www.youtube.com/watch")) return
+    if ((!(target instanceof window.HTMLMediaElement)||!target) && !location.href.startsWith("https://www.youtube.com/watch")) return
     // console.log("test2")
     document.querySelector(".panel_ff")?.remove()
     document.getElementById("tt_stsrt_marker")?.remove()
