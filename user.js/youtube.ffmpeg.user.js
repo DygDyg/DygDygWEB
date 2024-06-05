@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         youtube ffmpeg
 // @namespace    http://tampermonkey.net/
-// @version      2024-05-30
+// @version      1.0
 // @description  Позволяет скачивать и обрезать видео с ютуба
 // @author       ДугДуг
 // @match        https://www.youtube.com/*
