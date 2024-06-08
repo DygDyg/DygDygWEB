@@ -84,6 +84,9 @@ GM_addStyle(`
     left: 0%;
     top: -10px;
 }
+.hide {
+    display: none;
+}
 
 `)
 
@@ -135,6 +138,8 @@ function loadedData({ target }) {
 
     marker_time_start.id = "tt_start_marker"
     marker_time_stop.id = "tt_stop_marker"
+    marker_time_start.classList.add("hide")
+    marker_time_stop.classList.add("hide")
 
     document.body.querySelector(".ytp-chapters-container").prepend(marker_time_start)
     document.body.querySelector(".ytp-chapters-container").prepend(marker_time_stop)
@@ -159,6 +164,8 @@ function loadedData({ target }) {
         ff_start.in.value = secondsToTime(target.currentTime)
         ff_start.time = target.currentTime
         marker_time_start.style.left = `${target.currentTime/target.duration*100}%`
+        marker_time_start.classList.remove("hide")
+
     })
 
     ff_stop.btn.addEventListener("click", () => {
@@ -166,6 +173,8 @@ function loadedData({ target }) {
         ff_stop.in.value = secondsToTime(target.currentTime)
         ff_stop.time = target.currentTime
         marker_time_stop.style.left = `${target.currentTime/target.duration*100}%`
+        marker_time_stop.classList.remove("hide")
+
     })
 
     document.getElementById("btn_ff_load").addEventListener("click", () => {
