@@ -13,16 +13,17 @@
 </body>
 <style>
     :root {
-        --scale1: 50%;
+        --scale1: 0%;
     }
 
     #MyHome1 {
-        width: 50%;
+        width: calc(50% - var(--scale1));
         height: 100%;
     }
 
     #MyHome2 {
-        width: 50%;
+        /* width: 50%; */
+        width: calc( 50% + var(--scale1));
         height: 100%;
     }
 
