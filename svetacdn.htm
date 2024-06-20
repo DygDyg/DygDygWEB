@@ -44,7 +44,7 @@
                 break;
             default:
                 document.body.innerHTML = '<div class="kinobox_player">'
-                Startkinobox(getUrlParameter("kinopoiskID"), getUrlParameter("imdb"), getUrlParameter("tmdb"), getUrlParameter("title"))
+                Startkinobox(getUrlParameter("kinopoiskID"), getUrlParameter("imdb"), getUrlParameter("tmdb"), getUrlParameter("title"), getUrlParameter("query") )
 
                 break;
         }
@@ -72,13 +72,14 @@
         return Math.floor(Math.random() * max);
     }
 
-    function Startkinobox(kinopoisk, imdb, tmdb, title) {
+    function Startkinobox(kinopoisk, imdb, tmdb, title, query) {
         kbox('.kinobox_player', {
             search: { // Настройки поиска
                 kinopoisk: kinopoisk, // Поиск фильма по ID Кинопоиска
                 imdb: imdb, // Поиск фильма по IMDb Id
                 tmdb: tmdb, // Поиск фильма по TMDB Id
-                title: title // Поиск фильма по названию
+                title: title, // Поиск фильма по названию
+                query: query
             },
             menu: { // Настройки меню
                 enable: true, // Показывать меню
