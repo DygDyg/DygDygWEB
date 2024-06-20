@@ -44,7 +44,7 @@
                 break;
             default:
                 document.body.innerHTML = '<div class="kinobox_player">'
-                Startkinobox(getUrlParameter("kinopoiskID"), getUrlParameter("imdb"), getUrlParameter("tmdb"), getUrlParameter("title"), getUrlParameter("query") )
+                searchkinobox(getUrlParameter("kinopoiskID"), getUrlParameter("imdb"), getUrlParameter("tmdb"), getUrlParameter("title"), getUrlParameter("query"))
 
                 break;
         }
@@ -71,8 +71,45 @@
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
     }
+    function searchkinobox(kinopoisk, imdb, tmdb, title, query) {
 
+        if (query) {
+
+            var url = `https://kinobox.tv/api/films/search/?title=${query}`
+
+            fetch(url)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+
+                        if (response.status == "404") return response.status
+
+                        throw new Error('Ответ сети был не в порядке. Last_seartchr');
+                    }
+                })
+                .then(data => {
+                    if (data == "404") {
+
+                        return data
+                    }
+                    console.log(data[0])
+                    Startkinobox(null, null, null, null, data[0].id)
+                    // sh_api.Last_search = data
+                    // console.log(sh_api.Last_search)
+                })
+                .catch(error => {
+
+                    console.error('Возникла проблема с операцией выборки Last_seartch:', error);
+                });
+        } else {
+
+            Startkinobox(kinopoisk, imdb, tmdb, title, query)
+        }
+
+    }
     function Startkinobox(kinopoisk, imdb, tmdb, title, query) {
+
         kbox('.kinobox_player', {
             search: { // Настройки поиска
                 kinopoisk: kinopoisk, // Поиск фильма по ID Кинопоиска
