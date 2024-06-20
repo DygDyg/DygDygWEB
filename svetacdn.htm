@@ -139,7 +139,7 @@
                 break;
             default:
                 document.body.innerHTML = '<div class="kinobox_player">'
-                searchkinobox(getUrlParameter("kinopoiskID"), getUrlParameter("imdb"), getUrlParameter("tmdb"), getUrlParameter("title"), getUrlParameter("query"))
+                searchkinobox(getUrlParameter("kinopoiskID"), getUrlParameter("imdb"), getUrlParameter("tmdb"), getUrlParameter("title"), getUrlParameter("query"), getUrlParameter("shikimori"))
 
                 break;
         }
@@ -166,7 +166,28 @@
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
     }
-    function searchkinobox(kinopoisk, imdb, tmdb, title, query) {
+    function searchkinobox(kinopoisk, imdb, tmdb, title, query, shikimori) {
+        if(shikimori){
+            var url = `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&shikimori_id=${shikimori}`
+            fetch(url)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+
+                        if (response.status == "404") return response.status
+
+                        throw new Error('Ответ сети был не в порядке. searchkinobox');
+                    }
+                })
+
+                .then(data => {
+                    console.log(data.results.length)
+                    // data.results[0]?.imdb_id
+                    data.results.length>0 ? Startkinobox(data.results[0]?.kinopoisk_id, data.results[0]?.imdb_id) : searchkinobox(kinopoisk, imdb, tmdb, title, query)
+                })
+                return
+        }
 
         if (query) {
 
