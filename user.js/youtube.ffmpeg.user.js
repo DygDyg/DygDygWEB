@@ -97,13 +97,13 @@ window.addEventListener('loadeddata', loadedData, { capture: true, once: false, 
 
 function loadedData({ target }) {
     console.log(target)
-    if (!(target instanceof window.HTMLMediaElement) && !location.href.startsWith("https://www.youtube.com/watch")) return
+    if (!(target instanceof window.HTMLMediaElement) || location.href.startsWith("https://www.youtube.com/watch")==false) return
     // console.log("test2")
 	// console.log(document.getElementById("primary-inner"))
 
 	if(document.getElementById("primary-inner")==null)
 	{
-		console.log("yt-dl crop: restart..")
+		console.log("yt-dl crop: restart..", location.href.startsWith("https://www.youtube.com/watch"))
 		setTimeout(()=>{loadedData({ target })}, 1000);
 		return
 	}
