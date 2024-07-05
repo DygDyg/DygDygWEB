@@ -1,5 +1,5 @@
 
-window.open("https://dygdyg.github.io/DygDygWEB/close.htm", '_blank')
+// window.open("https://dygdyg.github.io/DygDygWEB/close.htm", '_blank')
 function stringToBool(val) {
 	return (val + '').toLowerCase() === 'true';
 }
