@@ -494,7 +494,7 @@ function add_card(url) {
 	// let scr_url = `http://localhost:3000/screenshot?url=${url}`
 	// images_tmp[num] = images[num]?images[num]:`https://api.screenshotmachine.com/?key=e51b85&dimension=1024x768&url=${url}`
 	
-	images[num] = images[num].includes(".s-shot.ru/?")?"":images[num] //Удаляет ссылку на s-shot.ru
+	images[num] = images[num]?.includes(".s-shot.ru/?")?"":images[num] //Удаляет ссылку на s-shot.ru
 	images_tmp[num] = images[num]?images[num]:scr_url
 
 	// images_tmp[num] = images[num]?images[num]:`https://mini.s-shot.ru/1680x1050/JPEG/320/Z100/?${url}`
