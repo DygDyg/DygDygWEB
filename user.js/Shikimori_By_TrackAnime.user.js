@@ -5,7 +5,7 @@
 // @description  try to take over the world!
 // @author       ДугДуг
 // @match        https://shikimori.one/*
-// @icon         Shikimori_By_TrackAnime.user.png
+// @icon         https://dygdyg.github.io/DygDygWEB/user.js/Shikimori_By_TrackAnime.user.png
 // @grant        GM_addStyle
 // ==/UserScript==
 
