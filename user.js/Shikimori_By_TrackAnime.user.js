@@ -5,7 +5,7 @@
 // @description  try to take over the world!
 // @author       ДугДуг
 // @match        https://shikimori.one/*
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=shikimori.one
+// @icon         Shikimori_By_TrackAnime.user.png
 // @grant        GM_addStyle
 // ==/UserScript==
 
