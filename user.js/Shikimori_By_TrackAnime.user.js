@@ -16,7 +16,7 @@ function load() {
     const tr_link = document.createElement("div")
     document.body.querySelector('.c-about').prepend(tr_link);
     tr_link.innerHTML = `
-    <div class="line">
+    <div class="line" style="margin-bottom: 5px;">
 <div class="value"><a class="ta_link b-tag bubbled-processed"
         data-href="" data-predelay="350"
         href="https://track-anime.github.io/?shikimori_id=${id}"><span class="genre-en">URL</span><span class="genre-ru">Перейти на track-anime</span></a></div>
