@@ -434,6 +434,7 @@ function add_button() {
 		delete_button(i)
 	})
 	$('#line_' + i)[0].scrollIntoView({behavior: "smooth"})
+	
 }
 
 function delete_button(i) {
