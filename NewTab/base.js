@@ -433,6 +433,7 @@ function add_button() {
 	$('#delete_' + i).click(function () {
 		delete_button(i)
 	})
+	$('#line_' + i).scrollIntoView({behavior: "smooth"})
 }
 
 function delete_button(i) {
