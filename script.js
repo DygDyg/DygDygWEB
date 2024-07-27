@@ -3,8 +3,8 @@ const querystring = require('querystring');
 
 const url = 'https://discord.com/api/webhooks/627316395075567616/f51PMQc4CiUR0XBFEHoYeh25nYpceK5UI0qPHpQDUqqgfe4q3u3Z4Tv1whhKZRIdPBJ0';
 const data = {
-    username: 'DygDyg',
-    avatar_url: 'https://www.freepngimg.com/thumb/facebook/62681-flat-icons-face-computer-design-avatar-icon.png',
+    username: 'Track Anime By ДугДуг',
+    avatar_url: 'https://track-anime.github.io/favicon.png',
     content: 'hello world',
 
 };
