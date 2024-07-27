@@ -6,23 +6,23 @@ let id = readIdFromFile();
 
 function readIdFromFile() {
     try {
-        const data = fs.readFileSync(filePath, 'utf8');
-        return parseInt(data, 10);
+      const data = fs.readFileSync(filePath, 'utf8');
+      return parseInt(data, 10);
     } catch (err) {
-        console.error('Error reading id from file:', err);
-        return 0; // Если файл не найден или ошибка чтения, вернем 0
+      console.error('Error reading id from file:', err);
+      return 0; // Если файл не найден или ошибка чтения, вернем 0
     }
-}
-
-// Функция для записи параметра id в файл
-function writeIdToFile(id) {
+  }
+  
+  // Функция для записи параметра id в файл
+  function writeIdToFile(id) {
     try {
-        fs.writeFileSync(filePath, id.toString(), 'utf8');
-        console.log('Successfully saved id:', id);
+      fs.writeFileSync(filePath, id.toString(), 'utf8');
+      console.log('Successfully saved id:', id);
     } catch (err) {
-        console.error('Error writing id to file:', err);
+      console.error('Error writing id to file:', err);
     }
-}
+  }
 
 const url = 'https://discord.com/api/webhooks/627316395075567616/f51PMQc4CiUR0XBFEHoYeh25nYpceK5UI0qPHpQDUqqgfe4q3u3Z4Tv1whhKZRIdPBJ0';
 const data = {

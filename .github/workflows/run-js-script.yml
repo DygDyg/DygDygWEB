@@ -21,23 +21,19 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Download id artifact if exists
-      id: download-id
-      uses: actions/download-artifact@v3
+    - name: Restore cache
+      uses: actions/cache@v3
       with:
-        name: id-file
-        path: .
-      continue-on-error: true
-
-    - name: Create id file if not exists
-      run: echo 0 > id.txt
-      if: failure()  # Создаем файл, если предыдущий шаг не удался (артефакт не найден)
+        path: id.txt
+        key: id-cache-${{ runner.os }}-${{ github.workflow }}
+        restore-keys: |
+          id-cache-${{ runner.os }}-
 
     - name: Run script
       run: node script.js
 
-    - name: Upload id artifact
-      uses: actions/upload-artifact@v3
+    - name: Save cache
+      uses: actions/cache@v3
       with:
-        name: id-file
         path: id.txt
+        key: id-cache-${{ runner.os }}-${{ github.workflow }}
