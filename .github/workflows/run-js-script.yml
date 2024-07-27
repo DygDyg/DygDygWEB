@@ -19,21 +19,25 @@ jobs:
         node-version: '14'
 
     - name: Install dependencies
-      run: npm install
+      run: |
+        cd anime_get
+        npm install
 
     - name: Restore cache
       uses: actions/cache@v3
       with:
-        path: id.txt
+        path: anime_get/id.txt
         key: id-cache-${{ runner.os }}-${{ github.workflow }}
         restore-keys: |
           id-cache-${{ runner.os }}-
 
     - name: Run script
-      run: node script.js
+      run: |
+        cd anime_get
+        node script.js
 
     - name: Save cache
       uses: actions/cache@v3
       with:
-        path: id.txt
+        path: anime_get/id.txt
         key: id-cache-${{ runner.os }}-${{ github.workflow }}
