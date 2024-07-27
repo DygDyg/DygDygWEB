@@ -1,12 +1,6 @@
-name: Запуск скрипта каждые 5 минут
+name: Zapusk skripta kazhdye 5 minut
 
 on: 
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
   workflow_dispatch:
   schedule:
     - cron: '*/5 * * * *'
