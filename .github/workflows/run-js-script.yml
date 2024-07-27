@@ -1,4 +1,4 @@
-name: Run JavaScript Script
+name: Запуск скрипта каждые 5 минут
 
 on: 
   push:
