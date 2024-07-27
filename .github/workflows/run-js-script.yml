@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   run-js:
@@ -26,5 +27,3 @@ jobs:
 
     - name: Run script
       run: node script.js
-
-      
