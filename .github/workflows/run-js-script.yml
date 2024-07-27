@@ -21,11 +21,17 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Download id artifact
+    - name: Download id artifact if exists
+      id: download-id
       uses: actions/download-artifact@v3
       with:
         name: id-file
         path: .
+      continue-on-error: true
+
+    - name: Create id file if not exists
+      run: echo 0 > id.txt
+      if: failure()  # Создаем файл, если предыдущий шаг не удался (артефакт не найден)
 
     - name: Run script
       run: node script.js

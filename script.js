@@ -3,6 +3,7 @@ const axios = require('axios');
 const querystring = require('querystring');
 const filePath = 'id.txt';
 let id = readIdFromFile();
+
 function readIdFromFile() {
     try {
         const data = fs.readFileSync(filePath, 'utf8');
@@ -13,6 +14,7 @@ function readIdFromFile() {
     }
 }
 
+// Функция для записи параметра id в файл
 function writeIdToFile(id) {
     try {
         fs.writeFileSync(filePath, id.toString(), 'utf8');
