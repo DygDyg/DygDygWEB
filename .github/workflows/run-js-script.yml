@@ -1,4 +1,4 @@
-name: Zapusk skripta kazhdye 5 minut
+name: Zapusk skripta s id
 
 on: 
   workflow_dispatch:
@@ -19,7 +19,19 @@ jobs:
         node-version: '14'
 
     - name: Install dependencies
-      run: npm install axios
+      run: npm install
+
+    - name: Download id artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: id-file
+        path: .
 
     - name: Run script
       run: node script.js
+
+    - name: Upload id artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: id-file
+        path: id.txt
