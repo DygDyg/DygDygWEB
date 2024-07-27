@@ -9,7 +9,7 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    - cron: '*/5 * * * *'  # Запуск каждый час
+    - cron: '*/5 * * * *'
 
 jobs:
   run-js:
