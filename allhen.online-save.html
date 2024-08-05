@@ -1,4 +1,7 @@
 <Head></Head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
 
 <body style="
 background-color: #3c3c3c;
@@ -17,10 +20,10 @@ background-color: #3c3c3c;
 
     body {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         align-content: center;
     }
 </style>
@@ -52,7 +55,11 @@ background-color: #3c3c3c;
         if (aaa) {
             if (aaa.length > 0) {
                 copy.style.display = "none"
-                console.log(aaa)
+                console.log(typeof aaa, aaa)
+                document.write(`<button id="btn_zip" class="favorite styled" type="button">Скачать</button>`)
+                document.getElementById("btn_zip").addEventListener("click", (e) => {
+                    downloadImagesAsZip(aaa)
+                })
                 for (let i = 0; i < aaa.length; i++) {
                     document.write('<img class="img" src="http:' + aaa[i].url + '"/>');
                 }
@@ -60,6 +67,25 @@ background-color: #3c3c3c;
 
             }
         }
+    }
+    function downloadImagesAsZip(imageObjects) {
+        console.log(imageObjects)
+        const zip = new JSZip();
+        const imgFolder = zip.folder("images");
+        const promises = imageObjects.map((imageObj, index) => {
+            const url = `https:${imageObj.url}`; // добавляем протокол http/https
+            return fetch(url)
+                .then(response => response.blob())
+                .then(blob => imgFolder.file(`image${index + 1}.jpg`, blob));
+        });
+
+        Promise.all(promises).then(() => {
+            zip.generateAsync({ type: "blob" }).then(content => {
+                saveAs(content, "images.zip");
+            });
+        }).catch(error => {
+            console.error("Ошибка при загрузке изображений:", error);
+        });
     }
     a_promt()
 </script>
