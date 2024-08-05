@@ -24,7 +24,9 @@ background-color: #3c3c3c;
         if (url.searchParams.get("json")) {
             aaa = JSON.parse(decodeURI(url.searchParams.get("json")))
         } else {
-            aaa = JSON.parse(prompt('json', "[]"))
+            // aaa = JSON.parse(prompt('json', "[]"))
+            copy.value = ` window.open("https://dygdyg.github.io/DygDygWEB/allhen.online-save.html?json="+encodeURIComponent(JSON.stringify(rm_h.pics)), '_blank')`
+            return
         }
         // console.log(aaa)
         // copy.value = "$('#q-selectized').val(JSON.stringify(rm_h.pics)).focus().select(); document.execCommand('copy');"
