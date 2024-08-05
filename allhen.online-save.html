@@ -10,13 +10,27 @@ background-color: #3c3c3c;
 
 </body>
 <style>
-    @media (orientation: portrait) {
+    @media (orientation: portrait) {}
+
+    @media (orientation: landscape) {}
+
+    @media (max-aspect-ratio: 120/91) {
         img.img {
             width: 100%;
         }
     }
 
-    @media (orientation: portrait) {}
+    @media (min-aspect-ratio: 120/91) {
+        img.img {
+            width: 50%;
+        }
+    }
+
+    @media (min-aspect-ratio: 35/16) {
+        img.img {
+            width: 32%;
+        }
+    }
 
     /*     body {
         display: flex;
@@ -28,14 +42,14 @@ background-color: #3c3c3c;
     } */
 
 
-    body {
+    /*     body {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
         flex-wrap: wrap;
         align-content: center;
-    }
+    } */
 </style>
 <script>
     var copy = document.getElementById('copy')
@@ -67,9 +81,9 @@ background-color: #3c3c3c;
                 copy.style.display = "none"
                 console.log(typeof aaa, aaa)
                 // document.write(`<button id="btn_zip" class="favorite styled" type="button">Скачать</button>`)
-/*                 document.getElementById("btn_zip").addEventListener("click", (e) => {
-                    downloadImagesAsZip(aaa)
-                }) */
+                /*                 document.getElementById("btn_zip").addEventListener("click", (e) => {
+                                    downloadImagesAsZip(aaa)
+                                }) */
                 for (let i = 0; i < aaa.length; i++) {
                     document.write('<img class="img" src="http:' + aaa[i].url + '"/>');
                 }
