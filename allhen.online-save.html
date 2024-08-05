@@ -6,7 +6,24 @@ background-color: #3c3c3c;
     <input id="copy" style="width: 600px;" onclick="inputclick()" readonly>
 
 </body>
-<style></style>
+<style>
+     @media (orientation: portrait) {
+        img.img {
+            width: 100%;
+        }
+    }
+
+    @media (orientation: portrait) {} 
+
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        align-content: center;
+    }
+</style>
 <script>
     var copy = document.getElementById('copy')
     var url = new URL(location.href)
@@ -37,7 +54,7 @@ background-color: #3c3c3c;
                 copy.style.display = "none"
                 console.log(aaa)
                 for (let i = 0; i < aaa.length; i++) {
-                    document.write('<img src="http:' + aaa[i].url + '"/>');
+                    document.write('<img class="img" src="http:' + aaa[i].url + '"/>');
                 }
             } else {
 
