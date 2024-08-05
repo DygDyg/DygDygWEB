@@ -1,0 +1,45 @@
+<Head></Head>
+
+<body style="
+background-color: #3c3c3c;
+">
+    <input id="copy" style="width: 600px;" onclick="inputclick()" readonly>
+
+</body>
+<style></style>
+<script>
+    var copy = document.getElementById('copy')
+    var url = new URL(location.href)
+    console.log(JSON.parse(decodeURI(url.searchParams.get("json"))))
+
+
+    function inputclick() {
+        copy.focus()
+        copy.select()
+        document.execCommand('copy')
+        a_promt()
+    }
+
+    function a_promt() {
+        if (url.searchParams.get("json")) {
+            aaa = JSON.parse(decodeURI(url.searchParams.get("json")))
+        } else {
+            aaa = JSON.parse(prompt('json', "[]"))
+        }
+        // console.log(aaa)
+        // copy.value = "$('#q-selectized').val(JSON.stringify(rm_h.pics)).focus().select(); document.execCommand('copy');"
+        copy.value = ` window.open("http://127.0.0.1:5500/allhen.online-save.html?json="+encodeURIComponent(JSON.stringify(rm_h.pics)), '_blank')`
+        if (aaa) {
+            if (aaa.length > 0) {
+                copy.style.display = "none"
+                console.log(aaa)
+                for (let i = 0; i < aaa.length; i++) {
+                    document.write('<img src="http:' + aaa[i].url + '"/>');
+                }
+            } else {
+
+            }
+        }
+    }
+    a_promt()
+</script>
