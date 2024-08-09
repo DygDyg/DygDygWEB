@@ -708,6 +708,7 @@ if (getUrlParameter("options") == "true") {
 
 const jsonDataSave = document.createElement("input");
 jsonDataSave.type = "file";
+jsonDataSave.accept = ".json";
 jsonDataSave.addEventListener("change", function () {
 	const file = jsonDataSave.files[0];
 
