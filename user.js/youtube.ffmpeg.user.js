@@ -12,6 +12,11 @@
 // @grant        unsafeWindow
 // ==/UserScript==
 
+const trustedHTMLPolicy = trustedTypes.createPolicy('default', {
+    createHTML: (input) => input
+});
+
+
 GM_addStyle(`
 
 .btn_ff:hover {
@@ -119,6 +124,7 @@ function loadedData({ target }) {
     panel.classList.add("panel_ff")
     document.getElementById("primary-inner").insertBefore(panel, document.getElementById("yt-kre-sr-container"))
     // console.log(document.getElementById("primary-inner"))
+    
     panel.innerHTML = `
         <div class="p_ff">
         <div class="btn_ff" id="btn_ff_start">Начало</div>
