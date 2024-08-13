@@ -1,0 +1,16 @@
+{
+    "manifest_version": 3,
+    "name": "ДугДуг by New Tab",
+    "version": "1.0",
+    "description": "Перенаправляет на мою страницу с закладками избранного",
+    "author": "ДугДуг",
+    "chrome_url_overrides": {
+      "newtab": "base/index.htm"
+    },
+    "permissions": [],
+    "icons": {
+      "48": "icon.png",
+      "128": "icon128.png"
+    }
+  }
+  

@@ -1,0 +1,24 @@
+[
+    {
+        "description": "treehash per file",
+        "signed_content": {
+            "payload": "eyJjb250ZW50X2hhc2hlcyI6W3siYmxvY2tfc2l6ZSI6NDA5NiwiZGlnZXN0Ijoic2hhMjU2IiwiZmlsZXMiOlt7InBhdGgiOiJjb250ZXh0X21lbnUuanMiLCJyb290X2hhc2giOiJUMHAzY3BRTWZUT09rZFZaUXBsanBWZ19QZXNXM3ZGbU5vYXhGaEkzTEVFIn0seyJwYXRoIjoiaWNvMTI4LnBuZyIsInJvb3RfaGFzaCI6IlpoVXh0bTJTRlN1U3htQWFmOGRwYUJJcVBsNGR6U0VJb1puLVk0WmFuYkkifSx7InBhdGgiOiJpY28xNi5wbmciLCJyb290X2hhc2giOiJzazNRcV8xQ0V5V3BmWkF1cU1HUkZLZ1pmeElJcDQwYWdFUENodUxwTXpnIn0seyJwYXRoIjoiaWNvNDgucG5nIiwicm9vdF9oYXNoIjoiWWlUSFBZLWsxa3V2em5pTzNaV0xOVDBEdGFDc1pJeno0RnIwcTBDQnhQbyJ9LHsicGF0aCI6Im1hbmlmZXN0Lmpzb24iLCJyb290X2hhc2giOiJqODJtN2JCbWF2ZjJDcHp2dUNRVjRCNmVhSFB4SU5zSXlzVWdmZ0k4aVVnIn1dLCJmb3JtYXQiOiJ0cmVlaGFzaCIsImhhc2hfYmxvY2tfc2l6ZSI6NDA5Nn1dLCJpdGVtX2lkIjoiaGJqaG9lZWJrY25ja2hqbGFucGJvbmtmbGJtb2ZqYWIiLCJpdGVtX3ZlcnNpb24iOiIwLjIzIiwicHJvdG9jb2xfdmVyc2lvbiI6MX0",
+            "signatures": [
+                {
+                    "header": {
+                        "kid": "publisher"
+                    },
+                    "protected": "eyJhbGciOiJSUzI1NiJ9",
+                    "signature": "gbcfSsiw88RACoLn1O5fZwzzaNLrUmq4mAjnP06Bp5XOKXofOAwAsfIbmjJaVQzjpAPL4OWetLBLcTkNMExQP5a5yBq4akhYD_bTjF5V6dAFEY_QcsqZ-PfAQ6xzZlzhk18QhrguH21PqwyhoubdfM-y0gjpIp928Xz33gbpKxik6GlwkMR_3FA0ezKJ7fKc5u2EpGkC2XHeXqpZ4-eyqWx64XrHh9QKU0vsN0GQkggF2tDCkVMP1iBwYXALMEFkKY5MeVGhRXEr7DE2PH4-olMt2Pkh-YKnRG5rynwn-bnCRrLA7ZSBedczr9sztTLVWgom4jlwvD_1Pgj2uisfhw"
+                },
+                {
+                    "header": {
+                        "kid": "webstore"
+                    },
+                    "protected": "eyJhbGciOiJSUzI1NiJ9",
+                    "signature": "hLkuLKnjbQZCAAIiMyC7HkwHvn_sDiVE0LZoRSooziW1kbeUv5Mhmex775-1T4bgt0h68wV7dgeSgjUy7sur4FozZTzucBIrSoAvMyI3-uxVD96XzxVKPPOVv9MCg0SP9dqJ9aIuyi3m9smZtidmfZYEz68EPKTEEprAu77OBNceiadUqwIkcT0OWGg-gGhp8mKqI5B8iaF96TLRE_U8MksKsBI1LQsGvQSLHTilRiHN4f4LQS5-tXkViPWjUvK-TiB5kHxNK3OuP_w3HbuFAAVROeLgJAqZNQW4i6wQh9fOBLAte04kAmXmxX-GCjsxGH5WdicmCPQj5_mwtRi23g"
+                }
+            ]
+        }
+    }
+]

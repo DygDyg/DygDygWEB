@@ -289,6 +289,18 @@
                             ]
                         },
                         {
+                            "name": "14",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "383763174d3bd2e26bbb082ca2b6cd68a0a1fd",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
                             "name": "19",
                             "suffix": "",
                             "type": "directory",
@@ -751,12 +763,36 @@
                             ]
                         },
                         {
+                            "name": "9c",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "e8a4a05a86adc4b8d0167ee285fcca225861c5",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
                             "name": "9e",
                             "suffix": "",
                             "type": "directory",
                             "children": [
                                 {
                                     "name": "230da272e83782661d420b66e1c4bf6a6193f2",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "a9",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "01274e942c3ed9457f6143392ae315cd460392",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -844,6 +880,11 @@
                             "suffix": "",
                             "type": "directory",
                             "children": [
+                                {
+                                    "name": "d597b7fd30f53af726f751d83660e3a86c13f8",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
                                 {
                                     "name": "e44ae5a5415e356f082ac5837c85447cd35a59",
                                     "suffix": "",
@@ -2365,6 +2406,338 @@
                     "name": "start.html",
                     "suffix": ".html",
                     "type": "file"
+                }
+            ]
+        },
+        {
+            "name": "ChromePlugins",
+            "suffix": "",
+            "type": "directory",
+            "children": [
+                {
+                    "name": "antilah",
+                    "suffix": "",
+                    "type": "directory",
+                    "children": [
+                        {
+                            "name": "antilah",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "context_menu.js",
+                                    "suffix": ".js",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "ico128.png",
+                                    "suffix": ".png",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "ico16.png",
+                                    "suffix": ".png",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "ico48.png",
+                                    "suffix": ".png",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "manifest.json",
+                                    "suffix": ".json",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "_metadata",
+                                    "suffix": "",
+                                    "type": "directory",
+                                    "children": [
+                                        {
+                                            "name": "verified_contents.json",
+                                            "suffix": ".json",
+                                            "type": "file"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "antilah.crx",
+                            "suffix": ".crx",
+                            "type": "file"
+                        },
+                        {
+                            "name": "antilah.zip",
+                            "suffix": ".zip",
+                            "type": "file"
+                        }
+                    ]
+                },
+                {
+                    "name": "DygDygNewTab",
+                    "suffix": "",
+                    "type": "directory",
+                    "children": [
+                        {
+                            "name": "DygDygNewTab",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "base",
+                                    "suffix": "",
+                                    "type": "directory",
+                                    "children": [
+                                        {
+                                            "name": "ad.png",
+                                            "suffix": ".png",
+                                            "type": "file"
+                                        },
+                                        {
+                                            "name": "anistar.eot",
+                                            "suffix": ".eot",
+                                            "type": "file"
+                                        },
+                                        {
+                                            "name": "anistar.ttf",
+                                            "suffix": ".ttf",
+                                            "type": "file"
+                                        },
+                                        {
+                                            "name": "anistar.woff",
+                                            "suffix": ".woff",
+                                            "type": "file"
+                                        },
+                                        {
+                                            "name": "base.js",
+                                            "suffix": ".js",
+                                            "type": "file"
+                                        },
+                                        {
+                                            "name": "BebasBold.css",
+                                            "suffix": ".css",
+                                            "type": "file"
+                                        },
+                                        {
+                                            "name": "cancel.svg",
+                                            "suffix": ".svg",
+                                            "type": "file"
+                                        },
+                                        {
+                                            "name": "click_key.ogg",
+                                            "suffix": ".ogg",
+                                            "type": "file"
+                                        },
+                                        {
+                                            "name": "cloud-computing.png",
+                                            "suffix": ".png",
+                                            "type": "file"
+                                        },
+                                        {
+                                            "name": "diskette.png",
+                                            "suffix": ".png",
+                                            "type": "file"
+                                        },
+                                        {
+                                            "name": "diskette2.png",
+                                            "suffix": ".png",
+                                            "type": "file"
+                                        },
+                                        {
+                                            "name": "favicon",
+                                            "suffix": "",
+                                            "type": "directory",
+                                            "children": [
+                                                {
+                                                    "name": "1.svg",
+                                                    "suffix": ".svg",
+                                                    "type": "file"
+                                                },
+                                                {
+                                                    "name": "default.svg",
+                                                    "suffix": ".svg",
+                                                    "type": "file"
+                                                },
+                                                {
+                                                    "name": "down.svg",
+                                                    "suffix": ".svg",
+                                                    "type": "file"
+                                                },
+                                                {
+                                                    "name": "left.svg",
+                                                    "suffix": ".svg",
+                                                    "type": "file"
+                                                },
+                                                {
+                                                    "name": "right.svg",
+                                                    "suffix": ".svg",
+                                                    "type": "file"
+                                                },
+                                                {
+                                                    "name": "up.svg",
+                                                    "suffix": ".svg",
+                                                    "type": "file"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "index.htm",
+                                            "suffix": ".htm",
+                                            "type": "file"
+                                        },
+                                        {
+                                            "name": "logos",
+                                            "suffix": "",
+                                            "type": "directory",
+                                            "children": [
+                                                {
+                                                    "name": "aliexpress.jpg",
+                                                    "suffix": ".jpg",
+                                                    "type": "file"
+                                                },
+                                                {
+                                                    "name": "bybit.jpg",
+                                                    "suffix": ".jpg",
+                                                    "type": "file"
+                                                },
+                                                {
+                                                    "name": "darklibria.png",
+                                                    "suffix": ".png",
+                                                    "type": "file"
+                                                },
+                                                {
+                                                    "name": "darklibria2.png",
+                                                    "suffix": ".png",
+                                                    "type": "file"
+                                                },
+                                                {
+                                                    "name": "discord.webp",
+                                                    "suffix": ".webp",
+                                                    "type": "file"
+                                                },
+                                                {
+                                                    "name": "miwifi.png",
+                                                    "suffix": ".png",
+                                                    "type": "file"
+                                                },
+                                                {
+                                                    "name": "ozon.jpg",
+                                                    "suffix": ".jpg",
+                                                    "type": "file"
+                                                },
+                                                {
+                                                    "name": "vk.webp",
+                                                    "suffix": ".webp",
+                                                    "type": "file"
+                                                },
+                                                {
+                                                    "name": "youtube.jpg",
+                                                    "suffix": ".jpg",
+                                                    "type": "file"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "scripts",
+                                            "suffix": "",
+                                            "type": "directory",
+                                            "children": [
+                                                {
+                                                    "name": "jquery.base64.js",
+                                                    "suffix": ".js",
+                                                    "type": "file"
+                                                },
+                                                {
+                                                    "name": "jquery.min.js",
+                                                    "suffix": ".js",
+                                                    "type": "file"
+                                                },
+                                                {
+                                                    "name": "key_fav.js",
+                                                    "suffix": ".js",
+                                                    "type": "file"
+                                                },
+                                                {
+                                                    "name": "moment-timezone-with-data.js",
+                                                    "suffix": ".js",
+                                                    "type": "file"
+                                                },
+                                                {
+                                                    "name": "moment-with-locales.js",
+                                                    "suffix": ".js",
+                                                    "type": "file"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "start.js",
+                                            "suffix": ".js",
+                                            "type": "file"
+                                        },
+                                        {
+                                            "name": "style.css",
+                                            "suffix": ".css",
+                                            "type": "file"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "icon.png",
+                                    "suffix": ".png",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "icon128.png",
+                                    "suffix": ".png",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "manifest.json",
+                                    "suffix": ".json",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "DygDygNewTab.crx",
+                            "suffix": ".crx",
+                            "type": "file"
+                        },
+                        {
+                            "name": "DygDygNewTab.pem",
+                            "suffix": ".pem",
+                            "type": "file"
+                        },
+                        {
+                            "name": "DygDygNewTab.zip",
+                            "suffix": ".zip",
+                            "type": "file"
+                        },
+                        {
+                            "name": "DygDygNewTabOld",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "DygDygNewTab.zip",
+                                    "suffix": ".zip",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "msedge_cOVevVHGki.png",
+                            "suffix": ".png",
+                            "type": "file"
+                        },
+                        {
+                            "name": "msedge_WqRW5bauTj.png",
+                            "suffix": ".png",
+                            "type": "file"
+                        }
+                    ]
                 }
             ]
         },
@@ -12551,6 +12924,11 @@
                     "type": "file"
                 },
                 {
+                    "name": "FileSaver.min.js",
+                    "suffix": ".js",
+                    "type": "file"
+                },
+                {
                     "name": "jquery.base64.js",
                     "suffix": ".js",
                     "type": "file"
@@ -12567,6 +12945,11 @@
                 },
                 {
                     "name": "jsoneditor.min.js",
+                    "suffix": ".js",
+                    "type": "file"
+                },
+                {
+                    "name": "jszip.min.js",
                     "suffix": ".js",
                     "type": "file"
                 },
