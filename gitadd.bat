@@ -7,4 +7,5 @@ echo %datetime%
 git add .
 git commit -m "%datetime%"
 git push origin master
+timeout 10
 rem pause
