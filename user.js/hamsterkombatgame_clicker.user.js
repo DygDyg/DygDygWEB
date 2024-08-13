@@ -18,12 +18,19 @@ function setCookie(cname, cvalue, exdays) {
 }
 
 (function () {
-
+	var start_adres = location.href;
+	var fix_adres = start_adres.replace("tgWebAppPlatform=web", "tgWebAppPlatform=android")
 	var clk_tm = 10
 	var click_active = false
 	var click_event
 
-	setCookie("i18n_redirected", "ru", "2026-08-02T23:42:25.000Z")
+	if(start_adres.indexOf("tgWebAppPlatform=web") >= 0){
+		window.open(fix_adres, "_blank")
+		// window.location.href = fix_adres
+		return
+	}
+
+	setCookie("i18n_redirected", "ru")
 
 	GM_registerMenuCommand("Кикать хомяка", function () {
 		console.log("click_active", true)
@@ -31,7 +38,17 @@ function setCookie(cname, cvalue, exdays) {
 	});
 
 	console.log("start")
+	
+	// console.log(start_adres.replace("tgWebAppPlatform=web", "tgWebAppPlatform=android"))
+
+
 	var check_timer = setInterval(() => {
+		
+		if(document.querySelector("#__nuxt > div > main > div > a:nth-child(2) > img"))
+		{
+			
+		}
+
 		if (typeof click_event != "function" && document.querySelector("#__nuxt > div > main > div.content.is-main.has-glow > div.user-tap.has-gap > div.user-tap-row > div")) {
 			console.log("button ok")
 			click_event = document.querySelector("#__nuxt > div > main > div.content.is-main.has-glow > div.user-tap.has-gap > div.user-tap-row > div").onclick = () => {
