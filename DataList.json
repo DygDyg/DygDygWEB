@@ -924,6 +924,11 @@
                                     "name": "4645c1bbdb3e5954a83cb9ebbbffe4ae717962",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "842643c7e3a7a61bfc814723e871d4822387af",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -1064,6 +1069,18 @@
                             "children": [
                                 {
                                     "name": "45fd8a5605763ddb678fdc2283c4f07b440ca3",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "84",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "8186224cd237bded3a75f12a7c6a09eadfc2fb",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -1243,6 +1260,18 @@
                                 },
                                 {
                                     "name": "b82491e162923635c30f0c84dd66c6cb312232",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "92",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "73fccc7fbdcfc402394369974de74ef658e215",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -1501,6 +1530,18 @@
                                 },
                                 {
                                     "name": "efe1245e39beb84c0f476d1fef15c0a23832e9",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "c6",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "a7c4f0eb8c802048fa2d980871364e19df059b",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -1951,6 +1992,11 @@
                 },
                 {
                     "name": "launch.json",
+                    "suffix": ".json",
+                    "type": "file"
+                },
+                {
+                    "name": "settings.json",
                     "suffix": ".json",
                     "type": "file"
                 }
