@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         hamsterkombatgame clicker
 // @namespace    http://tampermonkey.net/
-// @version      2024-08-13
+// @version      2024-08-13-01
 // @description  try to take over the world!
 // @author       ДугДуг
 // @match        https://hamsterkombatgame.io/ru/clicker*
@@ -55,6 +55,7 @@ function setCookie(cname, cvalue, exdays) {
 				console.log("click_active", click_active)
 				click_active = true
 			}
+			document.title = `${new Date().getHours()}:${new Date().getMinutes()} ${document.title}`
 		}
 
 		if (document.querySelector("#__nuxt > div > div.bottom-sheet.open > div.bottom-sheet-inner > div.bottom-sheet-scroll > div > button > div")) {
