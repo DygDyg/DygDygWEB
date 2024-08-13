@@ -1,6 +1,8 @@
-"macros": {
-    "runMyScript": [
-        "workbench.action.tasks.runTask"
-    ]
-},
-"workbench.action.tasks.runTask": "Run My Script"
+{
+    "macros": {
+        "runMyScript": [
+            "workbench.action.tasks.runTask"
+        ]
+    },
+    "workbench.action.tasks.runTask": "Залить на git"
+}
