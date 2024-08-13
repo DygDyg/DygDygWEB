@@ -35,7 +35,7 @@ function setCookie(cname, cvalue, exdays) {
 		if (typeof click_event != "function" && document.querySelector("#__nuxt > div > main > div.content.is-main.has-glow > div.user-tap.has-gap > div.user-tap-row > div")) {
 			console.log("button ok")
 			click_event = document.querySelector("#__nuxt > div > main > div.content.is-main.has-glow > div.user-tap.has-gap > div.user-tap-row > div").onclick = () => {
-				console.log("click_active", true)
+				console.log("click_active", click_active)
 				click_active = true
 			}
 		}
