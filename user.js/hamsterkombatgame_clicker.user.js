@@ -44,10 +44,7 @@ function setCookie(cname, cvalue, exdays) {
 
 	var check_timer = setInterval(() => {
 		
-		if(document.querySelector("#__nuxt > div > main > div > a:nth-child(2) > img"))
-		{
-			
-		}
+		// if(document.querySelector("#__nuxt > div > main > div > a:nth-child(2) > img")) return
 
 		if (typeof click_event != "function" && document.querySelector("#__nuxt > div > main > div.content.is-main.has-glow > div.user-tap.has-gap > div.user-tap-row > div")) {
 			console.log("button ok")
