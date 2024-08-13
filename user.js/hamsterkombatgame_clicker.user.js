@@ -41,6 +41,9 @@ function setCookie(cname, cvalue, exdays) {
 	
 	// console.log(start_adres.replace("tgWebAppPlatform=web", "tgWebAppPlatform=android"))
 
+	setTimeout(() => {
+		window.location.reload();
+	}, 60*60*1000);
 
 	var check_timer = setInterval(() => {
 		
