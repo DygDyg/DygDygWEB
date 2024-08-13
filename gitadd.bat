@@ -7,4 +7,4 @@ echo %datetime%
 git add .
 git commit -m "%datetime%"
 git push origin master
-pause
+rem pause
