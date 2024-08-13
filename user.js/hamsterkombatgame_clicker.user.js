@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         hamsterkombatgame clicker
 // @namespace    http://tampermonkey.net/
-// @version      2024-08-01
+// @version      2024-08-13
 // @description  try to take over the world!
 // @author       ДугДуг
 // @match        https://hamsterkombatgame.io/ru/clicker*
