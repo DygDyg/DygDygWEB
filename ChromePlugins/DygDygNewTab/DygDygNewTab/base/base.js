@@ -147,6 +147,7 @@ for (let i = 0; i < urls.length; i++) {
 $('body').prepend('<div id="Button_Settings_Cover"><div id="Button_Settings" title = "Нажми с шифтом, чтобы сменить фон"></div></div>')
 $('body').prepend('<div id="ver">' + "VER: " + ver + '</div>')
 $('#ver').attr('title', 'Shift+Click чтобы открыть подробную информацию');
+$('#ver').click(()=>{location.href = "https://dygdyg.github.io/DygDygWEB/NewTab/?ShowCardF=true"})
 
 
 $('body').append('<div id="clockG">' +
@@ -488,7 +489,7 @@ function exit_settings() {
 function add_card(url) {
 	let image = localStorage.getItem('images').split(',')[num]
 	let images_tmp = []
-	let scr_url = `//mini.s-shot.ru/?${url}`
+	let scr_url = `https://mini.s-shot.ru/?${url}`
 	scr_url = getUrlParameter('screenshotmachine')?`//api.screenshotmachine.com/?key=e51b85&dimension=480x270&url=${url}`:scr_url
 
 	// let scr_url = getUrlParameter('s-shot')?`//mini.s-shot.ru/1680x1050/JPEG/320/Z100/?${url}`:`//api.screenshotmachine.com/?key=e51b85&dimension=480x270&url=${url}`
