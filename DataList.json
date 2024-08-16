@@ -1126,6 +1126,11 @@
                             "type": "directory",
                             "children": [
                                 {
+                                    "name": "3df241caf4ae724c0f0cae806b22a23bb3a5c6",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "4446bf97d36d951e2bc09a98b3a6e4be1e9e55",
                                     "suffix": "",
                                     "type": "file"
@@ -1394,6 +1399,18 @@
                             ]
                         },
                         {
+                            "name": "a8",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "c2d746fc1e4760ae96ec19b5d3c389e3e79672",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
                             "name": "a9",
                             "suffix": "",
                             "type": "directory",
@@ -1478,6 +1495,18 @@
                             ]
                         },
                         {
+                            "name": "b5",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "a1f33e6204299e3d3351ad7ac80b733ec85614",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
                             "name": "b6",
                             "suffix": "",
                             "type": "directory",
@@ -1518,6 +1547,18 @@
                             "children": [
                                 {
                                     "name": "9a36a4875d41ad64c3e99440e9c8c2651994e1",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "bb",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "90ca2e7089ee5e89142646a009cb892f60504c",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -1687,6 +1728,18 @@
                             "children": [
                                 {
                                     "name": "9866a18c4580cb0904518d274f1fe5548886ee",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "e1",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "4250a6585b88ae00fb22dea330cbb310b9c89d",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -3240,6 +3293,28 @@
             ]
         },
         {
+            "name": "CartTest",
+            "suffix": "",
+            "type": "directory",
+            "children": [
+                {
+                    "name": "index.htm",
+                    "suffix": ".htm",
+                    "type": "file"
+                },
+                {
+                    "name": "script.js",
+                    "suffix": ".js",
+                    "type": "file"
+                },
+                {
+                    "name": "style.css",
+                    "suffix": ".css",
+                    "type": "file"
+                }
+            ]
+        },
+        {
             "name": "ChromePlugins",
             "suffix": "",
             "type": "directory",
@@ -3550,6 +3625,33 @@
                             "suffix": "",
                             "type": "directory",
                             "children": [
+                                {
+                                    "name": "DygDygNewTab",
+                                    "suffix": "",
+                                    "type": "directory",
+                                    "children": [
+                                        {
+                                            "name": "icon.png",
+                                            "suffix": ".png",
+                                            "type": "file"
+                                        },
+                                        {
+                                            "name": "icon128.png",
+                                            "suffix": ".png",
+                                            "type": "file"
+                                        },
+                                        {
+                                            "name": "manifest.json",
+                                            "suffix": ".json",
+                                            "type": "file"
+                                        },
+                                        {
+                                            "name": "newtab.html",
+                                            "suffix": ".html",
+                                            "type": "file"
+                                        }
+                                    ]
+                                },
                                 {
                                     "name": "DygDygNewTab.zip",
                                     "suffix": ".zip",
