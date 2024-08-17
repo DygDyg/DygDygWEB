@@ -119,10 +119,10 @@
     }
 </style>
 <script>
-    var ver = "0.0.5"
+    var ver = "0.0.6"
     var name_ = "DygDyg MC"
-    $("#label2").text(name_ + ": ver " + ver)
-    $('title').text(name_ + ": ver " + ver)
+    $("#label2").text(`${name_}: ver ${ver}`)
+    $('title').text(`${name_}: ver ${ver}`)
     $('#patch').text("")
     var database = {}
     var line = null
@@ -134,6 +134,17 @@
     var type_files = {
         // '.mp3': '♫',
         // '.htm':'📄',
+
+    }
+    check_ver() 
+    async function check_ver() {
+        var response = await fetch('../vers.info');
+        if(!response.status) return
+        var text =  await response.text()
+        // console.log(text)
+        // document.getElementById('ver').textContent = text
+        $("#label2").text(`${name_}:ver ${ver}   build:${text}`)
+        $('title').text(`${name_}: ver ${ver}`)
 
     }
 

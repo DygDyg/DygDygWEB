@@ -4,5 +4,6 @@
             "workbench.action.tasks.runTask"
         ]
     },
-    "workbench.action.tasks.runTask": "Залить на git"
+    "workbench.action.tasks.runTask": "Залить на git",
+    "liveServer.settings.multiRootWorkspaceName": "DygDygWEB"
 }
