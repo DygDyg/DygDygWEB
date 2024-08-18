@@ -73,6 +73,7 @@ if (getUrlParameter('search') == "false") $('#search').css('display', "none")
 
 
 $(document).ready(function () {
+	$('#search').focus()
 	$('#search').keydown(function (e) {
 
 		if (e.keyCode === 13) {
