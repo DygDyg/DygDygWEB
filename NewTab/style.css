@@ -19,6 +19,7 @@ body {
 }
 
 #calc_result {
+    cursor: pointer;
     color: #f9f9f9;
     justify-content: center;
     width: 76%;

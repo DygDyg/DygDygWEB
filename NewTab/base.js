@@ -109,6 +109,8 @@ $(document).ready(function () {
 
 
 	})
+	$('#calc_result').click(()=>{location.href = "calculator:///"})
+
 	$('#search').on("input", function () {
 		// console.log($(this).val())
 		// console.log(/[0-9%\/*\-+\(\)=]+$/.test($(this).val()))
@@ -119,6 +121,7 @@ $(document).ready(function () {
 				if (e instanceof SyntaxError) {
 					$('title').text("Новая вкладка")
 					$('#calc_result').text("")
+					
 					Calc = false
 					return
 				}
