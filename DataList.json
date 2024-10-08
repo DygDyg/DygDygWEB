@@ -615,6 +615,18 @@
                             ]
                         },
                         {
+                            "name": "1e",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "bca9919eaf27d19882cc06dec237d3d8560040",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
                             "name": "1f",
                             "suffix": "",
                             "type": "directory",
@@ -1698,6 +1710,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "783e870754f4d0d27304b09bdbc1b7b2158980",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "dd72071c62a722840d144e052a0df98a99b526",
                                     "suffix": "",
                                     "type": "file"
@@ -1784,6 +1801,11 @@
                             "suffix": "",
                             "type": "directory",
                             "children": [
+                                {
+                                    "name": "3dcd0c053b3b61a962fd7922f86909fd5ce3db",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
                                 {
                                     "name": "85326fecc6fc8efab2f4cf75c4d4fb523508a4",
                                     "suffix": "",
@@ -2888,6 +2910,18 @@
                             "children": [
                                 {
                                     "name": "3096a088f86fcabff689c9326920557940764a",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "d1",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "3e0de9beb6a40d9532acd7c696b11155f79940",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -5289,6 +5323,11 @@
         {
             "name": "DataList.json",
             "suffix": ".json",
+            "type": "file"
+        },
+        {
+            "name": "discord.pac",
+            "suffix": ".pac",
             "type": "file"
         },
         {
