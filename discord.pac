@@ -22,6 +22,7 @@ var FindProxyForURL = function(init, profiles) {
         if (/(?:^|\.)discordapp\.net$/.test(host)) return "+GPT_2";
         if (/(?:^|\.)discord\.gg$/.test(host)) return "+GPT_2";
         if (/(?:^|\.)discord\.media$/.test(host)) return "+GPT_2";
+        if (/(?:^|\.)pr-cy\.ru$/.test(host)) return "+GPT_2";
         return "DIRECT";
     },
     "+GPT_2": function(url, host, scheme) {
