@@ -70,7 +70,29 @@ $('#search').on("input", function () {
 $('#searchs').append('<div id="calc_result"></div>')
 if (getUrlParameter('search') == "false") $('#search').css('display', "none")
 
+function copyToClipboard(text) {
+	// Воспроизведение звука
+	const audio = new Audio('copy.mp3');
+	audio.play();
 
+	// Создаём временный элемент textarea
+	const tempInput = document.createElement("textarea");
+	tempInput.value = text;
+	document.body.appendChild(tempInput);
+
+	// Выделяем текст
+	tempInput.select();
+	tempInput.setSelectionRange(0, 99999); // Для мобильных устройств
+
+	// Копируем текст в буфер обмена
+	document.execCommand("copy");
+
+	// Удаляем временный элемент
+	document.body.removeChild(tempInput);
+
+	console.log("Текст скопирован: " + text);
+	return text
+}
 
 $(document).ready(function () {
 	$('#search').focus()
@@ -109,7 +131,13 @@ $(document).ready(function () {
 
 
 	})
-	$('#calc_result').click(()=>{location.href = "calculator:///"})
+	$('#calc_result').click((e) => {
+		// location.href = "calculator:///"
+		if ($('#calc_result').text().includes("Результат: ")) {
+			copyToClipboard($('#calc_result').text().replace('Результат: ', ''))
+
+		}
+	})
 
 	$('#search').on("input", function () {
 		// console.log($(this).val())
@@ -121,7 +149,7 @@ $(document).ready(function () {
 				if (e instanceof SyntaxError) {
 					$('title').text("Новая вкладка")
 					$('#calc_result').text("")
-					
+
 					Calc = false
 					return
 				}
@@ -414,7 +442,7 @@ function settings(th) {
 			$('#line_body').append('<div style="margin: 5px 0px 5px 0px; display: flex; flex-wrap: nowrap;" id="line_' + i + '">')
 			$('#line_' + i).append('<input class="NameSite" value="' + names[i] + '" placeholder="Название сайта" maxlength="13" id=NameSite_' + i + '>')
 			$('#line_' + i).append('<input style="margin: 0px 2px 0px 2px;" class="URLSite" id=URLSite_' + i + ' value="' + urls[i] + '" placeholder="URL адрес сайта">')
-			$('#line_' + i).append(`<input style="margin: 0px 2px 0px 2px;" class="URLimage" id=URLimage_${i} value="${images[i + 1]?images[i + 1]:''}" placeholder="URL ссылка на миниатюру">`)
+			$('#line_' + i).append(`<input style="margin: 0px 2px 0px 2px;" class="URLimage" id=URLimage_${i} value="${images[i + 1] ? images[i + 1] : ''}" placeholder="URL ссылка на миниатюру">`)
 			$('#line_' + i).append('<div id="delete_' + i + '" style="cursor: pointer; margin: 0px 2px 0px 2px; background-color: #ff4444eb; color: white; width: 36px; height: 21px; display: flex; align-items: center; justify-content: center;" title="удалить элемент"><div style=" font-size: 19px; font-weight: 900; -webkit-user-select: none; ">del</div></div>')
 
 			$('#delete_' + i).click(function () {
@@ -437,8 +465,8 @@ function add_button() {
 	$('#delete_' + i).click(function () {
 		delete_button(i)
 	})
-	$('#line_' + i)[0].scrollIntoView({behavior: "smooth"})
-	
+	$('#line_' + i)[0].scrollIntoView({ behavior: "smooth" })
+
 }
 
 function delete_button(i) {
@@ -493,24 +521,24 @@ function add_card(url) {
 	let image = localStorage.getItem('images').split(',')[num]
 	let images_tmp = []
 	let scr_url = `//mini.s-shot.ru/?${url}`
-	scr_url = getUrlParameter('screenshotmachine')?`//api.screenshotmachine.com/?key=e51b85&dimension=480x270&url=${url}`:scr_url
+	scr_url = getUrlParameter('screenshotmachine') ? `//api.screenshotmachine.com/?key=e51b85&dimension=480x270&url=${url}` : scr_url
 
 	// let scr_url = getUrlParameter('s-shot')?`//mini.s-shot.ru/1680x1050/JPEG/320/Z100/?${url}`:`//api.screenshotmachine.com/?key=e51b85&dimension=480x270&url=${url}`
 	// scr_url = getUrlParameter('dyg-screen')?`http://95.221.37.192:3300/screenshot?url=${url}`:scr_url
 	// let scr_url = `http://localhost:3000/screenshot?url=${url}`
 	// images_tmp[num] = images[num]?images[num]:`https://api.screenshotmachine.com/?key=e51b85&dimension=1024x768&url=${url}`
-	
-	images[num] = images[num]?.includes(".s-shot.ru/?")?"":images[num] //Удаляет ссылку на s-shot.ru
-	images_tmp[num] = images[num]?images[num]:scr_url
+
+	images[num] = images[num]?.includes(".s-shot.ru/?") ? "" : images[num] //Удаляет ссылку на s-shot.ru
+	images_tmp[num] = images[num] ? images[num] : scr_url
 
 	// images_tmp[num] = images[num]?images[num]:`https://mini.s-shot.ru/1680x1050/JPEG/320/Z100/?${url}`
 
-/* 	if (!image || image == undefined) {
-		images[num] = `http://api.s-shot.ru/1680x1050/JPEG/320/?${url}`
-		// images[num] = 'https://api.screenshotmachine.com/?key=e51b85&dimension=1024x768&url=' + url
-		localStorage.setItem('images', images)
-		console.log('Установлено', images[num], num, images.length)
-	} */
+	/* 	if (!image || image == undefined) {
+			images[num] = `http://api.s-shot.ru/1680x1050/JPEG/320/?${url}`
+			// images[num] = 'https://api.screenshotmachine.com/?key=e51b85&dimension=1024x768&url=' + url
+			localStorage.setItem('images', images)
+			console.log('Установлено', images[num], num, images.length)
+		} */
 	// $('#cards').append('<a class="card" id="card_' + num + '" style="background-image: url(http://mini.s-shot.ru/?' + url + ')" href="' + url + '">')
 	// console.log(image, 2)
 
