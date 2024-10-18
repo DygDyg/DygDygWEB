@@ -13,17 +13,24 @@
 </style>
 
 <body>
-
+    <a href="calculator://">Открыть Калькулятор</a>.
+    <a href="steam://open/console">Открыть steam_console</a>.
 </body>
 <script>
     var url_get = new URL(window.location.href)
     var app = url_get.searchParams.get('app')
-    if (app == "steam_console") {
-        location.href = `steam://open/console`
-        return
-    }
+
     if (app) {
-        location.href = `${app}://`
+        switch (app) {
+            case "steam_console":
+                location.href = `steam://open/console`
+                break;
+
+            default:
+                location.href = `${app}://`
+                break;
+        }
+
         // calculator://
     }
 </script>
