@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>app</title>
 </head>
 <style>
-    body{
+    body {
         background-color: #3d3d3d;
     }
 </style>
+
 <body>
-    
+
 </body>
 <script>
     var url_get = new URL(window.location.href)
     var app = url_get.searchParams.get('app')
-    if(app){
+    if (app == "steam_console") {
+        location.href = `steam://open/console`
+        return
+    }
+    if (app) {
         location.href = `${app}://`
         // calculator://
     }
 </script>
+
 </html>
