@@ -11,8 +11,8 @@ from datetime import datetime, timedelta
 
 # Настройка файла конфигурации
 config = configparser.ConfigParser()
-config_path = '/media/config.ini'
-# config_path = 'config.ini'
+# config_path = '/media/config.ini'
+config_path = 'config.ini'
 
 
 # Если конфигурационный файл не существует, создаем его с настройками по умолчанию
@@ -174,9 +174,27 @@ html_template = """
     a {
       color: #3391ff;
     }
+    div#loading {
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      position: absolute;
+      background-color: #0a13236b;
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    div#loading div {
+      font-size: 300%;
+    }
   </style>
 </head>
 <body>
+<div id="loading" style="visibility: hidden">
+  <div>loading...</div>
+  </div>
   <h1>Загрузка и скачивание файлов</h1>
   <h2>Свободное место на диске: {{ free_space }} / {{ total_space }}</h2>
   
@@ -232,6 +250,7 @@ html_template = """
       dropZone.classList.remove("dragover");
       const files = e.dataTransfer.files;
       handleFiles(files); // Обработка перетаскиваемых файлов
+      console.log("load")
     });
 
     fileInput.addEventListener("change", (e) => {
@@ -240,6 +259,7 @@ html_template = """
     });
 
     function handleFiles(files) {
+      document.getElementById("loading").style.visibility = 'visible'
       const formData = new FormData();
       for (let i = 0; i < files.length; i++) {
         formData.append("file", files[i]);
@@ -252,6 +272,7 @@ html_template = """
       }).then(response => {
         if (response.ok) {
           // alert("Файл(ы) успешно загружен(ы)!");
+          console.log("Файл(ы) успешно загружен(ы)!")
           window.location.reload(); // Обновляем страницу для обновления списка файлов
         } else {
           alert("Ошибка при загрузке файлов.");
