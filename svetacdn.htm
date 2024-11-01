@@ -119,7 +119,11 @@
         var kodik = document.createElement("div");
         // var link = `https://proxysite.cloud/?cdURL=https%3A%2F%2F7224.svetacdn.in%2FMr1qo9bwHfJQ%3Fkp_id%3D5401195#`
         // var link = `https://proxysite.cloud/?cdURL=`+btoa(`https://7224.svetacdn.in/Mr1qo9bwHfJQ?kp_id=${getUrlParameter("kinopoiskID")}`)
-        var link1 = `//kodik.cc/find-player?kinopoiskID=${getUrlParameter("kinopoiskID")}`
+        if(getUrlParameter("shikimoriID")){
+            var link1 = `//kodik.cc/find-player?shikimoriID=${getUrlParameter("shikimoriID")}`
+        }else{
+            var link1 = `//kodik.cc/find-player?kinopoiskID=${getUrlParameter("kinopoiskID")}`
+        }
         var link2 = `//${getRandomInt(999999999999)}.svetacdn.in/Mr1qo9bwHfJQ?kp_id=${getUrlParameter("kinopoiskID")}`
         var link3 = `//api.linktodo.ws/embed/kp/${getUrlParameter("kinopoiskID")}`
 
