@@ -15,9 +15,36 @@
 const trustedHTMLPolicy = trustedTypes.createPolicy('default', {
     createHTML: (input) => input
 });
+//ENGAGEMENT_PANEL_VISIBILITY_HIDDEN
+//ENGAGEMENT_PANEL_VISIBILITY_EXPANDED
+
+/// /html/body/ytd-app/div[1]/ytd-page-manager/ytd-shorts/div[4]/div[2]
+
 
 
 GM_addStyle(`
+
+    ytd-shorts div#anchored-panel {
+        display: flex;
+        width: 93%;
+        justify-content: space-between;
+        flex-direction: row;
+        left: 60px;
+    }
+
+ytd-shorts ytd-engagement-panel-section-list-renderer[visibility=ENGAGEMENT_PANEL_VISIBILITY_HIDDEN]:not([dialog]) {
+    display: flex !important;
+    width: 25%;
+    
+}
+    ytd-engagement-panel-section-list-renderer.style-scope.ytd-shorts {
+    z-index: 3;
+    pointer-events: auto;
+}
+
+ytd-shorts div#shorts-container {
+    z-index: 2;
+}
 
 .btn_ff:hover {
     background-color: rgba(255, 255, 255, 0.2);
@@ -102,16 +129,15 @@ window.addEventListener('loadeddata', loadedData, { capture: true, once: false, 
 
 function loadedData({ target }) {
     console.log(target)
-    if (!(target instanceof window.HTMLMediaElement) || location.href.startsWith("https://www.youtube.com/watch")==false) return
+    if (!(target instanceof window.HTMLMediaElement) || location.href.startsWith("https://www.youtube.com/watch") == false) return
     // console.log("test2")
-	// console.log(document.getElementById("primary-inner"))
+    // console.log(document.getElementById("primary-inner"))
 
-	if(document.getElementById("primary-inner")==null)
-	{
-		console.log("yt-dl crop: restart..", location.href.startsWith("https://www.youtube.com/watch"))
-		setTimeout(()=>{loadedData({ target })}, 1000);
-		return
-	}
+    if (document.getElementById("primary-inner") == null) {
+        console.log("yt-dl crop: restart..", location.href.startsWith("https://www.youtube.com/watch"))
+        setTimeout(() => { loadedData({ target }) }, 1000);
+        return
+    }
 
     document.querySelector(".panel_ff")?.remove()
     document.getElementById("tt_stsrt_marker")?.remove()
@@ -124,7 +150,7 @@ function loadedData({ target }) {
     panel.classList.add("panel_ff")
     document.getElementById("primary-inner").insertBefore(panel, document.getElementById("yt-kre-sr-container"))
     // console.log(document.getElementById("primary-inner"))
-    
+
     panel.innerHTML = `
         <div class="p_ff">
         <div class="btn_ff" id="btn_ff_start">Начало</div>
@@ -166,10 +192,10 @@ function loadedData({ target }) {
     }
 
     ff_start.btn.addEventListener("click", () => {
-        console.log(target.currentTime, target.duration, target.currentTime/target.duration*100)
+        console.log(target.currentTime, target.duration, target.currentTime / target.duration * 100)
         ff_start.in.value = secondsToTime(target.currentTime)
         ff_start.time = target.currentTime
-        marker_time_start.style.left = `${target.currentTime/target.duration*100}%`
+        marker_time_start.style.left = `${target.currentTime / target.duration * 100}%`
         marker_time_start.classList.remove("hide")
 
     })
@@ -178,7 +204,7 @@ function loadedData({ target }) {
         console.log(target.currentTime)
         ff_stop.in.value = secondsToTime(target.currentTime)
         ff_stop.time = target.currentTime
-        marker_time_stop.style.left = `${target.currentTime/target.duration*100}%`
+        marker_time_stop.style.left = `${target.currentTime / target.duration * 100}%`
         marker_time_stop.classList.remove("hide")
 
     })
