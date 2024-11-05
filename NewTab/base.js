@@ -51,21 +51,21 @@ jQuery(document).ready(function ($) {
 	})
 })
 get_api()
-function get_api()
-{
-	fetch('//whatismyip.akamai.com/')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.text();
-  })
-  .then(text => {
-    console.log("Ваш IP-адрес:", text);
-  })
-  .catch(error => {
-    console.error("Ошибка при получении IP:", error);
-  });
+function get_api() {
+	fetch('//212.192.223.12:5001/')
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('Сеть ответила с ошибкой: ' + response.status);
+			}
+			return response.json();  // Парсим ответ как JSON
+		})
+		.then(data => {
+			console.log('Ваш IP адрес:', data.ip);  // Выводим IP адрес в консоль
+		})
+		.catch(error => {
+			console.error('Произошла ошибка:', error);  // Обработка ошибок
+		});
+
 }
 
 function resize_info() {
