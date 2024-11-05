@@ -52,7 +52,7 @@ jQuery(document).ready(function ($) {
 })
 get_api()
 function get_api() {
-	fetch('//212.192.223.12:5001/')
+	fetch('http://212.192.223.12:5001/')
 		.then(response => {
 			if (!response.ok) {
 				throw new Error('Сеть ответила с ошибкой: ' + response.status);
