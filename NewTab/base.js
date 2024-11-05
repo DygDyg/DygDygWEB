@@ -50,7 +50,23 @@ jQuery(document).ready(function ($) {
 		resize_info()
 	})
 })
-
+get_api()
+function get_api()
+{
+	fetch('http://whatismyip.akamai.com/')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.text();
+  })
+  .then(text => {
+    console.log("Ваш IP-адрес:", text);
+  })
+  .catch(error => {
+    console.error("Ошибка при получении IP:", error);
+  });
+}
 
 function resize_info() {
 	; (function ($) {
