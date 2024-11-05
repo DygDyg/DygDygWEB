@@ -53,7 +53,7 @@ jQuery(document).ready(function ($) {
 get_api()
 function get_api()
 {
-	fetch('http://whatismyip.akamai.com/')
+	fetch('//whatismyip.akamai.com/')
   .then(response => {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
