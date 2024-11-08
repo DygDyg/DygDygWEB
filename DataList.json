@@ -1689,6 +1689,11 @@
                             "type": "directory",
                             "children": [
                                 {
+                                    "name": "7737b0b5e309430762b58305bb7fc4598a1c61",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "9a2d9af319550f310cfd182a6504badfcc8a7a",
                                     "suffix": "",
                                     "type": "file"
@@ -1975,6 +1980,11 @@
                             "children": [
                                 {
                                     "name": "73e1b864fd5b6249ea6a6b922968ddced2a5be",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "d8838fe28c52bb702b468742cc1a6dd0858887",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -2865,6 +2875,11 @@
                             "type": "directory",
                             "children": [
                                 {
+                                    "name": "1d4ba606610c9fcc515fa6ea8b14ab735f9079",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "1df11c0177ce0ed8ce0e1ed68aa8773ecc232f",
                                     "suffix": "",
                                     "type": "file"
@@ -3309,6 +3324,11 @@
                                 },
                                 {
                                     "name": "a7c4f0eb8c802048fa2d980871364e19df059b",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "b3dd76e6b8472afc403bf22f5a6a9ca0b08b00",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -5935,7 +5955,7 @@
             "type": "file"
         },
         {
-            "name": "DiscordFix_5.8.94.zip",
+            "name": "DiscordFix_5.9.0.zip",
             "suffix": ".zip",
             "type": "file"
         },
