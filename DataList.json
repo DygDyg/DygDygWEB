@@ -1690,6 +1690,18 @@
                             ]
                         },
                         {
+                            "name": "5a",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "91bbf8ef878aa65759b6059048a279fa4862ca",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
                             "name": "5b",
                             "suffix": "",
                             "type": "directory",
@@ -2145,6 +2157,11 @@
                             "suffix": "",
                             "type": "directory",
                             "children": [
+                                {
+                                    "name": "9493f178b9c92c6dea494a914c80046d2f332c",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
                                 {
                                     "name": "f4ff91c6117c1bade3ea9a51d9629283d689b9",
                                     "suffix": "",
@@ -3282,6 +3299,23 @@
                             "children": [
                                 {
                                     "name": "d7f0f3a7535585029c4c4bf01f434a8494bc3d",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "ea79a249e40412b99f81b70ddf3938720db1a3",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "bd",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "9ece7c89dd8d37d2c660d1d1e815277d7e3952",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -6096,6 +6130,11 @@
         {
             "name": "discord.pac",
             "suffix": ".pac",
+            "type": "file"
+        },
+        {
+            "name": "DiscordFix_6.0.217.zip",
+            "suffix": ".zip",
             "type": "file"
         },
         {
