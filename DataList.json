@@ -517,6 +517,11 @@
                                     "name": "383763174d3bd2e26bbb082ca2b6cd68a0a1fd",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "c1c07a356dfb3c71ede6512cfa5e0906314ab9",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -2021,6 +2026,18 @@
                             ]
                         },
                         {
+                            "name": "6e",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "191d41361f40e5e34cf5063f73b58d78135375",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
                             "name": "6f",
                             "suffix": "",
                             "type": "directory",
@@ -2344,6 +2361,11 @@
                             "children": [
                                 {
                                     "name": "45fd8a5605763ddb678fdc2283c4f07b440ca3",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "4f3601c920781ffa5fbbda0ae1a48ce9cb5ebe",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -2834,6 +2856,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "170d3bc756e17246677dcea8685df585b4b8fb",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "dd255111ebd4d940c080b37c6ae0e4837ae581",
                                     "suffix": "",
                                     "type": "file"
@@ -3129,6 +3156,11 @@
                             "children": [
                                 {
                                     "name": "9e7231c2880ab3e600c53043c0628f140979f8",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "bab2c2200a186f0d3dfc5ebaf8791b9cfa7847",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -6203,11 +6235,6 @@
         {
             "name": "discord.pac",
             "suffix": ".pac",
-            "type": "file"
-        },
-        {
-            "name": "DiscordFix_6.0.217.zip",
-            "suffix": ".zip",
             "type": "file"
         },
         {
