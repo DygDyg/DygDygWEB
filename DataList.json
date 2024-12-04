@@ -1635,6 +1635,11 @@
                                     "name": "f23f4793e61ffabae4ae77db064e3cd00de750",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "fe7a6a4323c1608128dd7c7537c6fdea868b9e",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -1699,6 +1704,11 @@
                             "children": [
                                 {
                                     "name": "58403f53ffe2f1572ae60305c374da4169dec0",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "c3413f9d45ef47734c961d2e9b593bec7146bf",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -1964,6 +1974,11 @@
                             "children": [
                                 {
                                     "name": "5ffaaaba81e4c779c6734016d2379b85cfc8ec",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "91c3b84fa91c9452d327f71480f517e2df335f",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -3477,6 +3492,11 @@
                                     "name": "9a9546664a5443a4981ddb5d39fa90ae55a4e3",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "c96621b471f97df24a619b84fe3575d24a5e23",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -3957,6 +3977,11 @@
                             "children": [
                                 {
                                     "name": "3e79d59c3074f4c0fbaebc543af348453e29d7",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "7a6c6ed00780a34b8c44d0e1110dfcb986d6fb",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -6278,7 +6303,7 @@
             "type": "file"
         },
         {
-            "name": "DiscordFix_6.0.545.zip",
+            "name": "DiscordFix_6.0.570.zip",
             "suffix": ".zip",
             "type": "file"
         },
