@@ -1976,6 +1976,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "8ae6c0d8bcd75cc6ef5e75b5df4336280f2cfc",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "971342c949252e7ce0cb2aaf7ce9c164c92961",
                                     "suffix": "",
                                     "type": "file"
@@ -2601,6 +2606,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "c5cd5a578ff3edc78624858daa89f150b83496",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "e523bef547b890190efcbf5d893b8bea588650",
                                     "suffix": "",
                                     "type": "file"
@@ -2700,6 +2710,11 @@
                             "suffix": "",
                             "type": "directory",
                             "children": [
+                                {
+                                    "name": "2c649e772c0acbd36d25e4d178920252f78fc5",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
                                 {
                                     "name": "b303b2901351a698b2a01fd5fb60a4d645c65a",
                                     "suffix": "",
@@ -2986,6 +3001,11 @@
                                 },
                                 {
                                     "name": "5acc756388ab86b00e40edbec86081ff751e1f",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "704e8ab7bd1c69e715e3a3c139a7da84dce15c",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -6420,7 +6440,7 @@
             "type": "file"
         },
         {
-            "name": "DiscordFix_6.0.622.zip",
+            "name": "DiscordFix_6.0.693.zip",
             "suffix": ".zip",
             "type": "file"
         },
