@@ -23,6 +23,11 @@ const trustedHTMLPolicy = trustedTypes.createPolicy('default', {
 
 
 GM_addStyle(`
+    #anchored-panel  ytd-engagement-panel-section-list-renderer:nth-child(3)
+    {
+        display: none !important;
+    }
+
 
     ytd-shorts div#anchored-panel {
         display: flex;
