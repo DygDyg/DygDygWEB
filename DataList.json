@@ -344,6 +344,18 @@
                             ]
                         },
                         {
+                            "name": "08",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "12b7c8e3f5a1b290c98f21333f94d757b92be1",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
                             "name": "09",
                             "suffix": "",
                             "type": "directory",
@@ -1470,6 +1482,11 @@
                             "type": "directory",
                             "children": [
                                 {
+                                    "name": "4e87432d2ba03dda4224b4af09796303b3c60e",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "fd2e2c214481f07be1e7fafa32817f5c0a0d5f",
                                     "suffix": "",
                                     "type": "file"
@@ -1503,6 +1520,11 @@
                             "suffix": "",
                             "type": "directory",
                             "children": [
+                                {
+                                    "name": "384f04aed63d719a5a2e77f618b3e722940627",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
                                 {
                                     "name": "fdc973540d8fa74dd0f42a781f094927c2bb31",
                                     "suffix": "",
@@ -2965,6 +2987,11 @@
                                     "name": "b684a107a044a6119f5d56620fc9a1ca85e318",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "fe3f37a89cc73cccff100bc2949b398ef3bf3e",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -3094,6 +3121,11 @@
                             "type": "directory",
                             "children": [
                                 {
+                                    "name": "139c98299f5767844ed89408a694b8099b0b0a",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "5c8b24aac470d24dd71b00983e30ebf1756962",
                                     "suffix": "",
                                     "type": "file"
@@ -3141,6 +3173,11 @@
                                 },
                                 {
                                     "name": "923a3c38025b12a1d2ff2925425b0e9ea0c9d9",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "c4ef7a8ea8a1543066c89b65d63e9467694f01",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -5840,6 +5877,103 @@
             "name": "app.htm",
             "suffix": ".htm",
             "type": "file"
+        },
+        {
+            "name": "ascii.live",
+            "suffix": ".live",
+            "type": "directory",
+            "children": [
+                {
+                    "name": "batman-running.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "batman.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "bnr.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "can-you-hear-me.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "clock.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "coin.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "donut.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "dvd.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "forrest.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "hes.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "knot.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "list.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "nyan.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "parrot.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "playstation.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "rick.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "spidyswing.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "torus-knot.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                }
+            ]
         },
         {
             "name": "ascii_test",
