@@ -348,7 +348,7 @@
         if (start) {
             // document.body.innerHTML = ''
             document.getElementById("a1").classList.add("container")
-            document.getElementById("a2").src = e.shiftKey?"./system128/FileList.htm":"./system128/StartBoot.htm"
+            document.getElementById("a2").src = e.shiftKey?"./system128/FileList.htm"+document.location.search:"./system128/StartBoot.htm"+document.location.search
             var audio1 = new Audio('./system128/crt-startup.mp3');
             var audio2 = e.shiftKey?new Audio():new Audio('./system128/BIOS_Start.mp3');
             audio1.play();
