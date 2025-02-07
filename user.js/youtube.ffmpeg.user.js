@@ -159,12 +159,12 @@ function loadedData({ target }) {
     panel.innerHTML = `
         <div class="p_ff">
         <div class="btn_ff" id="btn_ff_start">Начало</div>
-        <input class="in_ff" id="in_ff_start" autocapitalize="none" autocomplete="off" autocorrect="off" name="ешьу" tabindex="0" type="time" spellcheck="false" placeholder="время" aria-label="время">
+        <input class="in_ff" id="in_ff_start" autocapitalize="none" autocomplete="off" autocorrect="off" name="time" tabindex="0" type="time" spellcheck="false" placeholder="время" aria-label="время">
         </div>
         </div>
         <div class="p_ff">
         <div class="btn_ff" id="btn_ff_stop">Конец</div>
-        <input class="in_ff" id="in_ff_stop" autocapitalize="none" autocomplete="off" autocorrect="off" name="ешьу" tabindex="0" type="time" spellcheck="false" placeholder="время" aria-label="время">
+        <input class="in_ff" id="in_ff_stop" autocapitalize="none" autocomplete="off" autocorrect="off" name="time" tabindex="0" type="time" spellcheck="false" placeholder="время" aria-label="время">
         </div>
         </div>
         <div class="btn_ff" id="btn_ff_load" >Обрезать</div>
