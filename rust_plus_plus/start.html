@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>быстрый старт</title>
+    <title>RUST++</title>
 </head>
 <style>
     @font-face {
@@ -13,6 +14,7 @@
         font-weight: normal;
         font-style: normal;
     }
+
     body {
         user-select: none;
         font-family: "clacon2", "Arial", sans-serif;
@@ -22,6 +24,7 @@
         height: 100%;
         position: fixed;
     }
+
     :root {
         --wight1: #eeedff;
         --black1: black;
@@ -29,8 +32,41 @@
         /* cursor: default; */
         cursor: url('../system128/cursor_wight.png'), auto;
     }
+
+    .title {
+        padding: 4px;
+        background-color: var(--wight1);
+        color: var(--black1);
+    }
+    div {
+        margin: 0px 5px 5px 0px;
+    }
+
+    .line:hover {
+        background-color: var(--wight1);
+        color: var(--black1)
+    }
+    .line {
+        padding: 4px;
+    }
 </style>
+
 <body>
-    Тут будет гайд по настройкe, а пока тут мяфк!
+    <div class="title">RUST++</div>
+    
+    <div>
+        Последний билд скачать тут!
+    </div>
+    <div class="line" id="link_lastbuild">
+        <<Скачать>>
+    </div>
 </body>
+<script>
+    document.getElementById("link_lastbuild").onclick = function() {
+        window.open("./rust++.zip")
+        var audio1 = new Audio('../system128/zvuk-modema.mp3');
+        audio1.play();
+        // alert("Качаю")
+  };
+</script>
 </html>
