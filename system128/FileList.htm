@@ -284,6 +284,7 @@
                         console.log(a[i].name)
                 let url = encodeURI(window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1).replace("/system128", "") + local_patch + a[i].name + "/start.html")
                 window.location.replace(url)
+                return
             }
 
             $(`#button${i}`).on("click", function (ev) {
