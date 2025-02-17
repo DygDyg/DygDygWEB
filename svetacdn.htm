@@ -274,10 +274,7 @@
                 open: getUrlParameter("menu_open") ? getUrlParameter("menu_open") : false, // Открывать меню по умолчанию
             },
             players: { // Настройки источников
-                turbo:{
-                    enable: true,
-                    position: 0,
-                },
+
                 alloha: { // Название
                     enable: true, // Включить
                     position: 1 // Позиция в меню
@@ -321,6 +318,10 @@
                     enable: true,
                     position: 7,
                 },
+                turbo:{
+                    enable: true,
+                    position: 8,
+                },
 
 
             },
@@ -328,9 +329,7 @@
                 all: { // Добавление для всех источников
                     poster: 'https://example.org/poster.jpg', // Название параметра и его значение
                 },
-                alloha: { // Добавление для указанного источника
-                    autoplay: 1 // Название параметра и его значение
-                },
+
                 kodik: {
                     hide_selectors: true
                 },
