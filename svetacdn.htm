@@ -274,6 +274,10 @@
                 open: getUrlParameter("menu_open") ? getUrlParameter("menu_open") : false, // Открывать меню по умолчанию
             },
             players: { // Настройки источников
+                turbo:{
+                    enable: true,
+                    position: 0,
+                },
                 alloha: { // Название
                     enable: true, // Включить
                     position: 1 // Позиция в меню
@@ -317,6 +321,7 @@
                     enable: true,
                     position: 7,
                 },
+
 
             },
             params: { // Добавление дополнительных параметров в ссылку iframe
