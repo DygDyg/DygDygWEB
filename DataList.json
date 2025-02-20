@@ -1730,6 +1730,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "be76cb2e9201db92abdefff7a09116f18b64b4",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "e1f066b1d619f6bf92c19fa3c2abc83fd49ebf",
                                     "suffix": "",
                                     "type": "file"
@@ -2138,6 +2143,11 @@
                             "suffix": "",
                             "type": "directory",
                             "children": [
+                                {
+                                    "name": "500d23a515e308eb1e97662ca75ef17effa716",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
                                 {
                                     "name": "7737b0b5e309430762b58305bb7fc4598a1c61",
                                     "suffix": "",
@@ -3993,6 +4003,11 @@
                                     "name": "a419b36a99c9f0324e1fc91e00a0a8edbba082",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "f930c4c3866aceb718fc0155f516e1fbf02f9b",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -4445,6 +4460,18 @@
                             ]
                         },
                         {
+                            "name": "cd",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "d1fe4e94fc23d8db51d258fa4d0a6e2f68e4b9",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
                             "name": "ce",
                             "suffix": "",
                             "type": "directory",
@@ -4637,6 +4664,11 @@
                             "suffix": "",
                             "type": "directory",
                             "children": [
+                                {
+                                    "name": "0ea0d6186a160eba673a6ff0e515a070130b81",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
                                 {
                                     "name": "6f08aa816cbba4d22b8ce70002af708b2891a7",
                                     "suffix": "",
@@ -17502,7 +17534,22 @@
                     "type": "file"
                 },
                 {
+                    "name": "convertMinutesToTimeString.js",
+                    "suffix": ".js",
+                    "type": "file"
+                },
+                {
+                    "name": "counterToStringLabel.js",
+                    "suffix": ".js",
+                    "type": "file"
+                },
+                {
                     "name": "FileSaver.min.js",
+                    "suffix": ".js",
+                    "type": "file"
+                },
+                {
+                    "name": "html5-qrcode.min.js",
                     "suffix": ".js",
                     "type": "file"
                 },
@@ -17548,6 +17595,16 @@
                 },
                 {
                     "name": "popper.min.js",
+                    "suffix": ".js",
+                    "type": "file"
+                },
+                {
+                    "name": "qrcode.js",
+                    "suffix": ".js",
+                    "type": "file"
+                },
+                {
+                    "name": "qrcode.min.js",
                     "suffix": ".js",
                     "type": "file"
                 }
