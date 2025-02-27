@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отправитель Discord Webhook</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #ffffff;
+            --input-bg: #2d2d2d;
+            --input-border: #404040;
+            --button-bg: #5865F2;
+            --button-hover: #4752C4;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-color);
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: var(--button-bg);
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: var(--button-hover);
+        }
+
+        .profile-controls {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #404040;
+            padding-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Отправитель Discord Webhook</h1>
+    
+    <div class="profile-controls">
+        <select id="profilesList"></select>
+        <button onclick="saveProfile()">Сохранить профиль</button>
+        <button onclick="loadSelectedProfile()">Загрузить профиль</button>
+        <button onclick="deleteProfile()">Удалить профиль</button>
+    </div>
+
+    <form id="webhookForm">
+        <div class="form-group">
+            <label for="profileName">Название профиля:</label>
+            <input type="text" id="profileName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="webhookURL">Webhook URL:</label>
+            <input type="url" id="webhookURL" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="username">Имя пользователя:</label>
+            <input type="text" id="username">
+        </div>
+        
+        <div class="form-group">
+            <label for="avatarURL">Ссылка на аватарку:</label>
+            <input type="url" id="avatarURL">
+        </div>
+        
+        <div class="form-group">
+            <label for="message">Сообщение:</label>
+            <textarea id="message" rows="4" required></textarea>
+        </div>
+        
+        <button type="submit">Отправить сообщение</button>
+    </form>
+
+    <script>
+        let profiles = JSON.parse(localStorage.getItem('webhookProfiles') || '[]');
+        
+        // Инициализация при загрузке
+        window.addEventListener('load', () => {
+            updateProfilesList();
+            loadLastProfile();
+        });
+
+        // Обновление списка профилей
+        function updateProfilesList() {
+            const select = document.getElementById('profilesList');
+            select.innerHTML = profiles.map(p => 
+                `<option value="${p.name}">${p.name}</option>`
+            ).join('');
+        }
+
+        // Сохранение профиля
+        function saveProfile() {
+            const profile = {
+                name: document.getElementById('profileName').value,
+                webhookURL: document.getElementById('webhookURL').value,
+                username: document.getElementById('username').value,
+                avatarURL: document.getElementById('avatarURL').value,
+                message: document.getElementById('message').value
+            };
+
+            if (!profile.name) {
+                alert('Введите название профиля!');
+                return;
+            }
+
+            const index = profiles.findIndex(p => p.name === profile.name);
+            if (index > -1) {
+                profiles[index] = profile;
+            } else {
+                profiles.push(profile);
+            }
+
+            localStorage.setItem('webhookProfiles', JSON.stringify(profiles));
+            updateProfilesList();
+            alert('Профиль сохранен!');
+        }
+
+        // Загрузка профиля
+        function loadSelectedProfile() {
+            const selectedName = document.getElementById('profilesList').value;
+            const profile = profiles.find(p => p.name === selectedName);
+            
+            if (profile) {
+                document.getElementById('profileName').value = profile.name;
+                document.getElementById('webhookURL').value = profile.webhookURL;
+                document.getElementById('username').value = profile.username;
+                document.getElementById('avatarURL').value = profile.avatarURL;
+                document.getElementById('message').value = profile.message;
+            }
+        }
+
+        // Удаление профиля
+        function deleteProfile() {
+            const selectedName = document.getElementById('profilesList').value;
+            profiles = profiles.filter(p => p.name !== selectedName);
+            localStorage.setItem('webhookProfiles', JSON.stringify(profiles));
+            updateProfilesList();
+            alert('Профиль удален!');
+        }
+
+        // Загрузка последнего использованного профиля
+        function loadLastProfile() {
+            if (profiles.length > 0) {
+                const lastProfile = profiles[profiles.length - 1];
+                document.getElementById('profileName').value = lastProfile.name;
+                document.getElementById('webhookURL').value = lastProfile.webhookURL;
+                document.getElementById('username').value = lastProfile.username;
+                document.getElementById('avatarURL').value = lastProfile.avatarURL;
+                document.getElementById('message').value = lastProfile.message;
+            }
+        }
+
+        // Отправка сообщения
+        document.getElementById('webhookForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const webhookURL = document.getElementById('webhookURL').value;
+            const username = document.getElementById('username').value;
+            const avatarURL = document.getElementById('avatarURL').value;
+            const message = document.getElementById('message').value;
+
+            try {
+                const response = await fetch(webhookURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        content: message,
+                        username: username || undefined,
+                        avatar_url: avatarURL || undefined
+                    })
+                });
+
+                if (response.ok) {
+                    // alert('Сообщение успешно отправлено!');
+                } else {
+                    alert('Ошибка отправки: ' + response.statusText);
+                }
+            } catch (error) {
+                alert('Ошибка: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
