@@ -63,7 +63,7 @@
     </style>
 </head>
 <body>
-    <h1>Отправитель Discord Webhook</h1>
+    <h1>Discord Mes</h1>
     
     <div class="profile-controls">
         <select id="profilesList"></select>
@@ -81,6 +81,11 @@
         <div class="form-group">
             <label for="webhookURL">Webhook URL:</label>
             <input type="url" id="webhookURL" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="userID">ID для упоминания:</label>
+            <input type="text" id="userID" placeholder="Введите Discord ID">
         </div>
         
         <div class="form-group">
@@ -104,13 +109,11 @@
     <script>
         let profiles = JSON.parse(localStorage.getItem('webhookProfiles') || '[]');
         
-        // Инициализация при загрузке
         window.addEventListener('load', () => {
             updateProfilesList();
             loadLastProfile();
         });
 
-        // Обновление списка профилей
         function updateProfilesList() {
             const select = document.getElementById('profilesList');
             select.innerHTML = profiles.map(p => 
@@ -118,11 +121,11 @@
             ).join('');
         }
 
-        // Сохранение профиля
         function saveProfile() {
             const profile = {
                 name: document.getElementById('profileName').value,
                 webhookURL: document.getElementById('webhookURL').value,
+                userID: document.getElementById('userID').value,
                 username: document.getElementById('username').value,
                 avatarURL: document.getElementById('avatarURL').value,
                 message: document.getElementById('message').value
@@ -145,7 +148,6 @@
             alert('Профиль сохранен!');
         }
 
-        // Загрузка профиля
         function loadSelectedProfile() {
             const selectedName = document.getElementById('profilesList').value;
             const profile = profiles.find(p => p.name === selectedName);
@@ -153,13 +155,13 @@
             if (profile) {
                 document.getElementById('profileName').value = profile.name;
                 document.getElementById('webhookURL').value = profile.webhookURL;
+                document.getElementById('userID').value = profile.userID || '';
                 document.getElementById('username').value = profile.username;
                 document.getElementById('avatarURL').value = profile.avatarURL;
                 document.getElementById('message').value = profile.message;
             }
         }
 
-        // Удаление профиля
         function deleteProfile() {
             const selectedName = document.getElementById('profilesList').value;
             profiles = profiles.filter(p => p.name !== selectedName);
@@ -168,26 +170,31 @@
             alert('Профиль удален!');
         }
 
-        // Загрузка последнего использованного профиля
         function loadLastProfile() {
             if (profiles.length > 0) {
                 const lastProfile = profiles[profiles.length - 1];
                 document.getElementById('profileName').value = lastProfile.name;
                 document.getElementById('webhookURL').value = lastProfile.webhookURL;
+                document.getElementById('userID').value = lastProfile.userID || '';
                 document.getElementById('username').value = lastProfile.username;
                 document.getElementById('avatarURL').value = lastProfile.avatarURL;
                 document.getElementById('message').value = lastProfile.message;
             }
         }
 
-        // Отправка сообщения
         document.getElementById('webhookForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const webhookURL = document.getElementById('webhookURL').value;
+            const userID = document.getElementById('userID').value;
             const username = document.getElementById('username').value;
             const avatarURL = document.getElementById('avatarURL').value;
-            const message = document.getElementById('message').value;
+            let message = document.getElementById('message').value;
+
+            // Добавляем упоминание если указан ID
+            if (userID) {
+                message = `<@${userID}> ${message}`;
+            }
 
             try {
                 const response = await fetch(webhookURL, {
@@ -203,7 +210,7 @@
                 });
 
                 if (response.ok) {
-                    // alert('Сообщение успешно отправлено!');
+                    alert('Сообщение успешно отправлено!');
                 } else {
                     alert('Ошибка отправки: ' + response.statusText);
                 }
