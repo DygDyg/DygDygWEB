@@ -148,6 +148,7 @@
     let _json = await update()
     console.log(_json)
     timezone_range.value = _json["TimeZone"]
+    timezone_result.value = _json["TimeZone"]
     light_range.value = _json["lux_display"]
     title.textContent = _json["uname"]
     loading.style.visibility='hidden'
@@ -180,11 +181,11 @@
   }
   light_range.oninput = function () {
     light_result.innerHTML = light_range.value;
-    fetch(`/dat?timezone=${light_range.value}`)
+    fetch(`/alert?mes=" "&time=0&lux=${light_range.value}`)
   }
   timezone_range.oninput = function () {
     timezone_result.innerHTML = timezone_range.value;
-    fetch(`/alert?mes=" "&time=0&lux=${timezone_range.value}`)
+    fetch(`/dat?timezone=${timezone_range.value}`)
   }
   input_text_mes.oninput = function () {
     // result.innerHTML = input.value;
