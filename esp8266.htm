@@ -3,39 +3,179 @@
 
 <head>
   <meta charset='UTF-8'>
+  <link rel="icon" type="image/png" sizes="32x32" href="https://dygdyg.github.io/DygDygWEB/azsdasd.gif">
   <link href='https://dygdyg.github.io/DygDygWEB/scripts/bootstrap.min.css' rel='stylesheet'>
   <script defer='' src='https://dygdyg.github.io/DygDygWEB/scripts/bootstrap.bundle.min.js'></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ESP-8266</title>
+  <title id="title"></title>
 </head>
 
 <body>
-  <div class="input-group mb-3">
-    <input type="text" class="form-control"  id="input" placeholder="Текст сообщения"
-      aria-label="Текст сообщения" aria-describedby="button-addon2">
-    <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon2">ok</button> -->
+  <div class="overlay" id="loading">
+    <div class="loading-text">Загрузка...</div>
   </div>
-  <label for="customRange1" class="form-label">Задержка текста</label>
-    <input type="range" value=30 max=300 id="range" class="form-range" id="customRange1">
-    <span id="result">1</span>
-    <br>
-    <label for="customRange1" class="form-label">Яркость</label>
-    <input type="range" value=0 max=15 id="range2" class="form-range" id="customRange1">
-    <span id="result2">1</span>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" id="uname_label" href="#">loading...</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Главная</a>
+            <!-- </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Ссылка</a>
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Выпадающий список
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Действие</a></li>
+              <li><a class="dropdown-item" href="#">Другое действие</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Отключенная</a>
+          </li> -->
+        </ul>
+        <form action='/update' class="d-flex" role="search">
+          <button class="btn btn-outline-success" type="submit">Меню прошивки</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+  <!-- <h1 id="uname_label">%uname_label%</h1> -->
+  <div class="m-3">
+    <div class="container">
+      <div class="row border p-3 mb-3">
+        <div class="col">
+          <h4>Текущее время: <span class="badge bg-secondary" id="time_label">XX:XX:XX</span></h4>
+          <div class="">Температура: <span class="badge bg-secondary" id="temperature_label">?°</span></div>
+          <div class="">Влажность: <span class="badge bg-secondary" id="Humidity_label">?%</span></div>
+        </div>
+      </div>
+      <div class="row border p-3 mb-3">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" id="input_text_mes" placeholder="Текст сообщения"
+            aria-label="Текст сообщения" aria-describedby="button-addon2"></input>
+          <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon2">ok</button> -->
+        </div>
+        <div>
+          <label for="customRange1" class="form-label">Задержка текста:</label> <span
+            id="result_text_mes_delay">1</span>
+          <input type="range" value=30 max=300 id="range_text_mes_delay" class="form-range" id="customRange1">
+        </div>
+      </div>
+
+      <div class="row border p-3 mb-3">
+        <label for="customRange1" class="form-label">Яркость:</label> <span id="light_result">1</span>
+        <input type="range" value=0 max=15 id="light_range" class="form-range" id="customRange1">
+      </div>
+    </div>
+  </div>
+  <!-- <button onclick="location.href='/update'" type="button" class="btn btn-primary">Меню прошивки</button> -->
+
+
 </body>
+<style>
+  /* Затемняющий фон на всю страницу */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Затемнение */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* Поверх всех элементов */
+  }
+
+  /* Стиль для текста "Загрузка..." */
+  .loading-text {
+    color: white;
+    font-size: 2em;
+    font-family: Arial, sans-serif;
+  }
+</style>
 <script>
-  result.innerHTML = range.value/10 +" сек";
-  range.oninput = function () {
-    result.innerHTML = range.value/10 +" сек";
+
+  title = document.getElementById("title");
+  loading = document.getElementById("loading");
+  time_label = document.getElementById("time_label");
+  temperature_label = document.getElementById("temperature_label");
+  Humidity_label = document.getElementById("Humidity_label");
+
+  uname_label = document.getElementById("uname_label");
+
+  input_text_mes = document.getElementById("input_text_mes");
+  result_text_mes_delay = document.getElementById("result_text_mes_delay");
+  range_text_mes_delay = document.getElementById("range_text_mes_delay");
+
+  light_range = document.getElementById("light_range");
+  light_result = document.getElementById("light_result");
+
+  if(window.location.host=='127.0.0.1:5500') loading.style.visibility='hidden'
+
+  window.onload = function () {
+    console.log("start")
+    start()
   }
-  range2.oninput = function () {
-    result2.innerHTML = range2.value;
-    fetch(`http://esp-dygdyg.lan/alert?mes=" "&time=0&lux=${range2.value}`)
+
+  async function start() {
+    let _json = await update()
+    console.log(_json)
+    light_range.value = _json["lux_display"]
+    title.textContent = _json["uname"]
+    loading.style.visibility='hidden'
+    setInterval(() => {
+      update()
+    }, 1000);
+
+
   }
-  input.oninput = function () {
+
+  async function update() {
+    let response = await fetch("/dat");
+    let _json = await response.json();
+    uname_label.textContent = _json["uname"]
+    uname_label.href = `http://${_json["uname"]}.lan`
+    temperature_label.textContent = `${_json["temperature"]} °`
+    Humidity_label.textContent = `${_json["Humidity"]} %`
+    time_label.textContent = `${_json["CurrentTime"]}`
+
+    return _json;
+    // console.log(_json)
+  }
+
+
+
+
+  result_text_mes_delay.innerHTML = range_text_mes_delay.value / 10 + " сек";
+  range_text_mes_delay.oninput = function () {
+    result_text_mes_delay.innerHTML = range_text_mes_delay.value / 10 + " сек";
+  }
+  light_range.oninput = function () {
+    light_result.innerHTML = light_range.value;
+    fetch(`/alert?mes=" "&time=0&lux=${light_range.value}`)
+  }
+  input_text_mes.oninput = function () {
     // result.innerHTML = input.value;
-    fetch(`http://esp-dygdyg.lan/alert?mes=${input.value}&time=${range.value*100}&lux=${range2.value}`)
+    fetch(`/alert?mes=${input_text_mes.value}&time=${range_text_mes_delay.value * 100}&lux=${light_range.value}`)
   };
 </script>
 
