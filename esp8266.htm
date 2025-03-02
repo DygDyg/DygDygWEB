@@ -148,7 +148,7 @@
     let _json = await update()
     console.log(_json)
     timezone_range.value = _json["TimeZone"]
-    timezone_result.value = _json["TimeZone"]
+    timezone_result.textContent = _json["TimeZone"]
     light_range.value = _json["lux_display"]
     title.textContent = _json["uname"]
     loading.style.visibility='hidden'
