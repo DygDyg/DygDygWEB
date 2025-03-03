@@ -87,6 +87,8 @@
           <input type="range" value=3 min=-11 max=12 id="timezone_range" class="form-range">
           <div class="">Температура: <span class="badge bg-secondary" id="temperature_label">?°</span></div>
           <div class="">Влажность: <span class="badge bg-secondary" id="Humidity_label">?%</span></div>
+          <div class="">Яркость дисплея: <span class="badge bg-secondary" id="display_light_label">?%</span></div>
+          <div class="">Освящённость: <span class="badge bg-secondary" id="light_label">?%</span></div>
         </div>
       </div>
       <div class="row border p-3 mb-3">
@@ -103,8 +105,17 @@
       </div>
 
       <div class="row border p-3 mb-3">
-        <label for="customRange1" class="form-label">Яркость:</label> <span id="light_result">1</span>
-        <input type="range" value=0 max=15 id="light_range" class="form-range">
+        <label for="customRange1" class="form-label">Яркость:</label>
+        <div class="d-flex justify-content-between gap-3">
+          <div class="flex-grow-1">
+            <label for="customRange1" class="form-label">min: <span id="light_result_min">1</span></label>
+            <input type="range" value="0" min="0" max="2000" id="light_range_min" class="form-range w-100">
+          </div>
+          <div class="flex-grow-1">
+            <label for="customRange1" class="form-label">max: <span id="light_result_max">1</span></label>
+            <input type="range" value="0" min="15" max="2000" id="light_range_max" class="form-range w-100">
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -154,8 +165,8 @@
   result_text_mes_delay = document.getElementById("result_text_mes_delay");
   range_text_mes_delay = document.getElementById("range_text_mes_delay");
 
-  light_range = document.getElementById("light_range");
-  light_result = document.getElementById("light_result");
+  // light_range = document.getElementById("light_range");
+  // light_result = document.getElementById("light_result");
 
   if(window.location.host=='127.0.0.1:5500') loading.style.visibility='hidden'
   if(window.location.host=='dygdyg.github.io') loading.style.visibility='hidden'
@@ -171,8 +182,10 @@
     console.log(_json)
     timezone_range.value = _json["TimeZone"]
     timezone_result.textContent = _json["TimeZone"]
-    light_range.value = _json["lux_display"]
-    light_result.textContent = _json["lux_display"]
+    light_result_max.textContent = _json["max_light"]
+    light_range_max.value = _json["max_light"]
+    light_result_min.textContent = _json["min_light"]
+    light_range_min.value = _json["min_light"]
     title.textContent = _json["uname"]
     loading.style.visibility='hidden'
     setInterval(() => {
@@ -190,6 +203,8 @@
     temperature_label.textContent = `${_json["temperature"]} °`
     Humidity_label.textContent = `${_json["Humidity"]} %`
     time_label.textContent = `${_json["CurrentTime"]}`
+    display_light_label.textContent = `${_json["lux_display"]}`
+    light_label.textContent = `${_json["light"]}`
 
     return _json;
     // console.log(_json)
@@ -202,9 +217,15 @@
   range_text_mes_delay.oninput = function () {
     result_text_mes_delay.innerHTML = range_text_mes_delay.value / 10 + " сек";
   }
-  light_range.oninput = function () {
-    light_result.innerHTML = light_range.value;
-    fetch(`/alert?mes=" "&time=0&lux=${light_range.value}`)
+  light_range_max.oninput = function () {
+    light_result_max.innerHTML = light_range_max.value;
+    // fetch(`/alert?mes=" "&time=0&lux=${light_range_max.value}`)
+    fetch(`/dat?min_light=${light_range_min.value}&max_light=${light_range_max.value}`)
+  }
+  light_range_min.oninput = function () {
+    light_result_min.innerHTML = light_range_min.value;
+    // fetch(`/alert?mes=" "&time=0&lux=${light_range_min.value}`)
+    fetch(`/dat?min_light=${light_range_min.value}&max_light=${light_range_max.value}`)
   }
   timezone_range.oninput = function () {
     timezone_result.innerHTML = timezone_range.value;
@@ -212,7 +233,7 @@
   }
   input_text_mes.oninput = function () {
     // result.innerHTML = input.value;
-    fetch(`/alert?mes=${input_text_mes.value}&time=${range_text_mes_delay.value * 100}&lux=${light_range.value}`)
+    fetch(`/alert?mes=${input_text_mes.value}&time=${range_text_mes_delay.value * 100}`)
   };
 </script>
 
