@@ -45,35 +45,37 @@
           <li class="nav-item">
             <a class="nav-link disabled">Отключенная</a>
           </li> -->
+          
         </ul>
-          <!-- Кнопка для открытия модального окна -->
-  <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#firmwareModal">
-    Меню прошивки
-  </button>
+        <!-- Кнопка для открытия модального окна -->
+        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#firmwareModal">
+          Меню прошивки
+        </button>
+        
       </div>
     </div>
   </nav>
 
   <!-- Модальное окно -->
-<div class="modal fade" id="firmwareModal" tabindex="-1" aria-labelledby="firmwareModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <!-- Заголовок модального окна -->
-      <div class="modal-header">
-        <h5 class="modal-title" id="firmwareModalLabel">Меню прошивки</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <!-- Тело модального окна с iframe -->
-      <div class="modal-body">
-        <iframe src="/update" width="100%" height="500px" style="border:none;"></iframe>
-      </div>
-      <!-- Футер модального окна -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+  <div class="modal fade" id="firmwareModal" tabindex="-1" aria-labelledby="firmwareModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <!-- Заголовок модального окна -->
+        <div class="modal-header">
+          <h5 class="modal-title" id="firmwareModalLabel">Меню прошивки</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <!-- Тело модального окна с iframe -->
+        <div class="modal-body">
+          <iframe src="/update" width="100%" height="500px" style="border:none;"></iframe>
+        </div>
+        <!-- Футер модального окна -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
   <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -168,9 +170,9 @@
   // light_range = document.getElementById("light_range");
   // light_result = document.getElementById("light_result");
 
-  if(window.location.host=='127.0.0.1:5500') loading.style.visibility='hidden'
-  if(window.location.host=='dygdyg.github.io') loading.style.visibility='hidden'
-  if(window.location.host=='server.dygdyg.ru') loading.style.visibility='hidden'
+  if (window.location.host == '127.0.0.1:5500') loading.style.visibility = 'hidden'
+  if (window.location.host == 'dygdyg.github.io') loading.style.visibility = 'hidden'
+  if (window.location.host == 'server.dygdyg.ru') loading.style.visibility = 'hidden'
 
   window.onload = function () {
     console.log("start")
@@ -187,7 +189,7 @@
     light_result_min.textContent = _json["min_light"]
     light_range_min.value = _json["min_light"]
     title.textContent = _json["uname"]
-    loading.style.visibility='hidden'
+    loading.style.visibility = 'hidden'
     setInterval(() => {
       update()
     }, 1000);
