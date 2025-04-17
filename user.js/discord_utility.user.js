@@ -14,14 +14,62 @@
 // ==/UserScript==
 
 
-GM_registerMenuCommand('Перезагрузить панель', () => {ds_pannel()});
-GM_registerMenuCommand('Добавить кнопку "сообщение в чат"', () => {ds_panel_add("mes")});
-GM_registerMenuCommand('Добавить кнопку "переименовать диалог"', () => {ds_panel_add("rename")});
+GM_registerMenuCommand('Перезагрузить панель', () => { ds_pannel() });
+GM_registerMenuCommand('Добавить кнопку "сообщение в чат"', () => { ds_panel_add("mes") });
+GM_registerMenuCommand('Добавить кнопку "переименовать диалог"', () => { ds_panel_add("rename") });
 
 
 
 let panel;
 const ds_LocalStorage = window.localStorage;
+
+
+document.addEventListener('keydown', function (event) {
+	timer = 0
+	console.log(event)
+	if (event.code === 'NumpadMultiply') {
+		if(!confirm("Отправить кораблик?")) return;
+		ds_message("🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥")
+		timer =timer +1000;
+		setTimeout(() => {
+			ds_message("🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜🟥")
+		}, timer);
+		timer =timer +1000;
+		setTimeout(() => {
+			ds_message("🟥⬜⬛⬜⬜⬛⬛⬛⬛⬜🟥")
+		}, timer);
+		timer =timer +1000;
+		setTimeout(() => {
+			ds_message("🟥⬜⬛⬜⬜⬛⬜⬜⬜⬜🟥")
+		}, timer);
+		timer =timer +1000;
+		setTimeout(() => {
+			ds_message("🟥⬜⬛⬛⬛⬛⬛⬛⬛⬜🟥")
+		}, timer);
+
+		timer =timer +3000;
+		setTimeout(() => {
+			ds_message("🟥⬜⬛⬜⬜⬜⬜⬜⬛⬜🟥")
+		}, timer);
+		timer =timer +500;
+		setTimeout(() => {
+			ds_message("🟥⬜⬜⬛⬛⬛⬛⬛⬜⬜🟥")
+		}, timer);
+		timer =timer +500;
+		setTimeout(() => {
+			ds_message("🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜🟥")
+		}, timer);
+		timer =timer +500;
+		setTimeout(() => {
+			ds_message("🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥")
+		}, timer);
+		return;
+		timer =timer +2000;
+		setTimeout(() => {
+			ds_message("А ты что подумал?")
+		}, timer);
+	}
+});
 
 function ds_GET_Name_Chennal(mes, func_buttons) {
 	var token = ds_LocalStorage.getItem("token").replace(/^"(.+(?="$))"$/, '$1');
@@ -41,15 +89,15 @@ function ds_GET_Name_Chennal(mes, func_buttons) {
 		console.log(data);
 		console.log("1) ", mes, data.name)
 		if (data.type == 3 && !data.name.startsWith(mes)) {
-			
+
 			func_buttons.forEach(e => {
-				if (e["type"]=="rename") {
+				if (e["type"] == "rename") {
 					console.log(e["message"])
 					console.log(data.name)
 					// e["message"] = e["message"]/g
 					// a = e["message"]/g
 					console.log("a", e["message"])
-					data.name = data.name.replace(new RegExp(e["message"],'g'), ``);
+					data.name = data.name.replace(new RegExp(e["message"], 'g'), ``);
 					console.log("b", data.name)
 				}
 			});
@@ -131,10 +179,13 @@ GM_addStyle(`
 `)
 ds_pannel(3000)
 
+
+
+
 function ds_pannel(delay) {
-	
+
 	for (let i = 0; i < document.getElementsByClassName("dyg_panel").length; i++) {
-		document.getElementsByClassName("dyg_panel")[i].remove()	
+		document.getElementsByClassName("dyg_panel")[i].remove()
 	}
 
 	let func_buttons = JSON.parse(ds_LocalStorage.getItem('buttons_panel'))
@@ -177,11 +228,11 @@ function ds_pannel(delay) {
 		panel.append(button[i])
 		button[i].textContent = func_buttons[i]["ico"]
 		button[i].title = func_buttons[i]["title"]
-		if(func_buttons[i]["type"]=='mes') button[i].setAttribute('style', 'text-shadow: 0 0 6px red;')
-		if(func_buttons[i]["type"]=='rename') button[i].setAttribute('style', 'text-shadow: 0 0 6px #CDDC39;')
+		if (func_buttons[i]["type"] == 'mes') button[i].setAttribute('style', 'text-shadow: 0 0 6px red;')
+		if (func_buttons[i]["type"] == 'rename') button[i].setAttribute('style', 'text-shadow: 0 0 6px #CDDC39;')
 		button[i].onclick = function (e) {
 			// console.log(e.shiftKey)
-			if(e.shiftKey) return ds_panel_delete(i, func_buttons)
+			if (e.shiftKey) return ds_panel_delete(i, func_buttons)
 
 			switch (func_buttons[i]["type"]) {
 				case "mes":
@@ -198,8 +249,7 @@ function ds_pannel(delay) {
 		}
 	}
 }
-function ds_panel_add(type, func_buttons)
-{
+function ds_panel_add(type, func_buttons) {
 	func_buttons = JSON.parse(ds_LocalStorage.getItem('buttons_panel'))
 	local_button = {
 		ico: prompt("Лого Эмодзи. win+. (win+Ю)", "✅"),
@@ -214,11 +264,9 @@ function ds_panel_add(type, func_buttons)
 }
 
 
-function ds_panel_delete(i, func_buttons)
-{
+function ds_panel_delete(i, func_buttons) {
 	console.log(func_buttons)
-	if(confirm(`Удалить элемент №${i} "${func_buttons[i]["ico"]} ${func_buttons[i]["title"]}`))
-	{
+	if (confirm(`Удалить элемент №${i} "${func_buttons[i]["ico"]} ${func_buttons[i]["title"]}`)) {
 		func_buttons.splice(i, 1);
 		console.log(func_buttons)
 		ds_LocalStorage.setItem('buttons_panel', JSON.stringify(func_buttons))
