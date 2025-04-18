@@ -183,6 +183,28 @@
         .modal-content button.cancel {
             background: #555555;
         }
+        /* Стили для кнопок следующая/предыдущая серия */
+        .vjs-next-episode,
+        .vjs-prev-episode {
+            cursor: pointer;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 100%;
+            background: #2c2c2c;
+            transition: background-color 0.2s;
+        }
+        .vjs-next-episode:hover,
+        .vjs-prev-episode:hover {
+            background: #3a3a3a;
+        }
+        .vjs-next-episode.disabled,
+        .vjs-prev-episode.disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
         /* Скрытие списка серий в вертикальной ориентации */
         @media (orientation: portrait) {
             .episodes-list {
@@ -243,6 +265,9 @@
             }
         });
 
+        // Флаг для отслеживания отмены пропуска заставки
+        let skipCancelled = false;
+
         // Обработка перемотки с помощью стрелок на клавиатуре
         document.addEventListener('keydown', (event) => {
             if (event.key === 'ArrowRight') {
@@ -265,6 +290,54 @@
             episodeItems.forEach((item, i) => {
                 item.classList.toggle('active', i === index);
             });
+        }
+
+        // Функция для создания кнопок следующая/предыдущая серия
+        function createEpisodeNavigationButtons() {
+            const controlBar = player.controlBar.el();
+
+            // Кнопка "Предыдущая серия"
+            const prevButton = document.createElement('div');
+            prevButton.className = 'vjs-prev-episode vjs-control';
+            prevButton.innerHTML = '<span><</span>';
+            prevButton.title = 'Предыдущая серия';
+            controlBar.insertBefore(prevButton, controlBar.querySelector('.vjs-quality-menu') || controlBar.lastChild);
+
+            // Кнопка "Следующая серия"
+            const nextButton = document.createElement('div');
+            nextButton.className = 'vjs-next-episode vjs-control';
+            nextButton.innerHTML = '<span>></span>';
+            nextButton.title = 'Следующая серия';
+            controlBar.insertBefore(nextButton, controlBar.querySelector('.vjs-quality-menu') || controlBar.lastChild);
+
+            // Обновление состояния кнопок
+            function updateButtonStates() {
+                const currentIndex = player.playlist.currentItem();
+                const playlistLength = player.playlist().length;
+                prevButton.classList.toggle('disabled', currentIndex === 0);
+                nextButton.classList.toggle('disabled', currentIndex === playlistLength - 1);
+            }
+
+            // Обработчики кликов
+            prevButton.addEventListener('click', () => {
+                if (!prevButton.classList.contains('disabled')) {
+                    player.playlist.previous();
+                    highlightEpisode(player.playlist.currentItem());
+                    player.play();
+                }
+            });
+
+            nextButton.addEventListener('click', () => {
+                if (!nextButton.classList.contains('disabled')) {
+                    player.playlist.next();
+                    highlightEpisode(player.playlist.currentItem());
+                    player.play();
+                }
+            });
+
+            // Обновляем состояние кнопок при смене серии
+            player.on('playlistitem', updateButtonStates);
+            updateButtonStates(); // Начальное состояние
         }
 
         // Функция для создания кастомного меню качества
@@ -329,6 +402,7 @@
                 highlightEpisode(episodeIndex);
                 player.play();
                 modal.style.display = 'none';
+                skipCancelled = false; // Сбрасываем флаг
             };
 
             cancelBtn.onclick = () => {
@@ -337,6 +411,7 @@
                 highlightEpisode(episodeIndex);
                 player.play();
                 modal.style.display = 'none';
+                skipCancelled = false; // Сбрасываем флаг
             };
         }
 
@@ -353,17 +428,20 @@
             let timeout = setTimeout(() => {
                 player.currentTime(stopTime);
                 modal.style.display = 'none';
+                skipCancelled = false; // Сбрасываем флаг
             }, 3000);
 
             skipBtn.onclick = () => {
                 clearTimeout(timeout);
                 player.currentTime(stopTime);
                 modal.style.display = 'none';
+                skipCancelled = false; // Сбрасываем флаг
             };
 
             cancelBtn.onclick = () => {
                 clearTimeout(timeout);
                 modal.style.display = 'none';
+                skipCancelled = true; // Устанавливаем флаг отмены
             };
         }
 
@@ -418,10 +496,11 @@
                 player.playlist(playlist);
                 player.playlist.autoadvance(0);
 
-                // Создаём кастомное меню качества для первой серии
+                // Создаём кастомное меню качества и кнопки навигации для первой серии
                 const firstEpisode = playlist[0];
                 if (firstEpisode.sources.length > 0) {
                     createQualityMenu(player, firstEpisode.sources, firstEpisode.sources[0].label);
+                    createEpisodeNavigationButtons();
                 }
 
                 // Проверяем прогресс для аниме
@@ -444,10 +523,15 @@
                         createQualityMenu(player, currentEpisode.sources, currentEpisode.sources[0].label);
                     }
                     const savedProgress = getProgress(animeId);
-                    if (savedProgress && savedProgress.episodeIndex === currentItem && savedProgress.currentTime > 5) {
+                    if (!skipCancelled && savedProgress && savedProgress.episodeIndex === currentItem && savedProgress.currentTime > 5) {
                         showContinueModal(savedProgress.episodeIndex, savedProgress.currentTime, currentEpisode.name);
                     }
                     highlightEpisode(currentItem); // Подсвечиваем текущую серию
+                });
+
+                // Сбрасываем флаг skipCancelled при начале воспроизведения
+                player.on('play', () => {
+                    skipCancelled = false;
                 });
 
                 // Сохраняем прогресс и проверяем необходимость пропуска заставок
