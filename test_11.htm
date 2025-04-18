@@ -596,7 +596,7 @@
                 player.on('timeupdate', () => {
                     const currentItem = player.playlist.currentItem();
                     const currentTime = player.currentTime();
-                    if (currentTime > 5) {
+                    if (currentTime > 60) {
                         saveProgress(animeId, currentItem, currentTime);
                     }
                     const currentEpisode = playlist[currentItem];
