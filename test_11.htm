@@ -446,7 +446,11 @@
         }
 
         // Загружаем плейлист для animeId = 9217
-        loadPlaylist(9217);
+        function getParam(get) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(get);
+    }
+        loadPlaylist(getParam("id")||9217);
     </script>
 </body>
 </html>
