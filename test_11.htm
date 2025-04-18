@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anilibria player</title>
+    <title>anilibria player</title>
     <!-- Подключаем Video.js стили -->
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
     <style>
@@ -22,14 +22,17 @@
             gap: 10px;
         }
         .video-container {
-            flex: 3;
+            flex: 5;
             background-color: #2c2c2c;
             border-radius: 5px;
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             justify-content: center;
             overflow: hidden;
             max-height: 100vh;
+        }
+        #my-video {
+            height: 100%;
         }
         .video-js {
             width: 100%;
@@ -50,6 +53,7 @@
             background-color: #2c2c2c;
             padding: 10px;
             border-radius: 5px;
+            min-width: 350px;
         }
         .episode-item {
             display: flex;
@@ -92,6 +96,10 @@
         .vjs-quality-menu .vjs-menu-button {
             cursor: pointer;
             color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
         }
         .vjs-quality-menu .vjs-thinking-indicator {
             display: none;
@@ -107,6 +115,9 @@
             border-radius: 4px;
             z-index: 100;
             border: 1px solid #444444;
+        }
+        ul.vjs-menu {
+            padding-inline-start: 0;
         }
         .vjs-quality-menu:hover .vjs-menu {
             display: block;
@@ -129,7 +140,7 @@
             text-align: center;
             padding: 10px;
         }
-        /* Стили для модального окна */
+        /* Стили для модальных окон */
         .modal {
             display: none;
             position: fixed;
@@ -165,19 +176,13 @@
         .modal-content button.cancel {
             background: #555555;
         }
-        /* Стили для кнопок пропуска заставок */
-        .vjs-skip-button {
-            display: none;
-            cursor: pointer;
-            color: #ffffff;
-            padding: 0 10px;
-        }
-        .vjs-skip-button.vjs-visible {
-            display: inline-block;
-        }
-        @media (min-aspect-ratio: 21/9) {
-            .video-js {
-                max-height: 90vh;
+        /* Скрытие списка серий в вертикальной ориентации */
+        @media (orientation: portrait) {
+            .episodes-list {
+                display: none;
+            }
+            .video-container {
+                flex: 1;
             }
         }
     </style>
@@ -206,6 +211,15 @@
         </div>
     </div>
 
+    <!-- Модальное окно для пропуска заставок -->
+    <div class="modal" id="skip-modal">
+        <div class="modal-content">
+            <p id="skip-message"></p>
+            <button id="skip-btn">Пропустить</button>
+            <button id="skip-cancel-btn" class="cancel">Отменить</button>
+        </div>
+    </div>
+
     <!-- Подключаем Video.js -->
     <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
     <!-- Подключаем плагин плейлиста -->
@@ -213,7 +227,6 @@
     <script>
         // Инициализация плеера
         const player = videojs('my-video', {
-            fluid: true,
             responsive: true,
             playbackRates: [0.5, 1, 1.5, 2],
             html5: {
@@ -231,7 +244,7 @@
 
             const button = document.createElement('div');
             button.className = 'vjs-menu-button vjs-control';
-            button.innerHTML = `<span>Качество: ${currentQuality}</span>`;
+            button.innerHTML = `<span>${currentQuality}</span>`;
             qualityMenu.appendChild(button);
 
             const menu = document.createElement('ul');
@@ -244,7 +257,7 @@
                 }
                 li.addEventListener('click', () => {
                     player.src({ src: quality.src, type: 'application/x-mpegURL' });
-                    button.innerHTML = `<span>${currentQuality}</span>`;
+                    button.innerHTML = `<span>${quality.label}</span>`;
                     menu.querySelectorAll('li').forEach(item => item.className = '');
                     li.className = 'vjs-selected';
                     player.play();
@@ -269,7 +282,7 @@
             return progress[animeId] || null;
         }
 
-        // Функция для показа модального окна
+        // Функция для показа модального окна продолжения
         function showContinueModal(episodeIndex, currentTime, episodeName) {
             const modal = document.getElementById('continue-modal');
             const message = document.getElementById('continue-message');
@@ -294,51 +307,49 @@
             };
         }
 
-        // Функция для создания кнопок пропуска заставок
-        function createSkipButtons(player, opening, ending) {
-            const controlBar = player.controlBar.el();
+        // Функция для показа модального окна пропуска заставок
+        function showSkipModal(type, stopTime) {
+            const modal = document.getElementById('skip-modal');
+            const message = document.getElementById('skip-message');
+            const skipBtn = document.getElementById('skip-btn');
+            const cancelBtn = document.getElementById('skip-cancel-btn');
 
-            // Кнопка пропуска опенинга
-            const skipOpeningButton = document.createElement('div');
-            skipOpeningButton.className = 'vjs-skip-button vjs-control';
-            skipOpeningButton.innerText = 'Пропустить опенинг';
-            skipOpeningButton.addEventListener('click', () => {
-                if (opening && opening.stop) {
-                    player.currentTime(opening.stop);
-                }
-            });
+            message.textContent = `Пропустить ${type === 'opening' ? 'опенинг' : 'эндинг'} через 3 секунды`;
+            modal.style.display = 'flex';
 
-            // Кнопка пропуска эндинга
-            const skipEndingButton = document.createElement('div');
-            skipEndingButton.className = 'vjs-skip-button vjs-control';
-            skipEndingButton.innerText = 'Пропустить эндинг';
-            skipEndingButton.addEventListener('click', () => {
-                if (ending && ending.stop) {
-                    player.currentTime(ending.stop);
-                }
-            });
+            let timeout = setTimeout(() => {
+                player.currentTime(stopTime);
+                modal.style.display = 'none';
+            }, 3000);
 
-            // Вставляем кнопки перед меню качества
-            const qualityMenu = controlBar.querySelector('.vjs-quality-menu') || controlBar.lastChild;
-            controlBar.insertBefore(skipOpeningButton, qualityMenu);
-            controlBar.insertBefore(skipEndingButton, qualityMenu);
+            skipBtn.onclick = () => {
+                clearTimeout(timeout);
+                player.currentTime(stopTime);
+                modal.style.display = 'none';
+            };
 
-            return { skipOpeningButton, skipEndingButton };
+            cancelBtn.onclick = () => {
+                clearTimeout(timeout);
+                modal.style.display = 'none';
+            };
         }
 
-        // Функция для обновления видимости кнопок пропуска
-        function updateSkipButtons(currentTime, opening, ending, buttons) {
-            if (opening && opening.start && opening.stop && currentTime >= opening.start && currentTime < opening.stop) {
-                buttons.skipOpeningButton.classList.add('vjs-visible');
-            } else {
-                buttons.skipOpeningButton.classList.remove('vjs-visible');
-            }
+        // Функция для проверки необходимости пропуска заставок
+        function checkSkip(currentTime, opening, ending) {
+            const modal = document.getElementById('skip-modal');
+            if (modal.style.display === 'flex') return; // Не показываем, если модалка уже открыта
 
-            if (ending && ending.start && ending.stop && currentTime >= ending.start && currentTime < ending.stop) {
-                buttons.skipEndingButton.classList.add('vjs-visible');
-            } else {
-                buttons.skipEndingButton.classList.remove('vjs-visible');
+            if (opening && opening.start && opening.stop && currentTime >= opening.start && currentTime < opening.stop) {
+                showSkipModal('opening', opening.stop);
+            } else if (ending && ending.start && ending.stop && currentTime >= ending.start && currentTime < ending.stop) {
+                showSkipModal('ending', ending.stop);
             }
+        }
+
+        // Функция для получения параметра из URL
+        function getParam(get) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(get);
         }
 
         // Функция для загрузки данных и создания плейлиста
@@ -363,7 +374,7 @@
                             { src: episode.hls_480, type: 'application/x-mpegURL', label: '480p' }
                         ].filter(source => source.src),
                         poster: `https://anilibria.top${episode.preview.src}`,
-                        name: `${index+1} ${episode.name}`,
+                        name: episode.name,
                         thumbnail: `https://anilibria.top${episode.preview.src}`,
                         opening: episode.opening || null,
                         ending: episode.ending || null
@@ -388,10 +399,7 @@
                     player.play();
                 }
 
-                // Создаём кнопки пропуска заставок
-                let skipButtons = createSkipButtons(player, firstEpisode.opening, firstEpisode.ending);
-
-                // Обновляем меню качества, кнопки пропуска и проверяем прогресс при смене серии
+                // Обновляем меню качества и проверяем прогресс при смене серии
                 player.on('playlistitem', () => {
                     const currentItem = player.playlist.currentItem();
                     const currentEpisode = playlist[currentItem];
@@ -400,18 +408,13 @@
                         if (qualityMenu) qualityMenu.remove();
                         createQualityMenu(player, currentEpisode.sources, currentEpisode.sources[0].label);
                     }
-                    // Обновляем кнопки пропуска
-                    const oldSkipButtons = player.controlBar.el().querySelectorAll('.vjs-skip-button');
-                    oldSkipButtons.forEach(btn => btn.remove());
-                    skipButtons = createSkipButtons(player, currentEpisode.opening, currentEpisode.ending);
-                    // Проверяем прогресс
                     const savedProgress = getProgress(animeId);
                     if (savedProgress && savedProgress.episodeIndex === currentItem && savedProgress.currentTime > 5) {
                         showContinueModal(savedProgress.episodeIndex, savedProgress.currentTime, currentEpisode.name);
                     }
                 });
 
-                // Сохраняем прогресс и обновляем видимость кнопок пропуска
+                // Сохраняем прогресс и проверяем необходимость пропуска заставок
                 player.on('timeupdate', () => {
                     const currentItem = player.playlist.currentItem();
                     const currentTime = player.currentTime();
@@ -419,10 +422,10 @@
                         saveProgress(animeId, currentItem, currentTime);
                     }
                     const currentEpisode = playlist[currentItem];
-                    updateSkipButtons(currentTime, currentEpisode.opening, currentEpisode.ending, skipButtons);
+                    checkSkip(currentTime, currentEpisode.opening, currentEpisode.ending);
                 });
 
-                // Создаём список серий с превью
+                // Создаём список серий с превью и номерами
                 const episodesList = document.getElementById('episodes-list');
                 episodesList.innerHTML = '';
                 playlist.forEach((episode, index) => {
@@ -430,7 +433,7 @@
                     episodeItem.className = 'episode-item';
                     episodeItem.innerHTML = `
                         <img src="${episode.thumbnail}" alt="${episode.name}" loading="lazy">
-                        <span>${episode.name}</span>
+                        <span>${index + 1}. ${episode.name}</span>
                     `;
                     episodeItem.addEventListener('click', () => {
                         player.playlist.currentItem(index);
@@ -445,12 +448,8 @@
             }
         }
 
-        // Загружаем плейлист для animeId = 9217
-        function getParam(get) {
-      const params = new URLSearchParams(window.location.search);
-      return params.get(get);
-    }
-        loadPlaylist(getParam("id")||9217);
+        // Загружаем плейлист с динамическим animeId
+        loadPlaylist(getParam("id") || 9217);
     </script>
 </body>
 </html>
