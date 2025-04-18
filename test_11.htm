@@ -205,6 +205,24 @@
             cursor: not-allowed;
             opacity: 0.5;
         }
+        /* Стили для отрезков опенинга и эндинга */
+        .vjs-progress-holder {
+            position: relative;
+        }
+        .vjs-opening-segment,
+        .vjs-ending-segment {
+            position: absolute;
+            height: 100%;
+            top: 0;
+            z-index: 1;
+            opacity: 0.5;
+        }
+        .vjs-opening-segment {
+            background-color: #00ff00; /* Зелёный для опенинга */
+        }
+        .vjs-ending-segment {
+            background-color: #ff00ff; /* Фиолетовый для эндинга */
+        }
         /* Скрытие списка серий в вертикальной ориентации */
         @media (orientation: portrait) {
             .episodes-list {
@@ -374,6 +392,42 @@
             controlBar.insertBefore(qualityMenu, settingsButton);
         }
 
+        // Функция для добавления отрезков опенинга и эндинга на полосу прогресса
+        function addSegmentMarkers(opening, ending) {
+            const progressHolder = document.querySelector('.vjs-progress-holder');
+            if (!progressHolder) return;
+
+            // Очищаем старые отрезки
+            const existingSegments = progressHolder.querySelectorAll('.vjs-opening-segment, .vjs-ending-segment');
+            existingSegments.forEach(segment => segment.remove());
+
+            // Получаем длительность видео
+            const duration = player.duration();
+            if (!duration || isNaN(duration)) return;
+
+            // Добавляем отрезок для опенинга
+            if (opening && opening.start && opening.stop && opening.start < opening.stop && opening.stop <= duration) {
+                const openingSegment = document.createElement('div');
+                openingSegment.className = 'vjs-opening-segment';
+                const startPercent = (opening.start / duration) * 100;
+                const widthPercent = ((opening.stop - opening.start) / duration) * 100;
+                openingSegment.style.left = `${startPercent}%`;
+                openingSegment.style.width = `${widthPercent}%`;
+                progressHolder.appendChild(openingSegment);
+            }
+
+            // Добавляем отрезок для эндинга
+            if (ending && ending.start && ending.stop && ending.start < ending.stop && ending.stop <= duration) {
+                const endingSegment = document.createElement('div');
+                endingSegment.className = 'vjs-ending-segment';
+                const startPercent = (ending.start / duration) * 100;
+                const widthPercent = ((ending.stop - ending.start) / duration) * 100;
+                endingSegment.style.left = `${startPercent}%`;
+                endingSegment.style.width = `${widthPercent}%`;
+                progressHolder.appendChild(endingSegment);
+            }
+        }
+
         // Функции для работы с localStorage
         function saveProgress(animeId, episodeIndex, currentTime) {
             let progress = JSON.parse(localStorage.getItem('animeProgress') || '{}');
@@ -402,7 +456,7 @@
                 highlightEpisode(episodeIndex);
                 player.play();
                 modal.style.display = 'none';
-                skipCancelled = false; // Сбрасываем флаг
+                skipCancelled = false;
             };
 
             cancelBtn.onclick = () => {
@@ -411,7 +465,7 @@
                 highlightEpisode(episodeIndex);
                 player.play();
                 modal.style.display = 'none';
-                skipCancelled = false; // Сбрасываем флаг
+                skipCancelled = false;
             };
         }
 
@@ -428,27 +482,27 @@
             let timeout = setTimeout(() => {
                 player.currentTime(stopTime);
                 modal.style.display = 'none';
-                skipCancelled = false; // Сбрасываем флаг
+                skipCancelled = false;
             }, 3000);
 
             skipBtn.onclick = () => {
                 clearTimeout(timeout);
                 player.currentTime(stopTime);
                 modal.style.display = 'none';
-                skipCancelled = false; // Сбрасываем флаг
+                skipCancelled = false;
             };
 
             cancelBtn.onclick = () => {
                 clearTimeout(timeout);
                 modal.style.display = 'none';
-                skipCancelled = true; // Устанавливаем флаг отмены
+                skipCancelled = true;
             };
         }
 
         // Функция для проверки необходимости пропуска заставок
         function checkSkip(currentTime, opening, ending) {
             const modal = document.getElementById('skip-modal');
-            if (modal.style.display === 'flex') return; // Не показываем, если модалка уже открыта
+            if (modal.style.display === 'flex') return;
 
             if (opening && opening.start && opening.stop && currentTime >= opening.start && currentTime < opening.stop) {
                 showSkipModal('opening', opening.stop);
@@ -510,10 +564,10 @@
                     highlightEpisode(savedProgress.episodeIndex);
                 } else {
                     player.play();
-                    highlightEpisode(0); // Подсвечиваем первую серию по умолчанию
+                    highlightEpisode(0);
                 }
 
-                // Обновляем меню качества, проверяем прогресс и подсвечиваем серию при смене
+                // Обновляем меню качества, проверяем прогресс, подсвечиваем серию и добавляем отрезки при смене
                 player.on('playlistitem', () => {
                     const currentItem = player.playlist.currentItem();
                     const currentEpisode = playlist[currentItem];
@@ -526,7 +580,11 @@
                     if (!skipCancelled && savedProgress && savedProgress.episodeIndex === currentItem && savedProgress.currentTime > 5) {
                         showContinueModal(savedProgress.episodeIndex, savedProgress.currentTime, currentEpisode.name);
                     }
-                    highlightEpisode(currentItem); // Подсвечиваем текущую серию
+                    highlightEpisode(currentItem);
+                    // Добавляем отрезки после загрузки метаданных
+                    player.one('loadedmetadata', () => {
+                        addSegmentMarkers(currentEpisode.opening, currentEpisode.ending);
+                    });
                 });
 
                 // Сбрасываем флаг skipCancelled при начале воспроизведения
@@ -558,13 +616,18 @@
                     episodeItem.addEventListener('click', () => {
                         player.playlist.currentItem(index);
                         player.play();
-                        highlightEpisode(index); // Подсвечиваем при клике
+                        highlightEpisode(index);
                     });
                     episodesList.appendChild(episodeItem);
                 });
 
                 // Подсвечиваем первую серию или сохранённую
                 highlightEpisode(savedProgress ? savedProgress.episodeIndex : 0);
+
+                // Добавляем отрезки для первой серии после загрузки метаданных
+                player.one('loadedmetadata', () => {
+                    addSegmentMarkers(firstEpisode.opening, firstEpisode.ending);
+                });
             } catch (error) {
                 console.error('Ошибка загрузки плейлиста:', error);
                 const episodesList = document.getElementById('episodes-list');
