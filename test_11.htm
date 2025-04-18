@@ -236,6 +236,22 @@
             }
         });
 
+        // Обработка перемотки с помощью стрелок на клавиатуре
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowRight') {
+                event.preventDefault();
+                const currentTime = player.currentTime();
+                const duration = player.duration();
+                if (!isNaN(duration)) {
+                    player.currentTime(Math.min(currentTime + 10, duration));
+                }
+            } else if (event.key === 'ArrowLeft') {
+                event.preventDefault();
+                const currentTime = player.currentTime();
+                player.currentTime(Math.max(currentTime - 10, 0));
+            }
+        });
+
         // Функция для создания кастомного меню качества
         function createQualityMenu(player, qualities, currentQuality) {
             const controlBar = player.controlBar.el();
