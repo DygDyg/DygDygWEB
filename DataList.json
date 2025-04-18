@@ -1171,6 +1171,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "6b413c791f8ed60a237bd3020ac6352c096513",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "7fae590a4e62216b834176ec70114dcaad705e",
                                     "suffix": "",
                                     "type": "file"
@@ -2696,6 +2701,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "8c94f30e98e144212f049d1c62e921a6a3b0e6",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "be2d344d22212f350fe3e6d6482d4d30fa4d75",
                                     "suffix": "",
                                     "type": "file"
@@ -3544,6 +3554,11 @@
                                 },
                                 {
                                     "name": "90aa0d8cf5d2def245f260c967dcab6dc5d2db",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "a14ef4828443e7eda7fd5b13bc1748d5a8a60e",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -4642,6 +4657,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "d805d18751ad3b04f32669b694843cab150c00",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "ebc8647b9aeca64f1811208bd121b3900386d2",
                                     "suffix": "",
                                     "type": "file"
@@ -5341,6 +5361,11 @@
                                 },
                                 {
                                     "name": "33b47d6f939475b982aa27fd62e2d6da11ce49",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "6ff9e3cc36a7c658da37b8a857918001cafa0f",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -6466,13 +6491,28 @@
             "type": "file"
         },
         {
+            "name": "404.gif",
+            "suffix": ".gif",
+            "type": "file"
+        },
+        {
             "name": "404.html",
             "suffix": ".html",
             "type": "file"
         },
         {
+            "name": "404.png",
+            "suffix": ".png",
+            "type": "file"
+        },
+        {
             "name": "404.webm",
             "suffix": ".webm",
+            "type": "file"
+        },
+        {
+            "name": "404_static.png",
+            "suffix": ".png",
             "type": "file"
         },
         {
@@ -8187,6 +8227,11 @@
             "type": "file"
         },
         {
+            "name": "cover.jpg",
+            "suffix": ".jpg",
+            "type": "file"
+        },
+        {
             "name": "css.htm",
             "suffix": ".htm",
             "type": "file"
@@ -8309,6 +8354,11 @@
         {
             "name": "esp8266.htm",
             "suffix": ".htm",
+            "type": "file"
+        },
+        {
+            "name": "fav.png",
+            "suffix": ".png",
             "type": "file"
         },
         {
@@ -18270,6 +18320,11 @@
         {
             "name": "package_drazzy.json",
             "suffix": ".json",
+            "type": "file"
+        },
+        {
+            "name": "pedro.gif",
+            "suffix": ".gif",
             "type": "file"
         },
         {
