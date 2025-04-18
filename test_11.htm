@@ -406,9 +406,9 @@
                             { src: episode.hls_720, type: 'application/x-mpegURL', label: '720p' },
                             { src: episode.hls_480, type: 'application/x-mpegURL', label: '480p' }
                         ].filter(source => source.src),
-                        poster: `https://anilibria.top${episode.preview.src}`,
-                        name: episode.name,
-                        thumbnail: `https://anilibria.top${episode.preview.src}`,
+                        poster: episode.preview.src ? `https://anilibria.top${episode.preview.src}` : "fav.png",
+                        name: episode.name || "",
+                        thumbnail: episode.preview.src ? `https://anilibria.top${episode.preview.src}` : "cover.jpg",
                         opening: episode.opening || null,
                         ending: episode.ending || null
                     };
@@ -468,8 +468,8 @@
                     const episodeItem = document.createElement('div');
                     episodeItem.className = 'episode-item';
                     episodeItem.innerHTML = `
-                        <img src="${episode.thumbnail}" alt="${episode.name}" loading="lazy">
-                        <span>${index + 1}. ${episode.name}</span>
+                        <img src="${episode.thumbnail}" alt="${episode.name || 'Без названия'}" loading="lazy">
+                        <span>${index + 1}. ${episode.name || 'Без названия'}</span>
                     `;
                     episodeItem.addEventListener('click', () => {
                         player.playlist.currentItem(index);
