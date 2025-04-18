@@ -67,6 +67,13 @@
         .episode-item:hover {
             background-color: #3a3a3a;
         }
+        .episode-item.active {
+            background-color: #1e90ff;
+            color: #ffffff;
+        }
+        .episode-item.active span {
+            color: #ffffff;
+        }
         .episode-item img {
             width: 80px;
             height: 45px;
@@ -252,6 +259,14 @@
             }
         });
 
+        // Функция для подсветки текущей серии
+        function highlightEpisode(index) {
+            const episodeItems = document.querySelectorAll('.episode-item');
+            episodeItems.forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+        }
+
         // Функция для создания кастомного меню качества
         function createQualityMenu(player, qualities, currentQuality) {
             const controlBar = player.controlBar.el();
@@ -311,6 +326,7 @@
             continueBtn.onclick = () => {
                 player.playlist.currentItem(episodeIndex);
                 player.currentTime(currentTime);
+                highlightEpisode(episodeIndex);
                 player.play();
                 modal.style.display = 'none';
             };
@@ -318,6 +334,7 @@
             cancelBtn.onclick = () => {
                 player.playlist.currentItem(episodeIndex);
                 player.currentTime(0);
+                highlightEpisode(episodeIndex);
                 player.play();
                 modal.style.display = 'none';
             };
@@ -376,8 +393,7 @@
                     throw new Error(`Ошибка API: ${response.status}`);
                 }
                 const data = await response.json();
-                console.log(data)
-                document.title = data?.name?.main
+
                 if (!data?.episodes?.length) {
                     throw new Error('Эпизоды не найдены');
                 }
@@ -390,9 +406,9 @@
                             { src: episode.hls_720, type: 'application/x-mpegURL', label: '720p' },
                             { src: episode.hls_480, type: 'application/x-mpegURL', label: '480p' }
                         ].filter(source => source.src),
-                        poster: episode.preview.src?`https://anilibria.top${episode.preview.src}` : "fav.png",
-                        name: episode.name || "",
-                        thumbnail: episode.preview.src?`https://anilibria.top${episode.preview.src}` : "cover.jpg",
+                        poster: `https://anilibria.top${episode.preview.src}`,
+                        name: episode.name,
+                        thumbnail: `https://anilibria.top${episode.preview.src}`,
                         opening: episode.opening || null,
                         ending: episode.ending || null
                     };
@@ -412,11 +428,13 @@
                 const savedProgress = getProgress(animeId);
                 if (savedProgress && savedProgress.currentTime > 5) {
                     showContinueModal(savedProgress.episodeIndex, savedProgress.currentTime, playlist[savedProgress.episodeIndex].name);
+                    highlightEpisode(savedProgress.episodeIndex);
                 } else {
                     player.play();
+                    highlightEpisode(0); // Подсвечиваем первую серию по умолчанию
                 }
 
-                // Обновляем меню качества и проверяем прогресс при смене серии
+                // Обновляем меню качества, проверяем прогресс и подсвечиваем серию при смене
                 player.on('playlistitem', () => {
                     const currentItem = player.playlist.currentItem();
                     const currentEpisode = playlist[currentItem];
@@ -429,6 +447,7 @@
                     if (savedProgress && savedProgress.episodeIndex === currentItem && savedProgress.currentTime > 5) {
                         showContinueModal(savedProgress.episodeIndex, savedProgress.currentTime, currentEpisode.name);
                     }
+                    highlightEpisode(currentItem); // Подсвечиваем текущую серию
                 });
 
                 // Сохраняем прогресс и проверяем необходимость пропуска заставок
@@ -455,9 +474,13 @@
                     episodeItem.addEventListener('click', () => {
                         player.playlist.currentItem(index);
                         player.play();
+                        highlightEpisode(index); // Подсвечиваем при клике
                     });
                     episodesList.appendChild(episodeItem);
                 });
+
+                // Подсвечиваем первую серию или сохранённую
+                highlightEpisode(savedProgress ? savedProgress.episodeIndex : 0);
             } catch (error) {
                 console.error('Ошибка загрузки плейлиста:', error);
                 const episodesList = document.getElementById('episodes-list');
