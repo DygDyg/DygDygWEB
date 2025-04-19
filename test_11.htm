@@ -6,6 +6,8 @@
     <title>anilibria player</title>
     <!-- Подключаем Video.js стили -->
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+    <!-- Подключаем стили videojs-ambilight -->
+    <link href="https://cdn.jsdelivr.net/npm/@theonlyducks/videojs-ambilight/dist/videojs-ambilight.css" rel="stylesheet" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,16 +25,18 @@
         }
         .video-container {
             flex: 5;
-            background-color: #2c2c2c;
+            background-color: #1a1a1a; /* Тёмный фон для подсветки */
             border-radius: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             max-height: 100vh;
+            position: relative;
         }
         #my-video {
             height: 100%;
+            z-index: 2; /* Видео поверх подсветки */
         }
         .video-js {
             width: 100%;
@@ -271,6 +275,8 @@
     <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
     <!-- Подключаем плагин плейлиста -->
     <script src="https://unpkg.com/videojs-playlist@4.3.1/dist/videojs-playlist.min.js"></script>
+    <!-- Подключаем videojs-ambilight -->
+    <script src="https://cdn.jsdelivr.net/npm/@theonlyducks/videojs-ambilight@latest/dist/videojs-ambilight.js"></script>
     <script>
         // Инициализация плеера
         const player = videojs('my-video', {
@@ -281,6 +287,15 @@
                     overrideNative: true
                 }
             }
+        });
+
+        // Инициализация плагина ambilight
+        player.ambiLightPlugin({
+            fps: 30,      // Частота обновления подсветки
+            blur: 80,     // Размытие краёв
+            scale: 1.9,   // Масштаб изображения
+            opacity: 0.9, // Прозрачность
+            saturate: 100 // Насыщенность цветов
         });
 
         // Флаг для отслеживания отмены пропуска заставки
@@ -596,7 +611,7 @@
                 player.on('timeupdate', () => {
                     const currentItem = player.playlist.currentItem();
                     const currentTime = player.currentTime();
-                    if (currentTime > 60) {
+                    if (currentTime > 5) {
                         saveProgress(animeId, currentItem, currentTime);
                     }
                     const currentEpisode = playlist[currentItem];
