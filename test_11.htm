@@ -393,11 +393,16 @@
                     li.className = 'vjs-selected';
                 }
                 li.addEventListener('click', () => {
+                    const currentTime = player.currentTime(); // Сохраняем текущее время
                     player.src({ src: quality.src, type: 'application/x-mpegURL' });
                     button.innerHTML = `<span>${quality.label}</span>`;
                     menu.querySelectorAll('li').forEach(item => item.className = '');
                     li.className = 'vjs-selected';
-                    player.play();
+                    // Восстанавливаем время после загрузки нового источника
+                    player.one('loadedmetadata', () => {
+                        player.currentTime(currentTime);
+                        player.play();
+                    });
                 });
                 menu.appendChild(li);
             });
