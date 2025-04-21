@@ -305,13 +305,23 @@
             html5: { vhs: { overrideNative: true } }
         });
 
-        player.ambiLightPlugin({
-            fps: 15,
-            blur: 80,
-            scale: 1.9,
-            opacity: 1.0,
-            saturate: 100
-        });
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+        function initializeAmbiLight() {
+            if (isMobile) return; // Отключаем Ambilight на мобильных устройствах
+            const videoElement = document.querySelector('video');
+            if (videoElement && videoElement.offsetWidth / videoElement.offsetHeight > 1.8) {
+                player.ambiLightPlugin({
+                    fps: 15,
+                    blur: 80,
+                    scale: 1.9,
+                    opacity: 1.0,
+                    saturate: 100
+                });
+            }
+        }
+
+        player.on('loadedmetadata', initializeAmbiLight);
 
         let skipCancelled = false;
         let selectedQuality = '1080p';
@@ -486,7 +496,7 @@
             if (ending && ending.start && ending.stop && ending.start < ending.stop && ending.stop <= duration) {
                 const endingSegment = document.createElement('div');
                 endingSegment.className = 'vjs-ending-segment';
-                const startPercent = (opening.start / duration) * 100;
+                const startPercent = (ending.start / duration) * 100;
                 const widthPercent = ((ending.stop - ending.start) / duration) * 100;
                 endingSegment.style.left = `${startPercent}%`;
                 endingSegment.style.width = `${widthPercent}%`;
@@ -644,6 +654,7 @@
                     highlightEpisode(currentItem);
                     player.one('loadedmetadata', () => {
                         addSegmentMarkers(currentEpisode.opening, currentEpisode.ending);
+                        initializeAmbiLight(); // Проверяем Ambilight для новой серии
                     });
                 });
 
