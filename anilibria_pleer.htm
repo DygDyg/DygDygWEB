@@ -222,9 +222,37 @@
         .vjs-ending-segment {
             background-color: #ff00ff;
         }
+        .hotkeys-help {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(44, 44, 44, 0.9);
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 3;
+            font-size: 14px;
+            display: none;
+            text-align: center;
+        }
+        .hotkeys-help ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .hotkeys-help li {
+            margin: 5px 0;
+        }
+        .hotkeys-help kbd {
+            background: #3a3a3a;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
         @media (orientation: portrait) {
             .episodes-list {
-                display期间: none;
+                display: none;
             }
             .video-container {
                 flex: 1;
@@ -235,6 +263,16 @@
 <body>
     <div class="container">
         <div class="video-container">
+            <div class="hotkeys-help" id="hotkeys-help">
+                <ul>
+                    <li><kbd>Пробел</kbd>: Воспроизведение/пауза</li>
+                    <li><kbd>F</kbd>: Полноэкранный режим</li>
+                    <li><kbd>M</kbd>: Вкл/выкл звук</li>
+                    <li><kbd>←</kbd>/<kbd>→</kbd>: Перемотка на ±10 секунд</li>
+                    <li><kbd>↑</kbd>/<kbd>↓</kbd>: Громкость ±10%</li>
+                    <li><kbd>Shift</kbd> + <kbd>←</kbd>/<kbd>→</kbd>: Предыдущая/следующая серия</li>
+                </ul>
+            </div>
             <video-js id="my-video" class="video-js vjs-default-skin" controls preload="auto">
                 <p class="vjs-no-js">
                     Для просмотра видео включите JavaScript и используйте браузер, поддерживающий HTML5 видео.
@@ -277,6 +315,15 @@
 
         let skipCancelled = false;
         let selectedQuality = '1080p';
+        const hotkeysHelp = document.getElementById('hotkeys-help');
+
+        function updateHotkeysHelp() {
+            hotkeysHelp.style.display = player.paused() || !player.hasStarted_ ? 'block' : 'none';
+        }
+
+        player.on('play', updateHotkeysHelp);
+        player.on('pause', updateHotkeysHelp);
+        player.on('loadedmetadata', updateHotkeysHelp);
 
         document.addEventListener('keydown', (event) => {
             if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') return;
@@ -287,6 +334,9 @@
             } else if (event.code === 'KeyF') {
                 event.preventDefault();
                 player.isFullscreen() ? player.exitFullscreen() : player.requestFullscreen();
+            } else if (event.code === 'KeyM') {
+                event.preventDefault();
+                player.muted(!player.muted());
             } else if (event.code === 'ArrowRight') {
                 event.preventDefault();
                 if (event.shiftKey) {
@@ -316,6 +366,14 @@
                     const currentTime = player.currentTime();
                     player.currentTime(Math.max(currentTime - 10, 0));
                 }
+            } else if (event.code === 'ArrowUp') {
+                event.preventDefault();
+                const currentVolume = player.volume();
+                player.volume(Math.min(currentVolume + 0.1, 1));
+            } else if (event.code === 'ArrowDown') {
+                event.preventDefault();
+                const currentVolume = player.volume();
+                player.volume(Math.max(currentVolume - 0.1, 0));
             }
         });
 
@@ -428,7 +486,7 @@
             if (ending && ending.start && ending.stop && ending.start < ending.stop && ending.stop <= duration) {
                 const endingSegment = document.createElement('div');
                 endingSegment.className = 'vjs-ending-segment';
-                const startPercent = (ending.start / duration) * 100;
+                const startPercent = (opening.start / duration) * 100;
                 const widthPercent = ((ending.stop - ending.start) / duration) * 100;
                 endingSegment.style.left = `${startPercent}%`;
                 endingSegment.style.width = `${widthPercent}%`;
