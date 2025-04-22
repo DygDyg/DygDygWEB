@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,10 +14,12 @@
             background-color: #1a1a1a;
             color: #e0e0e0;
         }
+
         .search-container {
             margin-bottom: 20px;
             display: none;
         }
+
         input[type="text"] {
             padding: 10px;
             width: 300px;
@@ -26,9 +29,11 @@
             border: 1px solid #444;
             border-radius: 4px;
         }
+
         input[type="text"]::placeholder {
             color: #888;
         }
+
         button {
             padding: 10px 20px;
             font-size: 16px;
@@ -38,38 +43,46 @@
             border: none;
             border-radius: 4px;
         }
+
         button:hover {
             background-color: #45a049;
         }
+
         .anime-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
         }
+
         .anime-card {
             background: #2c2c2c;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
             overflow: hidden;
             transition: transform 0.2s;
             cursor: pointer;
         }
+
         .anime-card:hover {
             transform: translateY(-5px);
         }
+
         .anime-card img {
             width: 100%;
             height: 300px;
             object-fit: cover;
         }
+
         .anime-card-content {
             padding: 15px;
         }
+
         .anime-card h3 {
             margin: 0 0 10px;
             font-size: 18px;
             color: #ffffff;
         }
+
         .anime-card p {
             margin: 0;
             font-size: 14px;
@@ -80,6 +93,7 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
+
         .video-overlay {
             position: fixed;
             top: 0;
@@ -93,11 +107,13 @@
             align-items: center;
             justify-content: center;
         }
+
         .video-overlay iframe {
             width: 100%;
             height: 100%;
             border: none;
         }
+
         .close-button {
             position: absolute;
             top: 20px;
@@ -111,11 +127,13 @@
             border-radius: 4px;
             transition: opacity 0.3s;
         }
+
         .close-button:hover {
             background-color: #cc0000;
         }
     </style>
 </head>
+
 <body>
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Введите название аниме..." value="">
@@ -158,6 +176,9 @@
 
                 if (animeList.length > 0) {
                     animeList.forEach(anime => {
+                        // console.log(anime.is_blocked_by_geo)
+                        if(anime.is_blocked_by_copyrights) return  //Скрывает заблокированные
+                        if(anime.is_blocked_by_geo) alert("Попробуй через впн. Если видишь это сообщение, сообщи автору сайта")  //Гео блокировка
                         console.log('Anime item:', anime);
                         const card = document.createElement('div');
                         card.className = 'anime-card';
@@ -242,11 +263,12 @@
             }
         });
 
-        window.onload = function() {
+        window.onload = function () {
             const searchInput = document.getElementById('searchInput');
             searchInput.value = getQueryParam();
             searchAnime();
         };
     </script>
 </body>
+
 </html>
