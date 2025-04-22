@@ -131,6 +131,12 @@
         .close-button:hover {
             background-color: #cc0000;
         }
+
+        .block_anime {
+            background-color: #470000;
+            text-align: center;
+            /* font-size: large; */
+        }
     </style>
 </head>
 
@@ -177,10 +183,10 @@
                 if (animeList.length > 0) {
                     animeList.forEach(anime => {
                         // console.log(anime.is_blocked_by_geo)
-                        if(anime.is_blocked_by_copyrights) return  //Скрывает заблокированные
-                        if(anime.is_blocked_by_geo) alert("Попробуй через впн. Если видишь это сообщение, сообщи автору сайта")  //Гео блокировка
+                        //if(anime.is_blocked_by_copyrights) return  //Скрывает заблокированные
+                        if (anime.is_blocked_by_geo) alert("Попробуй через впн. Если видишь это сообщение, сообщи автору сайта")  //Гео блокировка
                         console.log('Anime item:', anime);
-                        const card = document.createElement('div');
+                        const card = document.createElement('h3');
                         card.className = 'anime-card';
                         card.setAttribute('data-id', anime.id || '');
                         card.innerHTML = `
@@ -190,7 +196,19 @@
                                 <p>${anime.description || 'Описание отсутствует'}</p>
                             </div>
                         `;
-                        card.addEventListener('click', () => showEpisodeVideo(anime.id));
+                        if (anime.is_blocked_by_copyrights) {
+                            const block_anime = document.createElement('div');
+                            block_anime.className = 'block_anime';
+                            block_anime.textContent = 'Заблокировано Правообладателем';
+                            card.insertBefore(block_anime, card.firstChild);
+                            card.style.cursor = "no-drop"
+                            // card.appendChild(`
+                            // <div class='block_anime'>Недоступно</div>
+                            // `)
+                        } else {
+                            card.addEventListener('click', () => showEpisodeVideo(anime.id));
+
+                        }
                         grid.appendChild(card);
                     });
                 } else {
