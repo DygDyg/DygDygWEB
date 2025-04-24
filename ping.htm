@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пинг ya.ru</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #pingResult {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Пинг ya.ru</h1>
+        <div id="pingResult">Измерение...</div>
+    </div>
+
+    <script>
+        async function pingServer() {
+            const resultElement = document.getElementById('pingResult');
+            const server = 'https://ya.ru';
+
+            try {
+                const start = performance.now();
+                await fetch(server, { mode: 'no-cors' });
+                const end = performance.now();
+                const ping = Math.round(end - start);
+                resultElement.textContent = `Пинг: ${ping} мс`;
+                resultElement.style.color = ping < 100 ? 'green' : ping < 200 ? 'orange' : 'red';
+            } catch (error) {
+                resultElement.textContent = 'Ошибка пинга';
+                resultElement.style.color = 'red';
+            }
+        }
+
+        // Обновление пинга каждые 2 секунды
+        setInterval(pingServer, 2000);
+        pingServer(); // Первоначальный вызов
+    </script>
+</body>
+</html>

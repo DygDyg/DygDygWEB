@@ -348,9 +348,9 @@
         if (start) {
             // document.body.innerHTML = ''
             document.getElementById("a1").classList.add("container")
-            document.getElementById("a2").src = e.shiftKey?"./system128/FileList.htm"+document.location.search:"./system128/StartBoot.htm"+document.location.search
+            document.getElementById("a2").src = e.shiftKey ? "./system128/FileList.htm" + document.location.search : "./system128/StartBoot.htm" + document.location.search
             var audio1 = new Audio('./system128/crt-startup.mp3');
-            var audio2 = e.shiftKey?new Audio():new Audio('./system128/BIOS_Start.mp3');
+            var audio2 = e.shiftKey ? new Audio() : new Audio('./system128/BIOS_Start.mp3');
             audio1.play();
             audio2.play();
 
@@ -365,7 +365,13 @@
 
         $('title').text("CRT " + $(this).contents().find('title').text());
     });
-
+    
+    document.addEventListener('keydown', (e) => {
+        // console.log(`Нажата клавиша:`, e)
+        if (e.code == "KeyF") {
+            console.log(Document.fullScreenElement)
+        }
+    });
     // 
 </script>
 
