@@ -12,18 +12,27 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color: #1e1e1e;
+            color: #ffffff;
         }
         .container {
             text-align: center;
             padding: 20px;
-            background-color: white;
+            background-color: #2d2d2d;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
         #pingResult {
             font-size: 24px;
             margin-top: 20px;
+        }
+        #connectionStatus {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        #lossCount {
+            font-size: 16px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -31,11 +40,17 @@
     <div class="container">
         <h1>Пинг ya.ru</h1>
         <div id="pingResult">Измерение...</div>
+        <div id="connectionStatus">Статус: Проверка...</div>
+        <div id="lossCount">Потери соединения: 0</div>
     </div>
 
     <script>
+        let lossCount = 0;
+
         async function pingServer() {
             const resultElement = document.getElementById('pingResult');
+            const statusElement = document.getElementById('connectionStatus');
+            const lossElement = document.getElementById('lossCount');
             const server = 'https://ya.ru';
 
             try {
@@ -44,10 +59,16 @@
                 const end = performance.now();
                 const ping = Math.round(end - start);
                 resultElement.textContent = `Пинг: ${ping} мс`;
-                resultElement.style.color = ping < 100 ? 'green' : ping < 200 ? 'orange' : 'red';
+                resultElement.style.color = ping < 100 ? '#00ff00' : ping < 200 ? '#ffa500' : '#ff0000';
+                statusElement.textContent = 'Статус: Соединение активно';
+                statusElement.style.color = '#00ff00';
             } catch (error) {
+                lossCount++;
                 resultElement.textContent = 'Ошибка пинга';
-                resultElement.style.color = 'red';
+                resultElement.style.color = '#ff0000';
+                statusElement.textContent = 'Статус: Соединение потеряно';
+                statusElement.style.color = '#ff0000';
+                lossElement.textContent = `Потери соединения: ${lossCount}`;
             }
         }
 
