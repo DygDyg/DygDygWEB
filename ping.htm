@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Пинг ya.ru</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             background-color: #1e1e1e;
             color: #ffffff;
@@ -21,6 +22,8 @@
             background-color: #2d2d2d;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            max-width: 600px;
+            width: 100%;
         }
         #pingResult {
             font-size: 24px;
@@ -34,6 +37,10 @@
             font-size: 16px;
             margin-top: 10px;
         }
+        #pingChart {
+            margin-top: 20px;
+            max-height: 200px;
+        }
     </style>
 </head>
 <body>
@@ -42,10 +49,66 @@
         <div id="pingResult">Измерение...</div>
         <div id="connectionStatus">Статус: Проверка...</div>
         <div id="lossCount">Потери соединения: 0</div>
+        <canvas id="pingChart"></canvas>
     </div>
 
     <script>
         let lossCount = 0;
+        const pingData = [];
+        const maxDataPoints = 20;
+
+        // Настройка графика
+        const ctx = document.getElementById('pingChart').getContext('2d');
+        const pingChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array(maxDataPoints).fill(''),
+                datasets: [{
+                    label: 'Пинг (мс)',
+                    data: pingData,
+                    borderColor: '#00ff00',
+                    backgroundColor: 'rgba(0, 255, 0, 0.2)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 500,
+                        title: {
+                            display: true,
+                            text: 'Пинг (мс)',
+                            color: '#ffffff'
+                        },
+                        grid: {
+                            color: '#444'
+                        },
+                        ticks: {
+                            color: '#ffffff'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#ffffff'
+                        }
+                    }
+                },
+                maintainAspectRatio: false
+            }
+        });
 
         async function pingServer() {
             const resultElement = document.getElementById('pingResult');
@@ -62,6 +125,9 @@
                 resultElement.style.color = ping < 100 ? '#00ff00' : ping < 200 ? '#ffa500' : '#ff0000';
                 statusElement.textContent = 'Статус: Соединение активно';
                 statusElement.style.color = '#00ff00';
+                pingChart.data.datasets[0].borderColor = '#00ff00';
+                pingChart.data.datasets[0].backgroundColor = 'rgba(0, 255, 0, 0.2)';
+                pingData.push(ping);
             } catch (error) {
                 lossCount++;
                 resultElement.textContent = 'Ошибка пинга';
@@ -69,7 +135,19 @@
                 statusElement.textContent = 'Статус: Соединение потеряно';
                 statusElement.style.color = '#ff0000';
                 lossElement.textContent = `Потери соединения: ${lossCount}`;
+                pingChart.data.datasets[0].borderColor = '#ff0000';
+                pingChart.data.datasets[0].backgroundColor = 'rgba(255, 0, 0, 0.2)';
+                pingData.push(0);
             }
+
+            // Ограничение количества точек на графике
+            if (pingData.length > maxDataPoints) {
+                pingData.shift();
+            }
+
+            // Обновление графика
+            pingChart.data.datasets[0].data = pingData;
+            pingChart.update();
         }
 
         // Обновление пинга каждые 2 секунды
