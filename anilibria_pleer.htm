@@ -619,7 +619,8 @@
                 });
 
                 player.on('timeupdate', () => {
-                    const currentItem = player.playlist.currentItem();
+                    const currentItem = player.playlist.currentItem()>-1?player.playlist.currentItem():0;
+
                     const currentTime = player.currentTime();
                     if (currentItem < 0 || !playlist[currentItem]) return;
                     if (currentTime > 5) {
