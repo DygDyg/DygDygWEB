@@ -288,13 +288,6 @@
             <button id="cancel-btn" class="cancel">Начать сначала</button>
         </div>
     </div>
-    <div class="modal" id="skip-modal">
-        <div class="modal-content">
-            <p id="skip-message"></p>
-            <button id="skip-btn">Пропустить</button>
-            <button id="skip-cancel-btn" class="cancel">Отменить</button>
-        </div>
-    </div>
     <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
     <script src="https://unpkg.com/videojs-playlist@4.3.1/dist/videojs-playlist.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@theonlyducks/videojs-ambilight@latest/dist/videojs-ambilight.js"></script>
@@ -308,7 +301,7 @@
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
         function initializeAmbiLight() {
-            if (isMobile) return; // Отключаем Ambilight на мобильных устройствах
+            if (isMobile) return;
             const videoElement = document.querySelector('video');
             if (videoElement && videoElement.offsetWidth / videoElement.offsetHeight > 1.8) {
                 player.ambiLightPlugin({
@@ -323,7 +316,6 @@
 
         player.on('loadedmetadata', initializeAmbiLight);
 
-        let skipCancelled = false;
         let selectedQuality = '1080p';
         const hotkeysHelp = document.getElementById('hotkeys-help');
 
@@ -530,7 +522,6 @@
                 highlightEpisode(episodeIndex);
                 player.play();
                 modal.style.display = 'none';
-                skipCancelled = false;
             };
 
             cancelBtn.onclick = () => {
@@ -539,47 +530,14 @@
                 highlightEpisode(episodeIndex);
                 player.play();
                 modal.style.display = 'none';
-                skipCancelled = false;
-            };
-        }
-
-        function showSkipModal(type, stopTime) {
-            const modal = document.getElementById('skip-modal');
-            const message = document.getElementById('skip-message');
-            const skipBtn = document.getElementById('skip-btn');
-            const cancelBtn = document.getElementById('skip-cancel-btn');
-
-            message.textContent = `Пропустить ${type === 'opening' ? 'опенинг' : 'эндинг'} через 3 секунды`;
-            modal.style.display = 'flex';
-
-            let timeout = setTimeout(() => {
-                player.currentTime(stopTime);
-                modal.style.display = 'none';
-                skipCancelled = false;
-            }, 3000);
-
-            skipBtn.onclick = () => {
-                clearTimeout(timeout);
-                player.currentTime(stopTime);
-                modal.style.display = 'none';
-                skipCancelled = false;
-            };
-
-            cancelBtn.onclick = () => {
-                clearTimeout(timeout);
-                modal.style.display = 'none';
-                skipCancelled = true;
             };
         }
 
         function checkSkip(currentTime, opening, ending) {
-            const modal = document.getElementById('skip-modal');
-            if (modal.style.display === 'flex') return;
-
             if (opening && opening.start && opening.stop && currentTime >= opening.start && currentTime < opening.stop) {
-                showSkipModal('opening', opening.stop);
+                player.currentTime(opening.stop);
             } else if (ending && ending.start && ending.stop && currentTime >= ending.start && currentTime < ending.stop) {
-                showSkipModal('ending', ending.stop);
+                player.currentTime(ending.stop);
             }
         }
 
@@ -616,6 +574,7 @@
                 });
 
                 player.playlist(playlist);
+                player.playlist.currentItem(0);
                 player.playlist.autoadvance(0);
 
                 const firstEpisode = playlist[0];
@@ -623,6 +582,7 @@
                     const initialQuality = firstEpisode.sources.find(source => source.label === selectedQuality) || firstEpisode.sources[0];
                     selectedQuality = initialQuality.label;
                     player.src({ src: initialQuality.src, type: 'application/x-mpegURL' });
+                    player.trigger('playlistitem');
                     createQualityMenu(player, firstEpisode.sources, initialQuality.label);
                     createEpisodeNavigationButtons();
                 }
@@ -648,23 +608,20 @@
                         createQualityMenu(player, currentEpisode.sources, newQuality.label);
                     }
                     const savedProgress = getProgress(animeId);
-                    if (!skipCancelled && savedProgress && savedProgress.episodeIndex === currentItem && savedProgress.currentTime > 5) {
+                    if (savedProgress && savedProgress.episodeIndex === currentItem && savedProgress.currentTime > 5) {
                         showContinueModal(savedProgress.episodeIndex, savedProgress.currentTime, currentEpisode.name);
                     }
                     highlightEpisode(currentItem);
                     player.one('loadedmetadata', () => {
                         addSegmentMarkers(currentEpisode.opening, currentEpisode.ending);
-                        initializeAmbiLight(); // Проверяем Ambilight для новой серии
+                        initializeAmbiLight();
                     });
-                });
-
-                player.on('play', () => {
-                    skipCancelled = false;
                 });
 
                 player.on('timeupdate', () => {
                     const currentItem = player.playlist.currentItem();
                     const currentTime = player.currentTime();
+                    if (currentItem < 0 || !playlist[currentItem]) return;
                     if (currentTime > 5) {
                         saveProgress(animeId, currentItem, currentTime);
                     }

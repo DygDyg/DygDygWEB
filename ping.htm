@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Пинг ya.ru</title>
+    <title>Пинг</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
@@ -16,36 +17,42 @@
             background-color: #1e1e1e;
             color: #ffffff;
         }
+
         .container {
             text-align: center;
             padding: 20px;
             background-color: #2d2d2d;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             max-width: 600px;
             width: 100%;
         }
+
         #pingResult {
             font-size: 24px;
             margin-top: 20px;
         }
+
         #connectionStatus {
             font-size: 18px;
             margin-top: 10px;
         }
+
         #lossCount {
             font-size: 16px;
             margin-top: 10px;
         }
+
         #pingChart {
             margin-top: 20px;
             max-height: 200px;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>Пинг ya.ru</h1>
+        <h1>Пинг</h1>
         <div id="pingResult">Измерение...</div>
         <div id="connectionStatus">Статус: Проверка...</div>
         <div id="lossCount">Потери соединения: 0</div>
@@ -114,20 +121,31 @@
             const resultElement = document.getElementById('pingResult');
             const statusElement = document.getElementById('connectionStatus');
             const lossElement = document.getElementById('lossCount');
-            const server = 'https://ya.ru';
+            const server = 'https://server.dygdyg.ru/ping.php';
 
             try {
-                const start = performance.now();
-                await fetch(server, { mode: 'no-cors' });
-                const end = performance.now();
-                const ping = Math.round(end - start);
-                resultElement.textContent = `Пинг: ${ping} мс`;
-                resultElement.style.color = ping < 100 ? '#00ff00' : ping < 200 ? '#ffa500' : '#ff0000';
+                const sendTime = Date.now();
+                const response = await fetch(`${server}?clientTime=${sendTime}`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const receiveTime = Date.now();
+                const data = await response.json();
+                const serverTime = data.serverTime;
+                const sendPing = data.sendPing !== null ? Math.max(0, Math.round(data.sendPing)) : Math.max(0, Math.round(serverTime - sendTime));
+                const receivePing = Math.max(0, Math.round(receiveTime - serverTime));
+                const totalPing = Math.round(receiveTime - sendTime);
+
+                resultElement.textContent = `Пинг отправки: ${sendPing} мс, Пинг получения: ${receivePing} мс (Итого: ${totalPing} мс)`;
+                resultElement.style.color = totalPing < 100 ? '#00ff00' : totalPing < 200 ? '#ffa500' : '#ff0000';
                 statusElement.textContent = 'Статус: Соединение активно';
                 statusElement.style.color = '#00ff00';
                 pingChart.data.datasets[0].borderColor = '#00ff00';
                 pingChart.data.datasets[0].backgroundColor = 'rgba(0, 255, 0, 0.2)';
-                pingData.push(ping);
+                pingChart.data.datasets[1].borderColor = '#ffa500';
+                pingChart.data.datasets[1].backgroundColor = 'rgba(255, 165, 0, 0.2)';
+                sendPingData.push(sendPing);
+                receivePingData.push(receivePing);
             } catch (error) {
                 lossCount++;
                 resultElement.textContent = 'Ошибка пинга';
@@ -137,16 +155,21 @@
                 lossElement.textContent = `Потери соединения: ${lossCount}`;
                 pingChart.data.datasets[0].borderColor = '#ff0000';
                 pingChart.data.datasets[0].backgroundColor = 'rgba(255, 0, 0, 0.2)';
-                pingData.push(0);
+                pingChart.data.datasets[1].borderColor = '#ff0000';
+                pingChart.data.datasets[1].backgroundColor = 'rgba(255, 0, 0, 0.2)';
+                sendPingData.push(0);
+                receivePingData.push(0);
             }
 
             // Ограничение количества точек на графике
-            if (pingData.length > maxDataPoints) {
-                pingData.shift();
+            if (sendPingData.length > maxDataPoints) {
+                sendPingData.shift();
+                receivePingData.shift();
             }
 
             // Обновление графика
-            pingChart.data.datasets[0].data = pingData;
+            pingChart.data.datasets[0].data = sendPingData;
+            pingChart.data.datasets[1].data = receivePingData;
             pingChart.update();
         }
 
@@ -155,4 +178,5 @@
         pingServer(); // Первоначальный вызов
     </script>
 </body>
+
 </html>
