@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>anilibria player</title>
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/@theonlyducks/videojs-ambilight/dist/videojs-ambilight.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@theonlyducks/videojs-ambilight/dist/videojs-ambilight.css"
+        rel="stylesheet" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,12 +17,14 @@
             color: #ffffff;
             overflow: hidden;
         }
+
         .container {
             display: flex;
             width: 100vw;
             height: 100vh;
             gap: 10px;
         }
+
         .video-container {
             flex: 5;
             background-color: #1a1a1a;
@@ -32,15 +36,18 @@
             max-height: 100vh;
             position: relative;
         }
+
         #my-video {
             height: 100%;
             z-index: 2;
         }
+
         .video-js {
             width: 100%;
             max-height: 100vh;
             height: auto;
         }
+
         .video-js .vjs-control-bar {
             font-size: 14px;
             background-color: #2c2c2c;
@@ -48,6 +55,7 @@
             bottom: 0;
             width: 100%;
         }
+
         .episodes-list {
             flex: 1;
             height: 100%;
@@ -57,6 +65,7 @@
             border-radius: 5px;
             min-width: 350px;
         }
+
         .episode-item {
             display: flex;
             align-items: center;
@@ -66,16 +75,20 @@
             border-radius: 3px;
             transition: background-color 0.2s;
         }
+
         .episode-item:hover {
             background-color: #3a3a3a;
         }
+
         .episode-item.active {
             background-color: #1e90ff;
             color: #ffffff;
         }
+
         .episode-item.active span {
             color: #ffffff;
         }
+
         .episode-item img {
             width: 80px;
             height: 45px;
@@ -83,25 +96,31 @@
             margin-right: 10px;
             border-radius: 3px;
         }
+
         .episode-item span {
             font-size: 14px;
             color: #e0e0e0;
         }
+
         .video-js .vjs-big-play-button {
             background-color: rgba(0, 0, 0, 0.7);
             border-color: #ffffff;
         }
+
         .video-js .vjs-play-progress,
         .video-js .vjs-volume-level {
             background-color: #1e90ff;
         }
+
         .video-js .vjs-slider {
             background-color: #555555;
         }
+
         .vjs-quality-menu {
             position: relative;
             display: inline-block;
         }
+
         .vjs-quality-menu .vjs-menu-button {
             cursor: pointer;
             color: #ffffff;
@@ -110,9 +129,11 @@
             justify-content: center;
             height: 100%;
         }
+
         .vjs-quality-menu .vjs-thinking-indicator {
             display: none;
         }
+
         .vjs-quality-menu .vjs-menu {
             display: none;
             position: absolute;
@@ -125,30 +146,37 @@
             z-index: 100;
             border: 1px solid #444444;
         }
+
         ul.vjs-menu {
             padding-inline-start: 0;
         }
+
         .vjs-quality-menu:hover .vjs-menu {
             display: block;
         }
+
         .vjs-quality-menu .vjs-menu li {
             padding: 8px 16px;
             cursor: pointer;
             list-style: none;
             font-size: 12px;
         }
+
         .vjs-quality-menu .vjs-menu li:hover {
             background: #3a3a3a;
         }
+
         .vjs-quality-menu .vjs-selected {
             font-weight: bold;
             background: #1e90ff;
         }
+
         .error-message {
             color: #ff5555;
             text-align: center;
             padding: 10px;
         }
+
         .modal {
             display: none;
             position: fixed;
@@ -161,6 +189,7 @@
             align-items: center;
             justify-content: center;
         }
+
         .modal-content {
             background: #2c2c2c;
             padding: 20px;
@@ -169,9 +198,11 @@
             color: #ffffff;
             max-width: 400px;
         }
+
         .modal-content p {
             margin: 0 0 20px;
         }
+
         .modal-content button {
             padding: 10px 20px;
             margin: 0 10px;
@@ -181,9 +212,11 @@
             background: #1e90ff;
             color: #ffffff;
         }
+
         .modal-content button.cancel {
             background: #555555;
         }
+
         .vjs-next-episode,
         .vjs-prev-episode {
             cursor: pointer;
@@ -196,18 +229,22 @@
             background: #2c2c2c;
             transition: background-color 0.2s;
         }
+
         .vjs-next-episode:hover,
         .vjs-prev-episode:hover {
             background: #3a3a3a;
         }
+
         .vjs-next-episode.disabled,
         .vjs-prev-episode.disabled {
             cursor: not-allowed;
             opacity: 0.5;
         }
+
         .vjs-progress-holder {
             position: relative;
         }
+
         .vjs-opening-segment,
         .vjs-ending-segment {
             position: absolute;
@@ -216,12 +253,15 @@
             z-index: 1;
             opacity: 0.5;
         }
+
         .vjs-opening-segment {
             background-color: #00ff00;
         }
+
         .vjs-ending-segment {
             background-color: #ff00ff;
         }
+
         .hotkeys-help {
             position: absolute;
             top: 10px;
@@ -234,32 +274,43 @@
             z-index: 3;
             font-size: 14px;
             display: none;
-            text-align: center;
+            text-align: start;
         }
+
         .hotkeys-help ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
+
         .hotkeys-help li {
-            margin: 5px 0;
+            margin: 1px 0;
+            padding: 5px 0px;
         }
+
         .hotkeys-help kbd {
-            background: #3a3a3a;
-            padding: 2px 6px;
-            border-radius: 3px;
+            background: #1b1b1b;
+            /* padding: 0px 6px; */
+            border-radius: 5px;
             font-family: monospace;
+            border-style: solid;
+            font-weight: bold;
+            border-width: thin;
+            padding: 3px 7px;
         }
+
         @media (orientation: portrait) {
             .episodes-list {
                 display: none;
             }
+
             .video-container {
                 flex: 1;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="video-container">
@@ -269,6 +320,7 @@
                     <li><kbd>F</kbd>: Полноэкранный режим</li>
                     <li><kbd>M</kbd>: Вкл/выкл звук</li>
                     <li><kbd>←</kbd>/<kbd>→</kbd>: Перемотка на ±10 секунд</li>
+                    <li><kbd>|◀◀</kbd>/<kbd>▶▶|</kbd>: Перемотка на ±10 секунд</li>
                     <li><kbd>↑</kbd>/<kbd>↓</kbd>: Громкость ±10%</li>
                     <li><kbd>Shift</kbd> + <kbd>←</kbd>/<kbd>→</kbd>: Предыдущая/следующая серия</li>
                 </ul>
@@ -290,7 +342,8 @@
     </div>
     <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
     <script src="https://unpkg.com/videojs-playlist@4.3.1/dist/videojs-playlist.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@theonlyducks/videojs-ambilight@latest/dist/videojs-ambilight.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/@theonlyducks/videojs-ambilight@latest/dist/videojs-ambilight.js"></script>
     <script>
         const player = videojs('my-video', {
             responsive: true,
@@ -326,6 +379,45 @@
         player.on('play', updateHotkeysHelp);
         player.on('pause', updateHotkeysHelp);
         player.on('loadedmetadata', updateHotkeysHelp);
+
+        // Настройка Media Session API
+        if ('mediaSession' in navigator) {
+            window.pl = player
+            console.log("mediaSession", player)
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: document.title,
+                artist: 'Сайт',
+                album: 'Видео'
+            });
+
+            navigator.mediaSession.setActionHandler('play', () => {
+                player.play();
+                console.log('Воспроизведение');
+            });
+
+            navigator.mediaSession.setActionHandler('pause', () => {
+                player.pause();
+                console.log('Пауза');
+            });
+            navigator.mediaSession.setActionHandler('stop', () => {
+                player.stop();
+                console.log('Пауза');
+            });
+
+            navigator.mediaSession.setActionHandler('previoustrack', () => {
+                console.log('Перемотка назад');
+                player.currentTime(Math.min(player.currentTime() - 10, player.duration()));
+
+            });
+
+            navigator.mediaSession.setActionHandler('nexttrack', () => {
+                console.log('Перемотка вперед');
+                player.currentTime(Math.min(player.currentTime() + 10, player.duration()));
+
+            });
+        } else {
+            console.log('Media Session API не поддерживается');
+        }
 
         document.addEventListener('keydown', (event) => {
             if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') return;
@@ -619,7 +711,7 @@
                 });
 
                 player.on('timeupdate', () => {
-                    const currentItem = player.playlist.currentItem()>-1?player.playlist.currentItem():0;
+                    const currentItem = player.playlist.currentItem() > -1 ? player.playlist.currentItem() : 0;
 
                     const currentTime = player.currentTime();
                     if (currentItem < 0 || !playlist[currentItem]) return;
@@ -662,4 +754,5 @@
         loadPlaylist(getParam("id") || 9217);
     </script>
 </body>
+
 </html>
