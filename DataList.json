@@ -889,6 +889,11 @@
                                     "name": "a642e92afcf21f852af3128c417c9c8e818f20",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "ebc8cc5e9687d2ebdf7fc61091acc520dd2f66",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -2219,6 +2224,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "bb625e33d0d5373a73e817e4f9da95623fca79",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "be76cb2e9201db92abdefff7a09116f18b64b4",
                                     "suffix": "",
                                     "type": "file"
@@ -2328,6 +2338,11 @@
                                 },
                                 {
                                     "name": "e447d6857f752e26180cfc1d94912fa7678be9",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "feec201b492c8846afcfb77887ae108a746d82",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -3531,6 +3546,11 @@
                             "children": [
                                 {
                                     "name": "7bd5cc26c3325017c606cfc9141aac632ce868",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "da82b8bc3ccf685d3637fba7b8f8f19a5a4849",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -6469,6 +6489,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "8f725f9039a9399c26aea8c4711a1db72fe743",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "b306c52492b136deba98285ae76a5f75b3dbba",
                                     "suffix": "",
                                     "type": "file"
@@ -8981,6 +9006,11 @@
         {
             "name": "cover.jpg",
             "suffix": ".jpg",
+            "type": "file"
+        },
+        {
+            "name": "cover.png",
+            "suffix": ".png",
             "type": "file"
         },
         {
