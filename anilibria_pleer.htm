@@ -382,12 +382,12 @@
 
         // Настройка Media Session API
         if ('mediaSession' in navigator) {
-            window.pl = player
-            console.log("mediaSession", player)
+            //window.pl = player
+            //console.log("mediaSession", player)
             navigator.mediaSession.metadata = new MediaMetadata({
                 title: document.title,
-                artist: 'Сайт',
-                album: 'Видео'
+                artist: 'Аниме',
+                album: 'Что то на Японском'
             });
 
             navigator.mediaSession.setActionHandler('play', () => {
