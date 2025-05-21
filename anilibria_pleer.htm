@@ -372,8 +372,8 @@
 
         function initializeAmbiLight() {
             if (isMobile) return;
-            const videoElement = document.querySelector('video');
-            // if (videoElement && videoElement.offsetWidth / videoElement.offsetHeight > 1.8) {
+            const videoElement = document.querySelector('video-js');
+            if (videoElement && videoElement.offsetWidth / videoElement.offsetHeight > 1.8) {
                 player.ambiLightPlugin({
                     fps: 15,
                     blur: 80,
@@ -381,7 +381,7 @@
                     opacity: 1.0,
                     saturate: 100
                 });
-            // }
+            }
         }
 
         player.on('loadedmetadata', initializeAmbiLight);
