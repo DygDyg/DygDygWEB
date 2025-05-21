@@ -40,6 +40,8 @@
         #my-video {
             height: 100%;
             z-index: 2;
+            display: flex;
+            justify-content: center;
         }
 
         .video-js {
@@ -217,6 +219,21 @@
             background: #555555;
         }
 
+        #ambilight {
+            width: 100%;
+            height: 100%;
+        }
+
+        video#my-video_html5_api {
+            mask-image: linear-gradient(to right,
+                    transparent 0%,
+                    black 5%,
+                    black 95%,
+                    transparent 100%);
+            left: auto;
+            width: auto;
+        }
+
         .vjs-next-episode,
         .vjs-prev-episode {
             cursor: pointer;
@@ -356,15 +373,15 @@
         function initializeAmbiLight() {
             if (isMobile) return;
             const videoElement = document.querySelector('video');
-            if (videoElement && videoElement.offsetWidth / videoElement.offsetHeight > 1.8) {
+            // if (videoElement && videoElement.offsetWidth / videoElement.offsetHeight > 1.8) {
                 player.ambiLightPlugin({
                     fps: 15,
                     blur: 80,
-                    scale: 1.9,
+                    scale: 1,
                     opacity: 1.0,
                     saturate: 100
                 });
-            }
+            // }
         }
 
         player.on('loadedmetadata', initializeAmbiLight);
@@ -484,13 +501,13 @@
             prevButton.className = 'vjs-prev-episode vjs-control';
             prevButton.innerHTML = '<span><</span>';
             prevButton.title = 'Предыдущая серия';
-            controlBar.insertBefore(prevButton, controlBar.querySelector('.vjs-quality-menu') || controlBar.lastChild);
+            controlBar.insertBefore(prevButton, controlBar.querySelector('.vjs-progress-control') || controlBar.lastChild);
 
             const nextButton = document.createElement('div');
             nextButton.className = 'vjs-next-episode vjs-control';
             nextButton.innerHTML = '<span>></span>';
             nextButton.title = 'Следующая серия';
-            controlBar.insertBefore(nextButton, controlBar.querySelector('.vjs-quality-menu') || controlBar.lastChild);
+            controlBar.insertBefore(nextButton, controlBar.querySelector('.vjs-progress-control') || controlBar.lastChild);
 
             function updateButtonStates() {
                 const currentIndex = player.playlist.currentItem();
