@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git_Test</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    async function start() {
+        var url = new URL(window.location.href);
+        if (url.searchParams.get("code")) {
+            var code = url.searchParams.get("code")
+            document.title = code
+            // alert(code)
+            // return
+
+            const data = {
+                client_id: 'Ov23liIsWrzgteqw9iVQ',
+                client_secret: 'dca6e7d194c8ff7036ae2b6b995a98ecc565c00b',
+                code: code,
+                redirect_uri: "http://127.0.0.1:5500/test_git_oauth.htm",
+            }
+
+            let response = await fetch('https://github.com/login/oauth/access_token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(data)
+            });
+            let result = await response.json();
+            console.log(result)
+        }
+
+    }
+    start()
+
+</script>
+
+</html>
