@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сохранение и загрузка JSON в Google Drive</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            max-width: 600px;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 10px;
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+            border: 1px solid #444;
+            padding: 10px;
+            resize: vertical;
+        }
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+        #status {
+            margin-top: 10px;
+            color: #28a745;
+        }
+        #error {
+            margin-top: 10px;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <h1>Работа с JSON в Google Drive</h1>
+    <textarea id="jsonInput" placeholder="Введите JSON здесь..."></textarea>
+    <br>
+    <div id="signInButton"></div>
+    <button onclick="saveToDrive()" disabled id="saveButton">Сохранить в Google Drive</button>
+    <button onclick="loadFromDrive()" disabled id="loadButton">Загрузить из Google Drive</button>
+    <div id="status"></div>
+    <div id="error"></div>
+
+    <script src="https://accounts.google.com/gsi/client"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+        const CLIENT_ID = '468050629336-7l5ifct7isvakqap5o3pvqs86m2568ah.apps.googleusercontent.com';
+        const API_KEY = 'AIzaSyAQS-Vh1GcuAYoKYy-1wOt0CSwTDEB39wQ';
+        const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
+        const SCOPES = 'https://www.googleapis.com/auth/drive.file';
+
+        let tokenClient;
+        let accessToken = null;
+
+        function handleClientLoad() {
+            gapi.load('client', initClient);
+        }
+
+        function initClient() {
+            gapi.client.init({
+                apiKey: API_KEY,
+                discoveryDocs: DISCOVERY_DOCS
+            }).then(() => {
+                initTokenClient();
+            }, (error) => {
+                showError('Ошибка инициализации API: ' + JSON.stringify(error));
+            });
+        }
+
+        function initTokenClient() {
+            tokenClient = google.accounts.oauth2.initTokenClient({
+                client_id: CLIENT_ID,
+                scope: SCOPES,
+                callback: (tokenResponse) => {
+                    if (tokenResponse.error) {
+                        showError('Ошибка авторизации: ' + tokenResponse.error + '. Проверьте, добавлен ли ваш email в тестовые пользователи в Google Cloud Console или добавлен ли домен https://server.dygdyg.ru в Authorized JavaScript origins.');
+                        return;
+                    }
+                    accessToken = tokenResponse.access_token;
+                    document.getElementById('saveButton').disabled = false;
+                    document.getElementById('loadButton').disabled = false;
+                    showStatus('Авторизация успешна');
+                }
+            });
+            renderSignInButton();
+        }
+
+        function renderSignInButton() {
+            google.accounts.id.initialize({
+                client_id: CLIENT_ID,
+                callback: handleCredentialResponse
+            });
+            google.accounts.id.renderButton(
+                document.getElementById('signInButton'),
+                { theme: 'filled_black', size: 'large', text: 'signin_with', shape: 'rectangular' }
+            );
+        }
+
+        function handleCredentialResponse(response) {
+            tokenClient.requestAccessToken();
+        }
+
+        function saveToDrive() {
+            const jsonInput = document.getElementById('jsonInput').value;
+            try {
+                JSON.parse(jsonInput); // Проверка валидности JSON
+            } catch (e) {
+                showError('Некорректный JSON: ' + e.message);
+                return;
+            }
+
+            const fileContent = jsonInput;
+            const fileMetadata = {
+                'name': 'data.json',
+                'mimeType': 'application/json'
+            };
+
+            gapi.client.drive.files.list({
+                q: "name='data.json'",
+                fields: 'files(id, name)',
+                access_token: accessToken
+            }).then(response => {
+                const files = response.result.files;
+                if (files && files.length > 0) {
+                    // Обновляем существующий файл
+                    const fileId = files[0].id;
+                    gapi.client.request({
+                        path: `/upload/drive/v3/files/${fileId}`,
+                        method: 'PATCH',
+                        params: { uploadType: 'media' },
+                        body: fileContent,
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    }).then(() => {
+                        showStatus('Файл успешно обновлен в Google Drive');
+                    }, (error) => {
+                        showError('Ошибка обновления файла: ' + JSON.stringify(error));
+                    });
+                } else {
+                    // Создаем новый файл
+                    gapi.client.request({
+                        path: '/drive/v3/files',
+                        method: 'POST',
+                        body: fileMetadata,
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    }).then(response => {
+                        const fileId = response.result.id;
+                        gapi.client.request({
+                            path: `/upload/drive/v3/files/${fileId}`,
+                            method: 'PATCH',
+                            params: { uploadType: 'media' },
+                            body: fileContent,
+                            headers: {
+                                'Authorization': `Bearer ${accessToken}`
+                            }
+                        }).then(() => {
+                            showStatus('Файл успешно сохранен в Google Drive');
+                        }, (error) => {
+                            showError('Ошибка сохранения файла: ' + JSON.stringify(error));
+                        });
+                    }, (error) => {
+                        showError('Ошибка создания файла: ' + JSON.stringify(error));
+                    });
+                }
+            }, (error) => {
+                showError('Ошибка поиска файла: ' + JSON.stringify(error));
+            });
+        }
+
+        function loadFromDrive() {
+            gapi.client.drive.files.list({
+                q: "name='data.json' and mimeType='application/json'",
+                fields: 'files(id, name)',
+                access_token: accessToken
+            }).then(response => {
+                const files = response.result.files;
+                if (files && files.length > 0) {
+                    const fileId = files[0].id;
+                    gapi.client.drive.files.get({
+                        fileId: fileId,
+                        alt: 'media',
+                        access_token: accessToken
+                    }).then(response => {
+                        document.getElementById('jsonInput').value = response.body;
+                        showStatus('Файл успешно загружен из Google Drive');
+                    }, (error) => {
+                        showError('Ошибка загрузки файла: ' + JSON.stringify(error));
+                    });
+                } else {
+                    showError('Файл data.json не найден в Google Drive');
+                }
+            }, (error) => {
+                showError('Ошибка поиска файла: ' + JSON.stringify(error));
+            });
+        }
+
+        function showStatus(message) {
+            document.getElementById('status').innerText = message;
+            document.getElementById('error').innerText = '';
+        }
+
+        function showError(message) {
+            document.getElementById('error').innerText = message;
+            document.getElementById('status').innerText = '';
+        }
+
+        // Загрузка Google API Client Library
+        handleClientLoad();
+    </script>
+</body>
+</html>

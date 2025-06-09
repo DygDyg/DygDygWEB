@@ -501,6 +501,11 @@
                             "type": "directory",
                             "children": [
                                 {
+                                    "name": "06d2f04d8ef34fb5a07ecbe489cd2d7ed0f4f7",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "3ee9321ded2cbf9d4270d828cffd7ff7979cbd",
                                     "suffix": "",
                                     "type": "file"
@@ -2485,6 +2490,11 @@
                                 },
                                 {
                                     "name": "3476dca23d044d17c9a384e5b8315cb632c827",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "79c905cfe9ffe43434ec15a90615e7d53cf39e",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -6158,6 +6168,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "8b03825109f9d32b00cd935f78181e74e6ca77",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "c9e85dc52f28b049bef977a212458906fdb09e",
                                     "suffix": "",
                                     "type": "file"
@@ -6648,6 +6663,11 @@
                             "children": [
                                 {
                                     "name": "30b98a874f4f880fc4d77e46109056470365cc",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "f9347e67751c099cb24182903ded0c609e10df",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -8970,6 +8990,11 @@
             ]
         },
         {
+            "name": "CH-1.m3u",
+            "suffix": ".m3u",
+            "type": "file"
+        },
+        {
             "name": "check_kodik.htm",
             "suffix": ".htm",
             "type": "file"
@@ -9335,6 +9360,11 @@
         },
         {
             "name": "close.htm",
+            "suffix": ".htm",
+            "type": "file"
+        },
+        {
+            "name": "contact.htm",
             "suffix": ".htm",
             "type": "file"
         },
@@ -18431,6 +18461,11 @@
             "type": "file"
         },
         {
+            "name": "ip_tv.html",
+            "suffix": ".html",
+            "type": "file"
+        },
+        {
             "name": "kino",
             "suffix": "",
             "type": "directory",
@@ -19809,6 +19844,16 @@
                     "type": "file"
                 },
                 {
+                    "name": "video-js.css",
+                    "suffix": ".css",
+                    "type": "file"
+                },
+                {
+                    "name": "video.min.js",
+                    "suffix": ".js",
+                    "type": "file"
+                },
+                {
                     "name": "videojs5-hlsjs-source-handler.min.js",
                     "suffix": ".js",
                     "type": "file"
@@ -19980,6 +20025,11 @@
         },
         {
             "name": "TestWebSocketVideo.htm",
+            "suffix": ".htm",
+            "type": "file"
+        },
+        {
+            "name": "test_cloud_save.htm",
             "suffix": ".htm",
             "type": "file"
         },
