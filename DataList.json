@@ -747,6 +747,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "b69f59094e60814f05488331aded0502ba897d",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "cb1de08f1a6838e563c41703a883d08e69cbba",
                                     "suffix": "",
                                     "type": "file"
@@ -3779,6 +3784,11 @@
                                     "name": "85326fecc6fc8efab2f4cf75c4d4fb523508a4",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "a796a5ae208257f919d758d1f95995ed675ecf",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -4071,6 +4081,11 @@
                                 },
                                 {
                                     "name": "8186224cd237bded3a75f12a7c6a09eadfc2fb",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "8de3d2800e7b9b804bc283b887d9a975978b40",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -6673,6 +6688,18 @@
                             "children": [
                                 {
                                     "name": "f84d73db4af445dc857a7517e17ad55636c178",
+                                    "suffix": "",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "dc",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "8f8462ded38a79c7b1c11a64e98ebb553bb36c",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -22220,7 +22247,7 @@
                     "type": "file"
                 },
                 {
-                    "name": "wowhead_rusifikator.user.js",
+                    "name": "Wowhead_rusifikator.user.js",
                     "suffix": ".js",
                     "type": "file"
                 },
