@@ -1006,6 +1006,11 @@
                                     "name": "c2083114a2e3a7c7acd448a300668ba384a997",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "d65f344a836dce164d1c5db3cc52f8c4789568",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -1424,6 +1429,11 @@
                                 },
                                 {
                                     "name": "377ddbd9a168ade1cb7a1bd86726be65eb47c5",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "8782632f5ce6423793397561dec489846554c5",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -2039,6 +2049,11 @@
                                 },
                                 {
                                     "name": "6612185606fcca27bca2b237f98198a572d4d8",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "70946a7f3a637cff4c1a96bf457a370582a121",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -2839,6 +2854,11 @@
                             "suffix": "",
                             "type": "directory",
                             "children": [
+                                {
+                                    "name": "28850b955375bf02e61711bd524c059fc261fe",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
                                 {
                                     "name": "4bc98ec10e66ef0cf5cdbda8d873ebce773491",
                                     "suffix": "",
@@ -3665,6 +3685,11 @@
                                 },
                                 {
                                     "name": "b4137984f4657e471a062fcc729ca9ddd867d3",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "c9bc2177a1d85482f1535616dd80131c8b13b0",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -6696,6 +6721,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "d1d05ead428553d6a5031341f1a57a3114c0a0",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "e23d7fbb2dc64826bb09175f87270e73e01cc4",
                                     "suffix": "",
                                     "type": "file"
@@ -7058,6 +7088,11 @@
                             "children": [
                                 {
                                     "name": "2410da6f34d70528c00c455117cfa8bc36f7b4",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "a77db9eb5768924f4ecbed09784fd16bb1d917",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -22286,6 +22321,11 @@
                 },
                 {
                     "name": "vk.dark.user.js",
+                    "suffix": ".js",
+                    "type": "file"
+                },
+                {
+                    "name": "VK_FIX_YouTube.user.js",
                     "suffix": ".js",
                     "type": "file"
                 },

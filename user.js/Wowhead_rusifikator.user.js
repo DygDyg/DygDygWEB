@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wowhead русификатор
-// @namespace    http://tampermonkey.net/
-// @version      1.3
+// @namespace    https://dygdyg.github.io/
+// @version      1.4
 // @description  Переводит на русский описания предметов с вовхеда
 // @author       ДугДуг
 // @match        *://*/*
