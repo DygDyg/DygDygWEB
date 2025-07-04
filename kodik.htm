@@ -5,8 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>kodik</title>
-  <link rel="icon" type="image/x-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAAAz0lEQVRIx2OUec1AEWBiYBg1gFIDWNAFHolA6NVfGRiKvzMwGL9iYFivBRG7/ZuBIekTA8PD/7R0ATKQZ2RgmKsOYb/7y8BQdpuB4aEYrcMAGeRxMDAIMUPYyTcZGM6K0SMWYMCAjYFBlRURI9hsp60LYLbf/g1JDwOblOUZ5Rnplxdg4PZvSDioskLSA65woJ0LLvxCxEYoN4SNzRW0zQtJnxgYNgpA8oMzBwOD8UPMFElbFzz8D8mF67UgrpirzsDg/4HKJRLjaM00CAwAAFyvL85laqP4AAAAAElFTkSuQmCC">
-  
+  <link rel="icon" type="image/x-icon"
+    href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAAAz0lEQVRIx2OUec1AEWBiYBg1gFIDWNAFHolA6NVfGRiKvzMwGL9iYFivBRG7/ZuBIekTA8PD/7R0ATKQZ2RgmKsOYb/7y8BQdpuB4aEYrcMAGeRxMDAIMUPYyTcZGM6K0SMWYMCAjYFBlRURI9hsp60LYLbf/g1JDwOblOUZ5Rnplxdg4PZvSDioskLSA65woJ0LLvxCxEYoN4SNzRW0zQtJnxgYNgpA8oMzBwOD8UPMFElbFzz8D8mF67UgrpirzsDg/4HKJRLjaM00CAwAAFyvL85laqP4AAAAAElFTkSuQmCC">
+
 </head>
 
 <body>
@@ -27,9 +28,10 @@
   <div id="base"></div>
 </body>
 <style>
-  body{
-    background-color:rgb(32, 32, 32)
+  body {
+    background-color: rgb(32, 32, 32)
   }
+
   #kodik1 {
     height: 95%;
     width: 95%;
@@ -39,19 +41,19 @@
   }
 
   #kodik {
-    position:fixed; 
+    position: fixed;
     /* 
     top:0; 
     left:0; 
     bottom:0; 
     right:0;  */
-    
-    width:100%; 
-    height:100%; 
-    border:none; 
-    margin:0; 
-    padding:0; 
-    overflow:hidden;
+
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
     aspect-ratio: 16/9;
   }
 
@@ -70,24 +72,59 @@
   // kodik.setAttribute("src", "blob:https//kodik.cc/find-player?kinopoiskID=5401195&camrip=false");
   console.log(getUrlParameter("kinopoiskID"))
   kodik.src = `https://kodik.cc/find-player?`
-  if(getUrlParameter("kinopoiskID")) kodik.src += `&kinopoiskID=${getUrlParameter("kinopoiskID")}`
-  if(getUrlParameter("title")) kodik.src += `&title=${getUrlParameter("title")}`
-  if(getUrlParameter("worldartAnimationID")) kodik.src += `&worldartAnimationID=${getUrlParameter("worldartAnimationID")}`
-  if(getUrlParameter("shikimoriID")) kodik.src += `shikimoriID=${getUrlParameter("shikimoriID")}`
-  if(getUrlParameter("TitleTab")) document.title = `${getUrlParameter("TitleTab")}` //Получает заголовок из параметров
+  if (getUrlParameter("kinopoiskID")) kodik.src += `&kinopoiskID=${getUrlParameter("kinopoiskID")}`
+  if (getUrlParameter("title")) kodik.src += `&title=${getUrlParameter("title")}`
+  if (getUrlParameter("worldartAnimationID")) kodik.src += `&worldartAnimationID=${getUrlParameter("worldartAnimationID")}`
+  if (getUrlParameter("shikimoriID")) kodik.src += `shikimoriID=${getUrlParameter("shikimoriID")}`
+  if (getUrlParameter("TitleTab")) document.title = `${getUrlParameter("TitleTab")}` //Получает заголовок из параметров
   // if(getUrlParameter("shikimoriID")) kodik.src += `shikimoriID=${getUrlParameter("shikimoriID")}`
   kodik.src += `&camrip=false`
-  if(getUrlParameter("title")) document.title = `${getUrlParameter("title")}` //Получает заголовок из параметров title
-  if(getUrlParameter("TitleTab")) document.title = `${getUrlParameter("TitleTab")}` //Получает заголовок из параметров TitleTab
+  if (getUrlParameter("title")) document.title = `${getUrlParameter("title")}` //Получает заголовок из параметров title
+  if (getUrlParameter("TitleTab")) document.title = `${getUrlParameter("TitleTab")}` //Получает заголовок из параметров TitleTab
   // kodik.style.width = "640px";
   // kodik.style.height = "480px";
   kodik.id = "kodik"
   kodik.allow = "fullscreen"
   kodik.frameborder = "0"
   document.body.querySelector("#base").appendChild(kodik);
-  // var kodikframe = window.open('', 'Google', 'width=600,height=400');
-  // kodikframe.window.document.body.innerHTML = `<iframe src="//kodik.info/seria/1232576/170dcd1341b517c464cfdc345ba71432/720p" width="607" height="360" frameborder="0" AllowFullScreen allow="autoplay *; fullscreen *"></iframe>`
-  // if(extractGetAll().kinopoiskID) 
+
+  // Настройка Media Session API
+  if ('mediaSession' in navigator) {
+    //window.pl = player
+    //console.log("mediaSession", player)
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: VideoInfo.info.title.textContent,
+      artist: ``,
+      album: '',
+      artwork: [{ src: VideoInfo.info.cover.src }]
+    });
+
+    navigator.mediaSession.metadata.time = 0;
+    navigator.mediaSession.setActionHandler('play', () => {
+      kodikIframe.postMessage({ key: "kodik_player_api", value: { method: "play" } }, '*');
+      console.log('Воспроизведение');
+    });
+
+    navigator.mediaSession.setActionHandler('pause', () => {
+      kodikIframe.postMessage({ key: "kodik_player_api", value: { method: "pause" } }, '*');
+    });
+    navigator.mediaSession.setActionHandler('stop', () => {
+      kodikIframe.postMessage({ key: "kodik_player_api", value: { method: "pause" } }, '*');
+    });
+
+    navigator.mediaSession.setActionHandler('previoustrack', () => {
+      console.log('Перемотка назад');
+      kodikIframe.postMessage({ key: "kodik_player_api", value: { method: "seek", seconds: navigator.mediaSession.metadata.time - 10 } }, '*');
+    });
+
+    navigator.mediaSession.setActionHandler('nexttrack', () => {
+      console.log('Перемотка вперед');
+      kodikIframe.postMessage({ key: "kodik_player_api", value: { method: "seek", seconds: navigator.mediaSession.metadata.time + 10 } }, '*');
+    });
+  } else {
+    console.log('Media Session API не поддерживается');
+  }
+
 
 
   function getUrlParameter(name) {
@@ -96,6 +133,7 @@
     var results = regex.exec(location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
   };
-  
+
 </script>
+
 </html>

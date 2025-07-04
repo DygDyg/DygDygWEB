@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Звёздное небо</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #1a1a1a; /* Тёмная тема */
+            height: 100vh;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="starryCanvas"></canvas>
+    <script src="StarrySky.js"></script>
+    <script>
+        // Инициализация звёздного неба с пользовательскими параметрами
+        const starrySky = new StarrySky('starryCanvas', {
+            rotationSpeed: 0.00005, // Очень медленное вращение
+            maxOrbitRadius: window.innerWidth, // Радиус на ширину экрана
+            starDensity: 0.0007, // Меньшая плотность звёзд
+            fadeSpeed: 0.3, // Быстрее появление/исчезновение
+            visibleAngleStart: Math.PI / 100, // ~1.8°
+            visibleAngleEnd: 3 * Math.PI / 2, // 270°, почти до горизонта
+            flickerSpeed: 0.005, // Скорость мерцания
+            flickerIntensity: 0.4, // Интенсивность мерцания
+            backgroundColor: '#1a1a1a' // Тёмная тема
+        });
+    </script>
+</body>
+</html>
