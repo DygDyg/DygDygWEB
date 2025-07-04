@@ -8,7 +8,6 @@
         body {
             margin: 0;
             overflow: hidden;
-            background: #1a1a1a; /* Тёмная тема */
             height: 100vh;
         }
         canvas {
@@ -30,7 +29,13 @@
             visibleAngleEnd: 3 * Math.PI / 2, // 270°, почти до горизонта
             flickerSpeed: 0.005, // Скорость мерцания
             flickerIntensity: 0.4, // Интенсивность мерцания
-            backgroundColor: '#1a1a1a' // Тёмная тема
+            gradientColors: ['#1a1a1a', '#2a2a4a'], // Градиент: тёмный у горизонта, светлее кверху
+            cloudConfig: {
+                cloudCount: 10, // Количество облаков
+                cloudSpeed: 0.2, // Скорость движения облаков
+                cloudOpacity: 0.03, // Прозрачность облаков
+                cloudBlur: 40 // Размытие облаков
+            }
         });
     </script>
 </body>
