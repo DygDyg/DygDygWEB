@@ -2,13 +2,12 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Звёздное небо</title>
     <style>
         body {
             margin: 0;
             overflow: hidden;
-            height: 100vh;
+            background: black;
         }
         canvas {
             display: block;
@@ -19,24 +18,28 @@
     <canvas id="starryCanvas"></canvas>
     <script src="StarrySky.js"></script>
     <script>
-        // Инициализация звёздного неба с пользовательскими параметрами
         const starrySky = new StarrySky('starryCanvas', {
-            rotationSpeed: 0.00005, // Очень медленное вращение
-            maxOrbitRadius: window.innerWidth, // Радиус на ширину экрана
-            starDensity: 0.0007, // Меньшая плотность звёзд
-            fadeSpeed: 0.3, // Быстрее появление/исчезновение
-            visibleAngleStart: Math.PI / 100, // ~1.8°
-            visibleAngleEnd: 3 * Math.PI / 2, // 270°, почти до горизонта
-            flickerSpeed: 0.005, // Скорость мерцания
-            flickerIntensity: 0.4, // Интенсивность мерцания
-            gradientColors: ['#1a1a1a', '#2a2a4a'], // Градиент: тёмный у горизонта, светлее кверху
+            rotationSpeed: 0.00005,
+            maxOrbitRadius: window.innerWidth,
+            starDensity: 0.0007,
+            fadeSpeed: 0.3,
+            visibleAngleStart: Math.PI / 100,
+            visibleAngleEnd: 3 * Math.PI / 2,
+            flickerSpeed: 0.005,
+            flickerIntensity: 0.4,
+            gradientColors: ['#1a1a1a', '#2a2a4a'],
             cloudConfig: {
-                cloudCount: 10, // Количество облаков
-                cloudSpeed: 0.2, // Скорость движения облаков
-                cloudOpacity: 0.03, // Прозрачность облаков
-                cloudBlur: 40 // Размытие облаков
+                cloudCount: 10,
+                cloudSpeed: 0.2,
+                cloudOpacity: 0.03,
+                cloudBlur: 40
             }
         });
+        //starrySky.stop()
+        //starrySky.start()
+        // Пример: остановить через 10 секунд
+        // setTimeout(() => starrySky.stop(), 10000);
+        // setTimeout(() => starrySky.start(), 10000);
     </script>
 </body>
 </html>
