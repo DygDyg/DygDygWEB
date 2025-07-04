@@ -4,101 +4,109 @@ class StarrySky {
         if (!this.canvas) throw new Error('Canvas not found');
         this.ctx = this.canvas.getContext('2d');
 
-        // Настройки по умолчанию
+        // Настройки
         this.config = {
-            rotationSpeed: config.rotationSpeed || 0.0002, // Скорость вращения звёзд
-            maxOrbitRadius: config.maxOrbitRadius || Math.max(this.canvas.width, this.canvas.height), // Максимальный радиус орбиты
-            starDensity: config.starDensity || 0.01, // Плотность звёзд
-            fadeSpeed: config.fadeSpeed || 0.02, // Скорость появления/исчезновения звёзд
-            visibleAngleStart: config.visibleAngleStart || Math.PI / 6, // Начальный угол видимости (30°)
-            visibleAngleEnd: config.visibleAngleEnd || 3 * Math.PI / 2, // Конечный угол видимости (270°)
-            flickerSpeed: config.flickerSpeed || 0.02, // Скорость мерцания
-            flickerIntensity: config.flickerIntensity || 0.3, // Интенсивность мерцания
-            gradientColors: config.gradientColors || ['#1a1a1a', '#2a2a4a'], // Градиент для ночного неба
+            rotationSpeed: config.rotationSpeed || 0.0002,
+            maxOrbitRadius: config.maxOrbitRadius || Math.max(this.canvas.width, this.canvas.height),
+            starDensity: config.starDensity || 0.01,
+            fadeSpeed: config.fadeSpeed || 0.02,
+            visibleAngleStart: config.visibleAngleStart || Math.PI / 6,
+            visibleAngleEnd: config.visibleAngleEnd || 3 * Math.PI / 2,
+            flickerSpeed: config.flickerSpeed || 0.02,
+            flickerIntensity: config.flickerIntensity || 0.3,
+            gradientColors: config.gradientColors || ['#1a1a1a', '#2a2a4a'],
             cloudConfig: {
-                cloudCount: config.cloudConfig?.cloudCount || 5, // Количество облаков
-                cloudSpeed: config.cloudConfig?.cloudSpeed || 0.5, // Скорость движения облаков (пиксели за кадр)
-                cloudOpacity: config.cloudConfig?.cloudOpacity || 0.1, // Прозрачность облаков
-                cloudBlur: config.cloudConfig?.cloudBlur || 20 // Уровень размытия облаков (пиксели)
+                cloudCount: config.cloudConfig?.cloudCount || 5,
+                cloudSpeed: config.cloudConfig?.cloudSpeed || 0.5,
+                cloudOpacity: config.cloudConfig?.cloudOpacity || 0.1,
+                cloudBlur: config.cloudConfig?.cloudBlur || 20
             }
         };
 
-        // Настройка размеров canvas
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
-
-        // Центр вращения внизу экрана
         this.centerX = this.canvas.width / 2;
         this.centerY = this.canvas.height;
-
-        // Массив для хранения звёзд
         this.stars = [];
-        this.numStars = Math.floor(this.canvas.width * this.canvas.height * this.config.starDensity);
-
-        // Массив для хранения облаков
         this.clouds = [];
+        this.animationFrameId = null;
 
-        // Создание звёзд
-        for (let i = 0; i < this.numStars; i++) {
-            this.stars.push(this.createStar());
-        }
+        this.numStars = Math.floor(this.canvas.width * this.canvas.height * this.config.starDensity);
+        for (let i = 0; i < this.numStars; i++) this.stars.push(this.createStar());
+        for (let i = 0; i < this.config.cloudConfig.cloudCount; i++) this.clouds.push(this.createCloud());
 
-        // Создание облаков
-        for (let i = 0; i < this.config.cloudConfig.cloudCount; i++) {
-            this.clouds.push(this.createCloud());
-        }
-
-        // Обработка изменения размера окна
         window.addEventListener('resize', () => this.handleResize());
+        this.observeCanvas();
+        this.start(); // Запускаем анимацию
+    }
 
-        // Запуск анимации
-        this.animate();
+    start() {
+        if (!this.animationFrameId) this.animate();
+    }
+
+    stop() {
+        if (this.animationFrameId) {
+            cancelAnimationFrame(this.animationFrameId);
+            this.animationFrameId = null;
+        }
+    }
+
+    observeCanvas() {
+        const observer = new MutationObserver(() => {
+            const inDOM = document.body.contains(this.canvas);
+            const style = getComputedStyle(this.canvas);
+            const hidden = style.display === 'none' || style.visibility === 'hidden' || style.opacity === '0';
+
+            if (!inDOM || hidden) {
+                this.stop();
+            } else {
+                this.start();
+            }
+        });
+
+        observer.observe(document.body, { childList: true, subtree: true, attributes: true });
     }
 
     createStar() {
         return {
-            angle: Math.random() * Math.PI, // Ограничиваем угол для верхней полусферы
+            angle: Math.random() * Math.PI,
             orbitRadius: Math.random() * this.config.maxOrbitRadius,
-            x: 0, // Будет обновлено в updateStar
+            x: 0,
             y: 0,
             radius: Math.random() * 1.5,
-            baseAlpha: Math.random() * 0.5 + 0.5, // Базовая прозрачность
-            alpha: 0, // Начальная прозрачность
-            velocity: this.config.flickerSpeed * (Math.random() * 0.5 + 0.5), // Скорость мерцания
-            direction: Math.random() < 0.5 ? 1 : -1 // Направление изменения прозрачности
+            baseAlpha: Math.random() * 0.5 + 0.5,
+            alpha: 0,
+            velocity: this.config.flickerSpeed * (Math.random() * 0.5 + 0.5),
+            direction: Math.random() < 0.5 ? 1 : -1
         };
     }
 
     createCloud() {
         return {
-            x: Math.random() * this.canvas.width, // Начальная позиция по X
-            y: Math.random() * this.canvas.height * 0.5, // Ограничение по Y (верхняя половина экрана)
-            radius: Math.random() * 100 + 50 // Радиус облака (50–150 пикселей)
+            x: Math.random() * this.canvas.width,
+            y: Math.random() * this.canvas.height * 0.5,
+            radius: Math.random() * 100 + 50
         };
     }
 
     updateStar(star) {
-        // Вращение звезды вокруг центра
         star.angle += this.config.rotationSpeed;
         star.x = this.centerX + Math.cos(star.angle) * star.orbitRadius;
         star.y = this.centerY - Math.sin(star.angle) * star.orbitRadius;
 
-        // Ограничение угла для имитации горизонта
         if (star.angle > Math.PI) {
             star.angle -= Math.PI;
             star.x = this.centerX + Math.cos(star.angle) * star.orbitRadius;
             star.y = this.centerY - Math.sin(star.angle) * star.orbitRadius;
-            star.alpha = 0; // Сбрасываем прозрачность при возвращении
+            star.alpha = 0;
         }
 
-        // Плавное появление и исчезновение
         if (star.angle < this.config.visibleAngleStart || star.angle > this.config.visibleAngleEnd) {
             star.alpha = Math.max(0, star.alpha - this.config.fadeSpeed);
         } else {
             star.alpha = Math.min(star.baseAlpha, star.alpha + this.config.fadeSpeed);
         }
 
-        // Мерцание звезды
         if (star.alpha > 0) {
             star.baseAlpha += this.config.flickerSpeed * star.direction;
             const minAlpha = Math.max(0.5 - this.config.flickerIntensity, 0);
@@ -108,7 +116,6 @@ class StarrySky {
             }
         }
 
-        // Отрисовка звезды
         this.ctx.beginPath();
         this.ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
         this.ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
@@ -116,19 +123,14 @@ class StarrySky {
     }
 
     updateCloud(cloud) {
-        // Движение облака слева направо
         cloud.x += this.config.cloudConfig.cloudSpeed;
         if (cloud.x - cloud.radius > this.canvas.width) {
-            cloud.x = -cloud.radius; // Перемещение за левый край
-            cloud.y = Math.random() * this.canvas.height * 0.5; // Новая случайная высота
-            cloud.radius = Math.random() * 100 + 50; // Новый случайный радиус
+            cloud.x = -cloud.radius;
+            cloud.y = Math.random() * this.canvas.height * 0.5;
+            cloud.radius = Math.random() * 100 + 50;
         }
 
-        // Отрисовка облака с радиальным градиентом
-        const gradient = this.ctx.createRadialGradient(
-            cloud.x, cloud.y, 0,
-            cloud.x, cloud.y, cloud.radius
-        );
+        const gradient = this.ctx.createRadialGradient(cloud.x, cloud.y, 0, cloud.x, cloud.y, cloud.radius);
         gradient.addColorStop(0, `rgba(255, 255, 255, ${this.config.cloudConfig.cloudOpacity})`);
         gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
         this.ctx.fillStyle = gradient;
@@ -138,13 +140,12 @@ class StarrySky {
     }
 
     drawBackground() {
-        // Создание радиального градиента для фона
         const gradient = this.ctx.createRadialGradient(
             this.centerX, this.centerY, 0,
             this.centerX, this.centerY, Math.max(this.canvas.width, this.canvas.height)
         );
-        gradient.addColorStop(0, this.config.gradientColors[0]); // Цвет у горизонта
-        gradient.addColorStop(1, this.config.gradientColors[1]); // Цвет в верхней части
+        gradient.addColorStop(0, this.config.gradientColors[0]);
+        gradient.addColorStop(1, this.config.gradientColors[1]);
         this.ctx.fillStyle = gradient;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
@@ -156,30 +157,19 @@ class StarrySky {
         this.centerY = this.canvas.height;
         this.numStars = Math.floor(this.canvas.width * this.canvas.height * this.config.starDensity);
         this.stars = [];
-        for (let i = 0; i < this.numStars; i++) {
-            this.stars.push(this.createStar());
-        }
+        for (let i = 0; i < this.numStars; i++) this.stars.push(this.createStar());
         this.clouds = [];
-        for (let i = 0; i < this.config.cloudConfig.cloudCount; i++) {
-            this.clouds.push(this.createCloud());
-        }
+        for (let i = 0; i < this.config.cloudConfig.cloudCount; i++) this.clouds.push(this.createCloud());
     }
 
     animate() {
-        // Отрисовка фона
         this.drawBackground();
-
-        // Отрисовка облаков с размытием
         this.ctx.filter = `blur(${this.config.cloudConfig.cloudBlur}px)`;
         this.clouds.forEach(cloud => this.updateCloud(cloud));
-
-        // Сброс фильтра для звёзд (чтобы они оставались чёткими)
         this.ctx.filter = 'none';
         this.stars.forEach(star => this.updateStar(star));
-
-        requestAnimationFrame(() => this.animate());
+        this.animationFrameId = requestAnimationFrame(() => this.animate());
     }
 }
 
-// Экспорт для использования в браузере
 window.StarrySky = StarrySky;
