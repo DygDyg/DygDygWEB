@@ -24,12 +24,7 @@
         margin: 0px
     }
 
-    .kinobox_player {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        overflow: hidden;
-    }
+
 
     :root {
         overflow: hidden;
@@ -142,17 +137,9 @@
 
                 break;
             default:
-                // document.body.innerHTML = '<div class="kinobox_player">'
-                // searchkinobox(getUrlParameter("kinopoiskID"), getUrlParameter("imdb"), getUrlParameter("tmdb"), getUrlParameter("title"), getUrlParameter("query"), getUrlParameter("shikimori"))
 
                 break;
         }
-
-        // if (service == "kodik") {
-        //     kodik.innerHTML = `<iframe id="kodik" src="${link1}" frameborder="0"  AllowFullScreen allow="autoplay *; fullscreen *"></iframe>`
-        // } else {
-        //     kodik.innerHTML = `<iframe id="kodik" src="${link2}" frameborder="0"  AllowFullScreen allow="autoplay *; fullscreen *"></iframe>`
-        // };
 
         document.body.prepend(kodik);
         
@@ -171,165 +158,7 @@
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
     }
-    function searchkinobox(kinopoisk, imdb, tmdb, title, query, shikimori) {
-        if(shikimori){
-            var url = `https://kodikapi.com/search?token=45c53578f11ecfb74e31267b634cc6a8&shikimori_id=${shikimori}`
-            fetch(url)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-
-                        if (response.status == "404") return response.status
-
-                        throw new Error('Ответ сети был не в порядке. searchkinobox');
-                    }
-                })
-
-                .then(data => {
-                    console.log(data.results.length)
-                    // data.results[0]?.imdb_id
-                    data.results.length>0 ? Startkinobox(data.results[0]?.kinopoisk_id, data.results[0]?.imdb_id) : searchkinobox(kinopoisk, imdb, tmdb, title, query)
-                })
-                return
-        }
-
-        if (query) {
-
-            var url = `https://kinobox.tv/api/films/search/?title=${query}`
-
-            fetch(url)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-
-                        if (response.status == "404") return response.status
-
-                        throw new Error('Ответ сети был не в порядке. searchkinobox');
-                    }
-                })
-
-                .then(data => {
-                    if (data == "404") {
-
-                        return data
-                    }
-                    console.log(data, query)
-                    document.body.innerHTML = `
-                        <div id="search"></div>
-                    `
-
-                    var search = document.getElementById("search")
-                    search.style.cssText = `
-
-                    `
-
-                    data.forEach(e => {
-                        // console.log(e)
-                        const cart = document.createElement('div');
-                        cart.classList.add('cart')
-                        search.appendChild(cart)
-                        cart.innerHTML = `
-                        <div class="year">${e.year}</div>
-                        <div class="type">${e.type}</div>
-                        <img class="cover_image" src="${e.posterUrl}"></img>
-                        <div class="title">${e.title}</div>
-                        `
-                        cart.addEventListener('click', () => {
-                            // search.remove()
-                            location.href = `${location.origin}${location.pathname}?kinopoiskID=${e.id}`
-                            // Startkinobox(e.id.toString())
-                        })
-                    });
-
-                    // Startkinobox(null, null, null, null, data[0].id)
-                    // sh_api.Last_search = data
-                    // console.log(sh_api.Last_search)
-                })
-                .catch(error => {
-
-                    console.error('Возникла проблема с операцией выборки searchkinobox:', error);
-                });
-        } else {
-            Startkinobox(kinopoisk, imdb, tmdb, title)
-        }
-
-    }
-    function Startkinobox(kinopoisk, imdb, tmdb, title) {
-        console.log(kinopoisk, imdb, tmdb, title)
-        kbox('.kinobox_player', {
-            search: { // Настройки поиска
-                kinopoisk: kinopoisk, // Поиск фильма по ID Кинопоиска
-                imdb: imdb, // Поиск фильма по IMDb Id
-                tmdb: tmdb, // Поиск фильма по TMDB Id
-                title: title // Поиск фильма по названию
-            },
-            menu: { // Настройки меню
-                enable: true, // Показывать меню
-                default: getUrlParameter("menu_default") ? getUrlParameter("menu_default") : 'menu_list', // Вид меню для стандартных устройств menu_list
-                mobile: getUrlParameter("menu_default") ? getUrlParameter("menu_default") : 'menu_button', // Вид меню для мобильных устройств menu_button
-                format: '[{N}] {S} :: {T} ({Q})', // Формат пункта меню
-                limit: null, // Максимальное количество элементов в меню
-                open: getUrlParameter("menu_open") ? getUrlParameter("menu_open") : false, // Открывать меню по умолчанию
-            },
-            players: { // Настройки источников
-
-                alloha: { // Название
-                    enable: true, // Включить
-                    position: 1 // Позиция в меню
-                },
-                kodik: {
-                    enable: false,
-                    position: 2
-                },
-                cdnmovies: {
-                    enable: true,
-                    position: 3,
-                    domain: 'https://cdnmovies-stream.online',
-                },
-                videocdn: {
-                    enable: true,
-                    position: 4,
-                    domain: `https://${getRandomInt(999999999999)}.svetacdn.in/gzIOdW6ZBYvH`
-                    // ${getRandomInt(999999999999)}.svetacdn.in/Mr1qo9bwHfJQ?kp_id=${getUrlParameter("kinopoiskID")}`
-                },
-                Ashdi: {
-                    enable: true,
-                    position: 5,
-                },
-                Collaps: {
-                    enable: true,
-                    position: 6,
-                },
-                Hdvb: {
-                    enable: true,
-                    position: 7,
-                },
-                Voidboost: {
-                    enable: true,
-                    position: 5,
-                },
-                linktodo: {
-                    enable: true,
-                    position: 6,
-                },
-                svetacdn: {
-                    enable: true,
-                    position: 7,
-                },
-                turbo:{
-                    enable: true,
-                    position: 8,
-                },
-
-
-            },
-            params: { // Добавление дополнительных параметров в ссылку iframe
-            }
-        });
-    }
-</script>
+    </script>
 
 
 </html>
