@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Кинопоиск kodik online
 // @namespace    Кинопоиск kodik online
-// @version      1.0
+// @version      1.2
 // @description  Плагин добавляет плеер для просмотра фильмов на кинопоиск
 // @author       ДугДуг
 // @match        https://www.kinopoisk.ru/*
@@ -78,7 +78,7 @@ z-index: 13;
 
 #exit_btn
 {
-	 width: 32px;
+	width: 32px;
 	background-color: #5b3333;;
 }
 
@@ -88,7 +88,7 @@ z-index: 13;
 
 #new_tab_btn
 {
-	 width: 32px;
+	width: 32px;
 	// background-color: #5b3333;
 }
 .active_btn {
@@ -104,7 +104,7 @@ if (!window.onurlchange) {
 	window.addEventListener('urlchange', function (e) {
 		debug.log("url ", old_url, e.url)
 		if (old_url != e.url) {
-			setTimeout(video_player("kinobox"), 0);
+			setTimeout(video_player("svetacdn"), 0);
 			debug.log(e.url)
 			old_url = e.url
 		}
@@ -146,28 +146,6 @@ function video_player(n) {
 		target: "_blank",
 	})
 
-	var kodik_btn = GM_addElement(player_btn_click, 'div', {
-		id: 'kodik_btn',
-		class: 'player_btn',
-		textContent: 'kodik',
-		title: 'kodik',
-	})
-	kodik_btn.onclick = function () {
-		debug.log("kodik")
-		video_player('kodik')
-	};
-
-	var kinobox_btn = GM_addElement(player_btn_click, 'div', {
-		id: 'kinobox_btn',
-		class: 'player_btn',
-		textContent: 'kinobox',
-		title: 'kinobox',
-	})
-	kinobox_btn.onclick = function () {
-		debug.log("kinobox")
-		video_player('kinobox')
-	};
-
 	var svetacdn_btn = GM_addElement(player_btn_click, 'div', {
 		id: 'svetacdn_btn',
 		class: 'player_btn',
@@ -177,6 +155,17 @@ function video_player(n) {
 	svetacdn_btn.onclick = function () {
 		video_player('svetacdn')
 		debug.log("svetacdn")
+	};
+
+	var kodik_btn = GM_addElement(player_btn_click, 'div', {
+		id: 'kodik_btn',
+		class: 'player_btn',
+		textContent: 'kodik',
+		title: 'kodik',
+	})
+	kodik_btn.onclick = function () {
+		debug.log("kodik")
+		video_player('kodik')
 	};
 
 	var linktodo_btn = GM_addElement(player_btn_click, 'div', {
