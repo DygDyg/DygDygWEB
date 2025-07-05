@@ -78,7 +78,7 @@ z-index: 13;
 
 #exit_btn
 {
-	width: 32px;
+	 width: 32px;
 	background-color: #5b3333;;
 }
 
@@ -88,7 +88,7 @@ z-index: 13;
 
 #new_tab_btn
 {
-	width: 32px;
+	 width: 32px;
 	// background-color: #5b3333;
 }
 .active_btn {
@@ -145,12 +145,12 @@ function video_player(n) {
 		href: localurl,
 		target: "_blank",
 	})
-
+	
 	var svetacdn_btn = GM_addElement(player_btn_click, 'div', {
 		id: 'svetacdn_btn',
 		class: 'player_btn',
-		textContent: 'svetacdn',
-		title: 'svetacdn',
+		textContent: 'LUMEX',
+		title: 'LUMEX',
 	})
 	svetacdn_btn.onclick = function () {
 		video_player('svetacdn')
