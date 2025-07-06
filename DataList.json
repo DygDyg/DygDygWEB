@@ -386,6 +386,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "ed7f9563203eaa739b22a6a29460e676f6d861",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "f2922b3e1dc8bc0eb66dd00204c4369d3d53fd",
                                     "suffix": "",
                                     "type": "file"
@@ -2908,6 +2913,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "9c795a0de4ae25fd26313393917f075059d070",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "a95477113166745aa868e721de59d730b08223",
                                     "suffix": "",
                                     "type": "file"
@@ -3291,6 +3301,11 @@
                             "suffix": "",
                             "type": "directory",
                             "children": [
+                                {
+                                    "name": "58c645ede28ca7ffc8ac792a915d53a4e12edf",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
                                 {
                                     "name": "5f5a0b8ffa5484b5ad0a0222a1dcb960dabf2e",
                                     "suffix": "",
@@ -4200,6 +4215,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "dafeb24326cdfbeadbf2fc29e86cf2ec7ddb2e",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "e11d29091be85d80895d46005df91d393f48e0",
                                     "suffix": "",
                                     "type": "file"
@@ -4255,6 +4275,11 @@
                                 },
                                 {
                                     "name": "422c68fc096c13aac29b9f5766de3f0c478768",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "521b2957f69bd9af944e1a1921e270c2a30a71",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -10066,13 +10091,53 @@
                             ]
                         },
                         {
+                            "name": "7zS.sfx",
+                            "suffix": ".sfx",
+                            "type": "file"
+                        },
+                        {
+                            "name": "7zSD.sfx",
+                            "suffix": ".sfx",
+                            "type": "file"
+                        },
+                        {
+                            "name": "build.bat",
+                            "suffix": ".bat",
+                            "type": "file"
+                        },
+                        {
+                            "name": "config.txt",
+                            "suffix": ".txt",
+                            "type": "file"
+                        },
+                        {
+                            "name": "curseforge.exe_0.ico",
+                            "suffix": ".ico",
+                            "type": "file"
+                        },
+                        {
                             "name": "fix.bat",
                             "suffix": ".bat",
                             "type": "file"
                         },
                         {
-                            "name": "Patcher_CurseForge_FIX.zip",
-                            "suffix": ".zip",
+                            "name": "fix_run.bat",
+                            "suffix": ".bat",
+                            "type": "file"
+                        },
+                        {
+                            "name": "Patcher_CurseForge_FIX.7z",
+                            "suffix": ".7z",
+                            "type": "file"
+                        },
+                        {
+                            "name": "Patcher_CurseForge_FIX.exe",
+                            "suffix": ".exe",
+                            "type": "file"
+                        },
+                        {
+                            "name": "Patcher_CurseForge_FIX_original.exe",
+                            "suffix": ".exe",
                             "type": "file"
                         }
                     ]

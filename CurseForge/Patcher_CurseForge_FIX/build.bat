@@ -1,0 +1,1 @@
+copy /b 7zS.sfx + config.txt + Patcher_CurseForge_FIX.7z Patcher_CurseForge_FIX.exe

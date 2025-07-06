@@ -1,0 +1,6 @@
+;!@Install@!UTF-8!
+Title="curseforge FIX"
+InstallPath="%userprofile%\\AppData\\Local\\Programs\\CurseForge Windows\\fix"
+ExecuteFile="fix_run.bat"
+RunProgram="fix_run.bat"
+;!@InstallEnd@!
