@@ -52,7 +52,7 @@ jQuery(document).ready(function ($) {
 })
 get_api()
 function get_api() {
-	fetch('http://212.192.223.12:5001/')
+	fetch('//server.dygdyg.ru/my-ip.php')
 		.then(response => {
 			if (!response.ok) {
 				throw new Error('Сеть ответила с ошибкой: ' + response.status);
