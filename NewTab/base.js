@@ -223,13 +223,13 @@ $('body').append('<div id="clockG">' +
 $.ajax({
 	url: "https://server.dygdyg.ru/my-ip.php",
 	jsonp: "callback",
-	dataType: "jsonp",
+	dataType: "json",
 	data: {
 		q: "select title,abstract,url from search.news where query=\"cat\"",
 		format: "json"
 	},
 	success: function (json) {
-
+		
 		// $('body').prepend('<div id="ver">'+ "VER: "+ ver + " IP: " + json.ip + '</div>')
 		$("#ver").text("VER: " + ver + " IP: " + json.ip)
 		// $("#ver").text("VER: " + ver + " IP: " + json.query)
