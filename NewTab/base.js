@@ -221,7 +221,7 @@ $('body').append('<div id="clockG">' +
 // https://api.ipify.org?format=jsonp&callback=?
 
 $.ajax({
-	url: "http://ip-api.com/json/",
+	url: "https://server.dygdyg.ru/my-ip.php",
 	jsonp: "callback",
 	dataType: "jsonp",
 	data: {
@@ -231,13 +231,15 @@ $.ajax({
 	success: function (json) {
 
 		// $('body').prepend('<div id="ver">'+ "VER: "+ ver + " IP: " + json.ip + '</div>')
-		$("#ver").text("VER: " + ver + " IP: " + json.query)
+		$("#ver").text("VER: " + ver + " IP: " + json.ip)
+		// $("#ver").text("VER: " + ver + " IP: " + json.query)
 		$('#ver').click(function (e) {
 			if (e.shiftKey) {
 				// window.open("http://ip-api.com/json/", "_blank");
 				window.open('http://ip-api.com/json/').focus();
 			} else {
-				$('#search').val(json.query)
+				$('#search').val(json.ip)
+				// $('#search').val(json.query)
 				$('#search').focus();
 				$('#search').select();
 				document.execCommand('copy');
