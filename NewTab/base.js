@@ -536,7 +536,8 @@ function exit_settings() {
 function add_card(url) {
 	let image = localStorage.getItem('images').split(',')[num]
 	let images_tmp = []
-	let scr_url = `//mini.s-shot.ru/?${url}`
+	// let scr_url = `//mini.s-shot.ru/?${url}`
+	let scr_url = `//server.dygdyg.ru/screen.php?url=${url}`
 	scr_url = getUrlParameter('screenshotmachine') ? `//api.screenshotmachine.com/?key=e51b85&dimension=480x270&url=${url}` : scr_url
 
 	// let scr_url = getUrlParameter('s-shot')?`//mini.s-shot.ru/1680x1050/JPEG/320/Z100/?${url}`:`//api.screenshotmachine.com/?key=e51b85&dimension=480x270&url=${url}`
