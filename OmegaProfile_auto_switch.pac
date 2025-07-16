@@ -3,6 +3,7 @@ var FindProxyForURL = function(init, profiles) {
         "use strict";
         var result = init, scheme = url.substr(0, url.indexOf(":"));
         do {
+            if (!profiles[result]) return result;
             result = profiles[result];
             if (typeof result === "function") result = result(url, host, scheme);
         } while (typeof result !== "string" || result.charCodeAt(0) === 43);
@@ -11,48 +12,47 @@ var FindProxyForURL = function(init, profiles) {
 }("+auto switch", {
     "+auto switch": function(url, host, scheme) {
         "use strict";
-        if (/(?:^|\.)skydimo\.com$/.test(host)) return "+GPT_2";
-        if (/(?:^|\.)gstatic\.com$/.test(host)) return "+GPT_2";
-        if (/2ip\.ru$/.test(host)) return "+proxy1";
-        if (/(?:^|\.)fbsbx\.com$/.test(host)) return "+proxy1";
-        if (/(?:^|\.)fbcdn\.net$/.test(host)) return "+proxy1";
-        if (/(?:^|\.)fbthirdpartypixel\.com$/.test(host)) return "+proxy1";
-        if (/(?:^|\.)facebook\.com$/.test(host)) return "+proxy1";
-        if (/vost\.pw$/.test(host)) return "+proxy1";
-        if (/www\.youtube\.com$/.test(host)) return "+proxy1";
-        if (/youtube\.com$/.test(host)) return "+proxy1";
-        if (/ytimg\.com$/.test(host)) return "+proxy1";
-        if (/timg\.com$/.test(host)) return "+proxy1";
-        if (/ggpht\.com$/.test(host)) return "+proxy1";
-        if (/(?:^|\.)googlevideo\.com$/.test(host)) return "+proxy1";
-        if (/rutracker\.org$/.test(host)) return "+proxy1";
-        if (/(?:^|\.)readmanga\.live$/.test(host)) return "+proxy1";
-        if (/(?:^|\.)oaistatic\.com$/.test(host)) return "+proxy1";
-        if (/(?:^|\.)browser-intake-datadoghq\.com$/.test(host)) return "+GPT_2";
-        if (/(?:^|\.)chatgpt\.com$/.test(host)) return "+GPT_2";
-        if (/(?:^|\.)oaiusercontent\.com$/.test(host)) return "+GPT_2";
-        if (/(?:^|\.)openai\.com$/.test(host)) return "+GPT_2";
-        if (/pornmult\.site$/.test(host)) return "+GPT_2";
-        if (/bing\.com$/.test(host)) return "+GPT_2";
-        if (/designer\.microsoft\.com$/.test(host)) return "+GPT_2";
-        if (/ecs\.office\.com$/.test(host)) return "+GPT_2";
-        if (/azureedge\.net$/.test(host)) return "+GPT_2";
-        if (/microsoft\.com$/.test(host)) return "+GPT_2";
-        if (/live\.com$/.test(host)) return "+GPT_2";
-        if (/vo\.msecnd\.net$/.test(host)) return "+GPT_2";
-        if (/(?:^|\.)unrealengine\.com$/.test(host)) return "+GPT_2";
-        if (/(?:^|\.)epicgames\.com$/.test(host)) return "+GPT_2";
-        if (/dygdyg\.github\.io$/.test(host)) return "DIRECT";
-        if (/track-anime\.github\.io$/.test(host)) return "DIRECT";
-        if (/shikimori\.one$/.test(host)) return "DIRECT";
-        if (/^192\.168\..*\./.test(host)) return "DIRECT";
-        if (/cloud\.google\.com$/.test(host)) return "+proxy1";
+        if (/^preflight-auth\.non-existent-website\.zzzzzzzzeroomega\.zero$/.test(host)) return "+pr6 poland";
+        if (/192\.168\.1\.1$/.test(host)) return "DIRECT";
+        if (/192\.168\..*\./.test(host)) return "DIRECT";
+        if (/(?:^|\.)epicgames\.com$/.test(host)) return "+pr6 poland";
+        if (/(?:^|\.)metademolab\.com$/.test(host)) return "+pr6 poland";
+        if (/(?:^|\.)d1c5y0e1wfs94q\.cloudfront\.net$/.test(host)) return "+pr6 poland";
+        if (/(?:^|\.)proxy6\.net$/.test(host)) return "+pr6 poland";
+        if (/(?:^|\.)skydimo\.com$/.test(host)) return "+pr6 poland";
+        if (/(?:^|\.)gstatic\.com$/.test(host)) return "+pr6 poland";
+        if (/(?:^|\.)browser-intake-datadoghq\.com$/.test(host)) return "+pr6 poland";
+        if (/(?:^|\.)chatgpt\.com$/.test(host)) return "+pr6 poland";
+        if (/(?:^|\.)oaiusercontent\.com$/.test(host)) return "+pr6 poland";
+        if (/(?:^|\.)openai\.com$/.test(host)) return "+pr6 poland";
+        if (/pornmult\.site$/.test(host)) return "+pr6 poland";
+        if (/bing\.com$/.test(host)) return "+pr6 poland";
+        if (/designer\.microsoft\.com$/.test(host)) return "+pr6 poland";
+        if (/ecs\.office\.com$/.test(host)) return "+pr6 poland";
+        if (/azureedge\.net$/.test(host)) return "+pr6 poland";
+        if (/microsoft\.com$/.test(host)) return "+pr6 poland";
+        if (/live\.com$/.test(host)) return "+pr6 poland";
+        if (/vo\.msecnd\.net$/.test(host)) return "+pr6 poland";
+        if (/(?:^|\.)unrealengine\.com$/.test(host)) return "+pr6 poland";
+        if (/animego\.org$/.test(host)) return "+pr6 poland";
+        if (/gemini\.google\.com$/.test(host)) return "+pr6 poland";
+        if (/sf-converter\.com$/.test(host)) return "+pr6 poland";
+        if (/(?:^|\.)grompokerua33\.com$/.test(host)) return "+pr6 poland";
+        if (/grok\.com$/.test(host)) return "+pr6 poland";
+        if (/x\.ai$/.test(host)) return "+pr6 poland";
+        if (/metademolab\.com$/.test(host)) return "+pr6 poland";
+        if (/discordapp\.com$/.test(host)) return "DIRECT";
+        if (/discord\.gg$/.test(host)) return "+pr6 poland";
+        if (/discord\.com$/.test(host)) return "+pr6 poland";
+        if (/temu\.com$/.test(host)) return "+pr6 poland";
+        if (/rutracker\.org$/.test(host)) return "+pr6 poland";
+        if (/developer\.android\.com$/.test(host)) return "+pr6 poland";
+        if (/linktodo\.ws$/.test(host)) return "+pr6 poland";
         return "DIRECT";
     },
-    "+GPT_2": function(url, host, scheme) {
+    "+pr6 poland": function(url, host, scheme) {
         "use strict";
         if (/^127\.0\.0\.1$/.test(host) || /^::1$/.test(host) || /^localhost$/.test(host)) return "DIRECT";
-        return "PROXY 138.59.5.104:9337";
-    },
-    "+proxy1": "+GPT_2"
+        return "SOCKS5 185.77.138.253:8000; SOCKS 185.77.138.253:8000";
+    }
 });
