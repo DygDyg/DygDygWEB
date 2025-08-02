@@ -1,23 +1,33 @@
-//alert($('a[href^="//wowhead.com/item="]').length);
 // ==UserScript==
-// @name         New Userscript
+// @name         Wowhead русификатор
 // @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  try to take over the world!
-// @author       You
-// @match        https://raider.io/*
+// @version      1.3
+// @description  Переводит на русский описания предметов с вовхеда
+// @author       ДугДуг
+// @match        *://*/*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=https://www.wowhead.com
+// @updateURL    https://dygdyg.github.io/DygDygWEB/DygDygWEB/user.js/Wowhead_rusifikator.user.js
+// @downloadURL  https://dygdyg.github.io/DygDygWEB/DygDygWEB/user.js/Wowhead_rusifikator.user.js
+// @run-at       document-idle
 // @grant        none
-// @require       https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js
-// @require       https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js
-// @require		  file:///D:/Users/dygdy/Desktop/malina/user.js/ru.raider.io.user.js
 // ==/UserScript==
-//alert($('a[href^="//wowhead.com/item="]').attr("href", "http://www.google.com/"));
 
-var linkRewriter = function (a, b) {
-    $('a[href*="' + a + '"]').each(function () {
-        $(this).attr('href', $(this).attr('href').replace(a, b));
+
+rusification()
+setInterval(() => {
+    rusification()
+}, 3000);
+function rusification() {
+    const links = document.querySelectorAll('a[href*="wowhead.com"]:not([href*="ru.wowhead.com"])');
+    if (links.length == 0) return
+    console.log("Переведено: ", links.length)
+    links.forEach(link => {
+        link.href = link.href.replace(/https:\/\/(?!ru\.wowhead\.com)[^\/]*wowhead\.com/, 'https://ru.wowhead.com');
+        // .replace('https://wowhead.com', 'https://ru.wowhead.com');
     });
-};
+}
 
-linkRewriter('//wowhead.com/', '//ru.wowhead.com/');
-linkRewriter('https://worldofwarcraft.com/en-gb/', 'https://worldofwarcraft.com/ru-ru/');
+
+
+
+
