@@ -6,7 +6,7 @@
 // @author       ДугДуг
 // @run-at       document-start
 // @match        ://*/*
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=github.io
+// @icon         https://cdn.iconscout.com/icon/free/png-512/free-disable-mouse-11534129-9430514.png?f=webp&w=256
 // @grant        none
 // ==/UserScript==
 
