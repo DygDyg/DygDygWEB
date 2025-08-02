@@ -60,7 +60,23 @@
             height: 16px;
             vertical-align: middle;
             margin-right: 5px;
-            filter: grayscale(100%) brightness(200%); /* Для соответствия DOS-стилю */
+            filter: grayscale(100%) brightness(200%);
+        }
+        /* Стилизация ползунка прокрутки */
+        ::-webkit-scrollbar {
+            width: 12px;
+            background-color: #000000;
+        }
+        ::-webkit-scrollbar-track {
+            background: #001100;
+            border: 1px solid #004400;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #00FF00;
+            border: 2px solid #000000;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00CC00;
         }
     </style>
 </head>
