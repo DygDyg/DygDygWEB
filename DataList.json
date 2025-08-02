@@ -1636,6 +1636,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "564a9d1f01dbcd042f9c2943bed52310f935a7",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "8eb17acc016621cc28d665b266b2c811305987",
                                     "suffix": "",
                                     "type": "file"
@@ -3692,6 +3697,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "dc7b977448dee687a7f123e1271635cb57e16f",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "dcc4300eda1e3d54a82d4095eb6166bcbf7c35",
                                     "suffix": "",
                                     "type": "file"
@@ -4490,6 +4500,11 @@
                                     "name": "997e88aa630e2f7376a60032fcb099df42e895",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "d1745cff8cc3f9a21d2d639eff1ca8feade60c",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -5261,6 +5276,11 @@
                             "children": [
                                 {
                                     "name": "12e9d623009b75994f6ef73ee3b223272ce338",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "48fde93c5c7cc6618a2521fe407755e95ecfc8",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -6196,6 +6216,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "ade7b7f2220a95354a6659f4df846c6d10eb05",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "c04e415e6f955839bec06fd0d4c407a55a0cc9",
                                     "suffix": "",
                                     "type": "file"
@@ -6993,6 +7018,11 @@
                             "type": "directory",
                             "children": [
                                 {
+                                    "name": "1d9c71aef62fe628a2f4b6803b04f25a4727a8",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "5989434195cc8d6a2bbb7ffc6410c28291d117",
                                     "suffix": "",
                                     "type": "file"
@@ -7732,6 +7762,11 @@
                                     "name": "741fbfa15dc7c31bb3ec735d5ed673d45de382",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "c92c56cb17a5a60bea31d21b22753d4c005d36",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -8234,6 +8269,11 @@
                             "suffix": "",
                             "type": "directory",
                             "children": [
+                                {
+                                    "name": "329ffc888d3f351ed3b72596f2aa1ddf48330a",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
                                 {
                                     "name": "8fb6b3dce8cb2b8e1c2765ac44f59914c956f7",
                                     "suffix": "",
@@ -22632,6 +22672,11 @@
                             ]
                         }
                     ]
+                },
+                {
+                    "name": "disable.mouse.buttons2-3.user.js",
+                    "suffix": ".js",
+                    "type": "file"
                 },
                 {
                     "name": "discord_utility.user.js",
