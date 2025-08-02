@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список User Scripts</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #00ccff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #444;
+        }
+        th {
+            background-color: #2a2a2a;
+            color: #00ccff;
+            cursor: pointer;
+        }
+        th:hover {
+            background-color: #3a3a3a;
+        }
+        tr:hover {
+            background-color: #333;
+        }
+        a {
+            color: #00ccff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .sort-asc::after {
+            content: ' ▲';
+        }
+        .sort-desc::after {
+            content: ' ▼';
+        }
+        .icon {
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Доступные User Scripts</h1>
+    <table id="scriptsTable">
+        <thead>
+            <tr>
+                <th data-sort="name">Название</th>
+                <th data-sort="version">Версия</th>
+                <th data-sort="author">Автор</th>
+                <th data-sort="description">Описание</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><img src="https://ae01.alicdn.com/images/eng/wholesale/icon/aliexpress.ico" class="icon" alt="icon" onerror="this.style.display='none'"><a href="aliexpress.user.js">Aliexpress</a></td>
+                <td>2.2.2</td>
+                <td>Пироженка</td>
+                <td>Подсчёт времени с дня заказа</td>
+            </tr>
+            <tr>
+                <td><img src="https://cdn.discordapp.com/attachments/483711805529653268/609561809799872545/favicon2.png" class="icon" alt="icon" onerror="this.style.display='none'"><a href="Anistar_custom_style.user.js">Anistar custom style</a></td>
+                <td>0.47.12</td>
+                <td>DygDyg</td>
+                <td>Тема для сайта anistar</td>
+            </tr>
+            <tr>
+                <td><img src="https://www.google.com/s2/favicons?sz=64&domain=https://v3.astar.bz/" class="icon" alt="icon" onerror="this.style.display='none'"><a href="Anistar_kodik.user.js">Anistar kodik pleer</a></td>
+                <td>0.1</td>
+                <td>ДугДуг</td>
+                <td>try to take over the world!</td>
+            </tr>
+            <tr>
+                <td><img src="https://anistar.appspot.com/favicon.png" class="icon" alt="icon" onerror="this.style.display='none'"><a href="anistar_redirect.user.js">Anistar редирект</a></td>
+                <td>0.7</td>
+                <td>DygDyg</td>
+                <td>Автоматически переключает c anistar.appspot.com на незаблокированное зеркало</td>
+            </tr>
+            <tr>
+                <td><img src="https://cdn.discordapp.com/attachments/497134253788758026/657240743554973698/ico48.png" class="icon" alt="icon" onerror="this.style.display='none'"><a href="antilah.user.js">Антилах (Ctrl+Win, Shift+Win)</a></td>
+                <td>2.1.8</td>
+                <td>DygDyg</td>
+                <td>Антилах</td>
+            </tr>
+            <tr>
+                <td><img src="https://cdn.iconscout.com/icon/free/png-512/free-disable-mouse-11534129-9430514.png?f=webp&w=256" class="icon" alt="icon" onerror="this.style.display='none'"><a href="disable.mouse.buttons2-3.user.js">Отключить вперёд-назад</a></td>
+                <td>2025-05-05</td>
+                <td>ДугДуг</td>
+                <td>try to take over the world!</td>
+            </tr>
+            <tr>
+                <td><img src="https://www.google.com/s2/favicons?sz=64&domain=discord.com" class="icon" alt="icon" onerror="this.style.display='none'"><a href="discord_utility.user.js">✅ Discord tool</a></td>
+                <td>0.3</td>
+                <td>ДугДуг</td>
+                <td>Добавляет галочку в название канала</td>
+            </tr>
+            <tr>
+                <td><img src="https://i.imgur.com/ezjWmEO.png" class="icon" alt="icon" onerror="this.style.display='none'"><a href="google_favicon.user.js">Google Favicons by Пироженка</a></td>
+                <td>1.1</td>
+                <td>Пироженка (Discord: Пироженка#0007)</td>
+                <td>Добавляет иконки сайтов в результатах поиска Google.</td>
+            </tr>
+            <tr>
+                <td><img src="https://www.google.com/s2/favicons?sz=64&domain=hamsterkombatgame.io" class="icon" alt="icon" onerror="this.style.display='none'"><a href="hamsterkombatgame_clicker.user.js">hamsterkombatgame clicker</a></td>
+                <td>2024-08-13-01</td>
+                <td>ДугДуг</td>
+                <td>try to take over the world!</td>
+            </tr>
+            <tr>
+                <td><img src="http://cn.gravatar.com/avatar/a0ad718d86d21262ccd6ff271ece08a3?s=80" class="icon" alt="icon" onerror="this.style.display='none'"><a href="json_format.user.js">JSON formatter</a></td>
+                <td>2.2.2</td>
+                <td>Пироженка</td>
+                <td>Format JSON data in a beautiful way.</td>
+            </tr>
+            <tr>
+                <td><img src="https://www.google.com/s2/favicons?sz=64&domain=kinopoisk.ru" class="icon" alt="icon" onerror="this.style.display='none'"><a href="kinopoisk_online.user.js">Кинопоиск kodik online</a></td>
+                <td>1.2</td>
+                <td>ДугДуг</td>
+                <td>Плагин добавляет плеер для просмотра фильмов на кинопоиск</td>
+            </tr>
+            <tr>
+                <td><img src="https://www.google.com/s2/favicons?sz=128&domain=pathofexile.com" class="icon" alt="icon" onerror="this.style.display='none'"><a href="PoEAutoTrade.user.js">PoEAutoTrade</a></td>
+                <td>0.7</td>
+                <td>ДугДуг</td>
+                <td>Производит автопокупку товара в "живом поиске" на PoE Trade</td>
+            </tr>
+            <tr>
+                <td><img src="https://www.google.com/s2/favicons?sz=64&domain=https://www.wowhead.com" class="icon" alt="icon" onerror="this.style.display='none'"><a href="ru.raider.io.user.js">Wowhead русификатор</a></td>
+                <td>1.3</td>
+                <td>ДугДуг</td>
+                <td>Переводит на русский описания предметов с вовхеда</td>
+            </tr>
+            <tr>
+                <td><img src="https://www.google.com/s2/favicons?sz=64&domain=shikimori.one" class="icon" alt="icon" onerror="this.style.display='none'"><a href="ShikimoriOnline byKodikPlayer.user.js">Shikimori Online by kodik player</a></td>
+                <td>0.2</td>
+                <td>ДугДуг</td>
+                <td>try to take over the world!</td>
+            </tr>
+            <tr>
+                <td><img src="https://dygdyg.github.io/DygDygWEB/user.js/Shikimori_By_TrackAnime.user.png" class="icon" alt="icon" onerror="this.style.display='none'"><a href="Shikimori_By_TrackAnime.user.js">Shikimori By TrackAnime</a></td>
+                <td>0.2</td>
+                <td>ДугДуг</td>
+                <td>try to take over the world!</td>
+            </tr>
+            <tr>
+                <td><img src="https://www.google.com/favicon.ico" class="icon" alt="icon" onerror="this.style.display='none'"><a href="translate.user.js">Переводчик Google</a></td>
+                <td>2.2.2</td>
+                <td>Пироженка</td>
+                <td>Переводчик Google</td>
+            </tr>
+            <tr>
+                <td><img src="https://vk.com/images/icons/favicons/fav_logo.ico" class="icon" alt="icon" onerror="this.style.display='none'"><a href="vk.dark.user.js">Dark VK Theme</a></td>
+                <td>0.0.11.82</td>
+                <td>DygDyg</td>
+                <td>Тёмная тема для VK</td>
+            </tr>
+            <tr>
+                <td><img src="https://www.google.com/s2/favicons?sz=64&domain=vk.com" class="icon" alt="icon" onerror="this.style.display='none'"><a href="VK_FIX_YouTube.user.js">VK FIX YouTube</a></td>
+                <td>2025-08-02</td>
+                <td>ДугДуг</td>
+                <td>try to take over the world!</td>
+            </tr>
+            <tr>
+                <td><img src="https://assets.vrchat.com/www/images/loading.gif" class="icon" alt="icon" onerror="this.style.display='none'"><a href="vrchat.user.js">Дополнение VRChat</a></td>
+                <td>6.5</td>
+                <td>Пироженка (Discord: Пироженка#0007)</td>
+                <td>Дополнение VRChat</td>
+            </tr>
+            <tr>
+                <td><img src="https://www.google.com/s2/favicons?sz=64&domain=https://www.wowhead.com" class="icon" alt="icon" onerror="this.style.display='none'"><a href="Wowhead_rusifikator.user.js">Wowhead русификатор</a></td>
+                <td>1.4</td>
+                <td>ДугДуг</td>
+                <td>Переводит на русский описания предметов с вовхеда</td>
+            </tr>
+            <tr>
+                <td><a href="Yandex_ADB.user.js">Yandex ADB test</a></td>
+                <td>Unknown</td>
+                <td>DygDyg</td>
+                <td>Яндекс антиреклама</td>
+            </tr>
+            <tr>
+                <td><img src="https://script.artiromiur.ru/icons/YouTube.svg" class="icon" alt="icon" onerror="this.style.display='none'"><a href="YouTube.all.user.js">YouTube Всё сразу</a></td>
+                <td>1.1</td>
+                <td>Креветка (Discord: Креветка#8574)</td>
+                <td>Всё сразу</td>
+            </tr>
+            <tr>
+                <td><img src="https://www.google.com/s2/favicons?sz=64&domain=youtube.com" class="icon" alt="icon" onerror="this.style.display='none'"><a href="youtube.ffmpeg.user.js">youtube ffmpeg</a></td>
+                <td>1.2</td>
+                <td>ДугДуг</td>
+                <td>Позволяет скачивать и обрезать видео с ютуба</td>
+            </tr>
+            <tr>
+                <td><img src="https://s.ytimg.com/yts/img/favicon-vfl8qSV2F.ico" class="icon" alt="icon" onerror="this.style.display='none'"><a href="YouTube_No_AutoPlay.user.js">YouTube No AutoPlay</a></td>
+                <td>14.04.19 v1</td>
+                <td>Пироженка</td>
+                <td>No description</td>
+            </tr>
+            <tr>
+                <td><img src="https://www.google.com/s2/favicons?sz=64&domain=yummyani.me" class="icon" alt="icon" onerror="this.style.display='none'"><a href="yummyani_by_track-anime.user.js">yummyani by track-anime</a></td>
+                <td>2025-07-23</td>
+                <td>ДугДуг</td>
+                <td>try to take over the world!</td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        const table = document.getElementById('scriptsTable');
+        const headers = table.querySelectorAll('th');
+        let sortDirection = {};
+        
+        headers.forEach(header => {
+            header.addEventListener('click', () => {
+                const sortKey = header.getAttribute('data-sort');
+                const isAsc = !sortDirection[sortKey] || sortDirection[sortKey] === 'desc';
+                sortDirection[sortKey] = isAsc ? 'asc' : 'desc';
+                
+                // Удаляем классы сортировки
+                headers.forEach(h => {
+                    h.classList.remove('sort-asc', 'sort-desc');
+                });
+                // Добавляем класс для текущей сортировки
+                header.classList.add(isAsc ? 'sort-asc' : 'sort-desc');
+                
+                // Сортировка строк
+                const tbody = table.querySelector('tbody');
+                const rows = Array.from(tbody.querySelectorAll('tr'));
+                
+                rows.sort((a, b) => {
+                    let aText = a.querySelector(`td:nth-child(${[...headers].indexOf(header) + 1})`).textContent;
+                    let bText = b.querySelector(`td:nth-child(${[...headers].indexOf(header) + 1})`).textContent;
+                    // Для столбца "Название" убираем текст ссылки, оставляя только имя
+                    if (sortKey === 'name') {
+                        aText = a.querySelector('td:nth-child(1) a').textContent;
+                        bText = b.querySelector('td:nth-child(1) a').textContent;
+                    }
+                    return isAsc ? aText.localeCompare(bText) : bText.localeCompare(aText);
+                });
+                
+                // Перестраиваем таблицу
+                tbody.innerHTML = '';
+                rows.forEach(row => tbody.appendChild(row));
+            });
+        });
+    </script>
+</body>
+</html>
