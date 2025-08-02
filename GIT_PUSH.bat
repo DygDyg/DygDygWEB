@@ -2,7 +2,7 @@
 echo %~dp0
 cd /D %~dp0
 
-user.js/user.js_list_generator_deb.exe
+user.js\user.js_list_generator_deb.exe
 scan.exe
 for /f "tokens=1-4 delims=. " %%a in ('echo %date%') do set dt=%%a-%%b-%%c
 for /f "tokens=1-4 delims=:., " %%a in ('echo %time%') do set tm=%%a-%%b-%%c
