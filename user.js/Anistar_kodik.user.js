@@ -2,7 +2,7 @@
 // @name         Anistar kodik pleer
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  try to take over the world!
+// @description  Добавляет кодик плеер на Anistar
 // @author       ДугДуг
 // @include       /^https?://(.*).astar.bz/.*$/
 // @include       /^https?://(.*).online-star(.*)\.org/.*$/

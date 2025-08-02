@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Shikimori By TrackAnime
 // @namespace    http://tampermonkey.net/
-// @version      0.2
-// @description  try to take over the world!
+// @version      0.3
+// @description  Добавляет кнопку перехода на сайт track-anime.dygdyg.ru
 // @author       ДугДуг
 // @match        https://shikimori.one/*
 // @icon         https://dygdyg.github.io/DygDygWEB/user.js/Shikimori_By_TrackAnime.user.png
@@ -19,10 +19,10 @@ function load() {
     <div class="line" style="margin-bottom: 5px;">
 <div class="value"><a class="ta_link b-tag bubbled-processed"
         data-href="" data-predelay="350"
-        href="https://track-anime.github.io/?shikimori_id=${id}"><span class="genre-en">URL</span><span class="genre-ru">Перейти на track-anime</span></a></div>
+        href="https://track-anime.dygdyg.ru/?shikimori_id=${id}"><span class="genre-en">URL</span><span class="genre-ru">Перейти на track-anime</span></a></div>
 </div>
 `
-    
+
 };
 
 

@@ -2,7 +2,7 @@
 // @name         Shikimori Online by kodik player
 // @namespace    http://tampermonkey.net/
 // @version      0.2
-// @description  try to take over the world!
+// @description  Добавляет кодик плеер на шикимори
 // @author       ДугДуг
 // @match        https://shikimori.one/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=shikimori.one

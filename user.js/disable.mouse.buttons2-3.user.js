@@ -2,7 +2,7 @@
 // @name         Отключить вперёд-назад
 // @namespace    http://tampermonkey.net/
 // @version      2025-05-05
-// @description  try to take over the world!
+// @description  Отключает кнопки мыши назад/вперёд
 // @author       ДугДуг
 // @run-at       document-start
 // @match        ://*/*

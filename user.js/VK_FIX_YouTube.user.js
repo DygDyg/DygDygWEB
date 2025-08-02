@@ -2,7 +2,7 @@
 // @name         VK FIX YouTube
 // @namespace    http://tampermonkey.net/
 // @version      2025-08-02
-// @description  try to take over the world!
+// @description  Добавляет плеер к ссылкам на ютуб в переписке
 // @author       ДугДуг
 // @match        https://vk.com/*
 // @match        https://web.vk.me/*

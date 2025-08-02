@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         yummyani by track-anime
 // @namespace    http://tampermonkey.net/
-// @version      2025-07-23
-// @description  try to take over the world!
+// @version      2025-08-02
+// @description  Добавляет кнопку на track-anime.dygdyg.ru на сайт yummyani.me
 // @author       ДугДуг
 // @match        https://site.yummyani.me/catalog/item/*
 
@@ -13,7 +13,7 @@
 GM_addStyle(`.content-ref-ids .link.track-anime-color .logo-ref {
     height: 20px;
     width: 20px;
-    background-image: url(//track-anime.github.io/favicon.png);
+    background-image: url(//track-anime.dygdyg.ru/favicon.png);
 }
 
 
@@ -33,4 +33,4 @@ if (element) {
 }
 
 const button = document.querySelector('.track-anime-color')
-button.href = `//track-anime.github.io/?shikimori_id=${document.querySelector(".shikimori-color.link").href.split("/").pop()}`
+button.href = `//track-anime.dygdyg.ru/?shikimori_id=${document.querySelector(".shikimori-color.link").href.split("/").pop()}`
