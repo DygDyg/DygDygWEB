@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Shikimori By TrackAnime
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.4
 // @description  Добавляет кнопку перехода на сайт track-anime.dygdyg.ru
 // @author       ДугДуг
 // @match        https://shikimori.one/*
