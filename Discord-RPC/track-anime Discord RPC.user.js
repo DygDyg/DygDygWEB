@@ -50,7 +50,7 @@ function connectWebSocket() {
         if(document.hidden) return
 		if(ws.readyState != 1) return
 		if(window.label.time==time)return
-		console.log(111,time)
+		// console.log(111,time)
         if (window.label) {
             info = {}
             if ((new URL(window.location.href)).searchParams.get("shikimori_id")) {

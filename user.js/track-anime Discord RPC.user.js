@@ -16,6 +16,7 @@ const wsUrl = 'ws://localhost:4654';
 const clientId = '1403578059851960533';
 const timer_int = 5;
 let ws;
+let time = 0;
 
 
 // console.log(1111, window.paren)
@@ -36,7 +37,7 @@ function connectWebSocket() {
 
     ws.onclose = function () {
         console.log('WebSocket отключен, пытаюсь переподключиться...');
-        setTimeout(connectWebSocket, 15000); // Переподключение через 5 секунд
+        setTimeout(connectWebSocket, 15000); // Переподключение через 15 секунд
     };
 
     ws.onerror = function (error) {
@@ -48,7 +49,8 @@ function connectWebSocket() {
     setInterval(() => {
         if(document.hidden) return
 		if(ws.readyState != 1) return
-
+		if(window.label.time==time)return
+		// console.log(111,time)
         if (window.label) {
             info = {}
             if ((new URL(window.location.href)).searchParams.get("shikimori_id")) {
@@ -78,6 +80,7 @@ function connectWebSocket() {
                 activityData.startTimestamp = Number(new Date()) + 10000;
             }
             ws.send(JSON.stringify(activityData));
+			time = window.label.time
         }
     }, timer_int*1000);
 }
