@@ -1485,6 +1485,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "2fc5ede9297ccb519f4b956d82d90cb1d28ae5",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "4ad8084704ae96f4d9552f259102675f467bc1",
                                     "suffix": "",
                                     "type": "file"
@@ -1501,6 +1506,11 @@
                                 },
                                 {
                                     "name": "8d4f43c8fe3594dcd71870e93531b16d841865",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "91aadc37d271c249ce3d83a79399d47e98710b",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -1582,6 +1592,11 @@
                             "children": [
                                 {
                                     "name": "0be4baa86a90b1dee10cf306e69aef13e3a632",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "2b7b0cec88a2e7b94c2b82d86b7e8c06fdba98",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -3151,6 +3166,11 @@
                             "suffix": "",
                             "type": "directory",
                             "children": [
+                                {
+                                    "name": "51017a1a2c5400aaf7d7fad448da512026cdd6",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
                                 {
                                     "name": "5620f4cbe75b2a11e3e941bbcde4d81a547c5d",
                                     "suffix": "",
@@ -5962,6 +5982,11 @@
                                     "name": "952c181c6ca6d906de6ea9342e74012458eeb5",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "fdba962a2d4f30033a466c1c70088b3002145c",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -8395,6 +8420,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "26b5e8af2aa895d3a48b479274cae058b28158",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "26f8d8e417d96568ba9899874fe274418214ed",
                                     "suffix": "",
                                     "type": "file"
@@ -8438,6 +8468,11 @@
                                 },
                                 {
                                     "name": "2e4504051a8dfcd17599eae93668cbb0f5d034",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "57ec3a5e464335fa9f3878e8f157b82c54b184",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -11312,6 +11347,11 @@
             "type": "directory",
             "children": [
                 {
+                    "name": "build.bat.lnk",
+                    "suffix": ".lnk",
+                    "type": "file"
+                },
+                {
                     "name": "discord-rpc-server.exe",
                     "suffix": ".exe",
                     "type": "file"
@@ -11319,6 +11359,16 @@
                 {
                     "name": "install_discord_rpc.bat",
                     "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "server.log",
+                    "suffix": ".log",
+                    "type": "file"
+                },
+                {
+                    "name": "start-hidden.vbs",
+                    "suffix": ".vbs",
                     "type": "file"
                 },
                 {

@@ -1,83 +1,166 @@
 @echo off
 chcp 1251 >nul
+setlocal enabledelayedexpansion
+
+:: ========================================
+::  Настройки оформления
+:: ========================================
+set "COLOR_TITLE=0B"
+set "COLOR_SUCCESS=0A"
+set "COLOR_WARNING=0E"
+set "COLOR_ERROR=0C"
+set "COLOR_INFO=0F"
+set "LINE========================================="
+
+:: ========================================
+::  Конфигурация установки
+:: ========================================
 set "source_file=discord-rpc-server.exe"
 set "appdata_dir=%APPDATA%\DiscordRPC"
 set "destination_file=%appdata_dir%\discord-rpc-server.exe"
+set "vbs_launcher=%appdata_dir%\start_hidden.vbs"
 set "service_name=DiscordRPCService"
 set "protocol_name=rtc"
 set "protocol_reg_key=HKCR\%protocol_name%"
+set "startup_reg_key=HKCU\Software\Microsoft\Windows\CurrentVersion\Run"
+set "app_name=DiscordRPCServer"
+set "log_file=%appdata_dir%\install.log"
 
-:: Принудительное завершение процесса discord-rpc-server.exe
+:: ========================================
+::  Инициализация
+:: ========================================
+title Discord RPC :: Установка
+cls
+echo.
+echo %LINE%
+echo  D I S C O R D   R P C   У с т а н о в к а
+echo %LINE%
+echo.
+
+:: Создаем лог-файл
+if not exist "%appdata_dir%" mkdir "%appdata_dir%"
+echo [%date% %time%] Начало установки >nul
+
+:: ========================================
+::  1. Остановка предыдущей версии
+:: ========================================
+echo [1] Остановка предыдущей версии...
+echo [%date% %time%] Остановка процесса >>nul
 taskkill /IM discord-rpc-server.exe /F >nul 2>&1
 if %ERRORLEVEL%==0 (
-    echo Процесс discord-rpc-server.exe успешно завершён
+    call :log_success "Процесс остановлен"
 ) else (
-    @REM echo Предупреждение: процесс discord-rpc-server.exe не найден или не завершён
+    call :log_info "Процесс не был запущен"
 )
 
-:: Проверка существования службы и её остановка
-sc query "%service_name%" >nul 2>&1
-if %ERRORLEVEL%==0 (
-    echo Останавливаем существующую службу %service_name%...
-    net stop "%service_name%" >nul 2>&1
-    if %ERRORLEVEL%==0 (
-        echo Служба успешно остановлена
-    ) else (
-        echo Предупреждение: не удалось остановить службу
-    )
+:: ========================================
+::  2. Копирование файлов
+:: ========================================
+echo [2] Установка файлов...
+echo [%date% %time%] Копирование файлов >>nul
+
+if not exist "%source_file%" (
+    call :log_error "Исходный файл не найден!"
+    exit /b 1
 )
 
-:: Удаление службы, если она существует
-sc delete "%service_name%" >nul 2>&1
-if %ERRORLEVEL%==0 (
-    echo Служба %service_name% успешно удалена
-) else (
-    @REM echo Предупреждение: служба %service_name% не найдена или не удалена
-)
-
-:: Создание директории в AppData, если она не существует
-if not exist "%appdata_dir%" (
-    mkdir "%appdata_dir%"
-)
-
-:: Копирование файла в AppData
-copy "%source_file%" "%destination_file%"
-
-:: Проверка успешности копирования
+copy "%source_file%" "%destination_file%" >nul
 if exist "%destination_file%" (
-    echo Файл успешно скопирован в %appdata_dir%
+    call :log_success "Файлы успешно скопированы"
 ) else (
-    echo Ошибка: не удалось скопировать файл. Проверьте наличие %source_file%
+    call :log_error "Ошибка копирования файлов"
     exit /b 1
 )
 
-:: Создание службы с автоматическим запуском
-sc create "%service_name%" binPath= "%destination_file%" DisplayName= "Discord RPC Service" start= auto
+:: ========================================
+::  3. Создание скрипта для скрытого запуска
+:: ========================================
+echo [3] Настройка автозапуска...
+echo [%date% %time%] Создание VBS-скрипта >>nul
 
-:: Проверка успешности создания службы
-if %ERRORLEVEL%==0 (
-    echo Служба %service_name% успешно создана с автоматическим запуском
+(
+    echo Set WshShell = CreateObject("WScript.Shell"^)
+    echo WshShell.Run chr(34^) ^& "%destination_file%" ^& chr(34^), 0
+    echo Set WshShell = Nothing
+) > "%vbs_launcher%"
+
+if exist "%vbs_launcher%" (
+    call :log_success "Скрипт создан"
 ) else (
-    echo Ошибка: не удалось создать службу
+    call :log_error "Ошибка создания скрипта"
     exit /b 1
 )
 
-:: Запуск службы
-net start "%service_name%"
+:: ========================================
+::  4. Настройка автозапуска
+:: ========================================
+echo [4] Настройка реестра...
+echo [%date% %time%] Редактирование реестра >>nul
 
-:: Проверка успешности запуска службы
+reg add "%startup_reg_key%" /v "%app_name%" /t REG_SZ /d "wscript.exe //B \"%vbs_launcher%\"" /f >nul 2>&1
 if %ERRORLEVEL%==0 (
-    echo Служба %service_name% успешно запущена
+    call :log_success "Автозапуск настроен"
 ) else (
-    echo Ошибка: не удалось запустить службу
-    exit /b 1
+    call :log_warning "Не удалось добавить в автозапуск (попробуйте запуск от Администратора)"
 )
 
-:: Регистрация протокола rtc://
-reg add "%protocol_reg_key%" /v "" /t REG_SZ /d "URL:RTC Protocol" /f
-reg add "%protocol_reg_key%" /v "URL Protocol" /t REG_SZ /d "" /f
-reg add "%protocol_reg_key%\shell\open\command" /v "" /t REG_SZ /d "\"%destination_file%\" \"%%1\"" /f
+:: ========================================
+::  5. Регистрация протокола
+:: ========================================
+echo [5] Регистрация протокола rtc://...
+echo [%date% %time%] Регистрация протокола >>nul
 
-:: Проверка успешности регистрации протокола
+reg add "%protocol_reg_key%" /v "" /t REG_SZ /d "URL:RTC Protocol" /f >nul 2>&1
+reg add "%protocol_reg_key%" /v "URL Protocol" /t REG_SZ /d "" /f >nul 2>&1
+reg add "%protocol_reg_key%\shell\open\command" /v "" /t REG_SZ /d "\"%destination_file%\" \"%%1\"" /f >nul 2>&1
+
 if %ERRORLEVEL%==0 (
-    echo
+    call :log_success "Протокол зарегистрирован"
+) else (
+    call :log_warning "Не удалось зарегистрировать протокол"
+)
+
+:: ========================================
+::  Завершение установки
+:: ========================================
+echo [%date% %time%] Запуск программы >>nul
+start "" wscript.exe //B "%vbs_launcher%"
+
+echo.
+echo %LINE%
+call :color_print " Установка завершена успешно! " %COLOR_SUCCESS%
+echo %LINE%
+echo.
+echo.
+pause
+exit /b 0
+
+:: ========================================
+::  Функции оформления
+:: ========================================
+:log_success
+echo [ok] %~1
+echo [%date% %time%] [SUCCESS] %~1 >>nul
+exit /b
+
+:log_warning
+call :color_print "  [!] %~1" %COLOR_WARNING%
+echo [%date% %time%] [WARNING] %~1 >>nul
+exit /b
+
+:log_error
+call :color_print "  [?] %~1" %COLOR_ERROR%
+echo [%date% %time%] [ERROR] %~1 >>nul
+exit /b
+
+:log_info
+echo  [i] %~1
+echo [%date% %time%] [INFO] %~1 >>nul
+exit /b
+
+:color_print
+<nul set /p ".=." > "%~2"
+findstr /v /a:%~2 /r "^$" "%~2" nul
+del "%~2" > nul 2>&1
+echo %~1
+exit /b

@@ -1,69 +1,68 @@
 @echo off
 chcp 1251 >nul
 set "appdata_dir=%APPDATA%\DiscordRPC"
-set "destination_file=%appdata_dir%\discord-rpc-server.exe"
-set "service_name=DiscordRPCService"
+set "exe_file=%appdata_dir%\discord-rpc-server.exe"
+set "vbs_launcher=%appdata_dir%\start_hidden.vbs"
 set "protocol_name=rtc"
 set "protocol_reg_key=HKCR\%protocol_name%"
+set "startup_reg_key=HKCU\Software\Microsoft\Windows\CurrentVersion\Run"
+set "app_name=DiscordRPCServer"
 
-:: Проверка существования службы и её остановка
-sc query "%service_name%" >nul 2>&1
-if %ERRORLEVEL%==0 (
-    echo Останавливаем службу %service_name%...
-    net stop "%service_name%" >nul 2>&1
-    if %ERRORLEVEL%==0 (
-        echo Служба успешно остановлена
-    ) else (
-        echo Предупреждение: не удалось остановить службу
-    )
-)
+title Удаление Discord RPC
+echo ========================================
+echo  Полное удаление Discord RPC
+echo ========================================
 
-:: Удаление службы
-sc delete "%service_name%" >nul 2>&1
-if %ERRORLEVEL%==0 (
-    echo Служба %service_name% успешно удалена
-) else (
-    echo Предупреждение: служба %service_name% не найдена или не удалена
-)
-
-:: Удаление протокола rtc://
-reg delete "%protocol_reg_key%" /f >nul 2>&1
-if %ERRORLEVEL%==0 (
-    echo Протокол rtc:// успешно удалён
-) else (
-    echo Предупреждение: протокол rtc:// не найден или не удалён
-)
-
-:: Принудительное завершение процесса discord-rpc-server.exe
+:: 1. Остановка процесса
 taskkill /IM discord-rpc-server.exe /F >nul 2>&1
 if %ERRORLEVEL%==0 (
-    echo Процесс discord-rpc-server.exe успешно завершён
+    echo [?] Процесс discord-rpc-server.exe остановлен
 ) else (
-    echo Предупреждение: процесс discord-rpc-server.exe не найден или не завершён
+    echo [i] Процесс не был запущен
 )
 
-:: Удаление файла
-if exist "%destination_file%" (
-    del /F /Q "%destination_file%" >nul 2>&1
-    if %ERRORLEVEL%==0 (
-        echo Файл %destination_file% успешно удалён
-    ) else (
-        echo Ошибка: не удалось удалить файл %destination_file%. Возможно, файл используется или отсутствуют права
-        echo Попробуйте закрыть все связанные процессы и запустить скрипт от имени администратора
-        exit /b 1
-    )
+:: 2. Удаление из автозапуска
+reg delete "%startup_reg_key%" /v "%app_name%" /f >nul 2>&1
+if %ERRORLEVEL%==0 (
+    echo [?] Удалено из автозапуска
+) else (
+    echo [i] Запись в автозапуске не найдена
 )
 
-:: Удаление папки
+:: 3. Удаление регистрации протокола
+reg delete "%protocol_reg_key%" /f >nul 2>&1
+if %ERRORLEVEL%==0 (
+    echo [?] Протокол rtc:// удален из реестра
+) else (
+    echo [i] Протокол не был зарегистрирован
+)
+
+:: 4. Удаление файлов
+if exist "%vbs_launcher%" (
+    del /F /Q "%vbs_launcher%" >nul && echo [?] VBS-скрипт удален
+)
+
+if exist "%exe_file%" (
+    del /F /Q "%exe_file%" >nul && echo [?] EXE-файл удален
+)
+
+:: 5. Удаление папки (если пуста)
 if exist "%appdata_dir%" (
-    rmdir /S /Q "%appdata_dir%" >nul 2>&1
+    rmdir "%appdata_dir%" >nul 2>&1
     if %ERRORLEVEL%==0 (
-        echo Папка %appdata_dir% успешно удалена
+        echo [?] Папка программы удалена
     ) else (
-        echo Ошибка: не удалось удалить папку %appdata_dir%. Проверьте права доступа
-        exit /b 1
+        echo [i] Папка не пуста (возможно, остались другие файлы)
     )
 )
 
-echo Деинсталляция завершена!
+:: 6. Дополнительная проверка оставшихся процессов
+tasklist | find "discord-rpc-server.exe" >nul
+if %ERRORLEVEL%==0 (
+    echo [!] Обнаружен запущенный процесс. Попробуйте перезагрузить ПК.
+)
+
+echo ========================================
+echo  Удаление завершено!
+echo ========================================
 pause
