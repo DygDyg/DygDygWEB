@@ -1498,6 +1498,11 @@
                                     "name": "a7535746e97979edb5d151c274b5c78e722709",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "b38ada8dcd7f7769722a16f206a643551681cf",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -1779,6 +1784,11 @@
                                 },
                                 {
                                     "name": "ba997d87b488553c0acf4df018af74f8367b61",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "ed15c0503f6526882f152f637c4ecf2716da3f",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -3513,6 +3523,11 @@
                                     "name": "de165afbfa69e7550a93b4601ccd2782ab054e",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "e0fa898023a29b4a7089e778dff079e43e2c5d",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -5039,6 +5054,11 @@
                                 },
                                 {
                                     "name": "9dc44cc673fe55022aec4263fe9c11bd22d240",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "a68a389d4cb8784d5d11dbf65f7019efe24f0e",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -7436,6 +7456,11 @@
                             "type": "directory",
                             "children": [
                                 {
+                                    "name": "7fbf1d018c0fa3a85d30e1ef53913ec938ce49",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "d1fe4e94fc23d8db51d258fa4d0a6e2f68e4b9",
                                     "suffix": "",
                                     "type": "file"
@@ -7481,6 +7506,11 @@
                                 },
                                 {
                                     "name": "523bf38ff3268f2b989b613d645c6f4d6df99c",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "8774e1386757c92b805e392f652dad294e0b09",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -11215,6 +11245,38 @@
             "name": "Desktop.ini",
             "suffix": ".ini",
             "type": "file"
+        },
+        {
+            "name": "Discord-RPC",
+            "suffix": "",
+            "type": "directory",
+            "children": [
+                {
+                    "name": "discord-rpc-server.exe",
+                    "suffix": ".exe",
+                    "type": "file"
+                },
+                {
+                    "name": "install_discord_rpc.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "start.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                },
+                {
+                    "name": "track-anime Discord RPC.user.js",
+                    "suffix": ".js",
+                    "type": "file"
+                },
+                {
+                    "name": "uninstall_discord_rpc.bat",
+                    "suffix": ".bat",
+                    "type": "file"
+                }
+            ]
         },
         {
             "name": "discord.pac",
@@ -23948,6 +24010,11 @@
                 {
                     "name": "test.php",
                     "suffix": ".php",
+                    "type": "file"
+                },
+                {
+                    "name": "track-anime Discord RPC.user.js",
+                    "suffix": ".js",
                     "type": "file"
                 },
                 {
