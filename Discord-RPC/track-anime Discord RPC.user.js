@@ -32,6 +32,11 @@ function connectWebSocket() {
     };
 
     ws.onmessage = function (event) {
+		const min_ver = "1.0.1"
+        if(compareVersions(JSON.parse(event.data).vers_server, min_ver)==-1)
+        {
+            console.warn("Сервер устарел, требуется минимум версия", min_ver)
+        }
         // console.log('Получен ответ от сервера:', event.data);
     };
 
@@ -47,10 +52,10 @@ function connectWebSocket() {
 
 
     setInterval(() => {
-        if(document.hidden) return
-		if(ws.readyState != 1) return
-		if(window.label.time==time)return
-		// console.log(111,time)
+        if (document.hidden) return
+        if (ws.readyState != 1) return
+        if (window.label.time == time) return
+        // console.log(111,time)
         if (window.label) {
             info = {}
             if ((new URL(window.location.href)).searchParams.get("shikimori_id")) {
@@ -75,14 +80,31 @@ function connectWebSocket() {
                 ]
             };
             if (window?.label?.timestamps?.start) {
-                activityData.startTimestamp = Number(window?.label?.timestamps?.start*1000);
+                activityData.startTimestamp = Number(window?.label?.timestamps?.start * 1000);
             } else {
                 activityData.startTimestamp = Number(new Date()) + 10000;
             }
             ws.send(JSON.stringify(activityData));
-			time = window.label.time
+            time = window.label.time
         }
-    }, timer_int*1000);
+    }, timer_int * 1000);
+}
+
+function compareVersions(version1, version2) {
+    const v1 = version1.split('.').map(Number);
+    const v2 = version2.split('.').map(Number);
+
+    const maxLength = Math.max(v1.length, v2.length);
+
+    for (let i = 0; i < maxLength; i++) {
+        const num1 = v1[i] || 0;
+        const num2 = v2[i] || 0;
+
+        if (num1 > num2) return 1;
+        if (num1 < num2) return -1;
+    }
+
+    return 0;
 }
 
 // Запускаем подключение при загрузке страницы
