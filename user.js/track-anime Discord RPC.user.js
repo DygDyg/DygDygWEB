@@ -2,7 +2,7 @@
 // @name         track-anime Discord RPC
 // @namespace    http://tampermonkey.net/
 // @version      0.2
-// @description  Добавляет интеграцию track-anime с активностью в дискорд
+// @description  Добавляет интеграцию track-anime с активностью в дискорд (не актуален)
 // @author       ДугДуг
 // @match          *://track-anime.dygdyg.ru/*
 // @icon         https://track-anime.dygdyg.ru/favicon.png
