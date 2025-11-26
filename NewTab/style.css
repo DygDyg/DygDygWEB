@@ -244,11 +244,12 @@ body {
 
 #ip_flag {
     position: absolute;
-    left: 0;
-    bottom: 0;
+    left: 6px;
+    bottom: 3px;
     height: 28px;
     border-width: 3px 6px 3px 6px;
     border-radius: 6px;
+    cursor: pointer;
 }
 
 #SpoilerGroup {

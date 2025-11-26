@@ -196,6 +196,9 @@ $('body').prepend('<div id="Button_Settings_Cover"><div id="Button_Settings" tit
 $('body').prepend('<div id="ver">' + "VER: " + ver + '</div>')
 $('body').prepend('<img id="ip_flag"></img>')
 $('#ver').attr('title', 'Shift+Click чтобы открыть подробную информацию');
+$('#ip_flag').click(function () {
+	window.open('https://server.dygdyg.ru/my_ip.htm').focus();
+})
 
 
 $('body').append('<div id="clockG">' +
