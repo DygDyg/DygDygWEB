@@ -239,6 +239,16 @@ body {
     border-radius: 20px;
     background-color: #343434e0;
     cursor: pointer;
+    left: 46px;
+}
+
+#ip_flag {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 28px;
+    border-width: 3px 6px 3px 6px;
+    border-radius: 6px;
 }
 
 #SpoilerGroup {

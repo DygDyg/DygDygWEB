@@ -50,9 +50,9 @@ jQuery(document).ready(function ($) {
 		resize_info()
 	})
 })
-get_api()
+// get_api()
 function get_api() {
-	fetch('//server.dygdyg.ru/my-ip.php')
+	fetch('//ipwho.is/')
 		.then(response => {
 			if (!response.ok) {
 				throw new Error('Сеть ответила с ошибкой: ' + response.status);
@@ -194,6 +194,7 @@ for (let i = 0; i < urls.length; i++) {
 
 $('body').prepend('<div id="Button_Settings_Cover"><div id="Button_Settings" title = "Нажми с шифтом, чтобы сменить фон"></div></div>')
 $('body').prepend('<div id="ver">' + "VER: " + ver + '</div>')
+$('body').prepend('<img id="ip_flag"></img>')
 $('#ver').attr('title', 'Shift+Click чтобы открыть подробную информацию');
 
 
@@ -221,7 +222,7 @@ $('body').append('<div id="clockG">' +
 // https://api.ipify.org?format=jsonp&callback=?
 
 $.ajax({
-	url: "https://server.dygdyg.ru/my-ip.php",
+	url: "https://ipwho.is/",
 	jsonp: "callback",
 	dataType: "json",
 	data: {
@@ -229,9 +230,10 @@ $.ajax({
 		format: "json"
 	},
 	success: function (json) {
-		
+		console.log(111, json)
 		// $('body').prepend('<div id="ver">'+ "VER: "+ ver + " IP: " + json.ip + '</div>')
 		$("#ver").text("VER: " + ver + " IP: " + json.ip)
+		$("#ip_flag").attr("src",json.flag.img)
 		// $("#ver").text("VER: " + ver + " IP: " + json.query)
 		$('#ver').click(function (e) {
 			if (e.shiftKey) {
