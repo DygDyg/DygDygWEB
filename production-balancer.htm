@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Калькулятор соотношений буров и печей</title>
+<style>
+    body { font-family: sans-serif; padding: 20px; }
+    input { margin: 5px; padding: 5px; }
+    button { padding: 7px 15px; }
+    #result { margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<h2>Калькулятор идеальных комбинаций</h2>
+
+<label>Скорость бура (ед/с):</label>
+<input id="drill" type="number" step="0.01" value="0.5"><br>
+
+<label>Скорость печи (ед/с):</label>
+<input id="furnace" type="number" step="0.01" value="0.65"><br>
+
+<label>Максимальное количество (до скольки проверять):</label>
+<input id="limit" type="number" value="100"><br>
+
+<button onclick="calculate()">Посчитать</button>
+
+<div id="result"></div>
+
+<script>
+function calculate() {
+    const d = parseFloat(document.getElementById("drill").value);
+    const f = parseFloat(document.getElementById("furnace").value);
+    const limit = parseInt(document.getElementById("limit").value);
+
+    let html = "<h3>Подходящие комбинации:</h3><ul>";
+
+    for (let drills = 1; drills <= limit; drills++) {
+        for (let furnaces = 1; furnaces <= limit; furnaces++) {
+            const prodD = drills * d;
+            const prodF = furnaces * f;
+
+            if (Math.abs(prodD - prodF) < 0.0001) {
+                html += `<li>${drills} бур(ов) ↔ ${furnaces} печь(и) (${prodD.toFixed(3)} ед/с)</li>`;
+            }
+        }
+    }
+
+    html += "</ul>";
+    document.getElementById("result").innerHTML = html;
+}
+</script>
+
+</body>
+</html>
