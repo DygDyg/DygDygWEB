@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Кинопоиск kodik online
 // @namespace    Кинопоиск kodik online
-// @version      1.2
+// @version      1.3
 // @description  Плагин добавляет плеер для просмотра фильмов на кинопоиск
 // @author       ДугДуг
 // @match        https://www.kinopoisk.ru/*
