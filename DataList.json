@@ -804,6 +804,11 @@
                                     "name": "b43353e99f29026a38568d26df1fc69ff7fad6",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "c62fda91c626975e7b0542cb00aedfef716066",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -1376,6 +1381,11 @@
                             "type": "directory",
                             "children": [
                                 {
+                                    "name": "4ddf2ef980ddbe793937109e52487b95ad2ae5",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "9efd414aea9d4000fbcfc30655e91a3771c5ab",
                                     "suffix": "",
                                     "type": "file"
@@ -1678,6 +1688,11 @@
                                 },
                                 {
                                     "name": "6609827598446d867bcc790fef6ed3018ab2f0",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "692bfd9b60427707b5563014f0786af8578cd8",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -4586,6 +4601,11 @@
                                     "name": "765adb7051a14da29abf57e56bed3ea9da2efa",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "ee78fb74ea1cc0c149825a1d6f5989543a30a0",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -5322,6 +5342,11 @@
                                 },
                                 {
                                     "name": "e0146e48324b2d13dfd1e4208647e101925041",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "f0d009ff15e31ac188f779cacd42364254f157",
                                     "suffix": "",
                                     "type": "file"
                                 }
@@ -6970,6 +6995,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "169a1f1a05fefaee1d03e6a67c245c0e20c194",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "298b2769b6b86f7b90456b4986f0564cc78733",
                                     "suffix": "",
                                     "type": "file"
@@ -7795,6 +7825,11 @@
                                 },
                                 {
                                     "name": "44b089ce3cd899fb6e5caecf46dff670ad78f1",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "575ba2404ac451ca084a60982bbd6271c8e461",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -12630,6 +12665,11 @@
         {
             "name": "DiscordFix_6.0.928.zip",
             "suffix": ".zip",
+            "type": "file"
+        },
+        {
+            "name": "discord_activity.js",
+            "suffix": ".js",
             "type": "file"
         },
         {
