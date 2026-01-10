@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         BookMyShow — Movie Info Collector v1.4
+// @name         BookMyShow — Movie Info Collector
 // @namespace    https://dygdyg.ru/
 // @author       ДугДуг
 // @version      1.4
