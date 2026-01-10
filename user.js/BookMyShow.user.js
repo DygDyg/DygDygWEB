@@ -3,7 +3,7 @@
 // @namespace    https://dygdyg.ru/
 // @author       ДугДуг
 // @version      1.4
-// @description  Сбор данных фильма через актуальный window.__INITIAL_STATE__ (жанры, актёры, режиссёр, длительность, постер, баннер)
+// @description  Сбор данных фильма (жанры, актёры, режиссёр, длительность, постер, баннер)
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=bookmyshow.com
 // @match        https://in.bookmyshow.com/movies/*/*
 // @grant        GM_setClipboard
