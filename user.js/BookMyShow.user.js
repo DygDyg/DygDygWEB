@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name         BookMyShow — Movie Info Collector (NEW JSON + Duration) v1.4
 // @namespace    https://dygdyg.ru/
+// @author       ДугДуг
 // @version      1.4
 // @description  Сбор данных фильма через актуальный window.__INITIAL_STATE__ (жанры, актёры, режиссёр, длительность, постер, баннер)
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=bookmyshow.com
