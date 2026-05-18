@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Winamp Classic</title>
+<link rel="icon" type="image/x-icon" href="favicon.png">
+
+<style>
+* {
+  box-sizing: border-box;
+  user-select: none;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #252525 0, #090909 70%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Arial Narrow", Tahoma, sans-serif;
+  image-rendering: pixelated;
+}
+
+.winamp {
+  width: 520px;
+  color: #00ff38;
+  font-weight: bold;
+  filter: drop-shadow(0 12px 22px #000);
+}
+
+.window {
+  background: linear-gradient(135deg, #363958 0%, #191b33 45%, #0b0d1e 100%);
+  border: 2px solid #050510;
+  margin-bottom: 4px;
+  box-shadow:
+    inset 2px 2px #73789d,
+    inset -2px -2px #02030a,
+    inset 4px 4px #292c48,
+    inset -4px -4px #111326;
+}
+
+.titlebar {
+  height: 22px;
+  background: linear-gradient(#4d5175, #17192d 55%, #0a0b17);
+  color: #f1f4ff;
+  text-shadow: 1px 1px #000;
+  font-size: 15px;
+  line-height: 22px;
+  text-align: center;
+  letter-spacing: 1px;
+  position: relative;
+  border-bottom: 2px solid #050611;
+}
+
+.titlebar::before,
+.titlebar::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  height: 7px;
+  width: 135px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #fff685 0 2px,
+    #7e6a22 2px 4px,
+    #fff685 4px 6px
+  );
+  border: 1px solid #151515;
+}
+
+.titlebar::before { left: 7px; }
+.titlebar::after { right: 7px; }
+
+.main {
+  padding: 9px 10px 10px;
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 176px 1fr;
+  gap: 9px;
+}
+
+.screen {
+  background: #030609;
+  border: 3px inset #464c6f;
+  box-shadow:
+    inset 2px 2px #000,
+    inset -1px -1px #333b5b;
+}
+
+.viz {
+  height: 86px;
+  position: relative;
+  overflow: hidden;
+}
+
+.grid {
+  position: absolute;
+  inset: 7px;
+  background:
+    repeating-linear-gradient(to right, transparent 0 8px, #10203d 8px 10px),
+    repeating-linear-gradient(to top, transparent 0 8px, #10203d 8px 10px);
+}
+
+.play-indicator {
+  position: absolute;
+  left: 28px;
+  top: 24px;
+  font-size: 28px;
+  color: #00ff38;
+  text-shadow: 0 0 5px #00ff38;
+}
+
+.time {
+  position: absolute;
+  right: 10px;
+  top: 14px;
+  font-family: "Courier New", monospace;
+  font-size: 34px;
+  letter-spacing: 3px;
+  color: #00ff38;
+  text-shadow: 0 0 6px #00ff38;
+}
+
+.bars {
+  position: absolute;
+  left: 10px;
+  bottom: 8px;
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
+}
+
+.bar {
+  width: 4px;
+  height: 8px;
+  background: linear-gradient(to top, #00ff38, #dbff47, #ff4a2e);
+  transition: height .07s linear;
+}
+
+.song {
+  height: 31px;
+  padding: 5px 8px;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: "Courier New", monospace;
+  font-size: 18px;
+  text-shadow: 0 0 5px #00ff38;
+}
+
+.song span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 13s linear infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+.meta {
+  margin-top: 6px;
+  display: flex;
+  gap: 5px;
+}
+
+.meta div {
+  height: 24px;
+  padding: 3px 6px;
+  color: #e5ecff;
+  font-size: 13px;
+  text-shadow: 1px 1px #000;
+}
+
+.meta .green {
+  color: #00ff38;
+  text-shadow: 0 0 4px #00ff38;
+}
+
+.progress-wrap {
+  margin-top: 10px;
+  height: 14px;
+  padding: 3px;
+  background: #101226;
+  border: 2px inset #444a70;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(90deg, #e36d1f, #ffe15d);
+  position: relative;
+  cursor: pointer;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #d95f18, #fff36f);
+}
+
+.progress-thumb {
+  position: absolute;
+  top: -6px;
+  left: 0%;
+  width: 22px;
+  height: 18px;
+  background: linear-gradient(#f5fbff, #95a1b8 60%, #68748d);
+  border: 2px solid #070913;
+  box-shadow:
+    inset 2px 2px #fff,
+    inset -2px -2px #475166;
+  transform: translateX(-50%);
+}
+
+.sliders-row {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 1fr 155px;
+  gap: 14px;
+}
+
+.mini-slider {
+  height: 8px;
+  background: linear-gradient(90deg, #e56b1c, #ffe066, #00ff38);
+  border: 1px solid #03040a;
+  position: relative;
+  cursor: pointer;
+}
+
+.mini-slider input {
+  position: absolute;
+  inset: -8px 0;
+  width: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.knob {
+  position: absolute;
+  top: -7px;
+  width: 24px;
+  height: 20px;
+  background: linear-gradient(#eef8ff, #8a96ad);
+  border: 2px solid #10131f;
+  box-shadow:
+    inset 2px 2px white,
+    inset -2px -2px #535c71;
+  pointer-events: none;
+}
+
+.buttons {
+  margin-top: 15px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+button {
+  min-width: 41px;
+  height: 31px;
+  border: 2px solid #060712;
+  background: linear-gradient(135deg, #ffffff 0%, #c8d4e5 38%, #74839f 100%);
+  box-shadow:
+    inset 2px 2px #fff,
+    inset -2px -2px #3e4659;
+  color: #121624;
+  font-weight: 900;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+button:active,
+button.active {
+  background: linear-gradient(135deg, #6e7890, #c8d4e5);
+  box-shadow:
+    inset -2px -2px #fff,
+    inset 2px 2px #343b4d;
+}
+
+.wide {
+  min-width: 88px;
+  font-size: 12px;
+}
+
+.eq {
+  padding: 8px 12px 10px;
+}
+
+.eq-top {
+  height: 55px;
+  display: grid;
+  grid-template-columns: 78px 1fr 88px;
+  gap: 10px;
+  align-items: start;
+}
+
+.small-btn {
+  height: 22px;
+  min-width: 52px;
+  font-size: 12px;
+}
+
+.graph {
+  height: 45px;
+  background:
+    repeating-linear-gradient(to right, #303767 0 1px, transparent 1px 31px),
+    repeating-linear-gradient(to bottom, #303767 0 1px, transparent 1px 14px),
+    #14172b;
+  border: 2px inset #444a70;
+  position: relative;
+}
+
+.graph svg {
+  position: absolute;
+  inset: 0;
+}
+
+.eq-sliders {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  gap: 8px;
+  align-items: end;
+  color: #fff;
+  text-shadow: 1px 1px #000;
+  font-size: 13px;
+}
+
+.eq-item {
+  text-align: center;
+}
+
+.vrange {
+  -webkit-appearance: slider-vertical;
+  writing-mode: vertical-lr;
+  direction: rtl;
+  width: 20px;
+  height: 94px;
+  accent-color: #ffe600;
+  cursor: pointer;
+}
+
+.playlist {
+  padding: 9px;
+}
+
+.list {
+  height: 122px;
+  background: #020509;
+  border: 3px inset #3f4566;
+  padding: 8px 10px;
+  font-family: "Courier New", monospace;
+  font-size: 20px;
+  line-height: 1.45;
+  overflow-y: auto;
+}
+
+.track {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.track span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track.active-track {
+  color: #00ff38;
+  text-shadow: 0 0 4px #00ff38;
+}
+
+.track:not(.active-track) {
+  color: white;
+  text-shadow: none;
+}
+
+.play-bottom {
+  display: flex;
+  gap: 7px;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.counter {
+  margin-left: auto;
+  width: 180px;
+  height: 30px;
+  background: #020509;
+  border: 3px inset #3f4566;
+  padding: 4px 8px;
+  font-family: "Courier New", monospace;
+  font-size: 15px;
+  color: #00ff38;
+  text-shadow: 0 0 4px #00ff38;
+}
+
+.listopts {
+  min-width: 46px;
+  height: 42px;
+  font-size: 12px;
+  line-height: 13px;
+}
+
+.hidden-audio {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="winamp">
+
+  <div class="window">
+    <div class="titlebar">WINAMP</div>
+
+    <div class="main">
+      <div class="top">
+
+        <div class="screen viz">
+          <div class="grid"></div>
+          <div class="play-indicator" id="playIndicator">▶</div>
+
+          <div class="bars">
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+          </div>
+
+          <div class="time" id="time">00:00</div>
+        </div>
+
+        <div>
+          <div class="screen song">
+            <span id="songTitle">LOADING PLAYLIST...</span>
+          </div>
+
+          <div class="meta">
+            <div class="screen green">320</div>
+            <div class="screen">kbps</div>
+            <div class="screen green">44</div>
+            <div class="screen">kHz</div>
+            <div class="screen">mono</div>
+            <div class="screen green">stereo</div>
+          </div>
+
+          <div class="progress-wrap">
+            <div class="progress" id="progress">
+              <div class="progress-fill" id="progressFill"></div>
+              <div class="progress-thumb" id="progressThumb"></div>
+            </div>
+          </div>
+
+          <div class="sliders-row">
+            <div class="mini-slider">
+              <div class="knob" id="volumeKnob"></div>
+              <input id="volume" type="range" min="0" max="1" step="0.01" value="0.8">
+            </div>
+
+            <div class="mini-slider">
+              <div class="knob" id="balanceKnob"></div>
+              <input id="balance" type="range" min="-1" max="1" step="0.01" value="0">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="buttons">
+        <button id="prevBtn">⏮</button>
+        <button id="playBtn">▶</button>
+        <button id="pauseBtn">Ⅱ</button>
+        <button id="stopBtn">■</button>
+        <button id="nextBtn">⏭</button>
+        <button id="muteBtn">🔇</button>
+        <button id="shuffleBtn" class="wide">SHUFFLE</button>
+        <button id="repeatBtn">↻</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="window">
+    <div class="titlebar">WINAMP EQUALIZER</div>
+
+    <div class="eq">
+      <div class="eq-top">
+        <div>
+          <button id="eqOnBtn" class="small-btn active">ON</button>
+          <button id="saveEqBtn" class="small-btn">SAVE</button>
+        </div>
+
+        <div class="graph">
+          <svg viewBox="0 0 260 45" preserveAspectRatio="none">
+            <polyline id="eqCurve"
+              points="0,25 26,25 52,25 78,25 104,25 130,25 156,25 182,25 208,25 234,25 260,25"
+              fill="none"
+              stroke="#ffe55c"
+              stroke-width="3"
+            />
+          </svg>
+        </div>
+
+        <button id="presetBtn" class="small-btn">PRESETS</button>
+      </div>
+
+      <div class="eq-sliders">
+        <div class="eq-item">
+          <input id="preamp" class="vrange" type="range" min="-12" max="12" step="1" value="0"><br>PREAMP
+        </div>
+
+        <div class="eq-item"><input class="vrange eqband" data-freq="70" type="range" min="-12" max="12" step="1" value="0"><br>70</div>
+        <div class="eq-item"><input class="vrange eqband" data-freq="180" type="range" min="-12" max="12" step="1" value="0"><br>180</div>
+        <div class="eq-item"><input class="vrange eqband" data-freq="320" type="range" min="-12" max="12" step="1" value="0"><br>320</div>
+        <div class="eq-item"><input class="vrange eqband" data-freq="600" type="range" min="-12" max="12" step="1" value="0"><br>600</div>
+        <div class="eq-item"><input class="vrange eqband" data-freq="1000" type="range" min="-12" max="12" step="1" value="0"><br>1K</div>
+        <div class="eq-item"><input class="vrange eqband" data-freq="3000" type="range" min="-12" max="12" step="1" value="0"><br>3K</div>
+        <div class="eq-item"><input class="vrange eqband" data-freq="6000" type="range" min="-12" max="12" step="1" value="0"><br>6K</div>
+        <div class="eq-item"><input class="vrange eqband" data-freq="12000" type="range" min="-12" max="12" step="1" value="0"><br>12K</div>
+        <div class="eq-item"><input class="vrange eqband" data-freq="14000" type="range" min="-12" max="12" step="1" value="0"><br>14K</div>
+        <div class="eq-item"><input class="vrange eqband" data-freq="16000" type="range" min="-12" max="12" step="1" value="0"><br>16K</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="window" title="?json=https://site.ru/playlist.json">
+    <div class="titlebar">WINAMP PLAYLIST</div>
+
+    <div class="playlist">
+      <div class="list" id="playlistBox"></div>
+
+      <div class="play-bottom">
+        <button id="addBtn">ADD</button>
+        <button id="removeBtn">REM</button>
+        <button id="selectBtn">SEL</button>
+        <button id="miscBtn">MISC</button>
+
+        <div class="counter" id="counter">00:00/00:00</div>
+
+        <button class="listopts">LIST<br>OPTS</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<audio id="player" crossorigin="anonymous" class="hidden-audio"></audio>
+
+<script>
+const DEFAULT_PLAYLIST = [
+  {
+    title: "winamp33.mp3",
+    url: "https://server.dygdyg.ru/winamp33.mp3"
+  }
+];
+
+const EQ_STORAGE_KEY = "winampClassicEqSettingsV1";
+
+let tracks = [];
+
+const audio = document.getElementById("player");
+const timeEl = document.getElementById("time");
+const counterEl = document.getElementById("counter");
+const progress = document.getElementById("progress");
+const progressFill = document.getElementById("progressFill");
+const progressThumb = document.getElementById("progressThumb");
+const songTitle = document.getElementById("songTitle");
+const playIndicator = document.getElementById("playIndicator");
+const playlistBox = document.getElementById("playlistBox");
+
+const bars = [...document.querySelectorAll(".bar")];
+const volume = document.getElementById("volume");
+const balance = document.getElementById("balance");
+const volumeKnob = document.getElementById("volumeKnob");
+const balanceKnob = document.getElementById("balanceKnob");
+
+const eqBands = [...document.querySelectorAll(".eqband")];
+const preamp = document.getElementById("preamp");
+const eqCurve = document.getElementById("eqCurve");
+
+let currentTrack = 0;
+let audioCtx = null;
+let sourceNode = null;
+let preampNode = null;
+let pannerNode = null;
+let filters = [];
+let eqEnabled = true;
+let repeat = false;
+let shuffle = false;
+let muted = false;
+let visualTimer = null;
+let presetIndex = 0;
+
+const presets = [
+  { name: "Flat", values: [0,0,0,0,0,0,0,0,0,0], pre: 0 },
+  { name: "Rock", values: [5,4,3,1,-1,-2,1,3,4,5], pre: 1 },
+  { name: "Pop", values: [-1,2,4,5,3,0,-1,-1,2,3], pre: 0 },
+  { name: "Bass", values: [8,7,5,3,1,0,-2,-3,-4,-4], pre: 0 },
+  { name: "Treble", values: [-5,-4,-3,-1,0,2,4,6,7,8], pre: 0 },
+  { name: "Dance", values: [6,5,2,0,-2,-2,0,3,5,6], pre: 1 }
+];
+
+function getPlaylistUrl() {
+  const params = new URLSearchParams(window.location.search);
+
+  return (
+    params.get("json") ||
+    params.get("playlist") ||
+    "playlist.json"
+  );
+}
+
+async function loadPlaylistFromJson() {
+  const jsonUrl = getPlaylistUrl();
+
+  try {
+    const res = await fetch(jsonUrl, { cache: "no-store" });
+
+    if (!res.ok) {
+      throw new Error("HTTP " + res.status);
+    }
+
+    const data = await res.json();
+
+    const list = Array.isArray(data) ? data : data.tracks;
+
+    if (!Array.isArray(list)) {
+      throw new Error("JSON должен быть массивом или объектом { tracks: [...] }");
+    }
+
+    tracks = list
+      .map(item => {
+        if (typeof item === "string") {
+          return {
+            title: item.split("/").pop() || "Unknown Track",
+            url: item
+          };
+        }
+
+        return {
+          title: item.title || item.name || item.url?.split("/").pop() || "Unknown Track",
+          url: item.url || item.src || item.file
+        };
+      })
+      .filter(item => item.url);
+
+    if (!tracks.length) {
+      throw new Error("В JSON нет песен");
+    }
+  } catch (e) {
+    console.warn("Не удалось загрузить playlist.json, используется стандартный список:", e);
+
+    tracks = DEFAULT_PLAYLIST;
+  }
+
+  loadTrack(0, false);
+}
+
+function saveEqSettings() {
+  const settings = {
+    enabled: eqEnabled,
+    preamp: Number(preamp.value),
+    values: eqBands.map(input => Number(input.value))
+  };
+
+  localStorage.setItem(EQ_STORAGE_KEY, JSON.stringify(settings));
+}
+
+function loadEqSettings() {
+  try {
+    const raw = localStorage.getItem(EQ_STORAGE_KEY);
+    if (!raw) return;
+
+    const settings = JSON.parse(raw);
+
+    eqEnabled = settings.enabled !== false;
+    preamp.value = Number(settings.preamp ?? 0);
+
+    if (Array.isArray(settings.values)) {
+      eqBands.forEach((input, i) => {
+        input.value = Number(settings.values[i] ?? 0);
+      });
+    }
+
+    document.getElementById("eqOnBtn").classList.toggle("active", eqEnabled);
+  } catch (e) {
+    console.warn("Не удалось загрузить настройки EQ:", e);
+  }
+}
+
+function initAudioGraph() {
+  if (audioCtx) return;
+
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+  sourceNode = audioCtx.createMediaElementSource(audio);
+  preampNode = audioCtx.createGain();
+  pannerNode = audioCtx.createStereoPanner();
+
+  filters = eqBands.map(input => {
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = "peaking";
+    filter.frequency.value = Number(input.dataset.freq);
+    filter.Q.value = 1.1;
+    filter.gain.value = Number(input.value);
+    return filter;
+  });
+
+  sourceNode.connect(preampNode);
+
+  let node = preampNode;
+
+  filters.forEach(filter => {
+    node.connect(filter);
+    node = filter;
+  });
+
+  node.connect(pannerNode);
+  pannerNode.connect(audioCtx.destination);
+
+  updateEq(false);
+  updateVolumeBalance();
+}
+
+function formatTime(sec) {
+  if (!isFinite(sec)) sec = 0;
+  sec = Math.max(0, Math.floor(sec));
+
+  const m = String(Math.floor(sec / 60)).padStart(2, "0");
+  const s = String(sec % 60).padStart(2, "0");
+
+  return `${m}:${s}`;
+}
+
+function loadTrack(index, autoplay = false) {
+  if (!tracks.length) return;
+
+  currentTrack = index;
+
+  audio.src = tracks[currentTrack].url;
+  songTitle.textContent = `${currentTrack + 1}. ${tracks[currentTrack].title}`;
+
+  renderPlaylist();
+  render();
+
+  if (autoplay) play();
+}
+
+function renderPlaylist() {
+  playlistBox.innerHTML = "";
+
+  tracks.forEach((track, i) => {
+    const row = document.createElement("div");
+
+    row.className = "track" + (i === currentTrack ? " active-track" : "");
+
+    row.innerHTML = `
+      <span>${i + 1}. ${escapeHtml(track.title)}</span>
+      <span>MP3</span>
+    `;
+
+    row.ondblclick = () => loadTrack(i, true);
+
+    row.onclick = () => {
+      currentTrack = i;
+      renderPlaylist();
+    };
+
+    playlistBox.appendChild(row);
+  });
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, s => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  }[s]));
+}
+
+function render() {
+  const current = audio.currentTime || 0;
+  const duration = audio.duration || 0;
+  const percent = duration ? current / duration * 100 : 0;
+
+  timeEl.textContent = formatTime(current);
+  counterEl.textContent = `${formatTime(current)}/${formatTime(duration)}`;
+
+  progressFill.style.width = `${percent}%`;
+  progressThumb.style.left = `${percent}%`;
+}
+
+function play() {
+  initAudioGraph();
+
+  if (audioCtx.state === "suspended") {
+    audioCtx.resume();
+  }
+
+  audio.play().catch(err => {
+    console.warn("Не удалось запустить воспроизведение:", err);
+  });
+}
+
+function pause() {
+  audio.pause();
+}
+
+function stop() {
+  audio.pause();
+  audio.currentTime = 0;
+  render();
+}
+
+function nextTrack() {
+  if (!tracks.length) return;
+
+  if (shuffle) {
+    currentTrack = Math.floor(Math.random() * tracks.length);
+  } else {
+    currentTrack = (currentTrack + 1) % tracks.length;
+  }
+
+  loadTrack(currentTrack, true);
+}
+
+function prevTrack() {
+  if (!tracks.length) return;
+
+  if (audio.currentTime > 3) {
+    audio.currentTime = 0;
+    return;
+  }
+
+  currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+  loadTrack(currentTrack, true);
+}
+
+function setProgressByMouse(e) {
+  const rect = progress.getBoundingClientRect();
+  const x = Math.min(Math.max(e.clientX - rect.left, 0), rect.width);
+  const ratio = x / rect.width;
+
+  if (audio.duration) {
+    audio.currentTime = ratio * audio.duration;
+  }
+
+  render();
+}
+
+function updateVolumeBalance() {
+  audio.volume = muted ? 0 : Number(volume.value);
+
+  volumeKnob.style.left = `calc(${Number(volume.value) * 100}% - 12px)`;
+  balanceKnob.style.left = `calc(${(Number(balance.value) + 1) / 2 * 100}% - 12px)`;
+
+  if (pannerNode) {
+    pannerNode.pan.value = Number(balance.value);
+  }
+}
+
+function updateEq(needSave = true) {
+  const pre = Number(preamp.value);
+
+  if (preampNode) {
+    preampNode.gain.value = Math.pow(10, pre / 20);
+  }
+
+  eqBands.forEach((input, i) => {
+    const gain = eqEnabled ? Number(input.value) : 0;
+
+    if (filters[i]) {
+      filters[i].gain.value = gain;
+    }
+  });
+
+  drawEqCurve();
+
+  if (needSave) {
+    saveEqSettings();
+  }
+}
+
+function drawEqCurve() {
+  const values = eqBands.map(input => eqEnabled ? Number(input.value) : 0);
+
+  const points = values.map((value, i) => {
+    const x = i * (260 / (values.length - 1));
+    const y = 25 - value * 1.55;
+    return `${x},${y}`;
+  });
+
+  eqCurve.setAttribute("points", points.join(" "));
+}
+
+function startVisualizer() {
+  clearInterval(visualTimer);
+
+  visualTimer = setInterval(() => {
+    if (audio.paused) return;
+
+    bars.forEach((bar, i) => {
+      const eqValue = eqBands[i % eqBands.length]
+        ? Number(eqBands[i % eqBands.length].value)
+        : 0;
+
+      const base = 10 + Math.random() * 28;
+      const boosted = base + Math.max(eqValue, 0) * 1.8;
+
+      bar.style.height = `${Math.min(58, boosted)}px`;
+    });
+  }, 70);
+}
+
+function stopVisualizer() {
+  clearInterval(visualTimer);
+
+  bars.forEach(bar => {
+    bar.style.height = "8px";
+  });
+}
+
+document.getElementById("playBtn").onclick = play;
+document.getElementById("pauseBtn").onclick = pause;
+document.getElementById("stopBtn").onclick = stop;
+document.getElementById("nextBtn").onclick = nextTrack;
+document.getElementById("prevBtn").onclick = prevTrack;
+
+document.getElementById("muteBtn").onclick = () => {
+  muted = !muted;
+  document.getElementById("muteBtn").classList.toggle("active", muted);
+  updateVolumeBalance();
+};
+
+document.getElementById("repeatBtn").onclick = () => {
+  repeat = !repeat;
+  document.getElementById("repeatBtn").classList.toggle("active", repeat);
+};
+
+document.getElementById("shuffleBtn").onclick = () => {
+  shuffle = !shuffle;
+  document.getElementById("shuffleBtn").classList.toggle("active", shuffle);
+};
+
+document.getElementById("eqOnBtn").onclick = () => {
+  eqEnabled = !eqEnabled;
+  document.getElementById("eqOnBtn").classList.toggle("active", eqEnabled);
+  updateEq(true);
+};
+
+document.getElementById("saveEqBtn").onclick = () => {
+  saveEqSettings();
+  document.getElementById("saveEqBtn").textContent = "SAVED";
+
+  setTimeout(() => {
+    document.getElementById("saveEqBtn").textContent = "SAVE";
+  }, 900);
+};
+
+document.getElementById("presetBtn").onclick = () => {
+  presetIndex = (presetIndex + 1) % presets.length;
+  const preset = presets[presetIndex];
+
+  eqBands.forEach((input, i) => {
+    input.value = preset.values[i];
+  });
+
+  preamp.value = preset.pre;
+
+  document.getElementById("presetBtn").textContent = preset.name.toUpperCase();
+
+  updateEq(true);
+};
+
+document.getElementById("addBtn").onclick = () => {
+  const url = prompt("Вставь ссылку на MP3:");
+
+  if (!url) return;
+
+  const title = url.split("/").pop() || "New Track";
+
+  tracks.push({ title, url });
+
+  renderPlaylist();
+};
+
+document.getElementById("removeBtn").onclick = () => {
+  if (tracks.length <= 1) return;
+
+  tracks.splice(currentTrack, 1);
+
+  currentTrack = Math.max(0, currentTrack - 1);
+
+  loadTrack(currentTrack, false);
+};
+
+document.getElementById("selectBtn").onclick = () => {
+  loadTrack(currentTrack, true);
+};
+
+document.getElementById("miscBtn").onclick = () => {
+  alert(
+    "JSON плейлист: " + getPlaylistUrl() +
+    "\\n\\nGET параметры:" +
+    "\\n?json=playlist.json" +
+    "\\n?playlist=playlist.json" +
+    "\\n\\nЭквалайзер сохраняется в localStorage."
+  );
+};
+
+progress.addEventListener("mousedown", e => {
+  setProgressByMouse(e);
+
+  const move = ev => setProgressByMouse(ev);
+
+  const up = () => {
+    document.removeEventListener("mousemove", move);
+    document.removeEventListener("mouseup", up);
+  };
+
+  document.addEventListener("mousemove", move);
+  document.addEventListener("mouseup", up);
+});
+
+volume.addEventListener("input", updateVolumeBalance);
+balance.addEventListener("input", updateVolumeBalance);
+
+eqBands.forEach(input => {
+  input.addEventListener("input", () => updateEq(true));
+});
+
+preamp.addEventListener("input", () => updateEq(true));
+
+audio.addEventListener("loadedmetadata", render);
+audio.addEventListener("timeupdate", render);
+
+audio.addEventListener("play", () => {
+  playIndicator.textContent = "▶";
+  startVisualizer();
+});
+
+audio.addEventListener("pause", () => {
+  playIndicator.textContent = "Ⅱ";
+  stopVisualizer();
+});
+
+audio.addEventListener("ended", () => {
+  if (repeat) {
+    audio.currentTime = 0;
+    play();
+  } else {
+    nextTrack();
+  }
+});
+
+loadEqSettings();
+updateVolumeBalance();
+drawEqCurve();
+loadPlaylistFromJson();
+</script>
+
+</body>
+</html>

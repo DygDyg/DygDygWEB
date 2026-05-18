@@ -2394,6 +2394,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "33a94c151dc43fc0373a2d596f88f3fed55742",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "7d16bd257371e6b3375da5465d232bf2a375a8",
                                     "suffix": "",
                                     "type": "file"
@@ -3445,6 +3450,11 @@
                                 },
                                 {
                                     "name": "cb0fdb2ebe5c30142bf9c898d99f5ff223bd39",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "d2ebf9eb070e92ffa17c3b271e35502863d17e",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -4709,6 +4719,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "4630b033fbd4a902fe2cbee2b5c49c542ab088",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "8216484d79fabe031e6cd9f2f393d950a74fd9",
                                     "suffix": "",
                                     "type": "file"
@@ -5078,6 +5093,11 @@
                                 },
                                 {
                                     "name": "80a8f702df7d5a44227e8918d4d9284fc9cd94",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "8cf065726f915d8640c8b53eef95947c51220e",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -9807,6 +9827,11 @@
                                 },
                                 {
                                     "name": "66ae2b026a78c1b6b487b895eead1d21dbc83b",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "8b5937301253cd4b1e5749feb7e0c633e75170",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -26053,9 +26078,36 @@
             ]
         },
         {
-            "name": "winamp33.mp3",
-            "suffix": ".mp3",
-            "type": "file"
+            "name": "winamp",
+            "suffix": "",
+            "type": "directory",
+            "children": [
+                {
+                    "name": "129985170.mp3",
+                    "suffix": ".mp3",
+                    "type": "file"
+                },
+                {
+                    "name": "favicon.png",
+                    "suffix": ".png",
+                    "type": "file"
+                },
+                {
+                    "name": "index.htm",
+                    "suffix": ".htm",
+                    "type": "file"
+                },
+                {
+                    "name": "playlist.json",
+                    "suffix": ".json",
+                    "type": "file"
+                },
+                {
+                    "name": "winamp33.mp3",
+                    "suffix": ".mp3",
+                    "type": "file"
+                }
+            ]
         },
         {
             "name": "wow",
