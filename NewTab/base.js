@@ -128,7 +128,8 @@ $(document).ready(function () {
 			} else {
 
 				if (event.shiftKey) {
-					SiteURL = 'https://translate.yandex.ru/?text=' + $(this).val()
+					SiteURL = 'https://yandex.ru/search/?text=' + $(this).val()
+					// SiteURL = 'https://translate.yandex.ru/?text=' + $(this).val()
 				} else if (event.ctrlKey) {
 					SiteURL = 'https://www.youtube.com/results?search_query=' + $(this).val()
 				} else if (event.altKey) {
@@ -136,8 +137,9 @@ $(document).ready(function () {
 					SiteURL = 'https://animego.org/search/all?q=' + $(this).val()
 
 				} else {
-					SiteURL = 'https://yandex.ru/search/?text=' + $(this).val()
-					console.log("BBBB")
+					// SiteURL = 'https://yandex.ru/search/?text=' + $(this).val()
+					SiteURL = 'https://www.google.com/search?q=' + $(this).val()
+					// console.log("BBBB")
 				}
 			}
 			window.location = SiteURL;
