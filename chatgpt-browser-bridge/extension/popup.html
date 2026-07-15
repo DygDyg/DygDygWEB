@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChatGPT Browser Bridge</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main>
+    <div class="header">
+      <div>
+        <h1>Browser Bridge</h1>
+        <p id="context" class="muted">Определяю текущую страницу…</p>
+      </div>
+      <span class="version">0.7.0</span>
+    </div>
+
+    <section id="bridge-section">
+      <button id="dashboard-open" class="wide">📊 Открыть Dashboard</button>
+
+      <label class="setting-row" for="auto-execute-safe">
+        <span>
+          <strong>Автовыполнение всех команд</strong>
+          <small>Изменения и запуск программ по-прежнему подтверждаются Native Host</small>
+        </span>
+        <input id="auto-execute-safe" type="checkbox">
+      </label>
+
+      <label class="setting-row" for="auto-submit-results">
+        <span>
+          <strong>Автоотправка результатов</strong>
+          <small>Отправлять общий пакет через 3 секунды после завершения всех команд</small>
+        </span>
+        <input id="auto-submit-results" type="checkbox">
+      </label>
+    </section>
+
+    <section id="chat-section" hidden>
+      <button id="connect" class="wide">🔌 Вставить инструкцию Bridge</button>
+      <button id="native-test" class="wide secondary">Проверить локальный агент</button>
+    </section>
+
+    <section id="google-section" hidden>
+      <label for="query">Поиск Google</label>
+      <div class="row">
+        <input id="query" type="text" placeholder="Что найти?">
+        <button id="search">Найти</button>
+      </div>
+      <button id="google-results" class="wide">Извлечь результаты Google</button>
+    </section>
+
+    <section id="avito-section" hidden>
+      <label for="avito-query">Поиск Avito</label>
+      <div class="row">
+        <input id="avito-query" type="text" placeholder="Что найти?">
+        <button id="avito-search">Найти</button>
+      </div>
+      <button id="avito-results" class="wide">Извлечь объявления Avito</button>
+    </section>
+
+    <section id="page-section" hidden>
+      <button id="extract" class="wide">Извлечь текущую страницу</button>
+      <button id="selection" class="wide secondary">Извлечь выделенный текст</button>
+    </section>
+
+    <section id="preview" hidden>
+      <div class="preview-head">
+        <strong>Предпросмотр</strong>
+        <span id="counter"></span>
+      </div>
+      <textarea id="result" rows="12"></textarea>
+      <button id="send" class="wide">Вставить результат в открытый AI-чат</button>
+    </section>
+
+    <p id="status" role="status"></p>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>

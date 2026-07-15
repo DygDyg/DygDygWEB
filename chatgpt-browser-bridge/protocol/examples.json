@@ -1,0 +1,7 @@
+{
+  "describe": {"version":1,"id":"describe-001","tool":"bridge.describe"},
+  "search": {"version":1,"id":"search-001","tool":"everything.search","query":"ollama_overlay.py","limit":50},
+  "read": {"version":1,"id":"read-001","tool":"file.read","path":"E:\\Projects\\app\\main.py","max_chars":200000},
+  "patch": {"version":1,"id":"patch-001","tool":"file.patch","path":"E:\\Projects\\app\\main.py","expected_sha256":"...","patch":"--- a/main.py\n+++ b/main.py\n@@ -1,1 +1,1 @@\n-old\n+new"},
+  "run": {"version":1,"id":"run-001","tool":"process.run","executable":"python","args":["-m","pytest","-q"],"cwd":"E:\\Projects\\app","timeout_seconds":120}
+}

@@ -1,0 +1,58 @@
+# .NET build output
+**/bin/
+**/obj/
+**/publish/
+*.dll
+*.exe
+*.pdb
+*.deps.json
+*.runtimeconfig.json
+
+# Visual Studio / Rider / VS Code
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+*.rsuser
+*.userosscache
+*.sln.docstates
+
+# ChatGPT Browser Bridge backups and temporary files
+*.cbb-backup-*
+*.cbb-batch-*
+*.cbb-transaction-*
+*.cbb-before-rollback-*
+*.cbb-before-transaction-rollback-*
+*.cbb-before-rollback-undo-*
+*.cbb-tmp-*
+*.cbb-batch-tmp-*
+*.cbb-transaction-tmp-*
+*.cbb-rollback-tmp-*
+*.cbb-transaction-rollback-tmp-*
+*.cbb-rollback-undo-tmp-*
+
+# Local runtime state
+history.jsonl
+settings.json
+
+# Logs and diagnostics
+*.log
+logs/
+
+# Archives and installer output
+*.zip
+*.7z
+*.rar
+artifacts/
+dist/
+
+# OS-generated files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Temporary files
+*.tmp
+*.temp
+~$*

@@ -1,0 +1,46 @@
+:root { color-scheme: light dark; font-family: Inter, system-ui, sans-serif; }
+body { margin: 0; min-width: 360px; background: Canvas; color: CanvasText; }
+main { padding: 15px; }
+.header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+h1 { margin: 0 0 3px; font-size: 18px; }
+.muted { margin: 0; opacity: .65; font-size: 12px; }
+.version { padding: 3px 6px; border: 1px solid color-mix(in srgb, CanvasText 18%, transparent); border-radius: 999px; font-size: 10px; opacity: .65; }
+section[hidden] { display: none !important; }
+label { display: block; margin-bottom: 6px; font-size: 12px; font-weight: 600; }
+.row { display: flex; gap: 7px; }
+input, textarea { box-sizing: border-box; width: 100%; border: 1px solid color-mix(in srgb, CanvasText 22%, transparent); border-radius: 8px; padding: 8px; background: Canvas; color: CanvasText; }
+button { border: 0; border-radius: 8px; padding: 8px 11px; background: #10a37f; color: white; font-weight: 650; cursor: pointer; }
+button:hover { filter: brightness(.95); }
+button:disabled { opacity: .55; cursor: default; }
+.wide { width: 100%; margin-top: 9px; }
+.secondary { background: #5b6470; }
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid color-mix(in srgb, CanvasText 14%, transparent);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.setting-row span { min-width: 0; }
+.setting-row strong { display: block; font-size: 12px; }
+.setting-row small {
+  display: block;
+  margin-top: 3px;
+  font-size: 10px;
+  line-height: 1.35;
+  opacity: .62;
+}
+.setting-row input {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+}
+#preview { margin-top: 13px; padding-top: 12px; border-top: 1px solid color-mix(in srgb, CanvasText 14%, transparent); }
+.preview-head { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px; }
+#status { min-height: 16px; margin: 9px 0 0; font-size: 12px; opacity: .75; }

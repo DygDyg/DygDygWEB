@@ -1,0 +1,183 @@
+.cbb-composer-toolbar {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: min(100%, 760px);
+  margin: 0 auto 6px;
+  padding: 5px 7px;
+  border: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, Canvas 92%, transparent);
+  color: inherit;
+  box-sizing: border-box;
+  backdrop-filter: blur(10px);
+}
+
+.cbb-toolbar-result {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  max-width: 48%;
+  padding: 4px 7px;
+  border-radius: 7px;
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+.cbb-toolbar-result-icon {
+  flex: 0 0 auto;
+}
+
+.cbb-toolbar-result-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cbb-state-idle { opacity: .62; }
+.cbb-state-pending { background: color-mix(in srgb, #d99a00 13%, transparent); }
+.cbb-state-success { background: color-mix(in srgb, #1a9b50 14%, transparent); }
+.cbb-state-error { background: color-mix(in srgb, #d64242 15%, transparent); }
+
+.cbb-toolbar-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.cbb-toolbar-action-button {
+  flex: 0 0 auto;
+  appearance: none;
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  border-radius: 7px;
+  padding: 4px 7px;
+  background: color-mix(in srgb, currentColor 5%, transparent);
+  color: inherit;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.cbb-toolbar-action-button:hover {
+  background: color-mix(in srgb, currentColor 11%, transparent);
+}
+
+.cbb-toolbar-action-button:disabled {
+  opacity: .5;
+  cursor: wait;
+}
+
+.cbb-toolbar-empty {
+  padding: 3px 5px;
+  font-size: 11px;
+  opacity: .55;
+  white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  .cbb-composer-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .cbb-toolbar-result { max-width: 100%; }
+  .cbb-toolbar-actions { justify-content: flex-start; }
+}
+
+.cbb-tool-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 10px;
+  min-height: 28px;
+}
+
+.cbb-tool-button {
+  appearance: none;
+  border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  border-radius: 8px;
+  padding: 5px 9px;
+  background: color-mix(in srgb, currentColor 7%, transparent);
+  color: inherit;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.25;
+  cursor: pointer;
+}
+
+.cbb-tool-button:hover {
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.cbb-tool-button:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
+.cbb-tool-status {
+  font-size: 12px;
+  opacity: .65;
+}
+
+.cbb-connect-button {
+  position: relative;
+  z-index: 5;
+  display: block;
+  margin: 0 auto 6px;
+  border: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+  border-radius: 999px;
+  padding: 4px 9px;
+  background: color-mix(in srgb, currentColor 6%, transparent);
+  color: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: .8;
+}
+
+.cbb-connect-button:hover {
+  opacity: 1;
+  background: color-mix(in srgb, currentColor 11%, transparent);
+}
+
+.cbb-update-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.cbb-update-button {
+  appearance: none;
+  border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  border-radius: 8px;
+  padding: 5px 10px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.25;
+  cursor: pointer;
+}
+
+.cbb-update-button:hover {
+  background: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+.cbb-update-button:disabled {
+  cursor: wait;
+  opacity: .6;
+}
