@@ -870,7 +870,9 @@ function ensure_settings_panel() {
 	$("#auto_sync_toggle").on("change", function () {
 		setGoogleAutoSyncEnabled(this.checked)
 		if (this.checked && isGoogleDriveSignedIn()) {
-			auto_sync_settings()
+			auto_sync_settings({ askInitialSource: true })
+		} else if (!this.checked) {
+			resetGoogleSyncBaseline()
 		}
 	})
 
@@ -1244,7 +1246,9 @@ const GOOGLE_DRIVE_DEFAULT_CLIENT_ID = '60585228937-tfkt18ldo6pptqem3qik8vhtsoc0
 const GOOGLE_DRIVE_CONSENT_KEY = 'newtab.googleDriveConsentGranted';
 const GOOGLE_DRIVE_TOKEN_KEY = 'newtab.googleDriveAccessToken';
 const GOOGLE_DRIVE_AUTO_SYNC_KEY = 'newtab.googleDriveAutoSync';
+const GOOGLE_DRIVE_SYNC_BASELINE_KEY = 'newtab.googleDriveSyncBaseline';
 const GOOGLE_DRIVE_FILE_NAME = 'newtab-settings.json';
+const GOOGLE_DRIVE_VERSION_PREFIX = 'newtab-settings_';
 const GOOGLE_DRIVE_SCOPE = 'https://www.googleapis.com/auth/drive.appdata';
 const GOOGLE_DRIVE_FIELDS = 'id,name,modifiedTime,size';
 let googleDriveAccessToken = '';
@@ -1333,6 +1337,18 @@ function setGoogleAutoSyncEnabled(enabled) {
 	localStorage.setItem(GOOGLE_DRIVE_AUTO_SYNC_KEY, enabled ? 'true' : 'false');
 }
 
+function googleSyncBaseline() {
+	return localStorage.getItem(GOOGLE_DRIVE_SYNC_BASELINE_KEY) || '';
+}
+
+function markGoogleSyncBaseline(fileId) {
+	localStorage.setItem(GOOGLE_DRIVE_SYNC_BASELINE_KEY, fileId || 'created');
+}
+
+function resetGoogleSyncBaseline() {
+	localStorage.removeItem(GOOGLE_DRIVE_SYNC_BASELINE_KEY);
+}
+
 function update_google_sync_ui() {
 	if (!$('#google_settings_group').length) return;
 	const signedIn = isGoogleDriveSignedIn();
@@ -1346,7 +1362,7 @@ async function google_login() {
 		await getGoogleDriveToken();
 		update_google_sync_ui();
 		if (isGoogleAutoSyncEnabled()) {
-			await auto_sync_settings();
+			await auto_sync_settings({ askInitialSource: true });
 		}
 	} catch (error) {
 		console.error(error);
@@ -1442,20 +1458,31 @@ async function driveRequest(url, options = {}) {
 	return response;
 }
 
-async function findDriveSettingsFile() {
+function googleDriveBackupFileName() {
+	return GOOGLE_DRIVE_VERSION_PREFIX + moment().format('YYYY-MM-DD_HH-mm-ss') + '.json';
+}
+
+async function listDriveSettingsFiles() {
 	const params = new URLSearchParams({
 		spaces: 'appDataFolder',
 		fields: `files(${GOOGLE_DRIVE_FIELDS})`,
-		q: `name='${GOOGLE_DRIVE_FILE_NAME}' and 'appDataFolder' in parents and trashed=false`
+		orderBy: 'modifiedTime desc',
+		pageSize: '50',
+		q: `(name='${GOOGLE_DRIVE_FILE_NAME}' or name contains '${GOOGLE_DRIVE_VERSION_PREFIX}') and 'appDataFolder' in parents and trashed=false`
 	});
 	const response = await driveRequest(`https://www.googleapis.com/drive/v3/files?${params}`);
 	const data = await response.json();
-	return data.files?.[0] || null;
+	return data.files || [];
 }
 
-async function createDriveSettingsFile(settings) {
+async function findDriveSettingsFile() {
+	const files = await listDriveSettingsFiles();
+	return files[0] || null;
+}
+
+async function createDriveSettingsFile(settings, fileName = googleDriveBackupFileName()) {
 	const metadata = {
-		name: GOOGLE_DRIVE_FILE_NAME,
+		name: fileName,
 		mimeType: 'application/json',
 		parents: ['appDataFolder']
 	};
@@ -1470,33 +1497,45 @@ async function createDriveSettingsFile(settings) {
 	return response.json();
 }
 
-async function updateDriveSettingsFile(fileId, settings) {
-	const response = await driveRequest(`https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=media&fields=id,name,modifiedTime`, {
-		method: 'PATCH',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(settings, null, 2)
-	});
-	return response.json();
+function driveFileLabel(file, index) {
+	const size = file.size ? Math.round(Number(file.size) / 1024) + ' KB' : 'размер неизвестен';
+	const time = file.modifiedTime ? moment(file.modifiedTime).format('YYYY-MM-DD HH:mm:ss') : 'дата неизвестна';
+	return `${index + 1}. ${file.name} - ${time}, ${size}`;
+}
+
+function selectDriveSettingsFile(files) {
+	if (!files.length) return null;
+	const answer = prompt(
+		'Выбери бэкап Google Drive для загрузки:\n\n' +
+		files.map(driveFileLabel).join('\n') +
+		'\n\nВведи номер версии. Самая свежая сверху.',
+		'1'
+	);
+	if (answer === null) return null;
+
+	const index = Number(String(answer).trim()) - 1;
+	if (!Number.isInteger(index) || !files[index]) return null;
+	return files[index];
 }
 
 async function cloud_load() {
-	if (!confirm('Загрузить настройки из Google Drive? Текущие локальные настройки будут заменены.')) return;
-
 	try {
 		loading = true;
 		await getGoogleDriveToken();
 		update_google_sync_ui();
-		const file = await findDriveSettingsFile();
+		const files = await listDriveSettingsFiles();
+		const file = selectDriveSettingsFile(files);
 		if (!file) {
-			alert('В Google Drive пока нет файла настроек NewTab.');
+			if (!files.length) alert('В Google Drive пока нет бэкапов NewTab.');
 			return;
 		}
+
+		if (!confirm(`Загрузить "${file.name}"? Текущие локальные настройки будут заменены.`)) return;
 
 		const response = await driveRequest(`https://www.googleapis.com/drive/v3/files/${file.id}?alt=media`);
 		const settings = await response.json();
 		applyNewTabSettings(settings);
+		markGoogleSyncBaseline(file.id);
 		alert('Настройки загружены из Google Drive.');
 		location.reload();
 	} catch (error) {
@@ -1513,12 +1552,10 @@ async function cloud_save() {
 		await getGoogleDriveToken();
 		update_google_sync_ui();
 		const settings = saveNewTabSettings(get_settings_snapshot());
-		const file = await findDriveSettingsFile();
-		const savedFile = file
-			? await updateDriveSettingsFile(file.id, settings)
-			: await createDriveSettingsFile(settings);
+		const savedFile = await createDriveSettingsFile(settings);
+		markGoogleSyncBaseline(savedFile.id);
 
-		alert(`Настройки сохранены в Google Drive: ${savedFile.name}`);
+		alert(`Новый бэкап сохранён в Google Drive: ${savedFile.name}`);
 	} catch (error) {
 		console.error(error);
 		alert('Не удалось сохранить настройки в Google Drive: ' + error.message);
@@ -1537,7 +1574,33 @@ async function readDriveSettingsFile(file) {
 	return response.json();
 }
 
-async function auto_sync_settings() {
+function settingsSummary(settings, fallbackTime) {
+	const cardsCount = Array.isArray(settings?.cards) ? settings.cards.length : 0;
+	const time = settingsTime(settings, fallbackTime);
+	const timeText = time ? moment(time).format('YYYY-MM-DD HH:mm:ss') : 'неизвестно';
+	return `${cardsCount} карточек, изменено: ${timeText}`;
+}
+
+function askInitialGoogleSyncSource(localSettings, remoteSettings, file) {
+	const answer = prompt(
+		'Автосинхронизация Google Drive включается на этом браузере впервые.\n\n' +
+		'Что взять за основу?\n\n' +
+		'1 - Google Drive: скачать настройки с диска в этот браузер\n' +
+		'2 - Этот браузер: загрузить локальные настройки на Google Drive\n\n' +
+		'Google Drive: ' + settingsSummary(remoteSettings, file?.modifiedTime) + '\n' +
+		'Этот браузер: ' + settingsSummary(localSettings) + '\n\n' +
+		'Если не уверены, выбирайте 1. Отмена выключит автосинхронизацию.',
+		'1'
+	);
+
+	if (answer === null) return 'cancel';
+	const normalized = String(answer).trim().toLowerCase();
+	if (['1', 'drive', 'google', 'server', 'сервер', 'диск', 'google drive'].includes(normalized)) return 'remote';
+	if (['2', 'local', 'client', 'browser', 'клиент', 'браузер', 'локально', 'этот браузер'].includes(normalized)) return 'local';
+	return 'cancel';
+}
+
+async function auto_sync_settings(options = {}) {
 	if (!isGoogleAutoSyncEnabled()) return;
 	if (localStorage.getItem(GOOGLE_DRIVE_CONSENT_KEY) !== 'true') return;
 	if (!isGoogleDriveSignedIn()) return;
@@ -1548,12 +1611,40 @@ async function auto_sync_settings() {
 		const file = await findDriveSettingsFile();
 
 		if (!file) {
-			await createDriveSettingsFile(localSettings);
+			const createdFile = await createDriveSettingsFile(localSettings);
+			markGoogleSyncBaseline(createdFile.id);
 			console.log('NewTab auto-sync: Drive file created from local settings');
 			return;
 		}
 
 		const remoteSettings = await readDriveSettingsFile(file);
+		const baseline = googleSyncBaseline();
+		if (!baseline) {
+			const source = askInitialGoogleSyncSource(localSettings, remoteSettings, file);
+
+			if (source === 'cancel') {
+				setGoogleAutoSyncEnabled(false);
+				resetGoogleSyncBaseline();
+				$('#auto_sync_toggle').prop('checked', false);
+				console.log('NewTab auto-sync: initial source selection cancelled');
+				return;
+			}
+
+			if (source === 'remote') {
+				applyNewTabSettings(remoteSettings);
+				markGoogleSyncBaseline(file.id);
+				console.log('NewTab auto-sync: remote settings selected as baseline');
+				location.reload();
+				return;
+			}
+
+			const freshLocalSettings = saveNewTabSettings(get_settings_snapshot());
+			const savedFile = await createDriveSettingsFile(freshLocalSettings);
+			markGoogleSyncBaseline(savedFile.id);
+			console.log('NewTab auto-sync: local settings selected as baseline');
+			return;
+		}
+
 		const localTime = settingsTime(localSettings);
 		const remoteTime = settingsTime(remoteSettings, file.modifiedTime);
 		const delta = localTime - remoteTime;
@@ -1570,8 +1661,9 @@ async function auto_sync_settings() {
 			return;
 		}
 
-		await updateDriveSettingsFile(file.id, localSettings);
-		console.log('NewTab auto-sync: local settings uploaded');
+		const savedFile = await createDriveSettingsFile(localSettings);
+		markGoogleSyncBaseline(savedFile.id);
+		console.log('NewTab auto-sync: local settings uploaded as a new backup');
 	} catch (error) {
 		console.warn('NewTab auto-sync skipped:', error);
 	} finally {
