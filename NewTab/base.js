@@ -77,8 +77,8 @@ function stringToBool(val) {
 if (localStorage.getItem('background')) {
 	$('body').css('background-image', 'url(' + localStorage.getItem('background') + ')')
 }
-function GetBackground() {
-	let result = prompt('Введи ссылку на обои', background)
+async function GetBackground() {
+	let result = await newTabInput('Фон страницы', 'Введи ссылку на обои', background)
 
 	if (result != null && result != '') {
 		console.log(result)
@@ -510,6 +510,127 @@ function htmlEscape(value) {
 		.replaceAll('>', '&gt;')
 		.replaceAll('"', '&quot;')
 		.replaceAll("'", '&#039;')
+}
+
+function closeNewTabModal(value) {
+	const modal = $('#newtab_modal_overlay')
+	if (!modal.length) return
+	const resolver = modal.data('resolve')
+	$(document).off('keydown.newtabModal')
+	modal.remove()
+	if (resolver) resolver(value)
+}
+
+function newTabModal(options) {
+	$('#newtab_modal_overlay').remove()
+
+	return new Promise(resolve => {
+		const actions = options.actions || [{ value: true, label: 'OK', mode: 'primary' }]
+		const modal = $(
+			'<div id="newtab_modal_overlay">' +
+			'<div id="newtab_modal">' +
+			'<button id="newtab_modal_close" class="newtab_modal_icon_button" type="button" title="Закрыть">×</button>' +
+			'<div class="newtab_modal_title"></div>' +
+			'<div class="newtab_modal_body"></div>' +
+			'<div class="newtab_modal_actions"></div>' +
+			'</div>' +
+			'</div>'
+		)
+
+		modal.data('resolve', resolve)
+		modal.find('.newtab_modal_title').text(options.title || 'NewTab')
+		modal.find('.newtab_modal_body').append(options.body || '')
+		actions.forEach(action => {
+			const button = $('<button type="button" class="newtab_modal_button"></button>')
+			button.text(action.label)
+			button.addClass(action.mode || '')
+			button.on('click', function () {
+				closeNewTabModal(action.inputValue ? $('#newtab_modal_input').val() : action.value)
+			})
+			modal.find('.newtab_modal_actions').append(button)
+		})
+
+		$('body').append(modal)
+		$('#newtab_modal_close').on('click', function () {
+			closeNewTabModal(options.cancelValue ?? null)
+		})
+		modal.on('mousedown', function (event) {
+			if (event.target === this) closeNewTabModal(options.cancelValue ?? null)
+		})
+		$(document).off('keydown.newtabModal').on('keydown.newtabModal', function (event) {
+			if (event.key === 'Escape') {
+				$(document).off('keydown.newtabModal')
+				closeNewTabModal(options.cancelValue ?? null)
+			}
+		})
+	})
+}
+
+function newTabConfirm(title, message, confirmLabel = 'OK') {
+	return newTabModal({
+		title,
+		body: '<p>' + htmlEscape(message) + '</p>',
+		cancelValue: false,
+		actions: [
+			{ value: false, label: 'Отмена', mode: 'secondary' },
+			{ value: true, label: confirmLabel, mode: 'primary' }
+		]
+	})
+}
+
+function newTabAlert(title, message) {
+	return newTabModal({
+		title,
+		body: '<p>' + htmlEscape(message) + '</p>',
+		cancelValue: true,
+		actions: [{ value: true, label: 'Понятно', mode: 'primary' }]
+	})
+}
+
+function newTabInput(title, message, value = '') {
+	const body = $('<div></div>');
+	body.append('<p>' + htmlEscape(message) + '</p>');
+	body.append('<input id="newtab_modal_input" class="newtab_modal_input" value="' + htmlEscape(value) + '">');
+
+	const promise = newTabModal({
+		title,
+		body,
+		cancelValue: null,
+		actions: [
+			{ value: null, label: 'Отмена', mode: 'secondary' },
+			{ value: '', inputValue: true, label: 'Сохранить', mode: 'primary' }
+		]
+	});
+
+	setTimeout(function () {
+		$('#newtab_modal_input').focus().select().on('keydown', function (event) {
+			if (event.key === 'Enter') closeNewTabModal($(this).val());
+		});
+	}, 0);
+
+	return promise;
+}
+
+function newTabTextarea(title, message, value = '') {
+	const body = $('<div></div>');
+	body.append('<p>' + htmlEscape(message) + '</p>');
+	body.append('<textarea id="newtab_modal_input" class="newtab_modal_input newtab_modal_textarea">' + htmlEscape(value) + '</textarea>');
+
+	const promise = newTabModal({
+		title,
+		body,
+		cancelValue: null,
+		actions: [
+			{ value: null, label: 'Отмена', mode: 'secondary' },
+			{ value: '', inputValue: true, label: 'Применить', mode: 'primary' }
+		]
+	});
+
+	setTimeout(function () {
+		$('#newtab_modal_input').focus().select();
+	}, 0);
+
+	return promise;
 }
 
 const PROJECT_MAP_PATHS = ['../DataList.json', 'DataList.json', '/DygDygWEB/DataList.json', 'https://dygdyg.github.io/DygDygWEB/DataList.json']
@@ -1042,10 +1163,10 @@ function add_button() {
 	open_card_settings(settings.cards.length - 1, $('#card_' + settings.cards.length)[0])
 }
 
-function delete_button(index) {
+async function delete_button(index) {
 	const settings = getNewTabSettings()
 	if (!settings.cards[index]) return
-	if (!confirm('Удалить карточку?')) return
+	if (!await newTabConfirm('Удалить карточку?', 'Карточка будет удалена из локальных настроек.', 'Удалить')) return
 	settings.cards.splice(index, 1)
 	saveNewTabSettings(settings)
 	close_card_settings_popup()
@@ -1217,7 +1338,7 @@ $(window).on('load', function () {
 })
 
 
-document.addEventListener('keydown', function (event) {
+document.addEventListener('keydown', async function (event) {
 	if (event.code == 'KeyB' && (event.ctrlKey || event.metaKey)) {
 		let a123 = []
 		for (let i = 0; i < localStorage.length; i++) {
@@ -1225,7 +1346,8 @@ document.addEventListener('keydown', function (event) {
 			a123.push({ name: localStorage.key(i), data: localStorage.getItem(localStorage.key(i)) })
 		}
 
-		a321 = prompt("Скопировать настройки", JSON.stringify(a123));
+		a321 = await newTabTextarea("Скопировать настройки", "Можно забрать JSON или вставить сюда другой localStorage-бэкап.", JSON.stringify(a123));
+		if (!a321) return
 		a321 = JSON.parse(a321)
 
 		for (let i = 0; i < a321.length; i++) {
@@ -1283,10 +1405,10 @@ function export_settings_file() {
 	downloadLink.click();
 }
 
-function getGoogleDriveClientId() {
+async function getGoogleDriveClientId() {
 	let clientId = localStorage.getItem(GOOGLE_DRIVE_CLIENT_ID_KEY) || GOOGLE_DRIVE_DEFAULT_CLIENT_ID;
 	if (!clientId) {
-		clientId = prompt('Google OAuth Client ID для NewTab. Можно отменить и пользоваться JSON импортом/экспортом.', '') || '';
+		clientId = await newTabInput('Google OAuth Client ID', 'Можно отменить и пользоваться JSON импортом/экспортом.', '') || '';
 		clientId = clientId.trim();
 		if (clientId) localStorage.setItem(GOOGLE_DRIVE_CLIENT_ID_KEY, clientId);
 	}
@@ -1366,13 +1488,13 @@ async function google_login() {
 		}
 	} catch (error) {
 		console.error(error);
-		alert('Не удалось войти в Google: ' + error.message);
+		await newTabAlert('Ошибка входа в Google', 'Не удалось войти: ' + error.message);
 	}
 }
 
-function requestGoogleDriveToken(forceConsent) {
+async function requestGoogleDriveToken(forceConsent) {
+	const clientId = await getGoogleDriveClientId();
 	return new Promise((resolve, reject) => {
-		const clientId = getGoogleDriveClientId();
 		if (!clientId) {
 			reject(new Error('Google OAuth Client ID не указан'));
 			return;
@@ -1498,24 +1620,36 @@ async function createDriveSettingsFile(settings, fileName = googleDriveBackupFil
 }
 
 function driveFileLabel(file, index) {
-	const size = file.size ? Math.round(Number(file.size) / 1024) + ' KB' : 'размер неизвестен';
-	const time = file.modifiedTime ? moment(file.modifiedTime).format('YYYY-MM-DD HH:mm:ss') : 'дата неизвестна';
-	return `${index + 1}. ${file.name} - ${time}, ${size}`;
+	return `${index + 1}. ${file.name} - ${driveFileMeta(file)}`;
 }
 
-function selectDriveSettingsFile(files) {
-	if (!files.length) return null;
-	const answer = prompt(
-		'Выбери бэкап Google Drive для загрузки:\n\n' +
-		files.map(driveFileLabel).join('\n') +
-		'\n\nВведи номер версии. Самая свежая сверху.',
-		'1'
-	);
-	if (answer === null) return null;
+function driveFileMeta(file) {
+	const size = file.size ? Math.round(Number(file.size) / 1024) + ' KB' : 'размер неизвестен';
+	const time = file.modifiedTime ? moment(file.modifiedTime).format('YYYY-MM-DD HH:mm:ss') : 'дата неизвестна';
+	return `${time}, ${size}`;
+}
 
-	const index = Number(String(answer).trim()) - 1;
-	if (!Number.isInteger(index) || !files[index]) return null;
-	return files[index];
+async function selectDriveSettingsFile(files) {
+	if (!files.length) return null;
+	const list = $('<div class="newtab_modal_list"></div>');
+	files.forEach((file, index) => {
+		const button = $('<button type="button" class="newtab_modal_list_item"></button>');
+		button.append('<span class="newtab_modal_item_title">' + htmlEscape(file.name) + '</span>');
+		button.append('<span class="newtab_modal_item_meta">' + htmlEscape(driveFileMeta(file)) + '</span>');
+		button.on('click', function () {
+			closeNewTabModal(file);
+		});
+		list.append(button);
+	});
+
+	return newTabModal({
+		title: 'Бэкапы Google Drive',
+		body: $('<div></div>')
+			.append('<p>Выбери версию для загрузки. Самая свежая сверху.</p>')
+			.append(list),
+		cancelValue: null,
+		actions: [{ value: null, label: 'Отмена', mode: 'secondary' }]
+	});
 }
 
 async function cloud_load() {
@@ -1524,23 +1658,23 @@ async function cloud_load() {
 		await getGoogleDriveToken();
 		update_google_sync_ui();
 		const files = await listDriveSettingsFiles();
-		const file = selectDriveSettingsFile(files);
+		const file = await selectDriveSettingsFile(files);
 		if (!file) {
-			if (!files.length) alert('В Google Drive пока нет бэкапов NewTab.');
+			if (!files.length) await newTabAlert('Google Drive', 'В Google Drive пока нет бэкапов NewTab.');
 			return;
 		}
 
-		if (!confirm(`Загрузить "${file.name}"? Текущие локальные настройки будут заменены.`)) return;
+		if (!await newTabConfirm('Загрузить бэкап?', `Загрузить "${file.name}"? Текущие локальные настройки будут заменены.`, 'Загрузить')) return;
 
 		const response = await driveRequest(`https://www.googleapis.com/drive/v3/files/${file.id}?alt=media`);
 		const settings = await response.json();
 		applyNewTabSettings(settings);
 		markGoogleSyncBaseline(file.id);
-		alert('Настройки загружены из Google Drive.');
+		await newTabAlert('Готово', 'Настройки загружены из Google Drive.');
 		location.reload();
 	} catch (error) {
 		console.error(error);
-		alert('Не удалось загрузить настройки из Google Drive: ' + error.message);
+		await newTabAlert('Ошибка Google Drive', 'Не удалось загрузить настройки: ' + error.message);
 	} finally {
 		loading = false;
 	}
@@ -1555,10 +1689,10 @@ async function cloud_save() {
 		const savedFile = await createDriveSettingsFile(settings);
 		markGoogleSyncBaseline(savedFile.id);
 
-		alert(`Новый бэкап сохранён в Google Drive: ${savedFile.name}`);
+		await newTabAlert('Бэкап сохранён', `Новый бэкап сохранён в Google Drive: ${savedFile.name}`);
 	} catch (error) {
 		console.error(error);
-		alert('Не удалось сохранить настройки в Google Drive: ' + error.message);
+		await newTabAlert('Ошибка Google Drive', 'Не удалось сохранить настройки: ' + error.message);
 	} finally {
 		loading = false;
 	}
@@ -1581,23 +1715,34 @@ function settingsSummary(settings, fallbackTime) {
 	return `${cardsCount} карточек, изменено: ${timeText}`;
 }
 
-function askInitialGoogleSyncSource(localSettings, remoteSettings, file) {
-	const answer = prompt(
-		'Автосинхронизация Google Drive включается на этом браузере впервые.\n\n' +
-		'Что взять за основу?\n\n' +
-		'1 - Google Drive: скачать настройки с диска в этот браузер\n' +
-		'2 - Этот браузер: загрузить локальные настройки на Google Drive\n\n' +
-		'Google Drive: ' + settingsSummary(remoteSettings, file?.modifiedTime) + '\n' +
-		'Этот браузер: ' + settingsSummary(localSettings) + '\n\n' +
-		'Если не уверены, выбирайте 1. Отмена выключит автосинхронизацию.',
-		'1'
+async function askInitialGoogleSyncSource(localSettings, remoteSettings, file) {
+	const body = $('<div></div>');
+	body.append('<p>Автосинхронизация Google Drive включается на этом браузере впервые. Выбери, какую версию считать основной.</p>');
+	body.append(
+		'<div class="newtab_modal_choice_grid">' +
+		'<button type="button" class="newtab_modal_choice" data-choice="remote">' +
+		'<span class="newtab_modal_choice_title">Google Drive</span>' +
+		'<span class="newtab_modal_choice_text">Скачать настройки с диска в этот браузер</span>' +
+		'<span class="newtab_modal_choice_meta">' + htmlEscape(settingsSummary(remoteSettings, file?.modifiedTime)) + '</span>' +
+		'</button>' +
+		'<button type="button" class="newtab_modal_choice" data-choice="local">' +
+		'<span class="newtab_modal_choice_title">Этот браузер</span>' +
+		'<span class="newtab_modal_choice_text">Загрузить локальные настройки на Google Drive</span>' +
+		'<span class="newtab_modal_choice_meta">' + htmlEscape(settingsSummary(localSettings)) + '</span>' +
+		'</button>' +
+		'</div>'
 	);
+	body.append('<p class="newtab_modal_hint">Если не уверен, выбирай Google Drive. Отмена выключит автосинхронизацию.</p>');
+	body.on('click', '.newtab_modal_choice', function () {
+		closeNewTabModal($(this).data('choice'));
+	});
 
-	if (answer === null) return 'cancel';
-	const normalized = String(answer).trim().toLowerCase();
-	if (['1', 'drive', 'google', 'server', 'сервер', 'диск', 'google drive'].includes(normalized)) return 'remote';
-	if (['2', 'local', 'client', 'browser', 'клиент', 'браузер', 'локально', 'этот браузер'].includes(normalized)) return 'local';
-	return 'cancel';
+	return newTabModal({
+		title: 'Выбор версии для синхронизации',
+		body,
+		cancelValue: 'cancel',
+		actions: [{ value: 'cancel', label: 'Отмена', mode: 'secondary' }]
+	});
 }
 
 async function auto_sync_settings(options = {}) {
@@ -1620,7 +1765,7 @@ async function auto_sync_settings(options = {}) {
 		const remoteSettings = await readDriveSettingsFile(file);
 		const baseline = googleSyncBaseline();
 		if (!baseline) {
-			const source = askInitialGoogleSyncSource(localSettings, remoteSettings, file);
+			const source = await askInitialGoogleSyncSource(localSettings, remoteSettings, file);
 
 			if (source === 'cancel') {
 				setGoogleAutoSyncEnabled(false);
