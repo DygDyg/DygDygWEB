@@ -807,6 +807,17 @@ body.settings_open #clockG {
     background-color: #efefef33;
 }
 
+#Button_Settings_Cover {
+    z-index: 40;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#Button_Settings {
+    pointer-events: none;
+}
+
 .name_tag {
     background-color: #cdc8c838;
     width: 100%;

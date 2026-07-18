@@ -376,7 +376,18 @@ function changeColor(time) {
 
 }
 
-$('#Button_Settings_Cover').click(settings)
+let lastSettingsPointerAt = 0
+$('#Button_Settings_Cover').on('pointerup touchend click', function (event) {
+	const now = Date.now()
+	if (event.type !== 'click') {
+		if (now - lastSettingsPointerAt < 250) return
+		lastSettingsPointerAt = now
+		event.preventDefault()
+	} else if (now - lastSettingsPointerAt < 700) {
+		return
+	}
+	settings(event.originalEvent || event)
+})
 resize_info()
 
 if (ShowCard == false) {
