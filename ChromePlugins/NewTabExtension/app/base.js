@@ -8,7 +8,7 @@ var volume = newTabSettings?.volume ?? localStorage.getItem("volume") ?? 100
 var dygdyg_test;
 var scrollP = [0, 0];
 var timezonePreviewPreviousShowCard = null;
-var currentSearchEngineId = searchSettings?.default || 'google';
+var currentSearchEngineId = 'browserDefault';
 const EXTENSION_STORE_MODE = window.location.protocol === 'chrome-extension:';
 // var timezones = ["", "Asia/Vladivostok"]
 var timezones = newTabSettings?.timezones || [
@@ -18,13 +18,7 @@ var timezones = newTabSettings?.timezones || [
 
 const BROWSER_DEFAULT_SEARCH_ENGINE_ID = 'browserDefault';
 const SEARCH_ENGINES = {
-	browserDefault: { label: 'По умолчанию Chrome', browserDefault: true },
-	google: { label: 'Google', url: 'https://www.google.com/search?q=' },
-	yandex: { label: 'Яндекс', url: 'https://yandex.ru/search/?text=' },
-	youtube: { label: 'YouTube', url: 'https://www.youtube.com/results?search_query=' },
-	animego: { label: 'AnimeGO', url: 'https://animego.org/search/all?q=' },
-	trackAnime: { label: 'Track Anime', url: 'https://track-anime.dygdyg.ru/search?q=' },
-	yandexTranslate: { label: 'Яндекс Переводчик', url: 'https://translate.yandex.ru/?text=' }
+	browserDefault: { label: 'По умолчанию Chrome', browserDefault: true }
 }
 
 function search_engine_options_html() {
@@ -37,7 +31,7 @@ function search_engine_options_html() {
 }
 
 function build_search_url(engineId, query) {
-	const engine = SEARCH_ENGINES[engineId] || SEARCH_ENGINES.google
+	const engine = SEARCH_ENGINES[engineId] || SEARCH_ENGINES.browserDefault
 	if (engine.browserDefault) return ''
 	return engine.url + encodeURIComponent(query)
 }
@@ -99,18 +93,7 @@ function requestBrowserDefaultSearch(query) {
 }
 
 function search_hint_text() {
-	if (EXTENSION_STORE_MODE) return 'Enter - поисковик Chrome'
-	const settings = searchSettings || {}
-	const defaultEngine = SEARCH_ENGINES[currentSearchEngineId] || SEARCH_ENGINES[settings.default] || (canUseChromeSearchApi() ? SEARCH_ENGINES.browserDefault : SEARCH_ENGINES.google)
-	const shiftEngine = SEARCH_ENGINES[settings.shift]
-	const ctrlEngine = SEARCH_ENGINES[settings.ctrl]
-	const altEngine = SEARCH_ENGINES[settings.alt]
-	return [
-		'Enter - ' + defaultEngine.label,
-		'Shift - ' + (shiftEngine?.label || 'выкл.'),
-		'Ctrl - ' + (ctrlEngine?.label || 'выкл.'),
-		'Alt - ' + (altEngine?.label || 'выкл.')
-	].join(', ')
+	return 'Enter - поисковик Chrome'
 }
 
 function update_search_placeholder() {
@@ -118,12 +101,7 @@ function update_search_placeholder() {
 }
 
 function selected_search_engine(event) {
-	if (EXTENSION_STORE_MODE) return BROWSER_DEFAULT_SEARCH_ENGINE_ID
-	if (event.shiftKey) return searchSettings?.shift || 'yandex'
-	if (event.ctrlKey) return searchSettings?.ctrl || 'youtube'
-	if (event.altKey) return searchSettings?.alt || 'animego'
-	if (canUseChromeSearchApi()) return BROWSER_DEFAULT_SEARCH_ENGINE_ID
-	return currentSearchEngineId || searchSettings?.default || 'google'
+	return BROWSER_DEFAULT_SEARCH_ENGINE_ID
 }
 
 scrollP = [window.pageXOffset, window.pageYOffset];
@@ -190,23 +168,14 @@ function resize_info() {
 
 num = 1
 $('body').append('<div id="searchs"></div>')
-if (!EXTENSION_STORE_MODE) {
-	$('#searchs').append('<select id="search_engine_select" title="Поисковик для текущего поиска">' + search_engine_options_html() + '</select>')
-}
 $('#searchs').append('<input id="search" type="text">')
-if (EXTENSION_STORE_MODE || canUseChromeSearchApi()) currentSearchEngineId = BROWSER_DEFAULT_SEARCH_ENGINE_ID
-$('#search_engine_select').val(currentSearchEngineId)
+currentSearchEngineId = BROWSER_DEFAULT_SEARCH_ENGINE_ID
 update_search_placeholder()
-$('#search_engine_select').on('change', function () {
-	currentSearchEngineId = this.value
-	update_search_placeholder()
-	$('#search').focus()
-})
 $('#search').on("input", function () {
 	soundClick('click_key.ogg')
 })
 $('#searchs').append('<div id="calc_result"></div>')
-if (getUrlParameter('search') == "false") $('#search, #search_engine_select').css('display', "none")
+if (getUrlParameter('search') == "false") $('#search').css('display', "none")
 
 function copyToClipboard(text) {
 	// Воспроизведение звука
@@ -251,7 +220,8 @@ $(document).ready(function () {
 			} else {
 				const engineId = selected_search_engine(e)
 				if (engineId === BROWSER_DEFAULT_SEARCH_ENGINE_ID && await requestBrowserDefaultSearch(query)) return
-				SiteURL = build_search_url(engineId, query) || build_search_url('google', query)
+				SiteURL = build_search_url(engineId, query)
+				if (!SiteURL) return
 			}
 			window.location = SiteURL;
 			//alert($(this).val());
@@ -938,17 +908,6 @@ function save_clock_display_settings() {
 }
 
 function save_search_settings_from_panel() {
-	const settings = getNewTabSettings()
-	settings.search = {
-		default: $('#search_default_engine').val() || 'google',
-		shift: $('#search_shift_engine').val() || 'yandex',
-		ctrl: $('#search_ctrl_engine').val() || 'youtube',
-		alt: $('#search_alt_engine').val() || 'animego'
-	}
-	saveNewTabSettings(settings)
-	searchSettings = settings.search
-	currentSearchEngineId = searchSettings.default
-	$('#search_engine_select').val(currentSearchEngineId)
 	update_search_placeholder()
 }
 
@@ -979,16 +938,7 @@ function setup_clock_behavior() {
 
 function ensure_settings_panel() {
 	if ($('#settings_panel').length) return
-	const searchSettingsGroupHtml = EXTENSION_STORE_MODE ? '' :
-		'<div class="settings_group" id="search_settings_group">' +
-		'<div class="settings_group_title">Поиск</div>' +
-		'<div class="settings_group_controls">' +
-		'<label class="settings_field">Enter<select id="search_default_engine" class="settings_select">' + search_engine_options_html() + '</select></label>' +
-		'<label class="settings_field">Shift<select id="search_shift_engine" class="settings_select">' + search_engine_options_html() + '</select></label>' +
-		'<label class="settings_field">Ctrl<select id="search_ctrl_engine" class="settings_select">' + search_engine_options_html() + '</select></label>' +
-		'<label class="settings_field">Alt<select id="search_alt_engine" class="settings_select">' + search_engine_options_html() + '</select></label>' +
-		'</div>' +
-		'</div>'
+	const searchSettingsGroupHtml = ''
 
 	$('body').prepend(
 		'<div id="settings_panel">' +
@@ -1049,11 +999,6 @@ function ensure_settings_panel() {
 	$('#clock_default_view').val(ShowCard ? 'cards' : 'clock')
 	$('#clock_behavior').val(clockBehavior || 'hover')
 	$('#clock_default_view, #clock_behavior').on('change', save_clock_display_settings)
-	$('#search_default_engine').val(searchSettings?.default || 'google')
-	$('#search_shift_engine').val(searchSettings?.shift || 'yandex')
-	$('#search_ctrl_engine').val(searchSettings?.ctrl || 'youtube')
-	$('#search_alt_engine').val(searchSettings?.alt || 'animego')
-	$('#search_default_engine, #search_shift_engine, #search_ctrl_engine, #search_alt_engine').on('change', save_search_settings_from_panel)
 	$('#timezone_1, #timezone_2').on('keydown', function (event) {
 		if (event.key === 'Enter') {
 			event.preventDefault()

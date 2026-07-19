@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "DygDyg NewTab",
+  "description": "Открывает DygDyg NewTab и даёт странице постоянную авторизацию Google Drive через Chrome.",
+  "version": "1.2.1",
+  "icons": {
+    "48": "icon.png",
+    "128": "icon128.png"
+  },
+  "permissions": [
+    "identity",
+    "search"
+  ],
+  "oauth2": {
+    "client_id": "60585228937-q0gc87odnorm4pmv6l2j4atqoh11mbko.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.appdata"
+    ]
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "chrome_url_overrides": {
+    "newtab": "app/index.htm"
+  }
+}

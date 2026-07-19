@@ -720,20 +720,6 @@ body.settings_open #clockG {
     backdrop-filter: invert(1);
 }
 
-#search_engine_select {
-    box-sizing: border-box;
-    width: 150px;
-    height: 45px;
-    padding: 0 10px;
-    border: 1px solid #ffffff75;
-    border-radius: 17px;
-    color: #121212;
-    background-color: #ffffffc9;
-    font-weight: 700;
-    backdrop-filter: invert(1);
-    cursor: pointer;
-}
-
 #settings {
     background-color: #3a3a3ad9;
     /*width: 30%;*/
@@ -1033,13 +1019,6 @@ input#volume1 {
         margin-top: var(--settings-panel-space);
     }
 
-    #search_engine_select {
-        width: 118px;
-        height: 38px;
-        border-radius: 13px;
-        font-size: 12px;
-    }
-
     #search {
         flex: 1 1 190px;
         width: auto;
@@ -1328,11 +1307,6 @@ input#volume1 {
 }
 
 @media (max-width: 420px) {
-    #search_engine_select {
-        width: 100%;
-        order: 1;
-    }
-
     #search {
         flex-basis: 100%;
         order: 2;
