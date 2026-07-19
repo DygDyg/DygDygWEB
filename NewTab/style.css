@@ -636,8 +636,26 @@ body.timezone_preview #Spoiler {
 .newtab_modal_button:hover,
 .newtab_modal_icon_button:hover,
 .newtab_modal_list_item:hover,
+.newtab_modal_delete_backup:hover,
 .newtab_modal_choice:hover {
     filter: brightness(1.14);
+}
+
+.newtab_modal_backup_row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+    align-items: stretch;
+}
+
+.newtab_modal_inline_error {
+    grid-column: 1 / -1;
+    padding: 8px 10px;
+    border: 1px solid #ff8a8a80;
+    border-radius: 8px;
+    color: #ffd4d4;
+    background-color: #5f1f1f;
+    font-size: 12px;
 }
 
 .newtab_modal_choice_grid {
@@ -661,6 +679,36 @@ body.timezone_preview #Spoiler {
     background-color: #151515;
     text-align: left;
     cursor: pointer;
+}
+
+.newtab_modal_delete_backup {
+    min-width: 86px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    border: 1px solid #ff8a8a80;
+    border-radius: 8px;
+    color: #ffffff;
+    background-color: #8e2f2f;
+    cursor: pointer;
+    font-weight: 800;
+}
+
+.newtab_modal_delete_backup:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.newtab_modal_delete_backup.confirming {
+    border-color: #ffd1a3;
+    background-color: #b4542c;
+}
+
+.newtab_modal_empty {
+    padding: 14px;
+    border: 1px dashed #ffffff33;
+    border-radius: 8px;
+    color: #cfcfcf;
+    text-align: center;
 }
 
 .newtab_modal_choice_title,

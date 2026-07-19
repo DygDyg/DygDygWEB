@@ -1453,6 +1453,9 @@ const GOOGLE_DRIVE_CONSENT_KEY = 'newtab.googleDriveConsentGranted';
 const GOOGLE_DRIVE_TOKEN_KEY = 'newtab.googleDriveAccessToken';
 const GOOGLE_DRIVE_AUTO_SYNC_KEY = 'newtab.googleDriveAutoSync';
 const GOOGLE_DRIVE_SYNC_BASELINE_KEY = 'newtab.googleDriveSyncBaseline';
+const NEWTAB_SERVER_TOKEN_KEY = 'newtab.serverAuthToken';
+const NEWTAB_SERVER_BASE_URL_KEY = 'newtab.serverTokenBaseUrl';
+const NEWTAB_DEFAULT_SERVER_BASE_URL = 'https://server.dygdyg.ru/newtab';
 const GOOGLE_DRIVE_FILE_NAME = 'newtab-settings.json';
 const GOOGLE_DRIVE_VERSION_PREFIX = 'newtab-settings_';
 const GOOGLE_DRIVE_SCOPE = 'https://www.googleapis.com/auth/drive.appdata';
@@ -1462,6 +1465,58 @@ let googleDriveAccessToken = '';
 let googleExtensionBridgeDetected = false;
 let googleExtensionAuthRequestId = 0;
 const googleExtensionAuthRequests = {};
+
+function newtabServerBaseUrl() {
+	return (localStorage.getItem(NEWTAB_SERVER_BASE_URL_KEY) || NEWTAB_DEFAULT_SERVER_BASE_URL).replace(/\/+$/, '');
+}
+
+function getNewTabReturnUrl() {
+	return window.location.href.split('#')[0];
+}
+
+function getServerAuthToken() {
+	return localStorage.getItem(NEWTAB_SERVER_TOKEN_KEY) || '';
+}
+
+function setServerAuthToken(token) {
+	if (token) {
+		localStorage.setItem(NEWTAB_SERVER_TOKEN_KEY, token);
+		localStorage.setItem(GOOGLE_DRIVE_CONSENT_KEY, 'true');
+	} else {
+		localStorage.removeItem(NEWTAB_SERVER_TOKEN_KEY);
+	}
+	update_google_sync_ui();
+}
+
+function removeNewTabAuthHash() {
+	const cleanUrl = window.location.pathname + window.location.search;
+	window.history.replaceState({}, document.title, cleanUrl);
+}
+
+function handleServerAuthRedirect() {
+	if (!window.location.hash || !window.location.hash.includes('newtab_auth')) return;
+	const params = new URLSearchParams(window.location.hash.slice(1));
+	const status = params.get('newtab_auth_status');
+	const token = params.get('newtab_auth');
+	const error = params.get('newtab_auth_error');
+
+	if (status === 'ok' && token) {
+		setServerAuthToken(token);
+		removeNewTabAuthHash();
+		setTimeout(async () => {
+			await newTabAlert('Google Drive', 'Вход через сервер выполнен. Теперь токен будет обновляться без окна Google при каждом открытии вкладки.');
+			if (isGoogleAutoSyncEnabled()) auto_sync_settings({ askInitialSource: true });
+		}, 0);
+		return;
+	}
+
+	removeNewTabAuthHash();
+	if (error) {
+		setTimeout(() => newTabAlert('Ошибка входа в Google', 'Сервер OAuth вернул ошибку: ' + error), 0);
+	}
+}
+
+handleServerAuthRedirect();
 
 window.addEventListener('message', function (event) {
 	if (event.source !== window || !event.data || event.data.source !== 'DYG_NEW_TAB_EXTENSION') return;
@@ -1601,7 +1656,7 @@ function clearGoogleDriveToken() {
 function isGoogleDriveSignedIn() {
 	if (googleDriveAccessToken) return true;
 	googleDriveAccessToken = getCachedGoogleDriveToken();
-	return Boolean(googleDriveAccessToken);
+	return Boolean(googleDriveAccessToken || getServerAuthToken());
 }
 
 function isGoogleAutoSyncEnabled() {
@@ -1627,7 +1682,7 @@ function resetGoogleSyncBaseline() {
 function update_google_sync_ui() {
 	if (!$('#google_settings_group').length) return;
 	const signedIn = isGoogleDriveSignedIn();
-	$('#google_login').toggle(!signedIn);
+	$('#google_login').toggle(!signedIn).text(NEWTAB_DEFAULT_SERVER_BASE_URL ? 'Войти через сервер' : 'Войти в Google');
 	$('#drive_actions').toggle(signedIn);
 	$('#google_settings_group').toggleClass('signed_in', signedIn);
 }
@@ -1640,6 +1695,7 @@ async function google_login() {
 			await auto_sync_settings({ askInitialSource: true });
 		}
 	} catch (error) {
+		if (error.message === 'Открываю вход через сервер') return;
 		console.error(error);
 		await newTabAlert('Ошибка входа в Google', 'Не удалось войти: ' + error.message);
 	}
@@ -1681,10 +1737,60 @@ async function requestGoogleDriveToken(forceConsent) {
 	});
 }
 
+async function requestGoogleDriveTokenFromServer(interactive) {
+	const serverToken = getServerAuthToken();
+
+	if (!serverToken) {
+		if (interactive) {
+			const authUrl = newtabServerBaseUrl() + '/auth/start.php?return_to=' + encodeURIComponent(getNewTabReturnUrl());
+			window.location.href = authUrl;
+			throw new Error('Открываю вход через сервер');
+		}
+		throw new Error('server_auth_missing');
+	}
+
+	const response = await fetch(newtabServerBaseUrl() + '/api/token.php', {
+		method: 'GET',
+		headers: {
+			Authorization: 'Bearer ' + serverToken
+		}
+	});
+
+	let data = null;
+	try {
+		data = await response.json();
+	} catch (error) {
+		throw new Error('Сервер OAuth вернул не JSON');
+	}
+
+	if (response.status === 401 || data?.error === 'not_authenticated') {
+		setServerAuthToken('');
+		clearGoogleDriveToken();
+		throw new Error('Серверная авторизация истекла. Нажми "Войти через сервер" ещё раз.');
+	}
+
+	if (!response.ok || !data?.ok || !data?.access_token) {
+		throw new Error(data?.error || ('Сервер OAuth ' + response.status));
+	}
+
+	googleDriveAccessToken = data.access_token;
+	cacheGoogleDriveToken(data);
+	return googleDriveAccessToken;
+}
+
 async function getGoogleDriveToken(interactive = false) {
 	if (googleDriveAccessToken) return googleDriveAccessToken;
 	googleDriveAccessToken = getCachedGoogleDriveToken();
 	if (googleDriveAccessToken) return googleDriveAccessToken;
+
+	try {
+		return await requestGoogleDriveTokenFromServer(interactive);
+	} catch (error) {
+		if (!['server_auth_missing'].includes(error.message) && !(interactive && error.message === 'Открываю вход через сервер')) {
+			throw error;
+		}
+		if (interactive && error.message === 'Открываю вход через сервер') throw error;
+	}
 
 	if (canUseGoogleExtensionAuth()) {
 		try {
@@ -1787,6 +1893,16 @@ async function createDriveSettingsFile(settings, fileName = googleDriveBackupFil
 	return response.json();
 }
 
+async function deleteDriveSettingsFile(file) {
+	await driveRequest(`https://www.googleapis.com/drive/v3/files/${file.id}`, {
+		method: 'DELETE'
+	});
+
+	if (googleSyncBaseline() === file.id) {
+		resetGoogleSyncBaseline();
+	}
+}
+
 function driveFileLabel(file, index) {
 	return `${index + 1}. ${file.name} - ${driveFileMeta(file)}`;
 }
@@ -1801,13 +1917,53 @@ async function selectDriveSettingsFile(files) {
 	if (!files.length) return null;
 	const list = $('<div class="newtab_modal_list"></div>');
 	files.forEach((file, index) => {
+		const row = $('<div class="newtab_modal_backup_row"></div>');
 		const button = $('<button type="button" class="newtab_modal_list_item"></button>');
+		const deleteButton = $('<button type="button" class="newtab_modal_delete_backup" title="Удалить бэкап">Удалить</button>');
+
 		button.append('<span class="newtab_modal_item_title">' + htmlEscape(file.name) + '</span>');
 		button.append('<span class="newtab_modal_item_meta">' + htmlEscape(driveFileMeta(file)) + '</span>');
 		button.on('click', function () {
 			closeNewTabModal(file);
 		});
-		list.append(button);
+
+		deleteButton.on('click', async function (event) {
+			event.preventDefault();
+			event.stopPropagation();
+
+			if (!deleteButton.data('confirmed')) {
+				deleteButton
+					.data('confirmed', true)
+					.addClass('confirming')
+					.text('Точно?');
+				setTimeout(function () {
+					if (!deleteButton.prop('disabled')) {
+						deleteButton
+							.data('confirmed', false)
+							.removeClass('confirming')
+							.text('Удалить');
+					}
+				}, 3500);
+				return;
+			}
+
+			deleteButton.prop('disabled', true).text('Удаляю...');
+			try {
+				await deleteDriveSettingsFile(file);
+				row.remove();
+				if (!list.children().length) {
+					list.append('<div class="newtab_modal_empty">Бэкапов больше нет.</div>');
+				}
+			} catch (error) {
+				console.error(error);
+				deleteButton.prop('disabled', false).text('Удалить');
+				row.find('.newtab_modal_inline_error').remove();
+				row.append('<div class="newtab_modal_inline_error">Не удалось удалить: ' + htmlEscape(error.message) + '</div>');
+			}
+		});
+
+		row.append(button, deleteButton);
+		list.append(row);
 	});
 
 	return newTabModal({
@@ -1918,7 +2074,7 @@ async function auto_sync_settings(options = {}) {
 
 	try {
 		loading = true;
-		if (localStorage.getItem(GOOGLE_DRIVE_CONSENT_KEY) !== 'true' && !canUseGoogleExtensionAuth()) return;
+		if (localStorage.getItem(GOOGLE_DRIVE_CONSENT_KEY) !== 'true' && !getServerAuthToken() && !canUseGoogleExtensionAuth()) return;
 		if (!isGoogleDriveSignedIn()) {
 			await getGoogleDriveToken(false);
 		}

@@ -1,1 +1,5 @@
 PoE/autoroll/logs.txt
+NewTab/server-php/config.local.php
+NewTab/server-php/*.sqlite*
+NewTab/newtab_oauth.sqlite*
+newtab_oauth.sqlite*

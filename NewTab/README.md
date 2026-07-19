@@ -59,6 +59,8 @@ https://dygdyg.github.io/DygDygWEB/NewTab/
 | `newtab.googleDriveConsentGranted` | Флаг, что пользователь уже дал Google Drive consent. |
 | `newtab.googleDriveAccessToken` | Короткоживущий Drive access token с expiry для auto-sync без popup на каждую вкладку. |
 | `newtab.googleDriveAutoSync` | `true`/`false`, включает сверку локальных настроек с Google Drive при открытии вкладки. |
+| `newtab.serverAuthToken` | Токен сессии PHP-сервера для получения свежего Google Drive access token без повторного Google popup. |
+| `newtab.serverTokenBaseUrl` | Необязательный override адреса PHP token server. По умолчанию `https://server.dygdyg.ru/newtab`. |
 | `timezones` | Два IANA timezone id для часов, например `Europe/Moscow` и `Asia/Vladivostok`. |
 | `clockBehavior` | `fixed` показывает выбранный режим постоянно, `hover` показывает часы, когда мышь вне страницы. |
 | `urls` | Список URL карточек через запятую. |
@@ -81,6 +83,7 @@ https://dygdyg.github.io/DygDygWEB/NewTab/
 - `Появление часов` выбирает поведение: фиксированный выбранный режим или старое hover-поведение, где часы появляются при уходе мыши со страницы.
 - При наведении, клике или фокусе на блок выбора часовых поясов карточки временно скрываются и принудительно показываются часы. После ухода мыши и фокуса возвращается прежний режим, без сохранения `showCards`.
 - Google Drive: если access token не найден или истёк, показывается только `Войти в Google` и чекбокс `Авто`. После входа появляются ручные кнопки `Загрузить` и `Сохранить`.
+- В списке загрузки Google Drive рядом с каждым бэкапом есть `Удалить`; удаление требует подтверждения.
 - Локальный бэкап: `Импорт` загружает настройки из JSON-файла, `Экспорт` скачивает JSON-бэкап.
 - Красная кнопка закрывает верхнюю панель настроек.
 
@@ -98,9 +101,19 @@ https://dygdyg.github.io/DygDygWEB/NewTab/
 Синхронизация использует Google Drive API и скрытую папку `appDataFolder`.
 Файл называется `newtab-settings.json`.
 
+Основной способ авторизации для GitHub Pages - PHP token server:
+
+```text
+https://server.dygdyg.ru/newtab/
+```
+
+Страница хранит только `newtab.serverAuthToken`. Google `refresh_token` и
+`client_secret` остаются на сервере, а сайт запрашивает у `/api/token.php` только
+короткоживущий Drive `access_token`. Старый browser-only Google Identity Services
+flow оставлен как fallback для локальных тестов или аварийного режима.
+
 При каждом открытии вкладки NewTab делает тихий auto-sync, если включён чекбокс
-`Авто`, пользователь уже давал Google consent и в `localStorage` есть живой access
-token:
+`Авто` и есть серверная сессия или живой access token:
 
 - если файла в Drive нет, текущие локальные настройки загружаются в Drive;
 - если Drive свежее по `updatedAt`, настройки скачиваются и страница перезагружается;
@@ -110,13 +123,15 @@ token:
 Загрузка страницы сама по себе не обновляет `updatedAt`. Его меняют только локальные
 изменения настроек, импорт старого JSON или ручное сохранение.
 
-Для общей публичной версии лучше вшить один общий Client ID в `base.js`:
+Для browser-only fallback можно вшить один общий Client ID в `base.js`:
 
 ```js
 const GOOGLE_DRIVE_DEFAULT_CLIENT_ID = '...apps.googleusercontent.com';
 ```
 
 Client ID не является секретом. Client secret в браузерный код добавлять нельзя.
+Для основной PHP-схемы Client ID и Client Secret лежат только в `config.local.php`
+на сервере.
 
 Чтобы получить Client ID:
 
@@ -136,14 +151,16 @@ prompt. Значение из `newtab.googleDriveClientId` в `localStorage` и�
 https://www.googleapis.com/auth/drive.appdata
 ```
 
-Access token кэшируется в `localStorage` вместе со сроком действия, чтобы auto-sync не
-открывал Google account chooser при каждом новом tab. Это не refresh token: после
-истечения срока Google может снова попросить выбрать аккаунт или подтвердить доступ.
+Access token кэшируется в `localStorage` вместе со сроком действия. Если включён
+PHP token server, после истечения access token страница тихо запросит свежий токен
+у сервера. Без сервера это не refresh token: после истечения срока Google может
+снова попросить выбрать аккаунт или подтвердить доступ.
 Scope ограничен `drive.appdata`, то есть токен даёт доступ только к скрытым данным этого
 приложения.
 
-Если токен истёк, auto-sync молча пропускается до явного нажатия `Войти в Google`.
-Это сделано специально, чтобы новая вкладка не открывала OAuth-окно сама по себе.
+Если серверной сессии нет и токен истёк, auto-sync молча пропускается до явного
+нажатия `Войти через сервер` / `Войти в Google`. Это сделано специально, чтобы
+новая вкладка не открывала OAuth-окно сама по себе.
 
 ## Поиск и горячие клавиши
 
@@ -180,7 +197,9 @@ Scope ограничен `drive.appdata`, то есть токен даёт до
 ## Внешние сервисы
 
 - `ipwho.is` - получает IP и флаг страны для нижнего индикатора.
-- `accounts.google.com/gsi/client` - Google Identity Services для Drive OAuth.
+- `server.dygdyg.ru/newtab/api/token.php` - основной способ получить свежий Drive
+  access token через PHP token server.
+- `accounts.google.com/gsi/client` - fallback Google Identity Services для Drive OAuth.
 - `googleapis.com/drive/v3` - чтение/запись `newtab-settings.json` в `appDataFolder`.
 - `server.dygdyg.ru/my_ip.htm` - открывается по клику на флаг.
 - `server.dygdyg.ru/shot.php?url=...` - дефолтные screenshots для карточек без
