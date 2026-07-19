@@ -61,11 +61,16 @@ function apply_cors(): void
 {
     $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
     $allowed = defined('NEWTAB_ALLOWED_ORIGINS') ? NEWTAB_ALLOWED_ORIGINS : [];
+    $allowAll = defined('NEWTAB_CORS_ALLOW_ALL') && NEWTAB_CORS_ALLOW_ALL;
 
-    if ($origin && in_array($origin, $allowed, true)) {
+    if ($allowAll) {
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Headers: Authorization, Content-Type, X-NewTab-Auth');
+        header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+        header('Access-Control-Max-Age: 86400');
+    } elseif ($origin && in_array($origin, $allowed, true)) {
         header('Access-Control-Allow-Origin: ' . $origin);
         header('Vary: Origin');
-        header('Access-Control-Allow-Credentials: true');
         header('Access-Control-Allow-Headers: Authorization, Content-Type, X-NewTab-Auth');
         header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
         header('Access-Control-Max-Age: 86400');
@@ -188,7 +193,24 @@ function bearer_token(): string
     }
 
     $fallback = $_SERVER['HTTP_X_NEWTAB_AUTH'] ?? '';
-    return trim($fallback);
+    if (trim($fallback) !== '') {
+        return trim($fallback);
+    }
+
+    $queryToken = $_GET['auth'] ?? '';
+    if (is_string($queryToken) && trim($queryToken) !== '') {
+        return trim($queryToken);
+    }
+
+    $body = file_get_contents('php://input');
+    if (is_string($body)) {
+        $body = trim($body);
+        if ($body !== '' && preg_match('/^[A-Za-z0-9_-]{40,}$/', $body)) {
+            return $body;
+        }
+    }
+
+    return '';
 }
 
 function current_oauth_session(): ?array

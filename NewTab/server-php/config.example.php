@@ -23,6 +23,9 @@ const NEWTAB_ALLOWED_ORIGINS = [
     'http://localhost:5501',
 ];
 
+// API uses bearer tokens instead of cookies, so wildcard CORS is OK for token/status/logout.
+const NEWTAB_CORS_ALLOW_ALL = true;
+
 // config.php is inside /var/www/html/newtab, so this default points to /var/www/newtab_oauth.sqlite.
 const NEWTAB_SQLITE_PATH = __DIR__ . '/../../newtab_oauth.sqlite';
 

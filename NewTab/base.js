@@ -1750,10 +1750,11 @@ async function requestGoogleDriveTokenFromServer(interactive) {
 	}
 
 	const response = await fetch(newtabServerBaseUrl() + '/api/token.php', {
-		method: 'GET',
+		method: 'POST',
 		headers: {
-			Authorization: 'Bearer ' + serverToken
-		}
+			'Content-Type': 'text/plain'
+		},
+		body: serverToken
 	});
 
 	let data = null;

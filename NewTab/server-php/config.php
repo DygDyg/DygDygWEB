@@ -37,6 +37,10 @@ if (!defined('NEWTAB_ALLOWED_ORIGINS')) {
     ]);
 }
 
+if (!defined('NEWTAB_CORS_ALLOW_ALL')) {
+    define('NEWTAB_CORS_ALLOW_ALL', true);
+}
+
 if (!defined('NEWTAB_SQLITE_PATH')) {
     define('NEWTAB_SQLITE_PATH', __DIR__ . '/../../newtab_oauth.sqlite');
 }

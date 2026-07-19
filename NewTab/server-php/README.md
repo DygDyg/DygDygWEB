@@ -86,6 +86,16 @@ GET /newtab/api/token.php
 Authorization: Bearer <newtab_auth>
 ```
 
+Если хостинг плохо пропускает CORS preflight `OPTIONS`, можно использовать
+simple request без custom headers:
+
+```http
+POST /newtab/api/token.php
+Content-Type: text/plain
+
+<newtab_auth>
+```
+
 Ответ:
 
 ```json
@@ -115,6 +125,27 @@ Authorization: Bearer <newtab_auth>
 ## CORS
 
 Разрешенные origins задаются в `NEWTAB_ALLOWED_ORIGINS`.
+По умолчанию для API включен `NEWTAB_CORS_ALLOW_ALL = true`, потому что API
+авторизуется bearer-токеном, а не cookies. Это снимает зависимость от точного
+origin GitHub Pages, localhost или будущего домена.
+
+Если nginx отвечает на preflight сам или перебивает PHP-заголовки, используй
+готовый пример `nginx-newtab.conf`. Его блок `location ^~ /newtab/api/` нужно
+поставить внутри HTTPS `server { ... }` для `server.dygdyg.ru` выше общего
+`location ~ \.php$`.
+
+Для диагностики можно открыть:
+
+```text
+https://server.dygdyg.ru/newtab/api/cors-debug.php
+```
+
+А из консоли NewTab проверить:
+
+```js
+fetch('https://server.dygdyg.ru/newtab/api/cors-debug.php').then(r => r.json()).then(console.log)
+```
+
 По умолчанию:
 
 ```text
