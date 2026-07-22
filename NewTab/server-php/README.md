@@ -134,6 +134,11 @@ origin GitHub Pages, localhost или будущего домена.
 поставить внутри HTTPS `server { ... }` для `server.dygdyg.ru` выше общего
 `location ~ \.php$`.
 
+Если `token.php` отвечает `200 OK`, но Chrome всё равно показывает CORS, проверь
+дублирование `Access-Control-Allow-Origin`. Нельзя, чтобы этот заголовок приходил
+два раза. В таком случае убери CORS `add_header` из nginx и используй
+`nginx-minimal.conf`: CORS-заголовки отдаст сам PHP.
+
 Для диагностики можно открыть:
 
 ```text
