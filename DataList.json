@@ -1425,6 +1425,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "c93478f8fc483b9b495059f335ada79656887e",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "cb1de08f1a6838e563c41703a883d08e69cbba",
                                     "suffix": "",
                                     "type": "file"
@@ -3750,6 +3755,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "90816fcbc3213e254a795e8b3f90c891462e22",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "955a3b97b4de8933ebb387e9444362f314b1b5",
                                     "suffix": "",
                                     "type": "file"
@@ -4515,6 +4525,11 @@
                                     "name": "95135d7dad4f0861cfd3dec55f4c9cabf1eb20",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "9f5159a906da534864abafedf61c27d820ab7f",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -5051,6 +5066,11 @@
                                 },
                                 {
                                     "name": "1b31f00510266c8203d47b0fdc57b4367b5477",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "384a2438d28baa32fca1debc1e768e176f2fe3",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -10086,6 +10106,11 @@
                                     "name": "ed1433adbbe0216e9cc023c75ffd4a522ac9dd",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "fc8b975cb9ea079484e9cbe3fbc2941a02a3f5",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -10838,6 +10863,11 @@
                                     "name": "b6d140d5dae60a6c662618961806dbe0714a43",
                                     "suffix": "",
                                     "type": "file"
+                                },
+                                {
+                                    "name": "e05d8797ada8921b339f1e67539da0dcc9e732",
+                                    "suffix": "",
+                                    "type": "file"
                                 }
                             ]
                         },
@@ -11064,6 +11094,11 @@
                                 },
                                 {
                                     "name": "44f8e04ca2e2ae32ae6b239d6f092c3b055199",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "656e6cc020cd9d1ce0143156b5fe14d11510b6",
                                     "suffix": "",
                                     "type": "file"
                                 },
@@ -13907,6 +13942,11 @@
                                     "type": "file"
                                 },
                                 {
+                                    "name": "a2a6116bab5349cfa35bc1dba0b6e696af91ee",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
+                                {
                                     "name": "b2fc88cb6c1991ce7133cfbd0fa5185a9c4568",
                                     "suffix": "",
                                     "type": "file"
@@ -14240,6 +14280,11 @@
                             "suffix": "",
                             "type": "directory",
                             "children": [
+                                {
+                                    "name": "152fc3a88be93f5f6781916a32214794e14985",
+                                    "suffix": "",
+                                    "type": "file"
+                                },
                                 {
                                     "name": "166c9df3f8257d346e5efa5b83af52817e46fc",
                                     "suffix": "",
@@ -39665,28 +39710,111 @@
             "type": "directory",
             "children": [
                 {
-                    "name": "const.js",
-                    "suffix": ".js",
-                    "type": "file"
-                },
-                {
-                    "name": "errors.js",
-                    "suffix": ".js",
-                    "type": "file"
-                },
-                {
                     "name": "index.html",
                     "suffix": ".html",
                     "type": "file"
                 },
                 {
-                    "name": "serve.bat",
-                    "suffix": ".bat",
-                    "type": "file"
+                    "name": "lib",
+                    "suffix": "",
+                    "type": "directory",
+                    "children": [
+                        {
+                            "name": "core",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "ffmpeg-core.js",
+                                    "suffix": ".js",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "ffmpeg-core.wasm",
+                                    "suffix": ".wasm",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "ffmpeg",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "classes.js",
+                                    "suffix": ".js",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "const.js",
+                                    "suffix": ".js",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "empty.mjs",
+                                    "suffix": ".mjs",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "errors.js",
+                                    "suffix": ".js",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "index.js",
+                                    "suffix": ".js",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "types.js",
+                                    "suffix": ".js",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "utils.js",
+                                    "suffix": ".js",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "worker.js",
+                                    "suffix": ".js",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "util",
+                            "suffix": "",
+                            "type": "directory",
+                            "children": [
+                                {
+                                    "name": "const.js",
+                                    "suffix": ".js",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "errors.js",
+                                    "suffix": ".js",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "index.js",
+                                    "suffix": ".js",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "types.js",
+                                    "suffix": ".js",
+                                    "type": "file"
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
-                    "name": "worker.js",
-                    "suffix": ".js",
+                    "name": "serve.bat",
+                    "suffix": ".bat",
                     "type": "file"
                 }
             ]

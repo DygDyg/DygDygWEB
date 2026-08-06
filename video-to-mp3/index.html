@@ -184,12 +184,6 @@
       background: linear-gradient(90deg, var(--accent-dim), var(--accent));
       transition: width 0.15s linear;
     }
-
-    .note {
-      font-size: 0.82rem;
-      color: color-mix(in srgb, var(--muted) 85%, transparent);
-      line-height: 1.4;
-    }
   </style>
 </head>
 <body>
@@ -218,14 +212,13 @@
       <input class="file-input" id="file" type="file" accept="video/*,.mkv,.avi,.mov,.mp4,.webm" />
 
       <div class="bar" id="bar" aria-hidden="true"><i id="barFill"></i></div>
-      <p class="status" id="status">Готов к работе. При первом запуске скачается движок (~30 МБ).</p>
-      <p class="note">Файлы обрабатываются локально в браузере. Первый запуск скачает движок ffmpeg (~30 МБ).</p>
+      <p class="status" id="status">Готов к работе. При первом запуске загрузится движок (~30 МБ).</p>
     </section>
   </main>
 
   <script type="module">
-    import { FFmpeg } from "https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/+esm";
-    import { fetchFile, toBlobURL } from "https://cdn.jsdelivr.net/npm/@ffmpeg/util@0.12.2/+esm";
+    import { FFmpeg } from "./lib/ffmpeg/index.js";
+    import { fetchFile, toBlobURL } from "./lib/util/index.js";
 
     const drop = document.getElementById("drop");
     const fileInput = document.getElementById("file");
@@ -266,14 +259,12 @@
           setProgress(0.15 + progress * 0.8);
         });
 
-        const baseURL = "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/esm";
-        // Worker must be same-origin (GitHub Pages cannot spawn CDN workers)
-        const classWorkerURL = new URL("./worker.js", import.meta.url).href;
+        const coreURL = new URL("./lib/core/ffmpeg-core.js", import.meta.url).href;
+        const wasmURL = new URL("./lib/core/ffmpeg-core.wasm", import.meta.url).href;
 
         await ffmpeg.load({
-          coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, "text/javascript"),
-          wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, "application/wasm"),
-          classWorkerURL,
+          coreURL: await toBlobURL(coreURL, "text/javascript"),
+          wasmURL: await toBlobURL(wasmURL, "application/wasm"),
         });
 
         setStatus("Движок готов. Можно кидать видео.", "ok");
