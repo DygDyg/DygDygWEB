@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Video → MP3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-0: #0c1210;
+      --bg-1: #152019;
+      --ink: #e8f0ea;
+      --muted: #8fa398;
+      --accent: #c8f542;
+      --accent-dim: #8fb52e;
+      --danger: #ff6b5a;
+      --line: rgba(232, 240, 234, 0.14);
+      --glow: rgba(200, 245, 66, 0.18);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { min-height: 100%; }
+
+    body {
+      font-family: "Outfit", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 700px at 80% -10%, rgba(200, 245, 66, 0.12), transparent 55%),
+        radial-gradient(900px 600px at -10% 110%, rgba(60, 140, 120, 0.18), transparent 50%),
+        linear-gradient(160deg, var(--bg-0), var(--bg-1) 55%, #0a1412);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.35;
+      background-image:
+        linear-gradient(rgba(232, 240, 234, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232, 240, 234, 0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse at center, black 40%, transparent 85%);
+    }
+
+    .shell {
+      position: relative;
+      z-index: 1;
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: clamp(1.25rem, 4vw, 2.5rem);
+    }
+
+    .stage {
+      width: min(640px, 100%);
+      display: grid;
+      gap: 1.25rem;
+      animation: rise 0.7s ease-out both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .brand {
+      font-family: "Syne", sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.4rem, 8vw, 3.6rem);
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+    }
+
+    .brand span {
+      color: var(--accent);
+      display: inline-block;
+      animation: nudge 2.8s ease-in-out infinite;
+    }
+
+    @keyframes nudge {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(4px); }
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 34ch;
+      line-height: 1.45;
+    }
+
+    .drop {
+      margin-top: 0.5rem;
+      border: 1.5px dashed var(--line);
+      border-radius: 18px;
+      min-height: 240px;
+      padding: 1.5rem;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      background: rgba(12, 18, 16, 0.45);
+      backdrop-filter: blur(8px);
+      transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    }
+
+    .drop:hover,
+    .drop:focus-visible {
+      outline: none;
+      border-color: var(--accent-dim);
+      box-shadow: 0 0 0 1px rgba(200, 245, 66, 0.15), 0 20px 60px var(--glow);
+      transform: translateY(-2px);
+    }
+
+    .drop.is-dragover {
+      border-color: var(--accent);
+      background: rgba(200, 245, 66, 0.06);
+      box-shadow: 0 0 0 1px rgba(200, 245, 66, 0.25), 0 24px 70px var(--glow);
+    }
+
+    .drop.is-busy {
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    .drop-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(200, 245, 66, 0.1);
+      color: var(--accent);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+
+    .drop-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .drop-hint {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .file-input { display: none; }
+
+    .status {
+      min-height: 1.4em;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .status.error { color: var(--danger); }
+    .status.ok { color: var(--accent); }
+
+    .bar {
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(232, 240, 234, 0.08);
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .bar.visible { opacity: 1; }
+
+    .bar > i {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+      transition: width 0.15s linear;
+    }
+
+    .note {
+      font-size: 0.82rem;
+      color: color-mix(in srgb, var(--muted) 85%, transparent);
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="stage">
+      <h1 class="brand">Video <span>→</span> MP3</h1>
+      <p class="lead">Перетащи видео сюда — аудиодорожка сохранится как MP3. Всё в браузере, файлы никуда не уходят.</p>
+
+      <div
+        class="drop"
+        id="drop"
+        role="button"
+        tabindex="0"
+        aria-label="Выбрать или перетащить видео"
+      >
+        <div class="drop-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 14v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="drop-title">Брось видео или кликни</p>
+        <p class="drop-hint">MP4, WebM, MKV, MOV и другие форматы</p>
+      </div>
+
+      <input class="file-input" id="file" type="file" accept="video/*,.mkv,.avi,.mov,.mp4,.webm" />
+
+      <div class="bar" id="bar" aria-hidden="true"><i id="barFill"></i></div>
+      <p class="status" id="status">Готов к работе. При первом запуске скачается движок (~30 МБ).</p>
+      <p class="note">Нужен локальный сервер (не file://). Запусти <code>serve.bat</code> или открой папку через Live Server.</p>
+    </section>
+  </main>
+
+  <script type="module">
+    import { FFmpeg } from "https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/+esm";
+    import { fetchFile, toBlobURL } from "https://cdn.jsdelivr.net/npm/@ffmpeg/util@0.12.2/+esm";
+
+    const drop = document.getElementById("drop");
+    const fileInput = document.getElementById("file");
+    const statusEl = document.getElementById("status");
+    const bar = document.getElementById("bar");
+    const barFill = document.getElementById("barFill");
+
+    const ffmpeg = new FFmpeg();
+    let loading = null;
+    let busy = false;
+
+    function setStatus(text, kind = "") {
+      statusEl.textContent = text;
+      statusEl.className = `status${kind ? ` ${kind}` : ""}`;
+    }
+
+    function setProgress(ratio) {
+      const pct = Math.max(0, Math.min(100, Math.round(ratio * 100)));
+      bar.classList.toggle("visible", pct > 0 && pct < 100);
+      barFill.style.width = `${pct}%`;
+      if (pct >= 100) {
+        setTimeout(() => {
+          bar.classList.remove("visible");
+          barFill.style.width = "0%";
+        }, 400);
+      }
+    }
+
+    async function ensureFFmpeg() {
+      if (ffmpeg.loaded) return;
+      if (loading) return loading;
+
+      loading = (async () => {
+        setStatus("Загружаю ffmpeg (~30 МБ)…");
+        setProgress(0.05);
+
+        ffmpeg.on("progress", ({ progress }) => {
+          setProgress(0.15 + progress * 0.8);
+        });
+
+        const baseURL = "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/esm";
+        await ffmpeg.load({
+          coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, "text/javascript"),
+          wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, "application/wasm"),
+        });
+
+        setStatus("Движок готов. Можно кидать видео.", "ok");
+        setProgress(1);
+      })();
+
+      try {
+        await loading;
+      } catch (err) {
+        loading = null;
+        throw err;
+      }
+    }
+
+    function safeExt(name) {
+      const base = name.replace(/\.[^.]+$/, "") || "audio";
+      return `${base}.mp3`;
+    }
+
+    function downloadBlob(blob, filename) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    async function convert(file) {
+      if (!file || busy) return;
+      busy = true;
+      drop.classList.add("is-busy");
+
+      const inputName = "input.bin";
+      const outputName = "output.mp3";
+
+      try {
+        await ensureFFmpeg();
+        setStatus(`Конвертирую: ${file.name}`);
+        setProgress(0.12);
+
+        await ffmpeg.writeFile(inputName, await fetchFile(file));
+        await ffmpeg.exec([
+          "-i", inputName,
+          "-vn",
+          "-acodec", "libmp3lame",
+          "-q:a", "2",
+          outputName,
+        ]);
+
+        const data = await ffmpeg.readFile(outputName);
+        const blob = new Blob([data.buffer], { type: "audio/mpeg" });
+        downloadBlob(blob, safeExt(file.name));
+
+        setStatus(`Готово: ${safeExt(file.name)}`, "ok");
+        setProgress(1);
+
+        try { await ffmpeg.deleteFile(inputName); } catch {}
+        try { await ffmpeg.deleteFile(outputName); } catch {}
+      } catch (err) {
+        console.error(err);
+        setStatus(`Ошибка: ${err?.message || err}`, "error");
+        setProgress(0);
+      } finally {
+        busy = false;
+        drop.classList.remove("is-busy");
+      }
+    }
+
+    function openPicker() {
+      if (!busy) fileInput.click();
+    }
+
+    drop.addEventListener("click", openPicker);
+    drop.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openPicker();
+      }
+    });
+
+    fileInput.addEventListener("change", () => {
+      const file = fileInput.files?.[0];
+      fileInput.value = "";
+      if (file) convert(file);
+    });
+
+    ["dragenter", "dragover"].forEach((type) => {
+      drop.addEventListener(type, (e) => {
+        e.preventDefault();
+        drop.classList.add("is-dragover");
+      });
+    });
+
+    ["dragleave", "drop"].forEach((type) => {
+      drop.addEventListener(type, (e) => {
+        e.preventDefault();
+        drop.classList.remove("is-dragover");
+      });
+    });
+
+    drop.addEventListener("drop", (e) => {
+      const file = e.dataTransfer?.files?.[0];
+      if (file) convert(file);
+    });
+  </script>
+</body>
+</html>
