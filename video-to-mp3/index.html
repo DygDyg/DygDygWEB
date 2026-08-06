@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Video → MP3</title>
+  <title>Video → Audio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
@@ -82,6 +82,11 @@
       animation: nudge 2.8s ease-in-out infinite;
     }
 
+    #brandOut {
+      display: inline-block;
+      min-width: 3.2ch;
+    }
+
     @keyframes nudge {
       0%, 100% { transform: translateX(0); }
       50% { transform: translateX(4px); }
@@ -90,12 +95,51 @@
     .lead {
       color: var(--muted);
       font-size: 1.05rem;
-      max-width: 34ch;
+      max-width: 38ch;
       line-height: 1.45;
     }
 
+    .formats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .formats button {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: rgba(12, 18, 16, 0.55);
+      color: var(--muted);
+      font: inherit;
+      font-weight: 600;
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+      padding: 0.55rem 0.85rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+    }
+
+    .formats button:hover {
+      color: var(--ink);
+      border-color: rgba(200, 245, 66, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .formats button.is-active {
+      color: #0c1210;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .formats button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     .drop {
-      margin-top: 0.5rem;
+      margin-top: 0.15rem;
       border: 1.5px dashed var(--line);
       border-radius: 18px;
       min-height: 240px;
@@ -189,8 +233,10 @@
 <body>
   <main class="shell">
     <section class="stage">
-      <h1 class="brand">Video <span>→</span> MP3</h1>
-      <p class="lead">Перетащи видео сюда — аудиодорожка сохранится как MP3. Всё в браузере, файлы никуда не уходят.</p>
+      <h1 class="brand">Video <span>→</span> <span id="brandOut">MP3</span></h1>
+      <p class="lead" id="lead">Перетащи видео сюда — аудиодорожка сохранится как MP3. Всё в браузере, файлы никуда не уходят.</p>
+
+      <div class="formats" id="formats" role="group" aria-label="Формат аудио"></div>
 
       <div
         class="drop"
@@ -209,7 +255,7 @@
         <p class="drop-hint">MP4, WebM, MKV, MOV и другие форматы</p>
       </div>
 
-      <input class="file-input" id="file" type="file" accept="video/*,.mkv,.avi,.mov,.mp4,.webm" />
+      <input class="file-input" id="file" type="file" accept="video/*,audio/*,.mkv,.avi,.mov,.mp4,.webm,.m4a,.flac,.ogg,.opus,.wav" />
 
       <div class="bar" id="bar" aria-hidden="true"><i id="barFill"></i></div>
       <p class="status" id="status">Готов к работе. При первом запуске загрузится движок (~30 МБ).</p>
@@ -220,15 +266,89 @@
     import { FFmpeg } from "./lib/ffmpeg/index.js";
     import { fetchFile, toBlobURL } from "./lib/util/index.js";
 
+    const FORMATS = {
+      mp3: {
+        label: "MP3",
+        ext: "mp3",
+        mime: "audio/mpeg",
+        args: ["-vn", "-acodec", "libmp3lame", "-q:a", "2"],
+      },
+      wav: {
+        label: "WAV",
+        ext: "wav",
+        mime: "audio/wav",
+        args: ["-vn", "-acodec", "pcm_s16le"],
+      },
+      m4a: {
+        label: "M4A",
+        ext: "m4a",
+        mime: "audio/mp4",
+        args: ["-vn", "-acodec", "aac", "-b:a", "192k"],
+      },
+      ogg: {
+        label: "OGG",
+        ext: "ogg",
+        mime: "audio/ogg",
+        args: ["-vn", "-acodec", "libvorbis", "-q:a", "5"],
+      },
+      opus: {
+        label: "OPUS",
+        ext: "opus",
+        mime: "audio/opus",
+        args: ["-vn", "-acodec", "libopus", "-b:a", "128k"],
+      },
+      flac: {
+        label: "FLAC",
+        ext: "flac",
+        mime: "audio/flac",
+        args: ["-vn", "-acodec", "flac"],
+      },
+    };
+
     const drop = document.getElementById("drop");
     const fileInput = document.getElementById("file");
     const statusEl = document.getElementById("status");
     const bar = document.getElementById("bar");
     const barFill = document.getElementById("barFill");
+    const formatsEl = document.getElementById("formats");
+    const brandOut = document.getElementById("brandOut");
+    const lead = document.getElementById("lead");
 
     const ffmpeg = new FFmpeg();
     let loading = null;
     let busy = false;
+    let selectedFormat = "mp3";
+
+    function currentFormat() {
+      return FORMATS[selectedFormat] || FORMATS.mp3;
+    }
+
+    function syncFormatUI() {
+      const fmt = currentFormat();
+      brandOut.textContent = fmt.label;
+      document.title = `Video → ${fmt.label}`;
+      lead.textContent = `Перетащи видео сюда — аудиодорожка сохранится как ${fmt.label}. Всё в браузере, файлы никуда не уходят.`;
+
+      formatsEl.querySelectorAll("button").forEach((btn) => {
+        btn.classList.toggle("is-active", btn.dataset.format === selectedFormat);
+        btn.setAttribute("aria-pressed", btn.dataset.format === selectedFormat ? "true" : "false");
+        btn.disabled = busy;
+      });
+    }
+
+    for (const [key, fmt] of Object.entries(FORMATS)) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.dataset.format = key;
+      btn.textContent = fmt.label;
+      btn.addEventListener("click", () => {
+        if (busy) return;
+        selectedFormat = key;
+        syncFormatUI();
+      });
+      formatsEl.appendChild(btn);
+    }
+    syncFormatUI();
 
     function setStatus(text, kind = "") {
       statusEl.textContent = text;
@@ -279,9 +399,9 @@
       }
     }
 
-    function safeExt(name) {
+    function outputNameFor(name, ext) {
       const base = name.replace(/\.[^.]+$/, "") || "audio";
-      return `${base}.mp3`;
+      return `${base}.${ext}`;
     }
 
     function downloadBlob(blob, filename) {
@@ -297,29 +417,26 @@
       if (!file || busy) return;
       busy = true;
       drop.classList.add("is-busy");
+      syncFormatUI();
 
+      const fmt = currentFormat();
       const inputName = "input.bin";
-      const outputName = "output.mp3";
+      const outputName = `output.${fmt.ext}`;
 
       try {
         await ensureFFmpeg();
-        setStatus(`Конвертирую: ${file.name}`);
+        setStatus(`Конвертирую в ${fmt.label}: ${file.name}`);
         setProgress(0.12);
 
         await ffmpeg.writeFile(inputName, await fetchFile(file));
-        await ffmpeg.exec([
-          "-i", inputName,
-          "-vn",
-          "-acodec", "libmp3lame",
-          "-q:a", "2",
-          outputName,
-        ]);
+        await ffmpeg.exec(["-i", inputName, ...fmt.args, outputName]);
 
         const data = await ffmpeg.readFile(outputName);
-        const blob = new Blob([data.buffer], { type: "audio/mpeg" });
-        downloadBlob(blob, safeExt(file.name));
+        const outFile = outputNameFor(file.name, fmt.ext);
+        const blob = new Blob([data.buffer], { type: fmt.mime });
+        downloadBlob(blob, outFile);
 
-        setStatus(`Готово: ${safeExt(file.name)}`, "ok");
+        setStatus(`Готово: ${outFile}`, "ok");
         setProgress(1);
 
         try { await ffmpeg.deleteFile(inputName); } catch {}
@@ -331,6 +448,7 @@
       } finally {
         busy = false;
         drop.classList.remove("is-busy");
+        syncFormatUI();
       }
     }
 
