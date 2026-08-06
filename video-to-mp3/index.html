@@ -219,7 +219,7 @@
 
       <div class="bar" id="bar" aria-hidden="true"><i id="barFill"></i></div>
       <p class="status" id="status">Готов к работе. При первом запуске скачается движок (~30 МБ).</p>
-      <p class="note">Нужен локальный сервер (не file://). Запусти <code>serve.bat</code> или открой папку через Live Server.</p>
+      <p class="note">Файлы обрабатываются локально в браузере. Первый запуск скачает движок ffmpeg (~30 МБ).</p>
     </section>
   </main>
 
@@ -267,9 +267,13 @@
         });
 
         const baseURL = "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/esm";
+        // Worker must be same-origin (GitHub Pages cannot spawn CDN workers)
+        const classWorkerURL = new URL("./worker.js", import.meta.url).href;
+
         await ffmpeg.load({
           coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, "text/javascript"),
           wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, "application/wasm"),
+          classWorkerURL,
         });
 
         setStatus("Движок готов. Можно кидать видео.", "ok");
