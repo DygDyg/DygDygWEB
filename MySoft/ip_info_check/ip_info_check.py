@@ -18,7 +18,7 @@ from PyQt6.QtCore import QByteArray, QBuffer, QIODevice
 
 CONFIG_FILE = "config.json"
 default_config = {
-    "api_url": "https://server.dygdyg.ru/my_ip_info.php",
+    "api_url": "https://figame.dygdyg.win/my_ip_info.php",
     "update_interval": 5,
     "site_url": "https://2ip.ru/"
 }

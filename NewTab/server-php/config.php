@@ -20,7 +20,7 @@ if (!defined('NEWTAB_SERVER_SECRET')) {
 }
 
 if (!defined('NEWTAB_BASE_URL')) {
-    define('NEWTAB_BASE_URL', rtrim((string)(getenv('NEWTAB_BASE_URL') ?: 'https://server.dygdyg.ru/newtab'), '/'));
+    define('NEWTAB_BASE_URL', rtrim((string)(getenv('NEWTAB_BASE_URL') ?: 'https://figame.dygdyg.win/newtab'), '/'));
 }
 
 if (!defined('NEWTAB_DEFAULT_RETURN_URL')) {

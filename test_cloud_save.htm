@@ -90,7 +90,7 @@
                 scope: SCOPES,
                 callback: (tokenResponse) => {
                     if (tokenResponse.error) {
-                        showError('Ошибка авторизации: ' + tokenResponse.error + '. Проверьте, добавлен ли ваш email в тестовые пользователи в Google Cloud Console или добавлен ли домен https://server.dygdyg.ru в Authorized JavaScript origins.');
+                        showError('Ошибка авторизации: ' + tokenResponse.error + '. Проверьте, добавлен ли ваш email в тестовые пользователи в Google Cloud Console или добавлен ли домен https://figame.dygdyg.win в Authorized JavaScript origins.');
                         return;
                     }
                     accessToken = tokenResponse.access_token;

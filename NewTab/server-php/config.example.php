@@ -12,7 +12,7 @@ const NEWTAB_GOOGLE_CLIENT_SECRET = 'YOUR_WEB_OAUTH_CLIENT_SECRET';
 // php -r "echo bin2hex(random_bytes(32)), PHP_EOL;"
 const NEWTAB_SERVER_SECRET = 'CHANGE_ME_TO_A_LONG_RANDOM_SECRET';
 
-const NEWTAB_BASE_URL = 'https://server.dygdyg.ru/newtab';
+const NEWTAB_BASE_URL = 'https://figame.dygdyg.win/newtab';
 const NEWTAB_DEFAULT_RETURN_URL = 'https://dygdyg.github.io/DygDygWEB/NewTab/index.htm';
 
 const NEWTAB_ALLOWED_ORIGINS = [

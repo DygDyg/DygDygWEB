@@ -10,7 +10,7 @@ Google `refresh_token` в SQLite и выдает странице коротко
 Содержимое этой папки можно положить в:
 
 ```text
-https://server.dygdyg.ru/newtab/
+https://figame.dygdyg.win/newtab/
 ```
 
 Структура на сервере:
@@ -41,7 +41,7 @@ https://server.dygdyg.ru/newtab/
 2. В `Authorized redirect URIs` добавь:
 
 ```text
-https://server.dygdyg.ru/newtab/auth/callback.php
+https://figame.dygdyg.win/newtab/auth/callback.php
 ```
 
 3. Скопируй `config.example.php` в `config.local.php`.
@@ -63,7 +63,7 @@ NEWTAB_SERVER_SECRET
 Открыть в браузере:
 
 ```text
-https://server.dygdyg.ru/newtab/auth/start.php?return_to=https%3A%2F%2Fdygdyg.github.io%2FDygDygWEB%2FNewTab%2Findex.htm
+https://figame.dygdyg.win/newtab/auth/start.php?return_to=https%3A%2F%2Fdygdyg.github.io%2FDygDygWEB%2FNewTab%2Findex.htm
 ```
 
 После входа сервер вернет пользователя на `return_to` с fragment:
@@ -131,7 +131,7 @@ origin GitHub Pages, localhost или будущего домена.
 
 Если nginx отвечает на preflight сам или перебивает PHP-заголовки, используй
 готовый пример `nginx-newtab.conf`. Его блок `location ^~ /newtab/api/` нужно
-поставить внутри HTTPS `server { ... }` для `server.dygdyg.ru` выше общего
+поставить внутри HTTPS `server { ... }` для `figame.dygdyg.win` выше общего
 `location ~ \.php$`.
 
 Если `token.php` отвечает `200 OK`, но Chrome всё равно показывает CORS, проверь
@@ -142,13 +142,13 @@ origin GitHub Pages, localhost или будущего домена.
 Для диагностики можно открыть:
 
 ```text
-https://server.dygdyg.ru/newtab/api/cors-debug.php
+https://figame.dygdyg.win/newtab/api/cors-debug.php
 ```
 
 А из консоли NewTab проверить:
 
 ```js
-fetch('https://server.dygdyg.ru/newtab/api/cors-debug.php').then(r => r.json()).then(console.log)
+fetch('https://figame.dygdyg.win/newtab/api/cors-debug.php').then(r => r.json()).then(console.log)
 ```
 
 По умолчанию:

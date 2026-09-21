@@ -278,7 +278,7 @@ $('body').prepend('<div id="ver">' + "VER: " + ver + '</div>')
 $('body').prepend('<img id="ip_flag"></img>')
 $('#ver').attr('title', 'Shift+Click чтобы открыть подробную информацию');
 $('#ip_flag').click(function () {
-	window.open('https://server.dygdyg.ru/my_ip.htm').focus();
+	window.open('https://figame.dygdyg.win/my_ip.htm').focus();
 })
 
 
@@ -1249,7 +1249,7 @@ function add_card(url, cardIndex) {
 	const index = cardIndex ?? (num - 1)
 	const cardName = names[index] || getCardDomain(url)
 	const manualImage = images[index + 1]?.includes(".s-shot.ru/?") ? "" : (images[index + 1] || "")
-	let scr_url = `https://server.dygdyg.ru/shot.php?url=${encodeURIComponent(url)}`
+	let scr_url = `https://figame.dygdyg.win/shot.php?url=${encodeURIComponent(url)}`
 	scr_url = getUrlParameter('screenshotmachine') ? `https://api.screenshotmachine.com/?key=e51b85&dimension=480x270&url=${encodeURIComponent(url)}` : scr_url
 	const imageUrl = manualImage || scr_url
 

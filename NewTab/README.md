@@ -60,7 +60,7 @@ https://dygdyg.github.io/DygDygWEB/NewTab/
 | `newtab.googleDriveAccessToken` | Короткоживущий Drive access token с expiry для auto-sync без popup на каждую вкладку. |
 | `newtab.googleDriveAutoSync` | `true`/`false`, включает сверку локальных настроек с Google Drive при открытии вкладки. |
 | `newtab.serverAuthToken` | Токен сессии PHP-сервера для получения свежего Google Drive access token без повторного Google popup. |
-| `newtab.serverTokenBaseUrl` | Необязательный override адреса PHP token server. По умолчанию `https://server.dygdyg.ru/newtab`. |
+| `newtab.serverTokenBaseUrl` | Необязательный override адреса PHP token server. По умолчанию `https://figame.dygdyg.win/newtab`. |
 | `timezones` | Два IANA timezone id для часов, например `Europe/Moscow` и `Asia/Vladivostok`. |
 | `clockBehavior` | `fixed` показывает выбранный режим постоянно, `hover` показывает часы, когда мышь вне страницы. |
 | `urls` | Список URL карточек через запятую. |
@@ -104,7 +104,7 @@ https://dygdyg.github.io/DygDygWEB/NewTab/
 Основной способ авторизации для GitHub Pages - PHP token server:
 
 ```text
-https://server.dygdyg.ru/newtab/
+https://figame.dygdyg.win/newtab/
 ```
 
 Страница хранит только `newtab.serverAuthToken`. Google `refresh_token` и
@@ -192,17 +192,17 @@ Scope ограничен `drive.appdata`, то есть токен даёт до
 - `?ShowCardF=true` - временно принудительно показать карточки, игнорируя сохранённое `clockBehavior`.
 - `?ShowCardF=false` - временно принудительно показать часы, игнорируя сохранённое `clockBehavior`.
 - `?screenshotmachine=true` - использовать Screenshot Machine для превью карточек
-  вместо `server.dygdyg.ru/shot.php`.
+  вместо `figame.dygdyg.win/shot.php`.
 
 ## Внешние сервисы
 
 - `ipwho.is` - получает IP и флаг страны для нижнего индикатора.
-- `server.dygdyg.ru/newtab/api/token.php` - основной способ получить свежий Drive
+- `figame.dygdyg.win/newtab/api/token.php` - основной способ получить свежий Drive
   access token через PHP token server.
 - `accounts.google.com/gsi/client` - fallback Google Identity Services для Drive OAuth.
 - `googleapis.com/drive/v3` - чтение/запись `newtab-settings.json` в `appDataFolder`.
-- `server.dygdyg.ru/my_ip.htm` - открывается по клику на флаг.
-- `server.dygdyg.ru/shot.php?url=...` - дефолтные screenshots для карточек без
+- `figame.dygdyg.win/my_ip.htm` - открывается по клику на флаг.
+- `figame.dygdyg.win/shot.php?url=...` - дефолтные screenshots для карточек без
   ручной миниатюры.
 - `google.com/s2/favicons` - favicon для карточек.
 - Google/Yandex/YouTube/animego.org - поисковые переходы.

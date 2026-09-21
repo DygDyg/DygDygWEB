@@ -23,10 +23,10 @@ const nav_panel_buttons = document.querySelector('nav.navbar.navbar-expand-lg.bg
 
 
 
-const URLSearch = "https://server.dygdyg.ru/kodik.php?method=search&token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&title="
-var URLList = "https://server.dygdyg.ru/kodik.php?method=list&limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"//&countries=Япония"
-var URLCalendar = "https://server.dygdyg.ru/kodik.php?method=list&limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8&anime_status=ongoing"//&anime_kind=tv"//&countries=Япония"
-var URLListStart = "https://server.dygdyg.ru/kodik.php?method=list&limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"
+const URLSearch = "https://figame.dygdyg.win/kodik.php?method=search&token=45c53578f11ecfb74e31267b634cc6a8&with_material_data=true&title="
+var URLList = "https://figame.dygdyg.win/kodik.php?method=list&limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"//&countries=Япония"
+var URLCalendar = "https://figame.dygdyg.win/kodik.php?method=list&limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8&anime_status=ongoing"//&anime_kind=tv"//&countries=Япония"
+var URLListStart = "https://figame.dygdyg.win/kodik.php?method=list&limit=100&with_material_data=true&camrip=false&token=45c53578f11ecfb74e31267b634cc6a8"
 
 
 

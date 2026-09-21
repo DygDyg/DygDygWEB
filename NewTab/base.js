@@ -308,7 +308,7 @@ $('body').prepend('<div id="ver">' + "VER: " + ver + '</div>')
 $('body').prepend('<img id="ip_flag"></img>')
 $('#ver').attr('title', 'Shift+Click чтобы открыть подробную информацию');
 $('#ip_flag').click(function () {
-	window.open('https://server.dygdyg.ru/my_ip.htm').focus();
+	window.open('https://figame.dygdyg.win/my_ip.htm').focus();
 })
 
 
@@ -1304,7 +1304,7 @@ function add_card(url, cardIndex) {
 	const index = cardIndex ?? (num - 1)
 	const cardName = names[index] || getCardDomain(url)
 	const manualImage = images[index + 1]?.includes(".s-shot.ru/?") ? "" : (images[index + 1] || "")
-	let scr_url = `https://server.dygdyg.ru/shot.php?url=${encodeURIComponent(url)}`
+	let scr_url = `https://figame.dygdyg.win/shot.php?url=${encodeURIComponent(url)}`
 	scr_url = getUrlParameter('screenshotmachine') ? `https://api.screenshotmachine.com/?key=e51b85&dimension=480x270&url=${encodeURIComponent(url)}` : scr_url
 	const imageUrl = manualImage || scr_url
 
@@ -1455,7 +1455,7 @@ const GOOGLE_DRIVE_AUTO_SYNC_KEY = 'newtab.googleDriveAutoSync';
 const GOOGLE_DRIVE_SYNC_BASELINE_KEY = 'newtab.googleDriveSyncBaseline';
 const NEWTAB_SERVER_TOKEN_KEY = 'newtab.serverAuthToken';
 const NEWTAB_SERVER_BASE_URL_KEY = 'newtab.serverTokenBaseUrl';
-const NEWTAB_DEFAULT_SERVER_BASE_URL = 'https://server.dygdyg.ru/newtab';
+const NEWTAB_DEFAULT_SERVER_BASE_URL = 'https://figame.dygdyg.win/newtab';
 const GOOGLE_DRIVE_FILE_NAME = 'newtab-settings.json';
 const GOOGLE_DRIVE_VERSION_PREFIX = 'newtab-settings_';
 const GOOGLE_DRIVE_SCOPE = 'https://www.googleapis.com/auth/drive.appdata';
